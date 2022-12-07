@@ -1,0 +1,60 @@
+body {
+	background-image: url('https://img.freepik.com/premium-vector/luxury-white-gold-background_174506-513.jpg?w=2000');
+	background-repeat: no-repeat;
+  	background-attachment: fixed;
+  	background-size: cover;
+  	height: 95vh;
+}
+.content {
+	width: 100%;
+	height: 700px;
+	margin-top: 30px;
+	position: relative;
+}
+.home {
+	width: 100%;
+	height: 100%;
+	.home_name {
+		margin: 300px 50px 0 50px;
+		text-align: right;
+	}
+	.home_title {
+		background-color: #fff;
+		text-align: center;
+		font-family: Courier, monospace;
+		border: 1px solid;
+		border-radius: 10px;
+		height: 50px;
+		margin: 300px 50px 0 50px;
+		padding: 5px;
+		.home_title_box {
+			position: absolute;
+			background-color: #fff;
+			width: 0px;
+			height: 40px;
+			border-right: 3px solid;
+			animation: change_width_right 1s;
+			animation-delay: 2s;
+		}
+		.home_item {
+			letter-spacing: 2px;
+		}
+	}
+}
+
+@keyframes change_width_right {
+	0% { 
+		width: 0px; 
+	}
+	50% { 
+		width: 530px;
+	}
+}
+@keyframes change_width_left {
+	0% { 
+		width: 530px; 
+	}
+	50% { 
+		width: 0px; 
+	}
+}

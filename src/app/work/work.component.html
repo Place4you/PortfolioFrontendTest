@@ -1,0 +1,43 @@
+<body>
+  <div class="container content">
+    <div class="container work" id="work">
+      <div class="left_arrow" (click)="onLeftArrow()">
+        <div class="work_line_1"></div>
+        <div class="work_line_2"></div>
+      </div>
+      <div class="right_arrow" (click)="onRightArrow()">
+        <div class="work_line_1"></div>
+        <div class="work_line_2"></div>
+      </div>
+      <div class="projects">
+        <ng-container *ngFor="let arrayItem of array_all; let i = index">
+          <ng-container *ngIf="i === pageIndex">
+            <div class="project" *ngFor="let project of arrayItem.page">
+              <div class="top">
+                <h1>{{project.name}}</h1>
+                <img src="{{project.image_url}}" alt="{{project.image_alt}}">
+              </div>
+              <div class="bot">
+                <p class="date">{{project.date | date:'shortDate'}}</p>
+                <div class="links">
+                  <a href="{{project.code_url}}" target="_blank"><i class="fas fa-code fa-2x code"></i></a>
+                  <a href="{{project.live_url}}" target="_blank"><i class="fas fa-eye fa-2x view"></i></a>
+                </div>
+                <p class="description">{{project.description}}</p>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+      </div>
+      <div class="order_by_button">
+        <select class="order_by">
+          <option selected>Date - New to Last</option>
+          <option>Date - Last to New</option>
+          <option>Name - A to Z</option>
+          <option>Name - Z to A</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <app-navbar></app-navbar>
+</body>

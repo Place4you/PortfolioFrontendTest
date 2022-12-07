@@ -1,0 +1,148 @@
+body {
+	background-image: url('https://img.freepik.com/premium-vector/luxury-white-gold-background_174506-513.jpg?w=2000');
+	background-repeat: no-repeat;
+  	background-attachment: fixed;
+  	background-size: cover;
+  	height: 95vh;
+}
+.content {
+	width: 100%;
+	height: 700px;
+	margin-top: 30px;
+	position: relative;
+}
+.work {
+	.left_arrow {
+		position: absolute;
+		margin-top: 270px;
+		width: 100px;
+		height: 225px;
+		&:hover {
+			background-color: rgba(60, 60, 60, 0.1);
+			cursor: pointer;
+		}
+		&:active {
+			background-color: rgba(60, 60, 60, 0.4);
+		}
+		.work_line_1 {
+			height: 2px;
+			width: 100px;
+			background-color: #000;
+			margin-top: 70px;
+			transform: rotate(-55deg);
+		}
+		.work_line_2 {
+			height: 2px;
+			width: 100px;
+			background-color: #000;
+			margin-top: 80px;
+			transform: rotate(55deg);
+		}
+	}
+	.right_arrow {
+		position: absolute;
+		margin-top: 270px;
+		width: 100px;
+		height: 225px;
+		right: 0;
+		&:hover {
+			background-color: rgba(60, 60, 60, 0.1);
+			cursor: pointer;
+		}
+		&:active {
+			background-color: rgba(60, 60, 60, 0.4);
+		}
+		.work_line_1 {
+			height: 2px;
+			width: 100px;
+			background-color: #000;
+			margin-top: 70px;
+			transform: rotate(55deg);
+		}
+		.work_line_2 {
+			height: 2px;
+			width: 100px;
+			background-color: #000;
+			margin-top: 80px;
+			transform: rotate(-55deg);
+		}
+	}
+	.projects {
+		padding: 17px 30px;
+		.project {
+			position: relative;
+			display: inline-block;
+			height: 314px;
+			width: 256px;
+			margin-left: 115px;
+			&:hover .top img {
+				filter: blur(2px);
+				-webkit-filter: blur(2px);
+			}
+			&:hover .bot {
+				opacity: 100%;
+				transition: opacity 1s;
+			}
+
+			.top {
+				text-align: center;
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				top: 0;
+				left: 0;
+				img {
+					width: 256px;
+					height: 256px;
+					border-radius: 15px;
+				}
+			}
+			.bot {
+				opacity: 0;
+				z-index: 10;
+				position: absolute;
+				color: white;
+				width: 256px;
+				height: 314px;
+				.date {
+					text-align: center;
+					background-color: rgba(60, 60, 60, 0.5);
+					border-radius: 15px;
+					margin: 65px 20px 0 20px;
+				}
+				.description {
+					border-radius: 15px;
+					text-align: center;
+					background-color: rgba(60, 60, 60, 0.5);
+					margin: 20px 20px 0 20px;
+					padding: 5px;
+					height: 100px;
+				}
+				.links {
+					margin: 50px 60px 0 60px;
+					height: auto;
+					padding: 5px;
+					background-color: rgba(60, 60, 60, 0.5);
+					border-radius: 15px;
+					a {
+						color: #fff;
+						margin-left: 15px;
+						&:hover {
+							color: #2fffff;
+						}
+					}
+				}
+			}
+		}
+	}
+	.order_by_button {
+		position: absolute;
+		bottom: 0;
+		left: 0; 
+		right: 0; 
+		margin-left: auto; 
+		margin-right: auto; 
+		width: 100px;
+		text-align: center;
+	}
+}

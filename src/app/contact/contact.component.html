@@ -1,0 +1,36 @@
+<body>
+  <div class="container content">
+    <div class="container contact" id="contact">
+      <div class="row">
+        <div class="col-sm form">
+          <h1>Send a message!</h1>
+          <form method="POST" action="/">
+            <input type="text" placeholder="Subject" class="subject" minlength="3" maxlength="128" required>
+            <textarea placeholder="Message" class="message" minlength="3" maxlength="512" required></textarea>
+            <input type="submit" value="Send">
+          </form>
+        </div>
+        <div class="col-sm social">
+          <h2>Or contact me by...</h2>
+          <div class="social_items">
+            <div class="social_item" *ngFor="let item of social_items">
+              <a href="{{item.link}}" target="_blank">
+                <strong>{{item.name}}</strong>
+                <img src="{{item.image_url}}" alt="{{item.image_alt}}">
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-navbar></app-navbar>
+</body>
+
+
+<!-- 
+the message must be send to my email, but there's no server yet
+
+<a onClick="javascript:window.open('mailto:lautarocolella1@gmail.com', 'mail');event.preventDefault()" href="mailto:lautarocolella1@gmail.com"></a> 
+mailto can't be open on _blank: https://stackoverflow.com/a/24854461/18895342
+-->

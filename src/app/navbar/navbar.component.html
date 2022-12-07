@@ -1,0 +1,30 @@
+<div class="navigationbar"> <!-- something is adding styles to the class "navbar", I don't know what, maybe bootstrap -->
+  <div class="nav_home">
+    <button routerLink="/home" type="button" class="btn btn-dark"><i class="fa-solid fa-house-chimney"></i> Home</button>
+    <div class="nav_arrow" *ngIf="currentRoute === '/home'">
+      <div class="nav_line_1"></div>
+      <div class="nav_line_2"></div>
+    </div>
+  </div>
+  <div class="nav_work">
+    <button routerLink="/work" type="button" class="btn btn-dark"><i class="fa-solid fa-code"></i> Work</button>
+    <div class="nav_arrow" *ngIf="currentRoute === '/work'">
+      <div class="nav_line_1"></div>
+      <div class="nav_line_2"></div>
+    </div>
+  </div>
+  <div class="nav_about">
+    <button routerLink="/about" type="button" class="btn btn-dark"><i class="fa-solid fa-user-graduate"></i> About</button>
+    <div class="nav_arrow" *ngIf="currentRoute === '/about'">
+      <div class="nav_line_1"></div>
+      <div class="nav_line_2"></div>
+    </div>
+  </div>
+  <div class="nav_contact">
+    <button routerLink="/contact" type="button" class="btn btn-dark"><i class="fa-solid fa-comments"></i> Contact</button>
+    <div class="nav_arrow" *ngIf="currentRoute === '/contact'">
+      <div class="nav_line_1"></div>
+      <div class="nav_line_2"></div>
+    </div>
+  </div>
+</div>

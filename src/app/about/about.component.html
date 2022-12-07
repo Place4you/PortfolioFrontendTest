@@ -1,0 +1,85 @@
+<body>
+  <div class="container content">
+    <div class="container about" id="about">
+      <div class="row">
+        <div class="col-sm about_journey">
+          <h1>My journey</h1>
+          <p>I was born on January 22, 2003. I learned my first language, C++, when I was 14 years old and since then I haven't stop learning.</p>
+          <p>These days I am interested in cybersecurity and web development, I am fascinated to understand how the Internet works and how it keeps improving day by day.</p>
+          <p>I like to learn new technologies that are practical, adaptable and open source. At the end I am looking forward to participate in new projects and meet the best possible people.</p>
+        </div>
+        <div class="col-sm about_navbar">
+          <button (click)="onNavClick('knowledge_items')" type="button" class="btn btn-secondary" id="knowledge_items"><strong>Knowledge</strong></button>
+          <button (click)="onNavClick('badges_items')" type="button" class="btn btn-secondary" id="badges_items"><strong>Badges</strong></button>
+          <button (click)="onNavClick('certificates_items')" type="button" class="btn btn-secondary" id="certificates_items"><strong>Certificates</strong></button>
+        </div>
+        <hr>
+        <div class="about_footer">
+          <div class="about_left_arrow" (click)="onLeftArrow()">
+            <div class="about_line_1"></div>
+            <div class="about_line_2"></div>
+          </div>
+          <div class="about_right_arrow" (click)="onRightArrow()">
+            <div class="about_line_1"></div>
+            <div class="about_line_2"></div>
+          </div>
+          <div class="about_items">
+
+            <ng-template #nameMissing>
+              <h5>Missing name</h5>
+            </ng-template>
+            <ng-template #imageMissing>
+              <img src="https://www.pacificfoodmachinery.com.au/media/catalog/product/placeholder/default/no-product-image-400x400.png" alt="Missing image">
+            </ng-template>
+            <ng-container *ngIf="viewItems === 'knowledge_items'">
+              <ng-container *ngFor="let arrayItem of array_all; let i = index">
+                <ng-container *ngIf="i === pageIndex">
+                  <div class="about_item" *ngFor="let item of arrayItem.page">
+                    <ng-container *ngIf="item.image_url && item.image_alt; else imageMissing">
+                      <img src="{{item.image_url}}" alt="{{item.image_alt}}">
+                    </ng-container>
+                    <div *ngIf="item.name; else nameMissing">
+                      <h5><a href="{{item.link}}" target="_blank">{{item.name}}</a></h5>
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+
+            <ng-container *ngIf="viewItems === 'badges_items'">
+              <ng-container *ngFor="let arrayItem of array_all; let i = index">
+                <ng-container *ngIf="i === pageIndex">
+                  <div class="about_item" *ngFor="let item of arrayItem.page">
+                    <ng-container *ngIf="item.image_url && item.image_alt; else imageMissing">
+                      <img src="{{item.image_url}}" alt="{{item.image_alt}}">
+                    </ng-container>
+                    <div *ngIf="item.name; else nameMissing">
+                      <h5><a href="{{item.link}}" target="_blank">{{item.name}}</a></h5>
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+
+            <ng-container *ngIf="viewItems === 'certificates_items'">
+              <ng-container *ngFor="let arrayItem of array_all; let i = index">
+                <ng-container *ngIf="i === pageIndex">
+                  <div class="about_item" *ngFor="let item of arrayItem.page">
+                    <ng-container *ngIf="item.image_url && item.image_alt; else imageMissing">
+                      <img src="{{item.image_url}}" alt="{{item.image_alt}}">
+                    </ng-container>
+                    <div *ngIf="item.name; else nameMissing">
+                      <h5><a href="{{item.link}}" target="_blank">{{item.name}}</a></h5>
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-navbar></app-navbar>
+</body>
