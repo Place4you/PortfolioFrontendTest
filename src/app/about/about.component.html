@@ -35,8 +35,8 @@
               <ng-container *ngFor="let arrayItem of array_all; let i = index">
                 <ng-container *ngIf="i === pageIndex">
                   <div class="about_item" *ngFor="let item of arrayItem.page">
-                    <ng-container *ngIf="item.image_url && item.image_alt; else imageMissing">
-                      <img src="{{item.image_url}}" alt="{{item.image_alt}}">
+                    <ng-container *ngIf="item.image_uri && item.image_alt; else imageMissing">
+                      <img src="{{item.image_uri}}" alt="{{item.image_alt}}">
                     </ng-container>
                     <div *ngIf="item.name; else nameMissing">
                       <h5><a href="{{item.link}}" target="_blank">{{item.name}}</a></h5>
@@ -50,8 +50,8 @@
               <ng-container *ngFor="let arrayItem of array_all; let i = index">
                 <ng-container *ngIf="i === pageIndex">
                   <div class="about_item" *ngFor="let item of arrayItem.page">
-                    <ng-container *ngIf="item.image_url && item.image_alt; else imageMissing">
-                      <img src="{{item.image_url}}" alt="{{item.image_alt}}">
+                    <ng-container *ngIf="item.image_uri && item.image_alt; else imageMissing">
+                      <img src="{{item.image_uri}}" alt="{{item.image_alt}}">
                     </ng-container>
                     <div *ngIf="item.name; else nameMissing">
                       <h5><a href="{{item.link}}" target="_blank">{{item.name}}</a></h5>
@@ -65,8 +65,8 @@
               <ng-container *ngFor="let arrayItem of array_all; let i = index">
                 <ng-container *ngIf="i === pageIndex">
                   <div class="about_item" *ngFor="let item of arrayItem.page">
-                    <ng-container *ngIf="item.image_url && item.image_alt; else imageMissing">
-                      <img src="{{item.image_url}}" alt="{{item.image_alt}}">
+                    <ng-container *ngIf="item.image_uri && item.image_alt; else imageMissing">
+                      <img src="{{item.image_uri}}" alt="{{item.image_alt}}">
                     </ng-container>
                     <div *ngIf="item.name; else nameMissing">
                       <h5><a href="{{item.link}}" target="_blank">{{item.name}}</a></h5>

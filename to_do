@@ -1,0 +1,51 @@
+Error pages 401, 404, 500
+
+Error handling in everything
+
+Unit testing in everything
+
+Readme
+
+Responsive
+
+Add real data
+
+
+
+Admin page:
+- Everything
+
+
+Home page:
+- Do a get request to the information table to receive all the titles
+- Make the titles work
+
+
+About page:
+- Add description to items
+- Transitions/effects
+- Show date of item on hover
+- Onclick on item makes a get request to the item id and shows the user stuff about the item (description, date, how I got it, where I used it, etc) replacing "My journey" text (maybe also replacing the buttons)
+- Link to projects if mentioned in the description of the item
+- Change about page icon for something else
+- Only show the side arrows if there are more items than the screen capacity
+
+
+Work page:
+- Transitions/effects
+- Add button to see more of the project at the side of the view live button, and when clicked make a get request for the project id and show more info about it, replacing all the projects in the screen (maybe even adapting to the project position).
+- Link to about if mentioned in the project
+- Maybe remove the names
+- Make the order by options work
+- Only show the side arrows if there are more projects than the screen capacity
+- Add page selector at the side of the order by
+
+
+Contact page:
+- Get the contact data from the database
+- Send email with the form
+- Allow 1 email/hour per ip
+
+
+Login page:
+- Only the correct username and password should be redirected to the admin page and get the JWT set

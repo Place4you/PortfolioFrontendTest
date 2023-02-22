@@ -12,4 +12,5 @@ export class NavbarComponent {
   constructor (router: Router) {
     this.currentRoute = router.url;
   }
+  isLogged: Boolean = false;
 }

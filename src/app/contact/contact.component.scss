@@ -1,14 +1,16 @@
 body {
-	background-image: url('https://img.freepik.com/premium-vector/luxury-white-gold-background_174506-513.jpg?w=2000');
+	background-image: url('../assets/images/bg_index.png');
+	background-position: center center;
 	background-repeat: no-repeat;
   	background-attachment: fixed;
   	background-size: cover;
-  	height: 95vh;
+  	background-color: #fff;
+  	height: 100vh;
 }
 .content {
 	width: 100%;
 	height: 700px;
-	margin-top: 30px;
+	padding-top: 70px;
 	position: relative;
 }
 .contact {
