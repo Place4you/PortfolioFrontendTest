@@ -7,16 +7,15 @@ import { HttpClientModule, HttpClient } from '@angular/common/http'
 })
 export class AboutService {
 
-  uri: string = 'http://localhost:8080/api/v1/about_item';
 
   constructor(private http: HttpClient) { }
 
   getItems(){
-    return this.http.get(this.uri, {observe: 'response', responseType: 'json'});
+    return this.http.get("http://localhost:8080/api/v1/about_item", {observe: 'response', responseType: 'json'});
   }
 
-  getItem(id: number){
-    return this.http.get(this.uri + `/${id}`, {observe: 'response', responseType: 'json'});
+  getJourney(){
+    return this.http.get("http://localhost:8080/api/v1/information", {observe: 'response', responseType: 'json'});
   }
 }
 

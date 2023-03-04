@@ -25,9 +25,6 @@ Home page:
 
 
 About page:
-- Go to other items if mentioned in the description of the item, same to projects
-- "get this from the database" my journey
-- showItemInfo() should be done better and fancy
 // done
 - Add description to items
 - Show date of item on hover
@@ -36,6 +33,9 @@ About page:
 - Onclick on item makes a get request to the item id and shows the user stuff about the item (description, date, how I got it, where I used it, etc) replacing "My journey" text (maybe also replacing the buttons)
 - Read the html tags in the description and make them work
 - The knowledge button should be black in the constructor
+- "get this from the database" my journey
+- showItemInfo() should be done better and fancy
+- Go to other items if mentioned in the description of the item. MAKE THIS WITH THE FUNCTION showItemInfo(item_id)
 
 
 Work page:
@@ -78,3 +78,5 @@ Login page:
     "image_uri": "https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png",
     "image_alt": "Javascript programming language"
 }
+
+

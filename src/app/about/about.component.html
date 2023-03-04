@@ -3,7 +3,8 @@
     <div class="container about" id="about">
       <div class="row">
         <div class="col-sm about_journey">
-          <h1 [innerHTML]="journey.title"></h1>
+          <h1 *ngIf="journey.id === 0" [innerHTML]="journey.title"></h1>
+          <h1 *ngIf="journey.id > 0" [innerHTML]="journey.title + ' - #' + (journey.id)"></h1>
           <p [innerHTML]="journey.description"></p>
         </div>
         <div class="col-sm about_navbar">
