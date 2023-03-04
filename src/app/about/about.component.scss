@@ -23,13 +23,21 @@ body {
 		text-align: justify;
 		padding: 20px;
 		margin: 0 100px 0 100px;
-		height: 425px;
+		height: 420px;
 		h1 {
 			text-align: center;
 			margin-bottom: 30px;
 		}
 		p {
 			margin-top: 30px;
+			height: 300px;
+			overflow-x: hidden;
+			overflow-y: scroll;
+			padding: 5px 15px 5px 5px;
+			&:hover {
+				background-color: rgba(200, 200, 200, 0.2);
+				border-radius: 10px;
+			}
 		}
 	}
 	.about_navbar {
@@ -39,6 +47,9 @@ body {
 			margin: 50px 0 0 0;
 			width: 100%;
 			height: 60px;
+		}
+		#knowledge_items {
+			background-color: #000;
 		}
 	}
 	.about_footer {
@@ -101,13 +112,32 @@ body {
 			.about_item {
 				display: inline-block;
 				margin: 40px 10px 0 10px;
+				.bot {
+					opacity: 0;
+					z-index: 10;
+					position: absolute;
+					color: white;
+					background-color: black;
+					border-radius: 10px;
+					width: 60px;
+					height: 25px;
+					margin: 35px 0 0 50px;
+				}
 				a {
-					text-decoration: none;
 					color: #000;
 				}
-				img {
-					width: 100px;
-					height: 100px;
+				.itemImage{
+					img {
+						width: 100px;
+						height: 100px;
+					}
+					&:hover {
+						cursor: pointer;
+						.bot {
+							opacity: 100%;
+							transition: opacity 1s;
+						}
+					}
 				}
 				h5 {
 					margin-top: 15px;

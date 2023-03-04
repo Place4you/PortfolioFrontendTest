@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Page404Component } from './page404.component';
+import { Page401Component } from './page401.component';
 
 
 
 @NgModule({
   declarations: [
-    Page404Component
+    Page401Component
   ],
   imports: [
     CommonModule
   ]
 })
-export class Page404Module { }
+export class Page401Module { }

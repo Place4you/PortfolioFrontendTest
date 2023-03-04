@@ -1,4 +1,4 @@
-Error pages 401, 404, 500
+Redirecto to error pages 401, 404, 500
 
 Error handling in everything
 
@@ -10,6 +10,9 @@ Responsive
 
 Add real data
 
+Fancy loading page
+
+- Transitions/effects to almost everything
 
 
 Admin page:
@@ -22,30 +25,56 @@ Home page:
 
 
 About page:
+- Go to other items if mentioned in the description of the item, same to projects
+- "get this from the database" my journey
+- showItemInfo() should be done better and fancy
+// done
 - Add description to items
-- Transitions/effects
 - Show date of item on hover
-- Onclick on item makes a get request to the item id and shows the user stuff about the item (description, date, how I got it, where I used it, etc) replacing "My journey" text (maybe also replacing the buttons)
-- Link to projects if mentioned in the description of the item
+- Only show the side arrows if there is more than 1 page
 - Change about page icon for something else
-- Only show the side arrows if there are more items than the screen capacity
+- Onclick on item makes a get request to the item id and shows the user stuff about the item (description, date, how I got it, where I used it, etc) replacing "My journey" text (maybe also replacing the buttons)
+- Read the html tags in the description and make them work
+- The knowledge button should be black in the constructor
 
 
 Work page:
-- Transitions/effects
-- Add button to see more of the project at the side of the view live button, and when clicked make a get request for the project id and show more info about it, replacing all the projects in the screen (maybe even adapting to the project position).
+- Add button to see more of the project at the side of the view live button, and when clicked make a get request for the project id and show more info about it, replacing all the projects in the screen (maybe even adapting to the project position). SAME AS IN THE ABOUT PAGE
 - Link to about if mentioned in the project
 - Maybe remove the names
 - Make the order by options work
 - Only show the side arrows if there are more projects than the screen capacity
 - Add page selector at the side of the order by
+// done
 
 
 Contact page:
 - Get the contact data from the database
 - Send email with the form
 - Allow 1 email/hour per ip
+- Add right bar to the socials, same as in about journey, so there's no social's limit
+// done
 
 
 Login page:
 - Only the correct username and password should be redirected to the admin page and get the JWT set
+// done
+
+
+
+
+
+
+
+
+
+// about item real data example
+{
+    "item_type": 1,
+    "name": "Javascript",
+    "date": "2019-01-01",
+    "description": "I first learned javascript in school. At that point I developed a 2D game with the library <strong>Phaser.js</strong> and was part of a team project called <a href='https://twitter.com/TrenDelIngenio'>'Tren del ingenio'</a> that helped kids with dyslexia and <a href='#' (click)='showOtherItem(0)'>won the first place</a> in the non professional category of the contest <a href='https://desarrollarinclusion.cilsa.org/proyectos-ganadores/'>Appccesible</a> organized by Cilsa ONG.<br><br>After a year or so I found out that javascript could also be used in the backend, so I did my first portfolio in <strong>Node.js and Express</strong> while learning these technologies.<br><br>Until this day, I possess the ability to code using ES6/ECMAScript 2015, grasp fundamental concepts of the language such as the event loop, OOP and functional programming, comprehend asynchronous operations and promises, and know several related technologies including <strong><a href='#' (click)='showOtherItem(0)'>Typescript</a>, <a href='#' (click)='showOtherItem(0)'>Nest.js</a>, <a href='#' (click)='showOtherItem(0)'>Angular</a>, and <a href='#' (click)='showOtherItem(0)'>Ajax<a/></strong>.",
+    "link": "https://es.wikipedia.org/wiki/JavaScript",
+    "image_uri": "https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png",
+    "image_alt": "Javascript programming language"
+}
