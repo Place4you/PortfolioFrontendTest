@@ -1,16 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router'
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss']
+  styleUrls: ['./navbar.component.scss'],
+  providers: [CookieService]
 })
 export class NavbarComponent {
 
   currentRoute: String = '';
-  constructor (router: Router) {
+
+  constructor (private router: Router, private cookieService: CookieService) {
     this.currentRoute = router.url;
   }
-  isLogged: Boolean = false;
+
+  isLogged(){
+    return this.cookieService.get('JWT') ? true : false;
+  }
 }

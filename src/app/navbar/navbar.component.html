@@ -27,14 +27,14 @@
       <div class="nav_line_2"></div>
     </div>
   </div>
-  <div class="nav_login" *ngIf="!isLogged">
+  <div class="nav_login" *ngIf="!isLogged()">
     <button routerLink="/login" type="button" class="btn btn-dark"><i class="fa-solid fa-laptop"></i> Login</button>
     <div class="nav_arrow" *ngIf="currentRoute === '/login'">
       <div class="nav_line_1"></div>
       <div class="nav_line_2"></div>
     </div>
   </div>
-  <div class="nav_admin" *ngIf="isLogged">
+  <div class="nav_admin" *ngIf="isLogged()">
     <button routerLink="/admin" type="button" class="btn btn-dark"><i class="fa-solid fa-gears"></i> Admin</button>
     <div class="nav_arrow" *ngIf="currentRoute === '/admin'">
       <div class="nav_line_1"></div>

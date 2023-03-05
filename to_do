@@ -12,7 +12,8 @@ Add real data
 
 Fancy loading page
 
-- Transitions/effects to almost everything
+Transitions/effects to almost everything
+
 
 
 Admin page:
@@ -24,8 +25,35 @@ Home page:
 - Make the titles work
 
 
-About page:
+Work page:
+- Add button to see more of the project at the side of the view live button, and when clicked make a get request for the project id and show more info about it, replacing all the projects in the screen (maybe even adapting to the project position). SAME AS IN THE ABOUT PAGE
+- Make the order by options work
+- Add page selector at the side of the order by, it must have overflow x visible and numbers below, don't show more than 5
+- Bug: When there's only one item in the new page it is not shown, probably the same happens for the about page
 // done
+- Get the work data from the backend
+- Only show the side arrows if there are more projects than the screen capacity
+
+
+Contact page:
+- Get the contact data from the backend
+- Send email with the form
+- Allow 1 email/hour per ip
+- Add right bar to the socials, same as in about journey, so there's no social's limit
+// done
+
+
+
+
+
+
+// done
+Login page:
+- Only the correct username and password should be redirected to the admin page and get the JWT set
+
+
+// done
+About page:
 - Add description to items
 - Show date of item on hover
 - Only show the side arrows if there is more than 1 page
@@ -38,45 +66,26 @@ About page:
 - Go to other items if mentioned in the description of the item. MAKE THIS WITH THE FUNCTION showItemInfo(item_id)
 
 
-Work page:
-- Add button to see more of the project at the side of the view live button, and when clicked make a get request for the project id and show more info about it, replacing all the projects in the screen (maybe even adapting to the project position). SAME AS IN THE ABOUT PAGE
-- Link to about if mentioned in the project
-- Maybe remove the names
-- Make the order by options work
-- Only show the side arrows if there are more projects than the screen capacity
-- Add page selector at the side of the order by
-// done
 
 
-Contact page:
-- Get the contact data from the database
-- Send email with the form
-- Allow 1 email/hour per ip
-- Add right bar to the socials, same as in about journey, so there's no social's limit
-// done
-
-
-Login page:
-- Only the correct username and password should be redirected to the admin page and get the JWT set
-// done
-
-
-
-
-
-
-
-
-
-// about item real data example
+// about item data example
 {
-    "item_type": 1,
-    "name": "Javascript",
-    "date": "2019-01-01",
-    "description": "I first learned javascript in school. At that point I developed a 2D game with the library <strong>Phaser.js</strong> and was part of a team project called <a href='https://twitter.com/TrenDelIngenio'>'Tren del ingenio'</a> that helped kids with dyslexia and <a href='#' (click)='showOtherItem(0)'>won the first place</a> in the non professional category of the contest <a href='https://desarrollarinclusion.cilsa.org/proyectos-ganadores/'>Appccesible</a> organized by Cilsa ONG.<br><br>After a year or so I found out that javascript could also be used in the backend, so I did my first portfolio in <strong>Node.js and Express</strong> while learning these technologies.<br><br>Until this day, I possess the ability to code using ES6/ECMAScript 2015, grasp fundamental concepts of the language such as the event loop, OOP and functional programming, comprehend asynchronous operations and promises, and know several related technologies including <strong><a href='#' (click)='showOtherItem(0)'>Typescript</a>, <a href='#' (click)='showOtherItem(0)'>Nest.js</a>, <a href='#' (click)='showOtherItem(0)'>Angular</a>, and <a href='#' (click)='showOtherItem(0)'>Ajax<a/></strong>.",
-    "link": "https://es.wikipedia.org/wiki/JavaScript",
-    "image_uri": "https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png",
-    "image_alt": "Javascript programming language"
+    "item_type": 3,
+    "name": "EFSET C2 Proficient",
+    "date": "2022-09-19",
+    "description": "I have been learning english since 2018 and consider myself bilingual, almost everyday for the last years I used it for online learning. Basically everything that it's IT related is in english, so is basic knowledge for a developer.<br><br>I'm able to read, listen, write and speak both in spanish and english at this moment. Yet this certificate doesn't apply for verbal communication.",
+    "link": "https://www.efset.org/cert/VKe9Rt",
+    "image_uri": "https://i.imgur.com/xAm496h.png",
+    "image_alt": "EFSET English certificate C2 Proficient"
 }
 
-
+// work item data example
+{
+    "name": "Test",
+    "code_uri": "https://github.com/asd",
+    "live_uri": "https://liveproject.com",
+    "image_uri": "https://i.imgur.com/JV66wJT.jpeg",
+    "image_alt": "Some project example",
+    "date": "2022-07-21",
+    "description": "This is a fake project. And it should be treated like that."
+}

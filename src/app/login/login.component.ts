@@ -33,8 +33,8 @@ export class LoginComponent implements OnInit {
       this.loginService.login(email, password)
       .subscribe((response: any) => {
         this.cookieService.set('JWT', response.body, 1);
+        this.router.navigate(['admin']);
       });
-      this.router.navigate(['admin']);
     }
   }
 
