@@ -32,10 +32,10 @@
       <div class="low_buttons">
         <div class="order_by_button">
           <select class="order_by">
-            <option selected>Date - New to Last</option>
-            <option>Date - Last to New</option>
-            <option>Name - A to Z</option>
-            <option>Name - Z to A</option>
+            <option selected (click)='orderBy("NL")'>Date - New to Last</option>
+            <option (click)='orderBy("LN")'>Date - Last to New</option>
+            <option (click)='orderBy("AZ")'>Name - A to Z</option>
+            <option (click)='orderBy("ZA")'>Name - Z to A</option>
           </select>
         </div>
         <div class="page_selector" id="page_selector" *ngIf="show_arrows">
