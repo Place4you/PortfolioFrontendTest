@@ -29,13 +29,23 @@
           </ng-container>
         </ng-container>
       </div>
-      <div class="order_by_button">
-        <select class="order_by">
-          <option selected>Date - New to Last</option>
-          <option>Date - Last to New</option>
-          <option>Name - A to Z</option>
-          <option>Name - Z to A</option>
-        </select>
+      <div class="low_buttons">
+        <div class="order_by_button">
+          <select class="order_by">
+            <option selected>Date - New to Last</option>
+            <option>Date - Last to New</option>
+            <option>Name - A to Z</option>
+            <option>Name - Z to A</option>
+          </select>
+        </div>
+        <div class="page_selector" id="page_selector" *ngIf="show_arrows">
+          <span class="ps_item" *ngFor="let page of page_selector_items">
+            <input *ngIf="page.number !== 1;else check_item" type="radio" id="{{page.number}}" name="page_number" (click)="changePage(page.number)">
+            <ng-template #check_item>
+              <input type="radio" id="{{page.number}}" name="page_number" (click)="changePage(page.number)" checked>
+            </ng-template>
+          </span>
+        </div>
       </div>
     </div>
   </div>

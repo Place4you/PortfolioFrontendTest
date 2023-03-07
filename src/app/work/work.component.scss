@@ -137,14 +137,28 @@ body {
 			}
 		}
 	}
-	.order_by_button {
+	.low_buttons {
 		position: absolute;
 		bottom: 0;
-		left: 0; 
-		right: 0; 
-		margin-left: auto; 
-		margin-right: auto; 
-		width: 100px;
+		left: 0;
+		right: 0;
+		margin-left: auto;
+		margin-right: auto;
 		text-align: center;
+	}
+	.order_by_button {
+		display: inline-block;
+	}
+	.page_selector {
+		position: absolute;
+		overflow-x: scroll;
+		white-space: nowrap;
+		display: inline-block;
+		padding-bottom: 15px;
+		margin-left: 20px;
+		width: 150px;
+		.ps_item {
+			margin-left: 10px;
+		}
 	}
 }

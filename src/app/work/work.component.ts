@@ -11,18 +11,27 @@ export class WorkComponent {
   constructor(private workService: WorkService){ }
   
 
-  array_all:      Array<{ page: any }> = [];
-  array_page:     Array<{ id: number, name: string, code_uri: string, live_uri: string, image_uri: string, image_alt: string, date: Date, description: string }> = [];
-  pageIndex:      number = 0;
-  total_pages:    number = 1;
-  show_arrows:    boolean = false;
-  project_items:  Array<{ id: number, name: string, code_uri: string, live_uri: string, image_uri: string, image_alt: string, date: Date, description: string }> = [];
-
+  array_all:            Array<{ page: any }> = [];
+  array_page:           Array<{ id: number, name: string, code_uri: string, live_uri: string, image_uri: string, image_alt: string, date: Date, description: string }> = [];
+  pageIndex:            number = 0;
+  total_pages:          number = 1;
+  show_arrows:          boolean = false;
+  project_items:        Array<{ id: number, name: string, code_uri: string, live_uri: string, image_uri: string, image_alt: string, date: Date, description: string }> = [];
+  page_selector_items:  Array<{ number: number }> = [{ number: 1 }];
 
   onRightArrow(){
     this.pageIndex++;
     if(this.pageIndex > this.total_pages - 1){
       this.pageIndex = 0;
+    }
+    const item = document.getElementById(`${this.pageIndex + 1}`) as HTMLInputElement;
+    if(item){
+      item.checked = true;
+      const horizontal_bar = document.getElementById("page_selector");
+      if(horizontal_bar !== null){
+        const bar_position: number = (this.pageIndex === 0) ? 0 : this.pageIndex / (this.total_pages - 1);
+        horizontal_bar.scrollLeft = bar_position * 100;
+      }
     }
   }
   onLeftArrow(){
@@ -30,9 +39,20 @@ export class WorkComponent {
     if(this.pageIndex < 0){
       this.pageIndex = this.total_pages - 1;
     }
+    const item = document.getElementById(`${this.pageIndex + 1}`) as HTMLInputElement;
+    if(item){
+      item.checked = true;
+      const horizontal_bar = document.getElementById("page_selector");
+      if(horizontal_bar !== null){
+        const bar_position: number = (this.pageIndex === this.total_pages) ? 0 : this.pageIndex / (this.total_pages - 1);
+        horizontal_bar.scrollLeft = bar_position * 100;
+      }
+    }
   }
 
-
+  changePage(page_number: number){
+    this.pageIndex = page_number - 1;
+  }
 
   ngOnInit(){
 
@@ -50,6 +70,11 @@ export class WorkComponent {
           if(!this.show_arrows){
             this.show_arrows = true;
           }
+
+          this.page_selector_items.push({
+            number: this.total_pages + 1
+          });          
+
           this.total_pages++;
           this.array_all.push({page: this.array_page});
           this.array_page = [];
