@@ -27,12 +27,12 @@ Home page:
 
 Work page:
 - Add button to see more of the project at the side of the view live button, and when clicked make a get request for the project id and show more info about it, replacing all the projects in the screen (maybe even adapting to the project position). SAME AS IN THE ABOUT PAGE
-- Bug: When there's only one item in the new page it is not shown, probably the same happens for the about page
 // done
 - Get the work data from the backend
 - Only show the side arrows if there are more projects than the screen capacity
 - Add page selector at the side of the order by, it must have overflow x visible and numbers below, don't show more than 5
 - Make the order by options work
+- Bug: When there's only one item in the new page it is not shown, probably the same happens for the about page
 
 
 Contact page:

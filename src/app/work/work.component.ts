@@ -16,7 +16,7 @@ export class WorkComponent {
   total_pages:          number = 1;
   show_arrows:          boolean = false;
   project_items:        Array<{ id: number, name: string, code_uri: string, live_uri: string, image_uri: string, image_alt: string, date: Date, description: string }> = [];
-  page_selector_items:  Array<{ number: number }> = [{ number: 1 }];
+  page_selector_items:  Array<{ number: number }> = [{number: 1}];
   current_order:        string = "AZ";
 
  
@@ -30,8 +30,17 @@ export class WorkComponent {
       item.checked = true;
       const horizontal_bar = document.getElementById("page_selector");
       if(horizontal_bar !== null){
-        const bar_position: number = (this.pageIndex === 0) ? 0 : this.pageIndex / (this.total_pages - 1);
-        horizontal_bar.scrollLeft = bar_position * 100;
+        if(this.pageIndex <= 2){
+          horizontal_bar.scrollLeft = 0;
+        }
+        else {
+          if(this.pageIndex >= this.total_pages - 2){
+            horizontal_bar.scrollLeft = horizontal_bar.scrollWidth;
+          }
+          else {
+            horizontal_bar.scrollLeft = item.offsetLeft - 50;
+          }
+        }
       }
     }
   }
@@ -45,8 +54,17 @@ export class WorkComponent {
       item.checked = true;
       const horizontal_bar = document.getElementById("page_selector");
       if(horizontal_bar !== null){
-        const bar_position: number = (this.pageIndex === this.total_pages) ? 0 : this.pageIndex / (this.total_pages - 1);
-        horizontal_bar.scrollLeft = bar_position * 100;
+        if(this.pageIndex >= this.total_pages - 2){
+          horizontal_bar.scrollLeft = horizontal_bar.scrollWidth;
+        }
+        else {
+          if(this.pageIndex <= 2){
+            horizontal_bar.scrollLeft = 0;
+          }
+          else {
+            horizontal_bar.scrollLeft = item.offsetLeft - 75;
+          }
+        }
       }
     }
   }
@@ -90,7 +108,6 @@ export class WorkComponent {
     this.array_all            = [];
     this.total_pages          = 1;
     this.pageIndex            = 0;
-    this.page_selector_items  = [{ number: 1 }]
 
     for(let i: number = start_at; i < this.project_items.length; i++){
       if(i%2 === 0 && i%3 === 0 && i !== start_at){
@@ -115,6 +132,10 @@ export class WorkComponent {
           date: this.project_items[i].date,
           description: this.project_items[i].description
         });
+        if(i === this.project_items.length - 1){
+          this.array_all.push({page: array_page});
+          array_page = [];
+        }
         start_at = i;
       }
       else{

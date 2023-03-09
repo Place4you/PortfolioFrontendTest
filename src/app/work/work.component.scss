@@ -150,15 +150,19 @@ body {
 		display: inline-block;
 	}
 	.page_selector {
+		scrollbar-width: thin;
 		position: absolute;
 		overflow-x: scroll;
 		white-space: nowrap;
 		display: inline-block;
-		padding-bottom: 15px;
 		margin-left: 20px;
 		width: 150px;
 		.ps_item {
 			margin-left: 10px;
+			display: inline-block;
+			input, label {
+				display: block;
+			}
 		}
 	}
 }

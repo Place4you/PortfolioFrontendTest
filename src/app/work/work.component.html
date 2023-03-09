@@ -41,6 +41,7 @@
         <div class="page_selector" id="page_selector" *ngIf="show_arrows">
           <span class="ps_item" *ngFor="let page of page_selector_items">
             <input *ngIf="page.number !== 1;else check_item" type="radio" id="{{page.number}}" name="page_number" (click)="changePage(page.number)">
+            <label for="{{page.number}}">{{page.number}}</label>
             <ng-template #check_item>
               <input type="radio" id="{{page.number}}" name="page_number" (click)="changePage(page.number)" checked>
             </ng-template>
