@@ -15,7 +15,7 @@ export class WorkComponent {
   pageIndex:            number = 0;
   total_pages:          number = 1;
   show_arrows:          boolean = false;
-  project_items:        Array<{ id: number, name: string, code_uri: string, live_uri: string, image_uri: string, image_alt: string, date: Date, description: string }> = [];
+  project_items:        Array<{ id: number, name: string, code_uri: string, live_uri: string, image_uri: string, image_alt: string, date: Date, technologies: string, description: string }> = [];
   page_selector_items:  Array<{ number: number }> = [{number: 1}];
   current_order:        string = "AZ";
 
@@ -103,11 +103,12 @@ export class WorkComponent {
   }
 
   createPages(): void {
-    let array_page: Array<{ id: number, name: string, code_uri: string, live_uri: string, image_uri: string, image_alt: string, date: Date, description: string }> = [];
+    let array_page: Array<{ id: number, name: string, code_uri: string, live_uri: string, image_uri: string, image_alt: string, date: Date, technologies: string, description: string }> = [];
     let start_at: number      = 0;
     this.array_all            = [];
     this.total_pages          = 1;
     this.pageIndex            = 0;
+    this.page_selector_items  = [{ number: 1 }];
 
     for(let i: number = start_at; i < this.project_items.length; i++){
       if(i%2 === 0 && i%3 === 0 && i !== start_at){
@@ -130,7 +131,9 @@ export class WorkComponent {
           image_uri: this.project_items[i].image_uri,
           image_alt: this.project_items[i].image_alt,
           date: this.project_items[i].date,
+          technologies: this.project_items[i].technologies,
           description: this.project_items[i].description
+
         });
         if(i === this.project_items.length - 1){
           this.array_all.push({page: array_page});
@@ -147,6 +150,7 @@ export class WorkComponent {
           image_uri: this.project_items[i].image_uri,
           image_alt: this.project_items[i].image_alt,
           date: this.project_items[i].date,
+          technologies: this.project_items[i].technologies,
           description: this.project_items[i].description
         });
         if(i === this.project_items.length - 1){

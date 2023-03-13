@@ -26,13 +26,15 @@ Home page:
 
 
 Work page:
-- Add button to see more of the project at the side of the view live button, and when clicked make a get request for the project id and show more info about it, replacing all the projects in the screen (maybe even adapting to the project position). SAME AS IN THE ABOUT PAGE
+- Add button to see more of the project at the side of the view live button, and when clicked show the description, replacing all the projects in the screen (maybe even adapting to the project position)
 // done
 - Get the work data from the backend
 - Only show the side arrows if there are more projects than the screen capacity
 - Add page selector at the side of the order by, it must have overflow x visible and numbers below, don't show more than 5
 - Make the order by options work
 - Bug: When there's only one item in the new page it is not shown, probably the same happens for the about page
+- Bug: when selecting different order by there are more pages added, yet you can't select them, is something visual
+- Show the project technologies instead of the description when hovering on the project
 
 
 Contact page:
@@ -52,8 +54,9 @@ Login page:
 - Only the correct username and password should be redirected to the admin page and get the JWT set
 
 
-// done
 About page:
+- Bug: When there's only one item in the new page it is not shown
+// done
 - Add description to items
 - Show date of item on hover
 - Only show the side arrows if there is more than 1 page
@@ -64,6 +67,26 @@ About page:
 - "get this from the database" my journey
 - showItemInfo() should be done better and fancy
 - Go to other items if mentioned in the description of the item. MAKE THIS WITH THE FUNCTION showItemInfo(item_id)
+
+
+// questions asked for the project, last-to-first
+https://stackoverflow.com/questions/75682736/set-radio-inputs-in-the-same-line-and-labels-below-in-css
+
+https://stackoverflow.com/questions/75649755/radio-buttons-change-size-instead-of-cutting-off-and-showing-overflow-x-scroll-b
+
+https://stackoverflow.com/questions/75419220/error-creating-bean-in-spring-boot-app-for-a-repository-unsatisfieddependencyex
+
+https://stackoverflow.com/questions/75323452/how-to-get-out-of-static-context-in-spring-boot
+
+https://stackoverflow.com/questions/75246699/implementing-variable-from-application-properties-returns-null
+
+https://stackoverflow.com/questions/75143071/spring-boot-security-authentication-manager-doesnt-receive-username-parameter
+
+https://stackoverflow.com/questions/75122784/update-java-alternatives-returns-a-directory-that-was-removed-and-i-cant-get-i
+
+https://stackoverflow.com/questions/74663778/cant-access-property-of-object-in-html-or-typescript-angular
+
+https://stackoverflow.com/questions/74651363/variable-in-curly-brackets-in-angular-is-not-hereditary-to-insde-html-elements
 
 
 
@@ -82,10 +105,11 @@ About page:
 // work item data example
 {
     "name": "Test",
+    "date": "2021-07-21",
+    "technologies": "MySQL - Javascript - C++ - PHP - NodeJS - ExpressJS - HTML5 - SCSS - Angular - ReactJS - VueJS",
+    "description": "This is a fake project. And it should be treated like that.",
     "code_uri": "https://github.com/asd",
     "live_uri": "https://liveproject.com",
     "image_uri": "https://i.imgur.com/JV66wJT.jpeg",
-    "image_alt": "Some project example",
-    "date": "2022-07-21",
-    "description": "This is a fake project. And it should be treated like that."
+    "image_alt": "Some project example"
 }
