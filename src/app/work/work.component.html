@@ -1,35 +1,63 @@
 <body>
   <div class="container content">
     <div class="container work" id="work">
-      <div class="left_arrow" *ngIf="show_arrows" (click)="onLeftArrow()">
+      <div class="left_arrow" *ngIf="show_arrows && !description_open"  (click)="onLeftArrow()">
         <div class="work_line_1"></div>
         <div class="work_line_2"></div>
       </div>
-      <div class="right_arrow" *ngIf="show_arrows" (click)="onRightArrow()">
+      <div class="right_arrow" *ngIf="show_arrows && !description_open" (click)="onRightArrow()">
         <div class="work_line_1"></div>
         <div class="work_line_2"></div>
       </div>
       <div class="projects">
-        <ng-container *ngFor="let arrayItem of array_all; let i = index">
-          <ng-container *ngIf="i === pageIndex">
-            <div class="project" *ngFor="let project of arrayItem.page">
+        <ng-container *ngIf="description_open">
+          <div class="project_w_description">
+            <div class="project">
               <div class="top">
-                <h1>{{project.name}}</h1>
-                <img src="{{project.image_uri}}" alt="{{project.image_alt}}">
+                <img src="{{curr_project.image_uri}}" alt="{{curr_project.image_alt}}">
               </div>
               <div class="bot">
-                <p class="date">{{project.date | date:'shortDate'}}</p>
+                <p class="date">{{curr_project.date | date:'shortDate'}}</p>
                 <div class="links">
-                  <a href="{{project.code_uri}}" target="_blank"><i class="fas fa-code fa-2x code"></i></a>
-                  <a href="{{project.live_uri}}" target="_blank"><i class="fas fa-eye fa-2x view"></i></a>
+                  <a href="{{curr_project.code_uri}}" target="_blank"><i class="fas fa-code fa-2x"></i></a>
+                  <a href="{{curr_project.live_uri}}" target="_blank"><i class="fa-solid fa-pager fa-2x"></i></a>
+                  <i *ngIf="!description_open" class="fa-solid fa-caret-down fa-2x" (click)='view_description(true, curr_project.id)'></i>
+                  <i *ngIf="description_open" class="fa-solid fa-caret-up fa-2x" (click)='view_description(false, curr_project.id)'></i>
                 </div>
-                <p class="technologies">{{project.technologies}}</p>
+                <p class="technologies">{{curr_project.technologies}}</p>
               </div>
             </div>
+            <div class="description_top">
+              <button type="button" class="btn btn-dark" (click)="view_description(false, curr_project.id)">Return</button>
+              <h1>{{curr_project.name}}</h1>
+            </div>
+            <p class="description">{{curr_project.description}}</p>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="!description_open">
+          <ng-container *ngFor="let arrayItem of array_all; let i = index">
+            <ng-container *ngIf="i === pageIndex">
+              <div class="project" *ngFor="let project of arrayItem.page">
+                <div class="top">
+                  <h1>{{project.name}}</h1>
+                  <img src="{{project.image_uri}}" alt="{{project.image_alt}}">
+                </div>
+                <div class="bot">
+                  <p class="date">{{project.date | date:'shortDate'}}</p>
+                  <div class="links">
+                    <a href="{{project.code_uri}}" target="_blank"><i class="fas fa-code fa-2x"></i></a>
+                    <a href="{{project.live_uri}}" target="_blank"><i class="fa-solid fa-pager fa-2x"></i></a>
+                    <i *ngIf="!description_open" class="fa-solid fa-caret-down fa-2x" (click)='view_description(true, project.id)'></i>
+                    <i *ngIf="description_open" class="fa-solid fa-caret-up fa-2x" (click)='view_description(false, project.id)'></i>
+                  </div>
+                  <p class="technologies">{{project.technologies}}</p>
+                </div>
+              </div>
+            </ng-container>
           </ng-container>
         </ng-container>
       </div>
-      <div class="low_buttons">
+      <div class="low_buttons" *ngIf="!description_open">
         <div class="order_by_button">
           <select class="order_by">
             <option selected (click)='orderBy("NL")'>Date - New to Last</option>

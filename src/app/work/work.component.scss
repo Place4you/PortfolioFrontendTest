@@ -93,6 +93,10 @@ body {
 				position: absolute;
 				top: 0;
 				left: 0;
+				h1 {
+					overflow: hidden;
+					white-space: nowrap;
+				}
 				img {
 					width: 256px;
 					height: 256px;
@@ -113,27 +117,69 @@ body {
 					margin: 65px 20px 0 20px;
 				}
 				.technologies {
-					border-radius: 15px;
 					text-align: center;
 					background-color: rgba(60, 60, 60, 0.5);
 					margin: 20px 20px 0 20px;
 					padding: 5px;
-					height: 100px;
+					height: 110px;
+					overflow-wrap: break-word;
+					overflow-x: hidden;
+					overflow-y: scroll;
+					scrollbar-width: thin;
 				}
 				.links {
-					margin: 50px 60px 0 60px;
+					display: inline-block;
+					text-align: center;
+					margin: 30px 40px 0 45px;
 					height: auto;
 					padding: 5px;
 					background-color: rgba(60, 60, 60, 0.5);
 					border-radius: 15px;
-					a {
+					i {
 						color: #fff;
-						margin-left: 15px;
+						margin: 0 10px 0 10px;
 						&:hover {
 							color: #2fffff;
+							cursor: pointer;
 						}
 					}
 				}
+			}
+		}
+		.project_w_description::-webkit-scrollbar {
+			display: none; /* Safari and Chrome */
+		}
+		.project_w_description {
+			width: 100%;
+			position: absolute;
+			overflow-x: hidden;
+			-ms-overflow-style: none;  /* Internet Explorer 10+ */
+			scrollbar-width: none;  /* Firefox */
+			.description_top {
+				margin-top: 30px;
+				button {
+					display: inline-block;
+					margin: 15px 30px 0 0;
+					float: left;
+				}
+				h1 {
+					display: inline-block;
+					width: 800px;
+					text-align: justify;
+				}
+			}
+			.project {
+				float: left;
+				margin: 30px 20px 0 30px;
+				height: 256px;
+				.date {
+					margin-top: 10px;
+				}
+			}
+			.description {
+				text-align: justify;
+				padding: 10px 20px 20px 20px;
+				max-height: 600px;
 			}
 		}
 	}

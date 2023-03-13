@@ -15,10 +15,22 @@ export class WorkComponent {
   pageIndex:            number = 0;
   total_pages:          number = 1;
   show_arrows:          boolean = false;
+  description_open:     boolean = false;
   project_items:        Array<{ id: number, name: string, code_uri: string, live_uri: string, image_uri: string, image_alt: string, date: Date, technologies: string, description: string }> = [];
   page_selector_items:  Array<{ number: number }> = [{number: 1}];
   current_order:        string = "AZ";
 
+  curr_project:         { id: number, name: string, code_uri: string, live_uri: string, image_uri: string, image_alt: string, date: Date, technologies: string, description: string } = {
+    id: 0,
+    name: "Not assigned",
+    code_uri: "Not assigned",
+    live_uri: "Not assigned",
+    image_uri: "Not assigned",
+    image_alt: "Not assigned",
+    date: new Date(),
+    technologies: "Not assigned",
+    description: "Not assigned"
+  };
  
  onRightArrow(): void {
     this.pageIndex++;
@@ -71,6 +83,27 @@ export class WorkComponent {
 
   changePage(page_number: number): void {
     this.pageIndex = page_number - 1;
+  }
+
+  view_description(open: boolean, projectId: number): void {
+    this.description_open = open;
+    if(open){
+      for(let i = 0; i < this.project_items.length; i++){
+        if(this.project_items[i].id === projectId){
+          this.curr_project = {
+            id: this.project_items[i].id,
+            name: this.project_items[i].name,
+            code_uri: this.project_items[i].code_uri,
+            live_uri: this.project_items[i].live_uri,
+            image_uri: this.project_items[i].image_uri,
+            image_alt: this.project_items[i].image_alt,
+            date: this.project_items[i].date,
+            technologies: this.project_items[i].technologies,
+            description: this.project_items[i].description
+          };
+        }
+      }
+    }
   }
 
   orderBy(order: string): void {
@@ -133,7 +166,6 @@ export class WorkComponent {
           date: this.project_items[i].date,
           technologies: this.project_items[i].technologies,
           description: this.project_items[i].description
-
         });
         if(i === this.project_items.length - 1){
           this.array_all.push({page: array_page});
