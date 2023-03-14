@@ -75,6 +75,10 @@ export class AboutComponent {
           date: selected_items[i].date,
           description: selected_items[i].description
         });
+        if(i === selected_items.length - 1){
+          this.array_all.push({page: this.array_page});
+          this.array_page = [];
+        }
         start_at = i;
       }
       else{
@@ -199,6 +203,10 @@ export class AboutComponent {
             date: selected_items[i].date,
             description: selected_items[i].description
           });
+          if(i === selected_items.length - 1){
+            this.array_all.push({page: this.array_page});
+            this.array_page = [];
+          }
           start_at = i;
         }
         else{

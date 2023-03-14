@@ -33,9 +33,10 @@ Contact page:
 // done
 
 
-About page:
-- Bug: When there's only one item in the new page it is not shown
+
+
 // done
+About page:
 - Add description to items
 - Show date of item on hover
 - Only show the side arrows if there is more than 1 page
@@ -46,9 +47,7 @@ About page:
 - "get this from the database" my journey
 - showItemInfo() should be done better and fancy
 - Go to other items if mentioned in the description of the item. MAKE THIS WITH THE FUNCTION showItemInfo(item_id)
-
-
-
+- Bug: When there's only one item in the new page it is not shown
 
 // done
 Login page:
