@@ -39,6 +39,8 @@ body {
 	}
 	.social {
 		.social_items {
+			height: 500px;
+			overflow: hidden scroll;
 			.social_item {
 				display: inline-block;
 				a {
@@ -46,7 +48,7 @@ body {
 					height: 120px;
 					text-decoration: none;
 					display: block;
-					margin: 40px 80px 0 80px;
+					margin: 40px 20px 0 20px;
 					border: 1px solid;
 					border-radius: 10px;
 					color: #2f61ff;
@@ -58,6 +60,8 @@ body {
 						margin-top: 10px;
 						display: block;
 						color: #2f61ff;
+						overflow: hidden;
+						white-space: nowrap;
 					}
 					&:hover {
 						background-color: rgba(120, 150, 255, 0.3);

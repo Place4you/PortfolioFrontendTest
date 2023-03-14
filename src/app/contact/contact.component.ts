@@ -44,6 +44,62 @@ export class ContactComponent {
       link: 'https://api.whatsapp.com/send/?phone=5492236046462',
       image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/WhatsApp_icon.png/640px-WhatsApp_icon.png',
       image_alt: 'Whatsapp image'
+    },
+    {
+      id: 5,
+      name: 'Whatsapp',
+      link: 'https://api.whatsapp.com/send/?phone=5492236046462',
+      image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/WhatsApp_icon.png/640px-WhatsApp_icon.png',
+      image_alt: 'Whatsapp image'
+    },
+    {
+      id: 5,
+      name: 'Whatsapp',
+      link: 'https://api.whatsapp.com/send/?phone=5492236046462',
+      image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/WhatsApp_icon.png/640px-WhatsApp_icon.png',
+      image_alt: 'Whatsapp image'
+    },
+    {
+      id: 5,
+      name: 'Whatsapp',
+      link: 'https://api.whatsapp.com/send/?phone=5492236046462',
+      image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/WhatsApp_icon.png/640px-WhatsApp_icon.png',
+      image_alt: 'Whatsapp image'
+    },
+    {
+      id: 5,
+      name: 'Whatsapp',
+      link: 'https://api.whatsapp.com/send/?phone=5492236046462',
+      image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/WhatsApp_icon.png/640px-WhatsApp_icon.png',
+      image_alt: 'Whatsapp image'
+    },
+    {
+      id: 5,
+      name: 'Whatsapp',
+      link: 'https://api.whatsapp.com/send/?phone=5492236046462',
+      image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/WhatsApp_icon.png/640px-WhatsApp_icon.png',
+      image_alt: 'Whatsapp image'
+    },
+    {
+      id: 5,
+      name: 'Whatsapp',
+      link: 'https://api.whatsapp.com/send/?phone=5492236046462',
+      image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/WhatsApp_icon.png/640px-WhatsApp_icon.png',
+      image_alt: 'Whatsapp image'
+    },
+    {
+      id: 5,
+      name: 'Whatsapp',
+      link: 'https://api.whatsapp.com/send/?phone=5492236046462',
+      image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/WhatsApp_icon.png/640px-WhatsApp_icon.png',
+      image_alt: 'Whatsapp image'
+    },
+    {
+      id: 5,
+      name: 'Whatsapp',
+      link: 'https://api.whatsapp.com/send/?phone=5492236046462',
+      image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/WhatsApp_icon.png/640px-WhatsApp_icon.png',
+      image_alt: 'Whatsapp image'
     }
   ]
 }
