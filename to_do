@@ -26,8 +26,8 @@ Home page:
 
 
 Contact page:
-- Send email with the form
-- Allow 1 email/hour per ip
+- Send message to the admin page with the form
+- Allow 3 messages/hour per ip
 // done
 - Add right bar to the socials, same as in about journey, so there's no social's limit
 - Get the contact data from the backend
@@ -118,6 +118,7 @@ https://stackoverflow.com/questions/74651363/variable-in-curly-brackets-in-angul
 {
     "name": "Github",
     "link": "https://github.com/LautaroColella",
+    "account": "user: Lautaro Colella",
     "image_uri": "https://cdn-icons-png.flaticon.com/512/25/25231.png",
     "image_alt": "Github icon"
 }

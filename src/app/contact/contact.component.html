@@ -15,7 +15,12 @@
           <h2>Or see my profiles</h2>
           <div class="social_items">
             <div class="social_item" *ngFor="let item of social_items">
-              <a href="{{item.link}}" target="_blank">
+              <a *ngIf="!item.link" class="item_no_link">
+                <strong>{{item.name}}</strong>
+                <img src="{{item.image_uri}}" alt="{{item.image_alt}}">
+                <p class="bot">{{item.account}}</p>
+              </a>
+              <a *ngIf="item.link" href="{{item.link}}" target="_blank">
                 <strong>{{item.name}}</strong>
                 <img src="{{item.image_uri}}" alt="{{item.image_alt}}">
               </a>
@@ -27,11 +32,3 @@
   </div>
   <app-navbar></app-navbar>
 </body>
-
-
-<!-- 
-the message must be send to my email, but there's no server yet
-
-<a onClick="javascript:window.open('mailto:lautarocolella1@gmail.com', 'mail');event.preventDefault()" href="mailto:lautarocolella1@gmail.com"></a> 
-mailto can't be open on _blank: https://stackoverflow.com/a/24854461/18895342
--->

@@ -10,7 +10,7 @@ export class ContactComponent {
 
   constructor(private contactService: ContactService) { }
   
-  social_items: Array<{id: number, name: string, link: string, image_uri: string, image_alt: string }> = []
+  social_items: Array<{id: number, name: string, link: string, account: string, image_uri: string, image_alt: string }> = []
 
 
 
