@@ -26,11 +26,11 @@ Home page:
 
 
 Contact page:
-- Get the contact data from the backend
 - Send email with the form
 - Allow 1 email/hour per ip
 // done
 - Add right bar to the socials, same as in about journey, so there's no social's limit
+- Get the contact data from the backend
 
 
 
@@ -112,4 +112,12 @@ https://stackoverflow.com/questions/74651363/variable-in-curly-brackets-in-angul
     "live_uri": "https://liveproject.com",
     "image_uri": "https://i.imgur.com/JV66wJT.jpeg",
     "image_alt": "Some project example"
+}
+
+// contact item data example
+{
+    "name": "Github",
+    "link": "https://github.com/LautaroColella",
+    "image_uri": "https://cdn-icons-png.flaticon.com/512/25/25231.png",
+    "image_alt": "Github icon"
 }

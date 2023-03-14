@@ -25,7 +25,6 @@ body {
 			padding: 15px;
 		}
 		.subject {
-			height: 50px;
 			text-align: center;
 		}
 		.message {
@@ -41,6 +40,7 @@ body {
 		.social_items {
 			height: 500px;
 			overflow: hidden scroll;
+			margin-top: 50px;
 			.social_item {
 				display: inline-block;
 				a {
@@ -48,7 +48,7 @@ body {
 					height: 120px;
 					text-decoration: none;
 					display: block;
-					margin: 40px 20px 0 20px;
+					margin: 10px 20px 40px 20px;
 					border: 1px solid;
 					border-radius: 10px;
 					color: #2f61ff;
