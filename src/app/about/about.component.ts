@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AboutService } from '../rest/about.service';
+import { InformationService } from '../rest/information.service';
 import { Item } from './interfaces/item.interface';
 
 @Component({
@@ -9,8 +10,8 @@ import { Item } from './interfaces/item.interface';
 })
 export class AboutComponent {
 
-  constructor(private aboutService: AboutService){ }
-  
+  constructor(private aboutService: AboutService, private informationService: InformationService){ }
+
 
   array_all:    Array<{ page: any }> = [];
   array_page:   Array<{ id: number, name: string, link: string, image_uri: string, image_alt: string, date: Date, description: string }> = [];
@@ -158,7 +159,7 @@ export class AboutComponent {
 
   // https://stackoverflow.com/a/35763811/18895342
   ngOnInit(){
-    this.aboutService.getJourney()
+    this.informationService.getInformationTable()
     .subscribe((response: any) => {
       let journey_message: string = "No description";
       for(let i: number = 0; i < response.body.length; i++){

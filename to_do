@@ -27,8 +27,9 @@ Login page:
 
 
 Home page:
-- Do a get request to the information table to receive all the titles
 - Make the titles work
+// done
+- Receive all the data from the backend
 
 
 Contact page:
@@ -76,6 +77,8 @@ Work page:
 
 
 // questions asked for the project, last-to-first
+https://stackoverflow.com/questions/75748843/angular-html-doesnt-update-and-cant-find-scope-binding
+
 https://stackoverflow.com/questions/75682736/set-radio-inputs-in-the-same-line-and-labels-below-in-css
 
 https://stackoverflow.com/questions/75649755/radio-buttons-change-size-instead-of-cutting-off-and-showing-overflow-x-scroll-b
