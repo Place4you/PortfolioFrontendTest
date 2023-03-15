@@ -160,10 +160,17 @@ export class AboutComponent {
   ngOnInit(){
     this.aboutService.getJourney()
     .subscribe((response: any) => {
+      let journey_message: string = "No description";
+      for(let i: number = 0; i < response.body.length; i++){
+        if(response.body[i].name === "journey" && response.body[i].information){
+          journey_message = response.body[i].information;
+          i = response.body.length;
+        }
+      }
       this.journey = {
         id: 0,
         title: "My journey",
-        description: response.body[0].about_me
+        description: journey_message
       }
     });
 

@@ -14,10 +14,16 @@ Fancy loading page
 
 Transitions/effects to almost everything
 
+Separate the calls to the service from the component
+
+
 
 
 Admin page:
 - Everything
+
+Login page:
+- Something to fill the space
 
 
 Home page:
