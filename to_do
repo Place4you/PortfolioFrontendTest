@@ -26,10 +26,7 @@ Login page:
 - Something to fill the space
 
 
-Home page:
-- Make the titles work
-// done
-- Receive all the data from the backend
+
 
 
 Contact page:
@@ -40,6 +37,13 @@ Contact page:
 - Get the contact data from the backend
 
 
+
+
+
+// done
+Home page:
+- Receive all the data from the backend
+- Make the titles work
 
 
 // done
@@ -56,9 +60,11 @@ About page:
 - Go to other items if mentioned in the description of the item. MAKE THIS WITH THE FUNCTION showItemInfo(item_id)
 - Bug: When there's only one item in the new page it is not shown
 
+
 // done
 Login page:
 - Only the correct username and password should be redirected to the admin page and get the JWT set
+
 
 // done
 Work page:

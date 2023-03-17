@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { InformationService } from '../rest/information.service';
 
 @Component({
@@ -8,50 +8,60 @@ import { InformationService } from '../rest/information.service';
 })
 export class IndexComponent {
 
-  constructor(private informationService: InformationService) { }
+  constructor(private zone: NgZone, private informationService: InformationService) { }
 
-  titles_array:   string[] = ["Doctor", "Medic", "Asd", "Player"];
-  current_title:  string = "Nothing";
-  curr_title_i:   number = 0;
+  titles_array:  string[] = [];
+  current_title: string = "";
+  curr_title_i:  number = 0;
+  second_after:  boolean = true;
+  el:            any = undefined;
+  resize_ob:     any = undefined;
 
+  update_title(): void{
+    if(this.el !== null){
+      this.resize_ob = new ResizeObserver((entries) => {
+        this.zone.run(() => {
+          if(entries !== null){
+            if(this.el.parentElement !== null){
+              const parentElemWidth = +getComputedStyle(this.el.parentElement).width.slice(0, -2);
+              const elemWidth = +getComputedStyle(this.el).width.slice(0, -2);
 
-  update_title(el: any){
-    const resize_ob = new ResizeObserver((entries) => {
-      if(entries !== null){
-        if(entries[0].contentRect.width === 0){
-          for(this.curr_title_i; this.curr_title_i < this.titles_array.length;){
-            this.current_title = this.titles_array[this.curr_title_i];
-            console.log(this.curr_title_i); // correct output
-            console.log(this.current_title); // correct output
-            this.curr_title_i++;
-            if(this.curr_title_i >= this.titles_array.length){
-              this.curr_title_i = 0;
+              if(Math.round((elemWidth / parentElemWidth) * 100) >= 93){
+                if(this.second_after){
+                  this.current_title = this.titles_array[this.curr_title_i];
+                  this.curr_title_i++;
+                  if(this.curr_title_i >= this.titles_array.length){
+                    this.curr_title_i = 0;
+                  }
+                  this.second_after = false;
+                  setTimeout(() => this.second_after = true, 1000);
+                }
+              }
             }
-            $scope.$apply(); // Cannot find name '$scope'
-            this.current_title.$apply(); // Property '$apply' does not exist on type 'string'
-            break;
           }
-        }
-      }
-    });
+        })
+      });
 
-    resize_ob.observe(el);
+      this.resize_ob.observe(this.el);
+    }
   }
+
 
   ngOnInit(){
     this.informationService.getInformationTable()
     .subscribe((response: any) => {
       for(let i: number = 0; i < response.body.length; i++){
         if(response.body[i].name === "index_titles" && response.body[i].information){
-          this.titles_array.push(response.body[i].information);
+          this.titles_array = response.body[i].information.split(',');
           i = response.body.length;
         }
       }
     });
-    
-    const elemTitleBox = document.querySelector("#home_title_box");
-    if(elemTitleBox !== null){
-      this.update_title(elemTitleBox);
-    }
+    this.el = document.querySelector("#home_title_box");
+    this.update_title();
+  }
+
+  ngOnDestroy() {
+    this.resize_ob.unobserve(this.el);
   }
 }

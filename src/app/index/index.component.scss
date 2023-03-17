@@ -27,13 +27,13 @@ body {
 		border: 1px solid;
 		border-radius: 10px;
 		height: 50px;
-		width: 100px;
+		width: 100%;
 		margin: 300px 50px 0 50px;
 		padding: 5px;
 		position: relative;
 		.home_title_box {
 			background-color: #fff;
-			width: 0;
+			width: 1px;
 			height: 40px;
 			border-right: 3px solid;
 			position: absolute;
@@ -42,7 +42,7 @@ body {
 			animation-iteration-count: infinite;
 		}
 		.home_item {
-			width: 95%;
+			width: 97%;
 			letter-spacing: 2px;
 			top: 0;
 			z-index: 9;
