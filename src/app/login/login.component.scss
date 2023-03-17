@@ -18,6 +18,8 @@ body {
 	padding: 40px;
 	margin: 0;
 	.form {
+		max-width: 800px;
+		margin: 150px auto 0 auto;
 		input {
 			width: 100%;
 			display: inline-block;

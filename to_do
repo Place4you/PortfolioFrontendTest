@@ -16,14 +16,12 @@ Transitions/effects to almost everything
 
 Separate the calls to the service from the component
 
-
+Add a layer so it only makes one api call instead of every time the route changes
 
 
 Admin page:
 - Everything
 
-Login page:
-- Something to fill the space
 
 
 
@@ -39,6 +37,9 @@ Contact page:
 
 
 
+//done
+Login page:
+- Something to fill the space
 
 // done
 Home page:
