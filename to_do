@@ -14,13 +14,21 @@ Fancy loading page
 
 Transitions/effects to almost everything
 
-Separate the calls to the service from the component
-
 Add a layer so it only makes one api call instead of every time the route changes
+
+Make all the html, scss and ts code the best I can
+
+
+
 
 
 Admin page:
-- Everything
+- Views
+- Onclick on element display the view in cascade, move the element's head to the top
+- Floating button to go to top and one for each view, onclick on top close all views
+- Logout button
+// done
+- Main structure
 
 
 
@@ -40,6 +48,7 @@ Contact page:
 //done
 Login page:
 - Something to fill the space
+
 
 // done
 Home page:

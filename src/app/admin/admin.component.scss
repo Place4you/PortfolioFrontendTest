@@ -1,0 +1,58 @@
+body {
+	background-image: url('../assets/images/bg_index.png');
+	background-position: center center;
+	background-repeat: no-repeat;
+  	background-attachment: fixed;
+  	background-size: cover;
+  	background-color: #fff;
+  	height: 100vh;
+}
+.content {
+	width: 100%;
+	height: 700px;
+	padding-top: 70px;
+	position: relative;
+}
+.admin {
+	text-align: center;
+	padding: 40px;
+	padding-bottom: 100px;
+	max-height: 100%;
+	overflow: hidden scroll;
+	h1 {
+		margin-bottom: 50px;
+	}
+	section {
+		width: 100%;
+		background-color: rgba(222, 222, 222, 0.4);
+	}
+	.admin_home, .admin_work, .admin_about {
+		margin-bottom: 100px;
+	}
+	.app_home, .app_work, .app_about, .app_contact {
+		padding-top: 50px;
+		display: none;
+	}
+	.slide_button {
+		background-color: rgba(200, 200, 200, 1.0);
+		height: 30px;
+		&:hover {
+			cursor: pointer;
+		}
+		.slide_button_second{
+			background-color: rgba(170, 170, 170, 1.0);
+			height: 80px;
+			margin: auto;
+			width: 150px;
+			border-bottom-left-radius: 70%;
+			border-bottom-right-radius: 70%;
+			#arrow_up {
+				display: none;
+			}
+			#arrow_down {
+				position: relative;
+				top: -5px;
+			}
+		}
+	}
+}
