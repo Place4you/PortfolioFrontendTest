@@ -8,7 +8,9 @@ export class InformationService {
 
   constructor(private http: HttpClient) { }
 
+  uri: string = 'http://localhost:8080/';
+
   getInformationTable(){
-    return this.http.get("http://localhost:8080/api/v1/information", {observe: 'response', responseType: 'json'});
+    return this.http.get(this.uri + 'api/v1/information', {observe: 'response', responseType: 'json'});
   }
 }

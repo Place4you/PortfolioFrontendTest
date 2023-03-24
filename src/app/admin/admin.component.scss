@@ -36,9 +36,6 @@ body {
 	.slide_button {
 		background-color: rgba(200, 200, 200, 1.0);
 		height: 30px;
-		&:hover {
-			cursor: pointer;
-		}
 		.slide_button_second{
 			background-color: rgba(170, 170, 170, 1.0);
 			height: 80px;
@@ -46,13 +43,38 @@ body {
 			width: 150px;
 			border-bottom-left-radius: 70%;
 			border-bottom-right-radius: 70%;
+			&:hover {
+				cursor: pointer;
+			}
 			#arrow_up {
+				position: relative;
 				display: none;
 			}
 			#arrow_down {
 				position: relative;
 				top: -5px;
 			}
+		}
+	}
+
+	.floating_buttons {
+		position: absolute;
+		right: 30px;
+		bottom: 40px;
+		background-color: rgba(160, 160, 242, 0.6);
+		border-radius: 10px;
+		.f_button {
+			color: #000;
+			display: block;
+			padding: 10px;
+			border-bottom: 1px solid;
+			cursor: pointer;
+			&:hover {
+				background-color: rgba(160, 160, 242, 1.0);
+			}
+		}
+		.f_button_last {
+			border-bottom: none;
 		}
 	}
 }

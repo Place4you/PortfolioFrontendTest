@@ -18,7 +18,7 @@ Add a layer so it only makes one api call instead of every time the route change
 
 Make all the html, scss and ts code the best I can
 
-
+Add the typescript type to all the values and functions, remove all "any" and add "void" to functions
 
 
 
@@ -26,9 +26,11 @@ Admin page:
 - Views
 - Onclick on element display the view in cascade, move the element's head to the top
 - Floating button to go to top and one for each view, onclick on top close all views
-- Logout button
+- Create a backend uri to send a post request with the cookie as the auth header to check if the client cookie is a valid JWT when entering the admin panel, if not, logout the client
+- Use the cookie of the client as auth header to send the admin requests to the backend
 // done
 - Main structure
+- Logout button
 
 
 
@@ -76,8 +78,9 @@ Login page:
 - Only the correct username and password should be redirected to the admin page and get the JWT set
 
 
-// done
 Work page:
+- Add "currently working" button, show commit history of the projects, etc
+// done
 - Get the work data from the backend
 - Only show the side arrows if there are more projects than the screen capacity
 - Add page selector at the side of the order by, it must have overflow x visible and numbers below, don't show more than 5

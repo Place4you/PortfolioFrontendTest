@@ -2,6 +2,7 @@
 	<div class="container content">
 		<div class="container admin">
 			<h1>Edit portfolio information</h1>
+
 			<section class="admin_home" id="admin_home">
 				<div class="slide_button">
 					<div class="slide_button_second">
@@ -53,6 +54,16 @@
 					<app-admin-contact></app-admin-contact>
 				</div>
 			</section>
+
+			<div class="floating_buttons">
+				<i class="fa-solid fa-caret-up fa-2x f_button" (click)='b_goto("top")'></i>
+				<i class="fa-solid fa-house-chimney f_button" (click)='b_goto("home")'></i>
+				<i class="fa-solid fa-code f_button" (click)='b_goto("work")'></i>
+				<i class="fa-solid fa-user f_button" (click)='b_goto("about")'></i>
+				<i class="fa-solid fa-comments f_button" (click)='b_goto("contact")'></i>
+				<i class="fa-solid fa-right-from-bracket f_button f_button_last" (click)="b_logout()"></i>
+			</div>
+
 		</div>
 	</div>
 	<app-navbar></app-navbar>
