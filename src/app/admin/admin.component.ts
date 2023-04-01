@@ -13,8 +13,71 @@ export class AdminComponent implements OnInit {
 
     constructor(private loginService: LoginService, private cookieService: CookieService, private router: Router){ }
     
-    b_goto(position: string): void {
+    view_click(view: string){
+        const elemView: any = document.getElementById(`app_${view}`);
+        let arrow: any = {}
+        if(elemView !== null){
+            const elemViewP: any = elemView.parentElement;
+            if(elemViewP !== null){
+                const elemViewPC: any = elemViewP.firstChild;
+                if(elemViewPC !== null){
+                    const elemViewPCC: any = elemViewPC.firstChild;
+                    if(elemViewPCC !== null){
+                        arrow = elemViewPCC.childNodes;
+                    }
+                }
+            }
+            if(window.getComputedStyle(elemView, null).display === "none"){
+                elemView.style.display = "block";
+                arrow[1].style.display = "none";
+                arrow[2].style.display = "block";
+            }
+            else{
+                elemView.style.display = "none";
+                arrow[1].style.display = "block";
+                arrow[2].style.display = "none";
+            }
+        }
+    }
 
+    b_goto(gtPosition: string): void {
+        const admElem: any       = document.getElementById("admin");
+        const home_elem: any     = document.getElementById("app_home");
+        const work_elem: any     = document.getElementById("app_work");
+        const about_elem: any    = document.getElementById("app_about");
+        const contact_elem: any  = document.getElementById("app_contact");
+        if(admElem !== null){
+            if(home_elem !== null && work_elem !== null && about_elem !== null && contact_elem !== null){
+                if(gtPosition === "top" || gtPosition === "app_home"){
+                    admElem.scrollTop = 0;
+                    if(gtPosition === "top"){
+                        home_elem.style.display = "none";
+                        work_elem.style.display = "none";
+                        about_elem.style.display = "none";
+                        contact_elem.style.display = "none";
+                    }
+                }
+                else{
+                    const elemNav: any = document.getElementById(gtPosition);
+                    if(elemNav !== null){
+                        if(elemNav.offsetTop > 120){
+                            admElem.scrollTop = elemNav.offsetTop - 120;
+                        }
+                        else{
+                            if(gtPosition === "app_work"){
+                                admElem.scrollTop = home_elem.clientHeight;
+                            }
+                            else if(gtPosition === "app_about"){
+                                admElem.scrollTop = home_elem.clientHeight + work_elem.clientHeight;
+                            }
+                            else if(gtPosition === "app_contact"){
+                                admElem.scrollTop = home_elem.clientHeight + work_elem.clientHeight + about_elem.clientHeight;
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
     
     b_logout(): void {
@@ -32,10 +95,6 @@ export class AdminComponent implements OnInit {
             .subscribe((response: any) => {
                 if(response === "0"){
                     this.b_logout();
-                }
-                else{
-                    console.log("Welcome");
-                    // load all the content
                 }
             });
         }

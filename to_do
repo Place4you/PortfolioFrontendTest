@@ -27,14 +27,13 @@ Add the typescript type to all the values and functions, remove all "any" and ad
 
 Admin page:
 - Views
-- Onclick on element display the view in cascade, move the element's head to the top
-- Floating button to go to top and one for each view, onclick on top close all views
-- Create a backend uri to send a post request with the cookie as the auth header to check if the client cookie is a valid JWT when entering the admin panel, if not, logout the client
 - Use the cookie of the client as auth header to send the admin requests to the backend
 // done
 - Main structure
 - Logout button
 - Create a backend uri to send a request that only authorized users can do, and use the cookie as the authorization header. If error logout
+- Onclick on element display the view in cascade
+- Floating button to go to top and one for each view, onclick on top close all views
 
 
 

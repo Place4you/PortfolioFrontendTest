@@ -1,66 +1,66 @@
 <body>
 	<div class="container content">
-		<div class="container admin">
+		<div class="container admin" id="admin">
 			<h1>Edit portfolio information</h1>
 
 			<section class="admin_home" id="admin_home">
 				<div class="slide_button">
-					<div class="slide_button_second">
+					<div class="slide_button_second" (click)='view_click("home")'>
 						<h2>Home</h2>
 						<i class="fa-solid fa-caret-down fa-2x" id="arrow_down"></i>
 						<i class="fa-solid fa-caret-up fa-2x" id="arrow_up"></i>
 					</div>
 				</div>
-				<div class="app_home">
+				<div id="app_home">
 					<app-admin-home></app-admin-home>
 				</div>
 			</section>
 
 			<section class="admin_work" id="admin_work">
 				<div class="slide_button">
-					<div class="slide_button_second">
+					<div class="slide_button_second" (click)='view_click("work")'>
 						<h2>Work</h2>
 						<i class="fa-solid fa-caret-down fa-2x" id="arrow_down"></i>
 						<i class="fa-solid fa-caret-up fa-2x" id="arrow_up"></i>
 					</div>
 				</div>
-				<div class="app_work">
+				<div id="app_work">
 					<app-admin-work></app-admin-work>
 				</div>
 			</section>
 
 			<section class="admin_about" id="admin_about">
 				<div class="slide_button">
-					<div class="slide_button_second">
+					<div class="slide_button_second" (click)='view_click("about")'>
 						<h2>About</h2>
 						<i class="fa-solid fa-caret-down fa-2x" id="arrow_down"></i>
 						<i class="fa-solid fa-caret-up fa-2x" id="arrow_up"></i>
 					</div>
 				</div>
-				<div class="app_about">
+				<div id="app_about">
 					<app-admin-about></app-admin-about>
 				</div>
 			</section>
 
 			<section class="admin_contact" id="admin_contact">
 				<div class="slide_button">
-					<div class="slide_button_second">
+					<div class="slide_button_second" (click)='view_click("contact")'>
 						<h2>Contact</h2>
 						<i class="fa-solid fa-caret-down fa-2x" id="arrow_down"></i>
 						<i class="fa-solid fa-caret-up fa-2x" id="arrow_up"></i>
 					</div>
 				</div>
-				<div class="app_contact">
+				<div id="app_contact">
 					<app-admin-contact></app-admin-contact>
 				</div>
 			</section>
 
 			<div class="floating_buttons">
 				<i class="fa-solid fa-caret-up fa-2x f_button" (click)='b_goto("top")'></i>
-				<i class="fa-solid fa-house-chimney f_button" (click)='b_goto("home")'></i>
-				<i class="fa-solid fa-code f_button" (click)='b_goto("work")'></i>
-				<i class="fa-solid fa-user f_button" (click)='b_goto("about")'></i>
-				<i class="fa-solid fa-comments f_button" (click)='b_goto("contact")'></i>
+				<i class="fa-solid fa-house-chimney f_button" (click)='b_goto("app_home")'></i>
+				<i class="fa-solid fa-code f_button" (click)='b_goto("app_work")'></i>
+				<i class="fa-solid fa-user f_button" (click)='b_goto("app_about")'></i>
+				<i class="fa-solid fa-comments f_button" (click)='b_goto("app_contact")'></i>
 				<i class="fa-solid fa-right-from-bracket f_button f_button_last" (click)="b_logout()"></i>
 			</div>
 
