@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClientModule, HttpClient } from '@angular/common/http'
+import { HttpClientModule, HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http'
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,15 @@ export class LoginService {
 
   login(email: string, password: string){
     return this.http.post(this.uri + 'login', { email: email, password: password }, {observe: 'response', responseType: 'text'});
-    // handle error with https://angular.io/guide/http#making-a-post-request
+  }
+
+  check_token(token: string){
+    return this.http.delete(this.uri + 'api/v1/about_item/check_token', {headers: {'Authorization':token}, observe: 'response', responseType: 'text'})
+    .pipe(
+      catchError((err: HttpErrorResponse) => {
+        return "0";
+      })
+    );
   }
 }
 

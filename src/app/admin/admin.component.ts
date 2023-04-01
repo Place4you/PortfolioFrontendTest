@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router'
 import { CookieService } from 'ngx-cookie-service';
+import { LoginService } from '../rest/login.service';
 
 @Component({
   selector: 'app-admin',
@@ -10,7 +11,7 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class AdminComponent implements OnInit {
 
-    constructor(private cookieService: CookieService, private router: Router){ }
+    constructor(private loginService: LoginService, private cookieService: CookieService, private router: Router){ }
     
     b_goto(position: string): void {
 
@@ -27,6 +28,16 @@ export class AdminComponent implements OnInit {
         }
         else{
             const cookieValue: string = this.cookieService.get('JWT');
+            this.loginService.check_token(cookieValue)
+            .subscribe((response: any) => {
+                if(response === "0"){
+                    this.b_logout();
+                }
+                else{
+                    console.log("Welcome");
+                    // load all the content
+                }
+            });
         }
     }
 }

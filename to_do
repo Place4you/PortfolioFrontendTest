@@ -1,6 +1,9 @@
 Redirecto to error pages 401, 404, 500
 
 Error handling in everything
+//HttpErrorResponse
+
+Sanitize all input, even admin and server input, both in the frontend and in the backend
 
 Unit testing in everything
 
@@ -31,6 +34,7 @@ Admin page:
 // done
 - Main structure
 - Logout button
+- Create a backend uri to send a request that only authorized users can do, and use the cookie as the authorization header. If error logout
 
 
 
