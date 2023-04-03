@@ -55,6 +55,15 @@ export class AdminComponent implements OnInit {
                         work_elem.style.display = "none";
                         about_elem.style.display = "none";
                         contact_elem.style.display = "none";
+
+                        const arrowsUp: any     = document.getElementsByClassName("arrow_up");
+                        const arrowsDown: any   = document.getElementsByClassName("arrow_down");
+                        for(let i = 0; i < arrowsUp.length; i++){
+                            arrowsUp[i].style.display = "none";
+                        }
+                        for(let i = 0; i < arrowsDown.length; i++){
+                            arrowsDown[i].style.display = "block";
+                        }
                     }
                 }
                 else{

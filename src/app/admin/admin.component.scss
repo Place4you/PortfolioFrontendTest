@@ -46,11 +46,11 @@ body {
 			&:hover {
 				cursor: pointer;
 			}
-			#arrow_up {
+			.arrow_up {
 				position: relative;
 				display: none;
 			}
-			#arrow_down {
+			.arrow_down {
 				position: relative;
 				top: -5px;
 			}
