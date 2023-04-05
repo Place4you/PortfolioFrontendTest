@@ -5,7 +5,6 @@ import { catchError } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-
 export class LoginService {
 
   uri: string = 'http://localhost:8080/';

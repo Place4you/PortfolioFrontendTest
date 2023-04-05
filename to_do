@@ -15,24 +15,28 @@ Add real data
 
 Fancy loading page
 
-Transitions/effects to almost everything
+Transitions/effects to almost everything, same for fonts and colors
 
 Add a layer so it only makes one api call instead of every time the route changes
 
 Make all the html, scss and ts code the best I can
 
-Add the typescript type to all the values and functions, remove all "any" and add "void" to functions
+Add the typescript type to all the values and functions, remove all "any" and add "void" to functions (use interfaces, dtos, etc)
 
-Replace all repeated ids with classes:
-"You cannot have more than one element with the same id in an HTML document."
+
+
+
+
 
 
 
 
 
 Admin page:
-- Views
-- Use the cookie of the client as auth header to send the admin requests to the backend
+- Work view
+- About view
+- Contact view
+- Add panel to see messages sent by users from the contact form inside the contact view
 // done
 - Main structure
 - Logout button
@@ -40,6 +44,8 @@ Admin page:
 - Onclick on element display the view in cascade
 - Floating button to go to top and one for each view, onclick on top close all views
 - When closing all the tabs for pressing in the arrow to go to the top the tab's arrows don't change
+- Home view
+- Use the cookie of the client as auth header to send the admin requests to the backend
 
 
 
@@ -47,8 +53,8 @@ Admin page:
 
 
 Contact page:
-- Send message to the admin page with the form
 - Allow 3 messages/hour per ip
+- Save the message in the database, load it in the admin page
 // done
 - Add right bar to the socials, same as in about journey, so there's no social's limit
 - Get the contact data from the backend
@@ -159,3 +165,14 @@ https://stackoverflow.com/questions/74651363/variable-in-curly-brackets-in-angul
     "image_uri": "https://cdn-icons-png.flaticon.com/512/25/25231.png",
     "image_alt": "Github icon"
 }
+// contact message data example
+{
+    "subject": "Important bug",
+    "message": "Found a bug in the work page",
+    "reply": "hunter123@protonmail.com",
+    "date": "2022-06-30",
+    "ip": "012.345.67.89",
+    "read": false
+}
+
+
