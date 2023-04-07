@@ -7,9 +7,9 @@ import { catchError } from 'rxjs/operators';
 })
 export class LoginService {
 
-  uri: string = 'http://localhost:8080/';
-
   constructor(private http: HttpClient) { }
+
+  uri: string = 'http://localhost:8080/';
 
   login(email: string, password: string){
     return this.http.post(this.uri + 'login', { email: email, password: password }, {observe: 'response', responseType: 'text'});

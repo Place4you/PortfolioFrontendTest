@@ -4,6 +4,7 @@ Error handling in everything
 //HttpErrorResponse
 
 Sanitize all input, even admin and server input, both in the frontend and in the backend
+The only error in the api call should be the token, make sure all user data can't escape the backend to the database without passing proper checks
 
 Unit testing in everything
 
@@ -23,8 +24,7 @@ Make all the html, scss and ts code the best I can
 
 Add the typescript type to all the values and functions, remove all "any" and add "void" to functions (use interfaces, dtos, etc)
 
-
-
+Add support to non javascript users
 
 
 
