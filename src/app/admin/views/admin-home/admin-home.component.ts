@@ -8,7 +8,7 @@ import { InformationService } from '../../../rest/information.service';
   templateUrl: './admin-home.component.html',
   styleUrls: ['./admin-home.component.scss']
 })
-export class AdminHomeComponent {
+export class AdminHomeComponent implements OnInit{
 
   constructor(private router: Router, private cookieService: CookieService, private informationService: InformationService) { }
 
