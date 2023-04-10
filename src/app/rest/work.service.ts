@@ -55,4 +55,19 @@ export class WorkService {
       })
     );
   }
+
+  deleteItem(token: string, id: number){
+    return this.http.delete(
+      this.uri + `/delete/${id}`,
+      {
+        headers: {'Authorization':token},
+        observe: 'response',
+        responseType: 'json'
+      })
+    .pipe(
+      catchError((err: HttpErrorResponse) => {
+        return "0";
+      })
+    );
+  }
 }

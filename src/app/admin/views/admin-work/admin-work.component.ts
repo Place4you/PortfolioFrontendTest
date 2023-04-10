@@ -13,7 +13,9 @@ export class AdminWorkComponent implements OnInit,AfterViewInit {
 
   constructor(private router: Router, private cookieService: CookieService, private workService: WorkService) { }
 
-  error_message: string = "";
+  error_message_add: string = "";
+  error_message_edit: string = "";
+  error_message_delete: string = "";
   current_value: string = "add";
   show_add: boolean = true;
   show_edit: boolean = false;
@@ -56,16 +58,16 @@ export class AdminWorkComponent implements OnInit,AfterViewInit {
   ): void {
 
     if(!name){
-      this.error_message = "Field <name> can't be null";
+      this.error_message_add = "Field <name> can't be null";
     }
     else if(!date){
-      this.error_message = "Field <date> can't be null";
+      this.error_message_add = "Field <date> can't be null";
     }
     else if(!technologies){
-      this.error_message = "Field <technologies> can't be null";
+      this.error_message_add = "Field <technologies> can't be null";
     }
     else if(!description){
-      this.error_message = "Field <description> can't be null";
+      this.error_message_add = "Field <description> can't be null";
     }
 
     else {
@@ -81,7 +83,42 @@ export class AdminWorkComponent implements OnInit,AfterViewInit {
           }
           else {
             this.router.navigate(['home']);
-            this.error_message = "";
+            this.error_message_add = "";
+          }
+        });
+      }
+    }
+  }
+
+  edit_item(): void {
+    
+  }
+
+  delete_item(inputId: string): void {
+    const projectId = Number(inputId) || 0;
+    if(projectId === 0){
+      this.error_message_delete = "Invalid project id";
+    }
+    else if(projectId < 1){
+      this.error_message_delete = "The project id must be greater than 0";
+    }
+    else if(projectId > 65535){
+      this.error_message_delete = "The project id must be lesser than 65536";
+    }
+    else {
+      if(!this.cookieService.get('JWT')){
+        this.router.navigate(['login']);
+      }
+      else{
+        const cookieValue: string = this.cookieService.get('JWT');
+        this.workService.deleteItem(cookieValue, projectId)
+        .subscribe((response: any) => {
+          if(response === "0"){
+            this.router.navigate(['login']);
+          }
+          else {
+            this.router.navigate(['home']);
+            this.error_message_delete = "";
           }
         });
       }

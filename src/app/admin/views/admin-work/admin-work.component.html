@@ -17,36 +17,56 @@
 				<h3>Create new work item</h3>
 				<label for="name"><h5>Input name</h5></label>
 				<input type="text" id="name" placeholder="Name" minlength="3" maxlength="253" required #name>
+				
 				<label for="date_add"><h5>Input date</h5></label>
 				<input type="date" id="date_add" min="1945-08-06" required #date>
+				
 				<label for="technologies"><h5>Input technologies</h5></label>
 				<input type="text" id="technologies" placeholder="Technologies (ex: C++, Python, Javascript, NodeJS)" minlength="3" maxlength="253" required #technologies>
+				
 				<label for="description"><h5>Input description</h5></label>
 				<textarea id="description" placeholder="Description" minlength="3" maxlength="2998" required #description></textarea>
+				
 				<label for="code_uri"><h5>Input code uri</h5></label>
 				<input type="text" id="code_uri" placeholder="Code link (ex: https://github.com/LautaroColella/my_project)" minlength="3" maxlength="253" #code_uri>
+				
 				<label for="live_uri"><h5>Input live uri</h5></label>
 				<input type="text" id="live_uri" placeholder="Live page link (ex: https://example.com/)" minlength="3" maxlength="253" #live_uri>
+				
 				<label for="image_uri"><h5>Input image uri</h5></label>
 				<input type="text" id="image_uri" placeholder="Image link (ex: https://i.imgur.com/JV66wJT.jpeg)" minlength="3" maxlength="253" #image_uri>
+				
 				<label for="image_alt"><h5>Input image description</h5></label>
 				<input type="text" id="image_alt" placeholder="Image alt" minlength="3" maxlength="253" #image_alt>
+				
 
             	<input type="submit" value="Create" (click)="create_item(name.value, date.value, technologies.value, description.value, code_uri.value, live_uri.value, image_uri.value, image_alt.value)">
 			</form>
-			<p class="error" *ngIf="error_message">{{error_message}}</p>
+			<p class="error" *ngIf="error_message_add">{{error_message_add}}</p>
 		</div>
 
 		<div *ngIf="show_edit">
 			<form onsubmit="return false;">
-				<h1>Edit</h1>
+				<h3>Edit work item</h3>
+				<label for="editId"><h5>Input project id</h5></label>
+
+				<input type="number" id="editId" placeholder="Id (ex: 123)" min="1" max="65535" required #editId>
+				
 			</form>
+			<p class="error" *ngIf="error_message_edit">{{error_message_edit}}</p>
 		</div>
 
 		<div *ngIf="show_delete">
 			<form onsubmit="return false;">
-				<h1>Delete</h1>
+				<h3>Delete work item</h3>
+				<label for="deleteId"><h5>Input project id</h5></label>
+
+				<input type="number" id="deleteId" placeholder="Id (ex: 123)" min="1" max="65535" required #deleteId>
+
+            	<input type="submit" value="Delete" (click)="delete_item(deleteId.value)">
+
 			</form>
+			<p class="error" *ngIf="error_message_delete">{{error_message_delete}}</p>
 		</div>
 	</div>
 </div>
