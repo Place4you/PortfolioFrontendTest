@@ -11,6 +11,20 @@ export class WorkService {
 
   uri: string = "http://localhost:8080/api/v1/work_item"
 
+  getItem(id: number){
+    return this.http.get(
+      this.uri + `/${id}`,
+      {
+        observe: 'response',
+        responseType: 'json'
+      })
+    .pipe(
+      catchError((err: HttpErrorResponse) => {
+        return "0";
+      })
+    );
+  }
+
   getItems(){
     return this.http.get(
       this.uri,
@@ -55,6 +69,45 @@ export class WorkService {
       })
     );
   }
+
+  updateItem(
+    token: string,
+    id: number,
+    name: string,
+    date: string,
+    technologies: string,
+    description: string,
+    code_uri: string,
+    live_uri: string,
+    image_uri: string,
+    image_alt: string
+  ){
+    const body = {
+      id: id,
+      name: name,
+      date: date,
+      technologies: technologies,
+      description: description,
+      code_uri: code_uri,
+      live_uri: live_uri,
+      image_uri: image_uri,
+      image_alt: image_alt
+    }
+    return this.http.put(
+      this.uri + "/update",
+      body,
+      {
+        headers: {'Authorization':token},
+        observe: 'response',
+        responseType: 'json'
+      })
+    .pipe(
+      catchError((err: HttpErrorResponse) => {
+        return "0";
+      })
+    );
+  }
+
 
   deleteItem(token: string, id: number){
     return this.http.delete(

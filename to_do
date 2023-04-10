@@ -31,11 +31,11 @@ Add support to non javascript users
 
 
 
-Admin page:
-- Work view
 
+Admin page:
 - If there is an error with the parameters (like a  simply not found) the user will be taken to the login page.. it should only show an error, and logout in case the token is invalid. How to achieve this? By making more descriptive responses in the backend, with ERROR HANDLING
 
+- Work view
 - About view
 - Contact view
 - Add panel to see messages sent by users from the contact form inside the contact view

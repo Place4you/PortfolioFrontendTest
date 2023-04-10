@@ -17,29 +17,30 @@ export class AdminWorkComponent implements OnInit,AfterViewInit {
   error_message_edit: string = "";
   error_message_delete: string = "";
   current_value: string = "add";
-  show_add: boolean = true;
-  show_edit: boolean = false;
-  show_delete: boolean = false;
+  found_item_id: boolean = false;
+  project_to_edit: any = {};
+
+  reset_default_values(): void {
+    this.error_message_add    = "";
+    this.error_message_edit   = "";
+    this.error_message_delete = "";
+    this.current_value        = "add";
+    this.found_item_id        = false;
+  }
 
   method_change(event: any): void {
     const value = event.target.value;
     if(value !== this.current_value){
       if(value === "add"){
-        this.show_edit = false;
-        this.show_delete = false;
-        this.show_add = true;
+        this.reset_default_values();
         this.current_value = "add";
       }
       else if(value === "edit"){
-        this.show_add = false;
-        this.show_delete = false;
-        this.show_edit = true;
+        this.reset_default_values();
         this.current_value = "edit";
       }
       else if(value === "delete"){
-        this.show_add = false;
-        this.show_edit = false;
-        this.show_delete = true;
+        this.reset_default_values();
         this.current_value = "delete";
       }
     }
@@ -90,8 +91,119 @@ export class AdminWorkComponent implements OnInit,AfterViewInit {
     }
   }
 
-  edit_item(): void {
-    
+  search_edit_item(inputId: string): void {
+    const projectId = Number(inputId) || 0;
+    if(projectId === 0){
+      this.error_message_edit = "Invalid project id";
+    }
+    else if(projectId < 1){
+      this.error_message_edit = "The project id must be greater than 0";
+    }
+    else if(projectId > 65535){
+      this.error_message_edit = "The project id must be lesser than 65536";
+    }
+    else {
+      this.workService.getItem(projectId)
+      .subscribe((response: any) => {
+        if(response === "0"){
+          this.router.navigate(['login']);
+        }
+        else {
+          this.error_message_edit = "";
+          this.found_item_id = true;
+          this.project_to_edit = {
+            id: response.body.id,
+            name: response.body.name,
+            date: response.body.date,
+            technologies: response.body.technologies,
+            description: response.body.description,
+            code_uri: response.body.code_uri,
+            live_uri: response.body.live_uri,
+            image_uri: response.body.image_uri,
+            image_alt: response.body.image_alt
+          }
+        }
+      });
+    }
+  }
+
+  edit_item(
+    name: string,
+    date: string,
+    technologies: string,
+    description: string,
+    code_uri: string,
+    live_uri: string,
+    image_uri: string,
+    image_alt: string
+  ): void {
+    if(!name){
+      this.error_message_edit = "Field <name> can't be null";
+    }
+    else if(!date){
+      this.error_message_edit = "Field <date> can't be null";
+    }
+    else if(!technologies){
+      this.error_message_edit = "Field <technologies> can't be null";
+    }
+    else if(!description){
+      this.error_message_edit = "Field <description> can't be null";
+    }
+    else {
+      if(this.project_to_edit.name){
+        let something_changed: boolean = false;
+        if(name !== this.project_to_edit.name){
+          something_changed = true;
+        }
+        if(date !== this.project_to_edit.date){
+          something_changed = true;
+        }
+        if(technologies !== this.project_to_edit.technologies){
+          something_changed = true;
+        }
+        if(description !== this.project_to_edit.description){
+          something_changed = true;
+        }
+        if(code_uri !== this.project_to_edit.code_uri){
+          something_changed = true;
+        }
+        if(live_uri !== this.project_to_edit.live_uri){
+          something_changed = true;
+        }
+        if(image_uri !== this.project_to_edit.image_uri){
+          something_changed = true;
+        }
+        if(image_alt !== this.project_to_edit.image_alt){
+          something_changed = true;
+        }
+
+        if(something_changed){
+          if(!this.cookieService.get('JWT')){
+            this.router.navigate(['login']);
+          }
+          else{
+            const cookieValue: string = this.cookieService.get('JWT');
+            this.workService.updateItem(cookieValue, this.project_to_edit.id, name, date, technologies, description, code_uri, live_uri, image_uri, image_alt)
+            .subscribe((response: any) => {
+              if(response === "0"){
+                this.router.navigate(['login']);
+              }
+              else {
+                this.router.navigate(['home']);
+                this.error_message_edit = "";
+              }
+            });
+          }
+        }
+        else {
+          this.error_message_edit = "Project not edited";
+        }
+      }
+      else {
+        this.error_message_edit = "Project to update not found";
+        this.found_item_id = false;
+      }
+    }
   }
 
   delete_item(inputId: string): void {
@@ -130,7 +242,7 @@ export class AdminWorkComponent implements OnInit,AfterViewInit {
   ngOnInit(): void { }
 
   ngAfterViewInit(): void {
-    const date_input = document.getElementById("date_add") as HTMLInputElement;
+    const date_input = document.getElementById("add_date") as HTMLInputElement;
     if(date_input !== null){
       date_input.max = new Date().toLocaleDateString('fr-ca');
       date_input.value = new Date().toLocaleDateString('fr-ca');
