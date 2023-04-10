@@ -1,7 +1,6 @@
 Redirecto to error pages 401, 404, 500
 
 Error handling in everything
-//HttpErrorResponse
 
 Sanitize all input, even admin and server input, both in the frontend and in the backend
 The only error in the api call should be the token, make sure all user data can't escape the backend to the database without passing proper checks
@@ -35,6 +34,7 @@ Add support to non javascript users
 Admin page:
 - Work view
 * Search bar to enter the work item id/name in case the method is put/delete
+Could I use the work page...?
 - About view
 - Contact view
 - Add panel to see messages sent by users from the contact form inside the contact view
@@ -107,6 +107,7 @@ Work page:
 - Bug: when selecting different order by there are more pages added, yet you can't select them, is something visual
 - Show the project technologies instead of the description when hovering on the project
 - Add button to see more of the project at the side of the view live button, and when clicked show the description, replacing all the projects in the screen (maybe even adapting to the project position)
+- Add id after project name when viewing the description
 
 
 
