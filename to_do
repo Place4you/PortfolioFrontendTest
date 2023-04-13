@@ -9,6 +9,10 @@ Unit testing in everything
 
 Readme
 
+Documentation
+
+Diagrama Entidad Relacion
+
 Responsive
 
 Add real data
@@ -35,8 +39,6 @@ Add support to non javascript users
 Admin page:
 - If there is an error with the parameters (like a  simply not found) the user will be taken to the login page.. it should only show an error, and logout in case the token is invalid. How to achieve this? By making more descriptive responses in the backend, with ERROR HANDLING
 
-- Work view
-- About view
 - Contact view
 - Add panel to see messages sent by users from the contact form inside the contact view
 // done
@@ -48,8 +50,10 @@ Admin page:
 - When closing all the tabs for pressing in the arrow to go to the top the tab's arrows don't change
 - Home view
 - Use the cookie of the client as auth header to send the admin requests to the backend
+- Work view
 * Search bar to enter the work item id/name in case the method is put/delete
 * Select element to select the http method, onchange load the required fields
+- About view
 
 
 

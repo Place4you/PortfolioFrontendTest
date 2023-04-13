@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 import { WorkService } from '../../../rest/work.service';
 import { Router } from '@angular/router'
 import { CookieService } from 'ngx-cookie-service';
@@ -9,7 +9,7 @@ import { CookieService } from 'ngx-cookie-service';
   templateUrl: './admin-work.component.html',
   styleUrls: ['./admin-work.component.scss']
 })
-export class AdminWorkComponent implements OnInit,AfterViewInit {
+export class AdminWorkComponent implements AfterViewInit {
 
   constructor(private router: Router, private cookieService: CookieService, private workService: WorkService) { }
 
@@ -236,10 +236,6 @@ export class AdminWorkComponent implements OnInit,AfterViewInit {
       }
     }
   }
-
-
-
-  ngOnInit(): void { }
 
   ngAfterViewInit(): void {
     const date_input = document.getElementById("add_date") as HTMLInputElement;

@@ -1,0 +1,39 @@
+.content {
+	text-align: center;
+
+	.select_method, .select_type {
+		text-align: left;
+		.select_h4, .select_sel {
+			display: inline-block;
+		}
+		.select_sel {
+			margin-left: 15px;
+			select {
+				width: 150px;
+			}
+		}
+	}
+	.form {
+		h3 {
+			margin-top: 30px;
+			margin-bottom: 20px;
+		}
+		input {
+			width: 100%;
+			margin-bottom: 30px;
+			margin-top: 5px;
+			padding: 5px;
+		}
+		textarea {
+			width: 100%;
+			min-height: 100px;
+			margin-bottom: 30px;
+			margin-top: 5px;
+			padding: 5px;
+		}
+	}
+	.error {
+		color: red;
+		margin-top: 10px;
+	}
+}
