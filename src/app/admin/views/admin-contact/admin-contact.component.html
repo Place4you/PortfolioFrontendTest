@@ -1,6 +1,85 @@
-<p>admin-contact works!</p>
-<h1>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</h1>
-<h1>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</h1>
-<h1>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</h1>
-<h1>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</h1>
-<h1>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</h1>
+<div class="container content">
+	<section class="select_method">
+		<div class="select_h4">
+			<h4>Select option:</h4>
+		</div>
+		<div class="select_sel">
+			<select (change)="method_change($event)">
+				<option value="add">Create</option>
+				<option value="edit">Edit</option>
+				<option value="delete">Delete</option>
+			</select>
+		</div>
+	</section>
+	<div class="form">
+		<div *ngIf="current_value === 'add'">
+			<form onsubmit="return false;">
+				<h3>Create new contact item</h3>
+
+				<label for="add_name"><h5>Input name</h5></label>
+				<input type="text" id="add_name" placeholder="Name" minlength="3" maxlength="253" required #add_name>
+
+				<label for="add_account"><h5>Input account</h5></label>
+				<input type="text" id="add_account" placeholder="Account" minlength="3" maxlength="253" required #add_account>
+				
+				<label for="add_uri"><h5>Input item uri</h5></label>
+				<input type="text" id="add_uri" placeholder="Item link (ex: https://example.com/users/LautaroColella)" minlength="3" maxlength="253" #add_uri>
+				
+				<label for="add_image_uri"><h5>Input image uri</h5></label>
+				<input type="text" id="add_image_uri" placeholder="Image link (ex: https://i.imgur.com/JV66wJT.jpeg)" minlength="3" maxlength="253" #add_image_uri>
+				
+				<label for="add_image_alt"><h5>Input image description</h5></label>
+				<input type="text" id="add_image_alt" placeholder="Image alt" minlength="3" maxlength="253" #add_image_alt>
+				
+
+            	<input type="submit" value="Create" (click)="create_item(add_name.value, add_account.value, add_uri.value, add_image_uri.value, add_image_alt.value)">
+			</form>
+			<p class="error" *ngIf="error_message_add">{{error_message_add}}</p>
+		</div>
+
+		<div *ngIf="current_value === 'edit'">
+			<form onsubmit="return false;">
+				<h3>Edit contact item</h3>
+
+				<div *ngIf="!found_item_id">
+					<label for="edit_id"><h5>Input contact item id</h5></label>
+					<input type="number" id="edit_id" placeholder="Id (ex: 123)" min="1" max="65535" required #edit_id>
+	            	<input type="submit" value="Search" (click)="search_edit_item(edit_id.value)">
+				</div>
+
+				<div *ngIf="found_item_id">
+					<label for="edit_name"><h5>Change name</h5></label>
+					<input type="text" id="edit_name" placeholder="Name" minlength="3" maxlength="253" value="{{item_to_edit.name}}" required #edit_name>
+					
+					<label for="edit_account"><h5>Change account</h5></label>
+					<input type="text" id="edit_account" placeholder="Account" minlength="3" maxlength="253" value="{{item_to_edit.account}}" required #edit_account>
+					
+					<label for="edit_uri"><h5>Change item uri</h5></label>
+					<input type="text" id="edit_uri" placeholder="Item link (ex: https://example.com/profile/my_item)" minlength="3" maxlength="253" value="{{item_to_edit.uri}}" #edit_uri>
+					
+					<label for="edit_image_uri"><h5>Change image uri</h5></label>
+					<input type="text" id="edit_image_uri" placeholder="Image link (ex: https://i.imgur.com/JV66wJT.jpeg)" minlength="3" maxlength="253" value="{{item_to_edit.image_uri}}" #edit_image_uri>
+					
+					<label for="edit_image_alt"><h5>Change image description</h5></label>
+					<input type="text" id="edit_image_alt" placeholder="Image alt" minlength="3" maxlength="253" value="{{item_to_edit.image_alt}}" #edit_image_alt>
+					
+
+	            	<input type="submit" value="Update" (click)="edit_item(edit_name.value, edit_account.value, edit_uri.value, edit_image_uri.value, edit_image_alt.value)">
+				</div>
+			</form>
+			<p class="error" *ngIf="error_message_edit">{{error_message_edit}}</p>
+		</div>
+
+		<div *ngIf="current_value === 'delete'">
+			<form onsubmit="return false;">
+				<h3>Delete contact item</h3>
+
+				<label for="deleteId"><h5>Input contac item id</h5></label>
+				<input type="number" id="deleteId" placeholder="Id (ex: 123)" min="1" max="65535" required #deleteId>
+
+            	<input type="submit" value="Delete" (click)="delete_item(deleteId.value)">
+			</form>
+			<p class="error" *ngIf="error_message_delete">{{error_message_delete}}</p>
+		</div>
+	</div>
+</div>

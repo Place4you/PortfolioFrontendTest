@@ -42,7 +42,16 @@ body {
 			overflow: hidden scroll;
 			margin-top: 50px;
 			.social_item {
+				position: relative;
 				display: inline-block;
+				.item_id {
+					position: absolute;
+					top: 11px;
+					right: 30px;
+					p {
+						font-size: 12px;
+					}
+				}
 				a {
 					width: 120px;
 					height: 120px;
@@ -65,7 +74,6 @@ body {
 						white-space: nowrap;
 					}
 					&:hover {
-						background-color: rgba(120, 150, 255, 0.3);
 						.bot {
 							opacity: 100%;
 							transition: opacity 1s;
@@ -83,7 +91,7 @@ body {
 						border-radius: 10px;
 						text-align: center;
 						color: #fff;
-						background-color: rgba(100, 0, 255, 0.9);
+						background-color: rgba(0, 50, 255, 1);
 						word-break: break-all;
 						overflow: hidden scroll;
 						scrollbar-width: thin;
