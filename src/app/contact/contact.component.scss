@@ -36,6 +36,14 @@ body {
 			resize: none;
 		}
 	}
+	.error {
+		color: red;
+		margin-top: 5px;
+	}
+	.success {
+		color: green;
+		margin-top: 5px;
+	}
 	.social {
 		.social_items {
 			height: 500px;

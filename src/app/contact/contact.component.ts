@@ -12,7 +12,79 @@ export class ContactComponent {
   
   social_items: Array<{id: number, name: string, link: string, account: string, image_uri: string, image_alt: string }> = []
 
+  error_message: string = "";
+  success: boolean = false;
 
+  response_message(type: number, message?: string){
+    if(type === 0){ // no error, no success
+      this.error_message = "";
+      this.success = false;
+    }
+    else if(type === 1 && message){ // error
+      this.error_message = message;
+      this.success = false;
+    }
+    else if(type === 2){ // success
+      this.error_message = "";
+      this.success = true;
+    }
+  }
+
+  create_message(subject: string, message: string, replyto: string){
+    if(!subject){
+      this.response_message(1, "Field <subject> can't be null");
+    }
+    else if(subject.length < 3){
+      this.response_message(1, "Field <subject> must have a minimum of 3 characters");
+    }
+    else if(subject.length > 128){
+      this.response_message(1, "Field <subject> must have a maximum of 128 characters");
+    }
+    else if(!message){
+      this.response_message(1, "Field <message> can't be null");
+    }
+    else if(message.length < 3){
+      this.response_message(1, "Field <message> must have a minimum of 3 characters");
+    }
+    else if(message.length > 512){
+      this.response_message(1, "Field <message> must have a maximum of 512 characters");
+    }
+    else if(!replyto){
+      this.response_message(1, "Field <replyto> can't be null");
+    }
+    else if(replyto.length < 3){
+      this.response_message(1, "Field <replyto> must have a minimum of 3 characters");
+    }
+    else if(replyto.length > 512){
+      this.response_message(1, "Field <replyto> must have a maximum of 128 characters");
+    }
+
+    else {
+      const date: string = new Date().toLocaleDateString('fr-ca');
+      let ipv4: string = "";
+      this.contactService.getIpv4()
+      .subscribe((response: any) => {
+        if(response === "0"){
+          this.response_message(1, "Error while bringing user ip from api");
+        }
+        else {
+          ipv4 = response.ip;
+
+          this.contactService.createMessage(subject, message, replyto, date, ipv4)
+          .subscribe((response: any) => {
+            if(response === "0"){
+              this.response_message(1, "Error while creating the message");
+            }
+            else {
+              // clean the form
+              this.response_message(2);
+            }
+          });
+        }
+      });
+
+    }
+  }
 
   ngOnInit(){
     this.contactService.getItems()

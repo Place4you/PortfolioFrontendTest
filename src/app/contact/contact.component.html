@@ -4,12 +4,14 @@
       <div class="row">
         <div class="col-sm form">
           <h1>Send a message!</h1>
-          <form method="POST" action="/">
-            <input type="text" placeholder="Subject" class="subject" minlength="3" maxlength="128" required>
-            <textarea placeholder="Message" class="message" minlength="3" maxlength="512" required></textarea>
-            <input type="text" placeholder="Reply to" minlength="3" maxlength="128" required>
-            <input type="submit" value="Send">
+          <form onsubmit="return false;">
+            <input type="text" placeholder="Subject" class="subject" minlength="3" maxlength="128" required #subject>
+            <textarea placeholder="Message" class="message" minlength="3" maxlength="512" required #message></textarea>
+            <input type="text" placeholder="Reply to" minlength="3" maxlength="128" required #replyto>
+            <input type="submit" value="Send" (click)="create_message(subject.value, message.value, replyto.value)">
           </form>
+          <p class="error" *ngIf="error_message">{{error_message}}</p>
+          <p class="success" *ngIf="success">Message sent successfully</p>
         </div>
         <div class="col-sm social">
           <h2>Or see my profiles</h2>

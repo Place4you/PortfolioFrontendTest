@@ -64,7 +64,7 @@ Admin page:
 
 Contact page:
 - Allow 3 messages/hour per ip
-- Save the message in the database
+- Save the message in the database & send notification to email
 // done
 - Add right bar to the socials, same as in about journey, so there's no social's limit
 - Get the contact data from the backend
