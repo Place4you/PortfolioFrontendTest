@@ -115,28 +115,17 @@ export class ContactService {
 
 
 
-  getIpv4(){
-    return this.http.get("https://api.ipify.org/?format=json")
-    .pipe(
-      catchError((err: HttpErrorResponse) => {
-        return "0";
-      })
-    );
-  }
-
   createMessage(
     subject: string,
     message: string,
     reply: string,
-    date: string,
-    ipv4: string
+    date: string
   ){
     const body = {
       subject: subject,
       message: message,
       reply: reply,
       date: date,
-      ipv4: ipv4,
       read: false
     }
     return this.http.post(

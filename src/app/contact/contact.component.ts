@@ -61,28 +61,19 @@ export class ContactComponent {
 
     else {
       const date: string = new Date().toLocaleDateString('fr-ca');
-      let ipv4: string = "";
-      this.contactService.getIpv4()
+      this.contactService.createMessage(subject, message, replyto, date)
       .subscribe((response: any) => {
         if(response === "0"){
-          this.response_message(1, "Error while bringing user ip from api");
+          this.response_message(1, "Error while creating the message");
         }
         else {
-          ipv4 = response.ip;
-
-          this.contactService.createMessage(subject, message, replyto, date, ipv4)
-          .subscribe((response: any) => {
-            if(response === "0"){
-              this.response_message(1, "Error while creating the message");
-            }
-            else {
-              // clean the form
-              this.response_message(2);
-            }
-          });
+          this.response_message(2);
+          const form = <HTMLFormElement>document.getElementById("contact_form");
+          if(form !== null){
+            form.reset();
+          }
         }
       });
-
     }
   }
 
