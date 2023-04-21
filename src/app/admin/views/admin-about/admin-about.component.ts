@@ -11,7 +11,7 @@ import { InformationService } from '../../../rest/information.service';
 })
 export class AdminAboutComponent implements AfterViewInit {
 
-  constructor(private router: Router, private cookieService: CookieService, private aboutService: AboutService, private infoService: InformationService) { }
+  constructor(private router: Router, private cookieService: CookieService, private aboutService: AboutService, private informationService: InformationService) { }
 
   error_message_add: string = "";
   error_message_edit: string = "";
@@ -42,7 +42,7 @@ export class AdminAboutComponent implements AfterViewInit {
         }
         else{
           const cookieValue: string = this.cookieService.get('JWT');
-          this.infoService.editInformationTable(cookieValue, this.journey_info_id, "journey", text)
+          this.informationService.editInformationTable(cookieValue, this.journey_info_id, "journey", text)
           .subscribe((response: any) => {
             if(response === "0"){
               this.router.navigate(['login']);
@@ -267,7 +267,7 @@ export class AdminAboutComponent implements AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.infoService.getInformationTable()
+    this.informationService.getInformationTable()
     .subscribe((response: any) => {
       for(let i: number = 0; i < response.body.length; i++){
         if(response.body[i].name === "journey" && response.body[i].information){

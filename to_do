@@ -43,9 +43,6 @@ Production:
 Admin page:
 - If there is an error with the parameters (like a  simply not found) the user will be taken to the login page.. it should only show an error, and logout in case the token is invalid. How to achieve this? By making more descriptive responses in the backend, with ERROR HANDLING
 
-- There are two calls for the information table when clicking in the admin page
-
-
 
 
 // done
@@ -118,6 +115,7 @@ Login page:
 
 Work page:
 - Add "currently working" button, show commit history of the projects, etc
+
 // done
 - Get the work data from the backend
 - Only show the side arrows if there are more projects than the screen capacity
