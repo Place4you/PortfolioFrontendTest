@@ -8,6 +8,7 @@
 				<option value="add">Create</option>
 				<option value="edit">Edit</option>
 				<option value="delete">Delete</option>
+				<option value="message">Messages</option>
 			</select>
 		</div>
 	</section>
@@ -82,4 +83,24 @@
 			<p class="error" *ngIf="error_message_delete">{{error_message_delete}}</p>
 		</div>
 	</div>
+
+	<section *ngIf="current_value === 'message'">
+		<table class="messages">
+			<thead>
+				<th>Read</th>
+				<th>Subject</th>
+				<th>Date</th>
+				<th>ID</th>
+			</thead>
+			<tbody *ngFor="let message of all_messages">
+				<tr (click)="show_message(message.id)">
+					<td *ngIf="message.read"><i class="fa-solid fa-check icon_check"></i></td>
+					<td *ngIf="!message.read"><i class="fa-regular fa-circle-xmark icon_cross"></i></td>
+					<td>{{message.subject}}</td>
+					<td>{{message.date}}</td>
+					<td>{{message.id}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</section>
 </div>

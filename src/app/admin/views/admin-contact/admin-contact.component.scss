@@ -36,4 +36,30 @@
 		color: red;
 		margin-top: 10px;
 	}
+
+	.messages {
+		width: 100%;
+		padding: 5px;
+		thead, tbody {
+			border: 1px solid #000;
+		}
+		tr:hover {
+			cursor: pointer;
+			background-color: #dadada;
+		}
+		td {
+			max-width: 100px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			i {
+				&.icon_check {
+					color: #11ff00;
+				}
+				&.icon_cross {
+					color: #ff6666;
+				}
+			}
+		}
+	}
 }

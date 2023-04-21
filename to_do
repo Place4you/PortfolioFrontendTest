@@ -43,8 +43,11 @@ Admin page:
 
 - There are two calls for the information table when clicking in the admin page
 
-- Add panel to see messages sent by users from the contact form inside the contact view
+- Create update controller for the messages
 
+- Change the message "READ" status to "TRUE" when viewing a message for the first time
+
+- Open panel to see the full message when clicking a specific message
 
 // done
 - Main structure
@@ -61,6 +64,7 @@ Admin page:
 - About view
 - Contact view
 - Add the change journey text as an option from the select option button in the admin's about view
+- Add panel to see messages sent by users from the contact form inside the contact view
 
 
 

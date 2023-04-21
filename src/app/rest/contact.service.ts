@@ -115,6 +115,37 @@ export class ContactService {
 
 
 
+
+  getMessage(token: string, id: number){
+    return this.http.get(
+      this.uri_cm + `/${id}`,
+      {
+        headers: {'Authorization':token},
+        observe: 'response',
+        responseType: 'json'
+      })
+    .pipe(
+      catchError((err: HttpErrorResponse) => {
+        return "0";
+      })
+    );
+  }
+
+  getMessages(token: string){
+    return this.http.get(
+      this.uri_cm,
+      {
+        headers: {'Authorization':token},
+        observe: 'response',
+        responseType: 'json'
+      })
+    .pipe(
+      catchError((err: HttpErrorResponse) => {
+        return "0";
+      })
+    );
+  }
+
   createMessage(
     subject: string,
     message: string,
@@ -134,8 +165,22 @@ export class ContactService {
       {
         observe: 'response',
         responseType: 'json'
-      }
-    )
+      })
+    .pipe(
+      catchError((err: HttpErrorResponse) => {
+        return "0";
+      })
+    );
+  }
+
+  deleteMessage(token: string, id: number){
+    return this.http.delete(
+      this.uri_cm + `/delete/${id}`,
+      {
+        headers: {'Authorization':token},
+        observe: 'response',
+        responseType: 'json'
+      })
     .pipe(
       catchError((err: HttpErrorResponse) => {
         return "0";

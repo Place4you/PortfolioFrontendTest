@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router'
 import { CookieService } from 'ngx-cookie-service';
 import { ContactService } from '../../../rest/contact.service';
@@ -8,7 +8,7 @@ import { ContactService } from '../../../rest/contact.service';
   templateUrl: './admin-contact.component.html',
   styleUrls: ['./admin-contact.component.scss']
 })
-export class AdminContactComponent {
+export class AdminContactComponent implements OnInit{
 
   constructor(private router: Router, private cookieService: CookieService, private contactService: ContactService) { }
 
@@ -18,6 +18,9 @@ export class AdminContactComponent {
   current_value: string = "add";
   found_item_id: boolean = false;
   item_to_edit: any = {};
+  current_message: any = {};
+  all_messages: any = [];
+
 
   reset_default_values(): void {
     this.error_message_add    = "";
@@ -32,15 +35,19 @@ export class AdminContactComponent {
     if(value !== this.current_value){
       if(value === "add"){
         this.reset_default_values();
-        this.current_value = "add";
+        this.current_value = value;
       }
       else if(value === "edit"){
         this.reset_default_values();
-        this.current_value = "edit";
+        this.current_value = value;
       }
       else if(value === "delete"){
         this.reset_default_values();
-        this.current_value = "delete";
+        this.current_value = value;
+      }
+      else if(value === "message"){
+        this.reset_default_values();
+        this.current_value = value;
       }
     }
   }
@@ -203,6 +210,51 @@ export class AdminContactComponent {
           }
         });
       }
+    }
+  }
+
+
+  show_message(id: number){
+    if(!this.cookieService.get('JWT')){
+      this.router.navigate(['login']);
+    }
+    else{
+      const cookieValue: string = this.cookieService.get('JWT');
+      this.contactService.getMessage(cookieValue, id)
+      .subscribe((response: any) => {
+        this.current_message = {
+          id: response.body.id,
+          subject: response.body.subject,
+          message: response.body.message,
+          reply: response.body.reply,
+          date: response.body.date,
+          read: response.body.read
+        }
+      });
+    }
+  }
+
+
+  ngOnInit(): void {
+    if(!this.cookieService.get('JWT')){
+      this.router.navigate(['login']);
+    }
+    else{
+      const cookieValue: string = this.cookieService.get('JWT');
+      this.contactService.getMessages(cookieValue)
+      .subscribe((response: any) => {
+        for(let i: number = 0; i < response.body.length; i++){
+          this.all_messages.push({
+            id: response.body[i].id,
+            subject: response.body[i].subject,
+            date: response.body[i].date,
+            read: response.body[i].read
+          });
+        }
+        this.all_messages.sort(function (a: any, b: any){
+          return +new Date(b.date) - +new Date(a.date);
+        });
+      });
     }
   }
 
