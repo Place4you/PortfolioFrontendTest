@@ -85,22 +85,53 @@
 	</div>
 
 	<section *ngIf="current_value === 'message'">
-		<table class="messages">
-			<thead>
-				<th>Read</th>
-				<th>Subject</th>
-				<th>Date</th>
-				<th>ID</th>
-			</thead>
-			<tbody *ngFor="let message of all_messages">
-				<tr (click)="show_message(message.id)">
-					<td *ngIf="message.read"><i class="fa-solid fa-check icon_check"></i></td>
-					<td *ngIf="!message.read"><i class="fa-regular fa-circle-xmark icon_cross"></i></td>
-					<td>{{message.subject}}</td>
-					<td>{{message.date}}</td>
-					<td>{{message.id}}</td>
-				</tr>
-			</tbody>
-		</table>
+		<div *ngIf="messages_empty">
+			<h4>There are no messages yet</h4>
+		</div>
+		<div *ngIf="!messages_empty">
+			<table class="messages" *ngIf="!one_message">
+				<thead>
+					<th>Read</th>
+					<th>Subject</th>
+					<th>Date</th>
+					<th>ID</th>
+				</thead>
+				<tbody *ngFor="let message of all_messages">
+					<tr (click)="show_message(message.id)">
+						<td *ngIf="message.read"><i class="fa-solid fa-check icon_check"></i></td>
+						<td *ngIf="!message.read"><i class="fa-regular fa-circle-xmark icon_cross"></i></td>
+						<td>{{message.subject}}</td>
+						<td>{{message.date}}</td>
+						<td>{{message.id}}</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="one_message" *ngIf="one_message">
+				<hr>
+				<h4>{{current_message.date}} | | ID: {{current_message.id}} | | Seen: {{current_message.read}}</h4>
+				<table>
+					<tr>
+						<td class="label-col">
+							<label for="message_subject">Subject:</label>
+						</td>
+						<td>
+							<input type="text" id="message_subject" value="{{current_message.subject}}" disabled>
+						</td>
+					</tr>
+					<tr>
+						<td class="label-col">
+							<label for="message_reply">Reply to:</label>
+						</td>
+						<td>
+							<input type="text" id="message_reply" value="{{current_message.reply}}" disabled>
+						</td>
+					</tr>
+				</table>
+				<p>{{current_message.message}}</p>
+				<div class="goback" (click)="one_message = false">
+					<i class="fa-solid fa-arrow-left fa-2x"></i>
+				</div>
+			</div>
+		</div>
 	</section>
 </div>

@@ -62,4 +62,39 @@
 			}
 		}
 	}
+	.one_message {
+		p {
+			text-align: left;
+			background-color: #fff;
+			padding: 15px;
+			border: 1px solid #000;
+		}
+		h4 {
+			text-align: center;
+			margin-bottom: 20px;
+		}
+		table {
+			width: 100%;
+			margin-bottom: 20px;
+			input {
+				width: 100%;
+				padding: 5px;
+			}
+			label {
+				margin-right: 10px;
+			}
+			.label-col {
+				width: 1px;
+				white-space: nowrap;
+			}
+		}
+		.goback {
+			background-color: #fff;
+			border: 1px double #f9f9f9;
+			&:hover {
+				cursor: pointer;
+				background-color: #dadada;
+			}
+		}
+	}
 }

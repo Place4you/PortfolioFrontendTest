@@ -18,11 +18,14 @@ export class AdminContactComponent implements OnInit{
   current_value: string = "add";
   found_item_id: boolean = false;
   item_to_edit: any = {};
-  current_message: any = {};
+
   all_messages: any = [];
+  current_message: any = {};
+  one_message: boolean = false;
+  messages_empty: boolean = true;
 
 
-  reset_default_values(): void {
+  reset_default_item_values(): void {
     this.error_message_add    = "";
     this.error_message_edit   = "";
     this.error_message_delete = "";
@@ -31,24 +34,9 @@ export class AdminContactComponent implements OnInit{
   }
 
   method_change(event: any): void {
-    const value = event.target.value;
-    if(value !== this.current_value){
-      if(value === "add"){
-        this.reset_default_values();
-        this.current_value = value;
-      }
-      else if(value === "edit"){
-        this.reset_default_values();
-        this.current_value = value;
-      }
-      else if(value === "delete"){
-        this.reset_default_values();
-        this.current_value = value;
-      }
-      else if(value === "message"){
-        this.reset_default_values();
-        this.current_value = value;
-      }
+    if(event.target.value !== this.current_value){
+      this.reset_default_item_values();
+      this.current_value = event.target.value;
     }
   }
 
@@ -234,11 +222,20 @@ export class AdminContactComponent implements OnInit{
             date: response.body.date,
             read: response.body.read
           }
+          this.one_message = true;
           if(!response.body.read){
             this.contactService.changeMessageRead(cookieValue, this.current_message)
             .subscribe((response: any) => {
               if(response === "0"){
                 this.router.navigate(['login']);
+              }
+              else {
+                for(let i = 0; i < this.all_messages.length; i++){
+                  if(this.all_messages[i].id === this.current_message.id){
+                    this.all_messages[i].read = true;
+                    i = this.all_messages.length - 1;
+                  }
+                }
               }
             });
           }
@@ -268,9 +265,12 @@ export class AdminContactComponent implements OnInit{
               read: response.body[i].read
             });
           }
-          this.all_messages.sort(function (a: any, b: any){
-            return +new Date(b.date) - +new Date(a.date);
-          });
+          if(this.all_messages.length){
+            this.messages_empty = false;
+            this.all_messages.sort(function (a: any, b: any){
+              return +new Date(b.date) - +new Date(a.date);
+            });
+          }
         }
       });
     }

@@ -29,6 +29,8 @@ Add the typescript type to all the values and functions, remove all "any" and ad
 
 Add support to non javascript users
 
+Button to reload views maybe (fa-undo)
+
 Production:
 - Be careful with '*' as Access-Control-Allow-Origin in production. Change this back only to the clients that are allowed to connect to the API.
 
@@ -45,7 +47,6 @@ Admin page:
 
 
 
-- Open panel to see the full message when clicking a specific message
 
 // done
 - Main structure
@@ -65,6 +66,7 @@ Admin page:
 - Add panel to see messages sent by users from the contact form inside the contact view
 - Create update controller for the messages
 - Change the message "READ" status to "TRUE" when viewing a message for the first time
+- Open panel to see the full message when clicking a specific message
 
 
 
