@@ -222,13 +222,26 @@ export class AdminContactComponent implements OnInit{
       const cookieValue: string = this.cookieService.get('JWT');
       this.contactService.getMessage(cookieValue, id)
       .subscribe((response: any) => {
-        this.current_message = {
-          id: response.body.id,
-          subject: response.body.subject,
-          message: response.body.message,
-          reply: response.body.reply,
-          date: response.body.date,
-          read: response.body.read
+        if(response === "0"){
+          this.router.navigate(['login']);
+        }
+        else {
+          this.current_message = {
+            id: response.body.id,
+            subject: response.body.subject,
+            message: response.body.message,
+            reply: response.body.reply,
+            date: response.body.date,
+            read: response.body.read
+          }
+          if(!response.body.read){
+            this.contactService.changeMessageRead(cookieValue, this.current_message)
+            .subscribe((response: any) => {
+              if(response === "0"){
+                this.router.navigate(['login']);
+              }
+            });
+          }
         }
       });
     }
@@ -243,17 +256,22 @@ export class AdminContactComponent implements OnInit{
       const cookieValue: string = this.cookieService.get('JWT');
       this.contactService.getMessages(cookieValue)
       .subscribe((response: any) => {
-        for(let i: number = 0; i < response.body.length; i++){
-          this.all_messages.push({
-            id: response.body[i].id,
-            subject: response.body[i].subject,
-            date: response.body[i].date,
-            read: response.body[i].read
+        if(response === "0"){
+          this.router.navigate(['login']);
+        }
+        else {
+          for(let i: number = 0; i < response.body.length; i++){
+            this.all_messages.push({
+              id: response.body[i].id,
+              subject: response.body[i].subject,
+              date: response.body[i].date,
+              read: response.body[i].read
+            });
+          }
+          this.all_messages.sort(function (a: any, b: any){
+            return +new Date(b.date) - +new Date(a.date);
           });
         }
-        this.all_messages.sort(function (a: any, b: any){
-          return +new Date(b.date) - +new Date(a.date);
-        });
       });
     }
   }

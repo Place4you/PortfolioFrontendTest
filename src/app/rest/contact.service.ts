@@ -173,6 +173,30 @@ export class ContactService {
     );
   }
 
+  changeMessageRead(token: string, message: any){
+    const body = {
+      id: message.id,
+      subject: message.subject,
+      message: message.message,
+      reply: message.reply,
+      date: message.date,
+      read: true
+    }
+    return this.http.put(
+      this.uri_cm + `/update`,
+      body,
+      {
+        headers: {'Authorization':token},
+        observe: 'response',
+        responseType: 'json'
+      })
+    .pipe(
+      catchError((err: HttpErrorResponse) => {
+        return "0";
+      })
+    );
+  }
+
   deleteMessage(token: string, id: number){
     return this.http.delete(
       this.uri_cm + `/delete/${id}`,
