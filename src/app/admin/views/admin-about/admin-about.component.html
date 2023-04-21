@@ -1,5 +1,19 @@
 <div class="container content">
-	<section class="change_journey">
+	<section class="select_method">
+		<div class="select_h4">
+			<h4>Select option:</h4>
+		</div>
+		<div class="select_sel">
+			<select (change)="method_change($event)">
+				<option value="add">Create</option>
+				<option value="edit">Edit</option>
+				<option value="delete">Delete</option>
+				<option value="journey">Journey</option>
+			</select>
+		</div>
+	</section>
+
+	<section class="change_journey" *ngIf="current_value === 'journey'">
 		<div class="form">
 			<form onsubmit="return false;">
 				<label for="journey_text">
@@ -12,20 +26,6 @@
 		</div>
 	</section>
 
-	<hr>
-
-	<section class="select_method">
-		<div class="select_h4">
-			<h4>Select option:</h4>
-		</div>
-		<div class="select_sel">
-			<select (change)="method_change($event)">
-				<option value="add">Create</option>
-				<option value="edit">Edit</option>
-				<option value="delete">Delete</option>
-			</select>
-		</div>
-	</section>
 	<div class="form">
 		<div *ngIf="current_value === 'add'">
 			<form onsubmit="return false;">

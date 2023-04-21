@@ -76,6 +76,10 @@ export class AdminAboutComponent implements AfterViewInit {
         this.reset_default_values();
         this.current_value = "delete";
       }
+      else if(value === "journey"){
+        this.reset_default_values();
+        this.current_value = "journey";
+      }
     }
   }
 

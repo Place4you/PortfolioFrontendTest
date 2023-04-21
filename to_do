@@ -44,6 +44,8 @@ Admin page:
 - There are two calls for the information table when clicking in the admin page
 
 - Add panel to see messages sent by users from the contact form inside the contact view
+
+
 // done
 - Main structure
 - Logout button
@@ -58,6 +60,7 @@ Admin page:
 * Select element to select the http method, onchange load the required fields
 - About view
 - Contact view
+- Add the change journey text as an option from the select option button in the admin's about view
 
 
 
