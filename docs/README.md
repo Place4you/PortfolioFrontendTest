@@ -7,11 +7,9 @@ This repository is the **frontend section** of my portfolio project. You can fin
 This project was started in December 1, 2022. It's a web application to present myself professionally, show my work, skills, experiences and how to contact me.
 Everyone is able to see my public information there, and you can view the live version at https://github.com/LautaroColella
 
-The **frontend** is made with [Angular 15](https://angular.io/guide/update-to-version-15#new-features-in-angular-v15) and [Ruby Sass](https://sass-lang.com/ruby-sass) (deprecated).
-
-The **backend** is made with [Spring boot](https://spring.io/) and [MySQL](https://www.mysql.com/).
-
-Security features include [JWT](https://jwt.io/) and [BCrypt](https://en.wikipedia.org/wiki/Bcrypt).
+- The **frontend** is made with [Angular 15](https://angular.io/guide/update-to-version-15#new-features-in-angular-v15) and [Ruby Sass](https://sass-lang.com/ruby-sass) (deprecated).
+- The **backend** is made with [Spring boot](https://spring.io/) and [MySQL](https://www.mysql.com/).
+- Security features include [JWT](https://jwt.io/) and [BCrypt](https://en.wikipedia.org/wiki/Bcrypt).
 
 ## Preview
 
