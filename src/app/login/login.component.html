@@ -1,16 +1,16 @@
 <body>
-  <div class="container content">
-    <div class="container login" id="login">
-        <div class="form">
-          <h1>Login as admin</h1>
-          <form onsubmit="return false;">
-            <input type="email" placeholder="Username (email)" class="username" minlength="3" maxlength="128" required #username>
-            <input type="password" placeholder="Password" class="password" minlength="3" maxlength="128" required #password>
-            <input type="submit" value="Login" (click)="Login(username.value, password.value)">
-          </form>
-          <p class="error" *ngIf="error_message">{{error_message}}</p>
-        </div>
-    </div>
-  </div>
-  <app-navbar></app-navbar>
+	<div class="container content">
+		<div class="container login" id="login">
+			<div class="form">
+				<h1>Login as admin</h1>
+				<form onsubmit="return false;">
+					<input type="email" placeholder="Username (email)" class="username" minlength="3" maxlength="128" required #username>
+					<input type="password" placeholder="Password" class="password" minlength="3" maxlength="128" required #password>
+					<input type="submit" value="Login" (click)="Login(username.value, password.value)">
+				</form>
+				<p class="error" *ngIf="error_message">{{error_message}}</p>
+			</div>
+		</div>
+	</div>
+	<app-navbar></app-navbar>
 </body>

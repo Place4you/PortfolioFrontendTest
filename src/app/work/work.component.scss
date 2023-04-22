@@ -2,10 +2,10 @@ body {
 	background-image: url('../assets/images/bg_index.png');
 	background-position: center center;
 	background-repeat: no-repeat;
-  	background-attachment: fixed;
-  	background-size: cover;
-  	background-color: #fff;
-  	height: 100vh;
+	background-attachment: fixed;
+	background-size: cover;
+	background-color: #fff;
+	height: 100vh;
 }
 .content {
 	width: 100%;
@@ -85,7 +85,6 @@ body {
 				opacity: 100%;
 				transition: opacity 1s;
 			}
-
 			.top {
 				text-align: center;
 				width: 100%;

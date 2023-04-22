@@ -1,69 +1,65 @@
 <body>
-  <div class="container content">
-    <div class="container about" id="about">
-      <div class="row">
-        <div class="col-sm about_journey">
-          <h1 *ngIf="journey.id === 0" [innerHTML]="journey.title"></h1>
-          <h1 *ngIf="journey.id > 0" [innerHTML]="journey.title + ' - #' + (journey.id)"></h1>
-          <p [innerHTML]="journey.description"></p>
-        </div>
-        <div class="col-sm about_navbar">
-          <button (click)="onNavClick('knowledge_items')" type="button" class="btn btn-secondary" id="knowledge_items"><strong>Knowledge</strong></button>
-          <button (click)="onNavClick('badges_items')" type="button" class="btn btn-secondary" id="badges_items"><strong>Badges</strong></button>
-          <button (click)="onNavClick('certificates_items')" type="button" class="btn btn-secondary" id="certificates_items"><strong>Certificates</strong></button>
-        </div>
-        <hr>
-        <div class="about_footer">
+	<div class="container content">
+		<div class="container about" id="about">
+			<div class="row">
+				<div class="col-sm about_journey">
+					<h1 *ngIf="journey.id === 0" [innerHTML]="journey.title"></h1>
+					<h1 *ngIf="journey.id > 0" [innerHTML]="journey.title + ' - #' + (journey.id)"></h1>
+					<p [innerHTML]="journey.description"></p>
+				</div>
+				<div class="col-sm about_navbar">
+					<button (click)="onNavClick('knowledge_items')" type="button" class="btn btn-secondary" id="knowledge_items"><strong>Knowledge</strong></button>
+					<button (click)="onNavClick('badges_items')" type="button" class="btn btn-secondary" id="badges_items"><strong>Badges</strong></button>
+					<button (click)="onNavClick('certificates_items')" type="button" class="btn btn-secondary" id="certificates_items"><strong>Certificates</strong></button>
+				</div>
+				<hr>
+				<div class="about_footer">
 
-          <div class="about_left_arrow" (click)="onLeftArrow()" *ngIf="show_arrows">
-            <div class="about_line_1"></div>
-            <div class="about_line_2"></div>
-          </div>
-          <div class="about_right_arrow" (click)="onRightArrow()" *ngIf="show_arrows">
-            <div class="about_line_1"></div>
-            <div class="about_line_2"></div>
-          </div>
+					<div class="about_left_arrow" (click)="onLeftArrow()" *ngIf="show_arrows">
+						<div class="about_line_1"></div>
+						<div class="about_line_2"></div>
+					</div>
+					<div class="about_right_arrow" (click)="onRightArrow()" *ngIf="show_arrows">
+						<div class="about_line_1"></div>
+						<div class="about_line_2"></div>
+					</div>
 
-          <div class="about_items">
-            <ng-container *ngFor="let arrayItem of array_all; let i = index">
-              <ng-container *ngIf="i === pageIndex">
+					<div class="about_items">
+						<ng-container *ngFor="let arrayItem of array_all; let i = index">
+							<ng-container *ngIf="i === pageIndex">
 
-                <div class="about_item" *ngFor="let item of arrayItem.page">
-                  <ng-container *ngIf="item.image_uri && item.image_alt; else imageMissing">
-                    <div class="itemImage">
-                      <div class="bot">
-                        <p class="date">{{item.date | date:'shortDate'}}</p>
-                      </div>
-                      <img src="{{item.image_uri}}" alt="{{item.image_alt}}" (click)="showItemInfo(item.id)">
-                    </div>
-                  </ng-container>
-                  <div *ngIf="item.name; else nameMissing">
-                    <h5>
-                      <a href="{{item.link}}" target="_blank" *ngIf="item.link">{{item.name}}</a>
-                      <span *ngIf="!item.link">{{item.name}}</span>
-                    </h5>
-                  </div>
+								<div class="about_item" *ngFor="let item of arrayItem.page">
+									<ng-container *ngIf="item.image_uri && item.image_alt; else imageMissing">
+										<div class="itemImage">
+											<div class="bot">
+												<p class="date">{{item.date | date:'shortDate'}}</p>
+											</div>
+											<img src="{{item.image_uri}}" alt="{{item.image_alt}}" (click)="showItemInfo(item.id)">
+										</div>
+									</ng-container>
+									<div *ngIf="item.name; else nameMissing">
+										<h5>
+											<a href="{{item.link}}" target="_blank" *ngIf="item.link">{{item.name}}</a>
+											<span *ngIf="!item.link">{{item.name}}</span>
+										</h5>
+									</div>
 
-                  <ng-template #nameMissing>
-                    <h5>Missing name</h5>
-                  </ng-template>
-                  <ng-template #imageMissing>
-                    <div class="bot">
-                      <p class="date">{{item.date | date:'shortDate'}}</p>
-                    </div>
-                    <img src="https://www.pacificfoodmachinery.com.au/media/catalog/product/placeholder/default/no-product-image-400x400.png" alt="Missing image" (click)="showItemInfo(item.id)">
-                  </ng-template>
-
-                </div>
-              </ng-container>
-            </ng-container>
-
-            
-
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <app-navbar></app-navbar>
+									<ng-template #nameMissing>
+										<h5>Missing name</h5>
+									</ng-template>
+									<ng-template #imageMissing>
+										<div class="bot">
+											<p class="date">{{item.date | date:'shortDate'}}</p>
+										</div>
+										<img src="https://www.pacificfoodmachinery.com.au/media/catalog/product/placeholder/default/no-product-image-400x400.png" alt="Missing image" (click)="showItemInfo(item.id)">
+									</ng-template>
+								</div>
+							</ng-container>
+						</ng-container>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<app-navbar></app-navbar>
 </body>

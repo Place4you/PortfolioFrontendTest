@@ -1,44 +1,44 @@
 <div class="navigationbar">
-  <div class="nav_home">
-    <button routerLink="/home" type="button" class="btn btn-dark"><i class="fa-solid fa-house-chimney"></i> Home</button>
-    <div class="nav_arrow" *ngIf="currentRoute === '/home'">
-      <div class="nav_line_1"></div>
-      <div class="nav_line_2"></div>
-    </div>
-  </div>
-  <div class="nav_work">
-    <button routerLink="/work" type="button" class="btn btn-dark"><i class="fa-solid fa-code"></i> Work</button>
-    <div class="nav_arrow" *ngIf="currentRoute === '/work'">
-      <div class="nav_line_1"></div>
-      <div class="nav_line_2"></div>
-    </div>
-  </div>
-  <div class="nav_about">
-    <button routerLink="/about" type="button" class="btn btn-dark"><i class="fa-solid fa-user"></i> About</button>
-    <div class="nav_arrow" *ngIf="currentRoute === '/about'">
-      <div class="nav_line_1"></div>
-      <div class="nav_line_2"></div>
-    </div>
-  </div>
-  <div class="nav_contact">
-    <button routerLink="/contact" type="button" class="btn btn-dark"><i class="fa-solid fa-comments"></i> Contact</button>
-    <div class="nav_arrow" *ngIf="currentRoute === '/contact'">
-      <div class="nav_line_1"></div>
-      <div class="nav_line_2"></div>
-    </div>
-  </div>
-  <div class="nav_login" *ngIf="!isLogged()">
-    <button routerLink="/login" type="button" class="btn btn-dark"><i class="fa-solid fa-laptop"></i> Login</button>
-    <div class="nav_arrow" *ngIf="currentRoute === '/login'">
-      <div class="nav_line_1"></div>
-      <div class="nav_line_2"></div>
-    </div>
-  </div>
-  <div class="nav_admin" *ngIf="isLogged()">
-    <button routerLink="/admin" type="button" class="btn btn-dark"><i class="fa-solid fa-gears"></i> Admin</button>
-    <div class="nav_arrow" *ngIf="currentRoute === '/admin'">
-      <div class="nav_line_1"></div>
-      <div class="nav_line_2"></div>
-    </div>
-  </div>
+	<div class="nav_home">
+		<button routerLink="/home" type="button" class="btn btn-dark"><i class="fa-solid fa-house-chimney"></i> Home</button>
+		<div class="nav_arrow" *ngIf="currentRoute === '/home'">
+			<div class="nav_line_1"></div>
+			<div class="nav_line_2"></div>
+		</div>
+	</div>
+	<div class="nav_work">
+		<button routerLink="/work" type="button" class="btn btn-dark"><i class="fa-solid fa-code"></i> Work</button>
+		<div class="nav_arrow" *ngIf="currentRoute === '/work'">
+			<div class="nav_line_1"></div>
+			<div class="nav_line_2"></div>
+		</div>
+	</div>
+	<div class="nav_about">
+		<button routerLink="/about" type="button" class="btn btn-dark"><i class="fa-solid fa-user"></i> About</button>
+		<div class="nav_arrow" *ngIf="currentRoute === '/about'">
+			<div class="nav_line_1"></div>
+			<div class="nav_line_2"></div>
+		</div>
+	</div>
+	<div class="nav_contact">
+		<button routerLink="/contact" type="button" class="btn btn-dark"><i class="fa-solid fa-comments"></i> Contact</button>
+		<div class="nav_arrow" *ngIf="currentRoute === '/contact'">
+			<div class="nav_line_1"></div>
+			<div class="nav_line_2"></div>
+		</div>
+	</div>
+	<div class="nav_login" *ngIf="!isLogged()">
+		<button routerLink="/login" type="button" class="btn btn-dark"><i class="fa-solid fa-laptop"></i> Login</button>
+		<div class="nav_arrow" *ngIf="currentRoute === '/login'">
+			<div class="nav_line_1"></div>
+			<div class="nav_line_2"></div>
+		</div>
+	</div>
+	<div class="nav_admin" *ngIf="isLogged()">
+		<button routerLink="/admin" type="button" class="btn btn-dark"><i class="fa-solid fa-gears"></i> Admin</button>
+		<div class="nav_arrow" *ngIf="currentRoute === '/admin'">
+			<div class="nav_line_1"></div>
+			<div class="nav_line_2"></div>
+		</div>
+	</div>
 </div>

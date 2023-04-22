@@ -1,10 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
 import { NavbarComponent } from './navbar/navbar.component';
 import { IndexComponent } from './index/index.component';
 import { WorkComponent } from './work/work.component';
@@ -18,27 +16,26 @@ import { AdminAboutComponent } from './admin/views/admin-about/admin-about.compo
 import { AdminContactComponent } from './admin/views/admin-contact/admin-contact.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavbarComponent,
-    IndexComponent,
-    WorkComponent,
-    AboutComponent,
-    ContactComponent,
-    LoginComponent,
-    AdminComponent,
-    AdminHomeComponent,
-    AdminWorkComponent,
-    AdminAboutComponent,
-    AdminContactComponent
-  ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    AppRoutingModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+	declarations: [
+		AppComponent,
+		NavbarComponent,
+		IndexComponent,
+		WorkComponent,
+		AboutComponent,
+		ContactComponent,
+		LoginComponent,
+		AdminComponent,
+		AdminHomeComponent,
+		AdminWorkComponent,
+		AdminAboutComponent,
+		AdminContactComponent
+	],
+	imports: [
+		BrowserModule,
+		HttpClientModule,
+		AppRoutingModule
+	],
+	providers: [],
+	bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+export class AppModule { }

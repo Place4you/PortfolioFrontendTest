@@ -26,11 +26,11 @@ export class AdminContactComponent implements OnInit{
 
 
 	reset_default_item_values(): void {
-		this.error_message_add    = undefined;
-		this.error_message_edit   = undefined;
-		this.error_message_delete = undefined;
-		this.current_value        = "add";
-		this.found_item_id        = false;
+		this.error_message_add		= undefined;
+		this.error_message_edit		= undefined;
+		this.error_message_delete 	= undefined;
+		this.current_value			= "add";
+		this.found_item_id			= false;
 	}
 
 	method_change(event: Event): void {
@@ -274,6 +274,4 @@ export class AdminContactComponent implements OnInit{
 			});
 		}
 	}
-
-
 }

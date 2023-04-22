@@ -56,6 +56,7 @@ export class WorkComponent {
 			}
 		}
 	}
+
 	onLeftArrow(): void {
 		this.pageIndex--;
 		if(this.pageIndex < 0){
@@ -192,7 +193,6 @@ export class WorkComponent {
 			}
 		}
 	}
-
 
 	ngOnInit(): void {
 		this.workService.getItems()

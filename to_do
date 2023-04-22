@@ -20,13 +20,12 @@ Transitions/effects to almost everything, same for fonts and colors
 Add a layer so it only makes one api call instead of every time the route changes
 maybe store the responses in the services?
 
-Make all the html, scss and ts code the best I can
-
 Add support to non javascript users
 
 Button to reload views maybe (fa-undo)
 
 
+Make all the html, scss and ts code the best I can
 
 Create DTOs to replace the response type of the service functions both in the service and in the components
 
@@ -163,42 +162,42 @@ https://stackoverflow.com/questions/74651363/variable-in-curly-brackets-in-angul
 
 // about item data example
 {
-    "item_type": 3,
-    "name": "EFSET C2 Proficient",
-    "date": "2022-09-19",
-    "description": "I have been learning english since 2018 and consider myself bilingual, almost everyday for the last years I used it for online learning. Basically everything that it's IT related is in english, so is basic knowledge for a developer.<br><br>I'm able to read, listen, write and speak both in spanish and english at this moment. Yet this certificate doesn't apply for verbal communication.",
-    "link": "https://www.efset.org/cert/VKe9Rt",
-    "image_uri": "https://i.imgur.com/xAm496h.png",
-    "image_alt": "EFSET English certificate C2 Proficient"
+	"item_type": 3,
+	"name": "EFSET C2 Proficient",
+	"date": "2022-09-19",
+	"description": "I have been learning english since 2018 and consider myself bilingual, almost everyday for the last years I used it for online learning. Basically everything that it's IT related is in english, so is basic knowledge for a developer.<br><br>I'm able to read, listen, write and speak both in spanish and english at this moment. Yet this certificate doesn't apply for verbal communication.",
+	"link": "https://www.efset.org/cert/VKe9Rt",
+	"image_uri": "https://i.imgur.com/xAm496h.png",
+	"image_alt": "EFSET English certificate C2 Proficient"
 }
 
 // work item data example
 {
-    "name": "Test",
-    "date": "2021-07-21",
-    "technologies": "MySQL - Javascript - C++ - PHP - NodeJS - ExpressJS - HTML5 - SCSS - Angular - ReactJS - VueJS",
-    "description": "This is a fake project. And it should be treated like that.",
-    "code_uri": "https://github.com/asd",
-    "live_uri": "https://liveproject.com",
-    "image_uri": "https://i.imgur.com/JV66wJT.jpeg",
-    "image_alt": "Some project example"
+	"name": "Test",
+	"date": "2021-07-21",
+	"technologies": "MySQL - Javascript - C++ - PHP - NodeJS - ExpressJS - HTML5 - SCSS - Angular - ReactJS - VueJS",
+	"description": "This is a fake project. And it should be treated like that.",
+	"code_uri": "https://github.com/asd",
+	"live_uri": "https://liveproject.com",
+	"image_uri": "https://i.imgur.com/JV66wJT.jpeg",
+	"image_alt": "Some project example"
 }
 
 // contact item data example
 {
-    "name": "Github",
-    "link": "https://github.com/LautaroColella",
-    "account": "user: Lautaro Colella",
-    "image_uri": "https://cdn-icons-png.flaticon.com/512/25/25231.png",
-    "image_alt": "Github icon"
+	"name": "Github",
+	"link": "https://github.com/LautaroColella",
+	"account": "user: Lautaro Colella",
+	"image_uri": "https://cdn-icons-png.flaticon.com/512/25/25231.png",
+	"image_alt": "Github icon"
 }
 // contact message data example
 {
-    "subject": "Important bug",
-    "message": "Found a bug in the work page",
-    "reply": "hunter123@protonmail.com",
-    "date": "2022-06-30",
-    "read": false
+	"subject": "Important bug",
+	"message": "Found a bug in the work page",
+	"reply": "hunter123@protonmail.com",
+	"date": "2022-06-30",
+	"read": false
 }
 
 

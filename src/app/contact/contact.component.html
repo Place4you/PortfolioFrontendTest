@@ -1,39 +1,39 @@
 <body>
-  <div class="container content">
-    <div class="container contact" id="contact">
-      <div class="row">
-        <div class="col-sm form">
-          <h1>Send a message!</h1>
-          <form onsubmit="return false;" id="contact_form">
-            <input type="text" placeholder="Subject" class="subject" minlength="3" maxlength="128" required #subject>
-            <textarea placeholder="Message" class="message" minlength="3" maxlength="512" required #message></textarea>
-            <input type="text" placeholder="Reply to" minlength="3" maxlength="128" required #replyto>
-            <input type="submit" value="Send" (click)="create_message(subject.value, message.value, replyto.value)">
-          </form>
-          <p class="error" *ngIf="error_message">{{error_message}}</p>
-          <p class="success" *ngIf="success">Message sent successfully</p>
-        </div>
-        <div class="col-sm social">
-          <h2>Or see my profiles</h2>
-          <div class="social_items">
-            <div class="social_item" *ngFor="let item of social_items">
-              <div class="item_id">
-                <p>{{item.id}}</p>
-              </div>
-              <a *ngIf="!item.link" class="item_no_link">
-                <strong>{{item.name}}</strong>
-                <img src="{{item.image_uri}}" alt="{{item.image_alt}}">
-                <p class="bot">{{item.account}}</p>
-              </a>
-              <a *ngIf="item.link" href="{{item.link}}" target="_blank">
-                <strong>{{item.name}}</strong>
-                <img src="{{item.image_uri}}" alt="{{item.image_alt}}">
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <app-navbar></app-navbar>
+	<div class="container content">
+		<div class="container contact" id="contact">
+			<div class="row">
+				<div class="col-sm form">
+					<h1>Send a message!</h1>
+					<form onsubmit="return false;" id="contact_form">
+						<input type="text" placeholder="Subject" class="subject" minlength="3" maxlength="128" required #subject>
+						<textarea placeholder="Message" class="message" minlength="3" maxlength="512" required #message></textarea>
+						<input type="text" placeholder="Reply to" minlength="3" maxlength="128" required #replyto>
+						<input type="submit" value="Send" (click)="create_message(subject.value, message.value, replyto.value)">
+					</form>
+					<p class="error" *ngIf="error_message">{{error_message}}</p>
+					<p class="success" *ngIf="success">Message sent successfully</p>
+				</div>
+				<div class="col-sm social">
+					<h2>Or see my profiles</h2>
+					<div class="social_items">
+						<div class="social_item" *ngFor="let item of social_items">
+							<div class="item_id">
+								<p>{{item.id}}</p>
+							</div>
+							<a *ngIf="!item.link" class="item_no_link">
+								<strong>{{item.name}}</strong>
+								<img src="{{item.image_uri}}" alt="{{item.image_alt}}">
+								<p class="bot">{{item.account}}</p>
+							</a>
+							<a *ngIf="item.link" href="{{item.link}}" target="_blank">
+								<strong>{{item.name}}</strong>
+								<img src="{{item.image_uri}}" alt="{{item.image_alt}}">
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<app-navbar></app-navbar>
 </body>

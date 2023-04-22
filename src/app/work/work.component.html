@@ -1,82 +1,82 @@
 <body>
-  <div class="container content">
-    <div class="container work" id="work">
-      <div class="left_arrow" *ngIf="show_arrows && !description_open"  (click)="onLeftArrow()">
-        <div class="work_line_1"></div>
-        <div class="work_line_2"></div>
-      </div>
-      <div class="right_arrow" *ngIf="show_arrows && !description_open" (click)="onRightArrow()">
-        <div class="work_line_1"></div>
-        <div class="work_line_2"></div>
-      </div>
-      <div class="projects">
-        <ng-container *ngIf="description_open">
-          <div class="project_w_description">
-            <div class="project">
-              <div class="top">
-                <img src="{{curr_project.image_uri}}" alt="{{curr_project.image_alt}}">
-              </div>
-              <div class="bot">
-                <p class="date">{{curr_project.date | date:'shortDate'}}</p>
-                <div class="links">
-                  <a href="{{curr_project.code_uri}}" target="_blank"><i class="fas fa-code fa-2x"></i></a>
-                  <a href="{{curr_project.live_uri}}" target="_blank"><i class="fa-solid fa-pager fa-2x"></i></a>
-                  <i *ngIf="!description_open" class="fa-solid fa-caret-down fa-2x" (click)='view_description(true, curr_project.id)'></i>
-                  <i *ngIf="description_open" class="fa-solid fa-caret-up fa-2x" (click)='view_description(false, curr_project.id)'></i>
-                </div>
-                <p class="technologies">{{curr_project.technologies}}</p>
-              </div>
-            </div>
-            <div class="description_top">
-              <button type="button" class="btn btn-dark" (click)="view_description(false, curr_project.id)">Return</button>
-              <h1>{{curr_project.name}}- id: {{curr_project.id}}</h1>
-            </div>
-            <p class="description">{{curr_project.description}}</p>
-          </div>
-        </ng-container>
-        <ng-container *ngIf="!description_open">
-          <ng-container *ngFor="let arrayItem of array_all; let i = index">
-            <ng-container *ngIf="i === pageIndex">
-              <div class="project" *ngFor="let project of arrayItem.page">
-                <div class="top">
-                  <h1>{{project.name}}</h1>
-                  <img src="{{project.image_uri}}" alt="{{project.image_alt}}">
-                </div>
-                <div class="bot">
-                  <p class="date">{{project.date | date:'shortDate'}}</p>
-                  <div class="links">
-                    <a href="{{project.code_uri}}" target="_blank"><i class="fas fa-code fa-2x"></i></a>
-                    <a href="{{project.live_uri}}" target="_blank"><i class="fa-solid fa-pager fa-2x"></i></a>
-                    <i *ngIf="!description_open" class="fa-solid fa-caret-down fa-2x" (click)='view_description(true, project.id)'></i>
-                    <i *ngIf="description_open" class="fa-solid fa-caret-up fa-2x" (click)='view_description(false, project.id)'></i>
-                  </div>
-                  <p class="technologies">{{project.technologies}}</p>
-                </div>
-              </div>
-            </ng-container>
-          </ng-container>
-        </ng-container>
-      </div>
-      <div class="low_buttons" *ngIf="!description_open">
-        <div class="order_by_button">
-          <select class="order_by">
-            <option selected (click)='orderBy("NL")'>Date - New to Last</option>
-            <option (click)='orderBy("LN")'>Date - Last to New</option>
-            <option (click)='orderBy("AZ")'>Name - A to Z</option>
-            <option (click)='orderBy("ZA")'>Name - Z to A</option>
-          </select>
-        </div>
-        <div class="page_selector" id="page_selector" *ngIf="show_arrows">
-          <span class="ps_item" *ngFor="let page of page_selector_items">
-            <input *ngIf="page.number !== 1;else check_item" type="radio" id="{{page.number}}" name="page_number" (click)="changePage(page.number)">
-            <label for="{{page.number}}">{{page.number}}</label>
-            <ng-template #check_item>
-              <input type="radio" id="{{page.number}}" name="page_number" (click)="changePage(page.number)" checked>
-            </ng-template>
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
-  <app-navbar></app-navbar>
+	<div class="container content">
+		<div class="container work" id="work">
+			<div class="left_arrow" *ngIf="show_arrows && !description_open"  (click)="onLeftArrow()">
+				<div class="work_line_1"></div>
+				<div class="work_line_2"></div>
+			</div>
+			<div class="right_arrow" *ngIf="show_arrows && !description_open" (click)="onRightArrow()">
+				<div class="work_line_1"></div>
+				<div class="work_line_2"></div>
+			</div>
+			<div class="projects">
+				<ng-container *ngIf="description_open">
+					<div class="project_w_description">
+						<div class="project">
+							<div class="top">
+								<img src="{{curr_project.image_uri}}" alt="{{curr_project.image_alt}}">
+							</div>
+							<div class="bot">
+								<p class="date">{{curr_project.date | date:'shortDate'}}</p>
+								<div class="links">
+									<a href="{{curr_project.code_uri}}" target="_blank"><i class="fas fa-code fa-2x"></i></a>
+									<a href="{{curr_project.live_uri}}" target="_blank"><i class="fa-solid fa-pager fa-2x"></i></a>
+									<i *ngIf="!description_open" class="fa-solid fa-caret-down fa-2x" (click)='view_description(true, curr_project.id)'></i>
+									<i *ngIf="description_open" class="fa-solid fa-caret-up fa-2x" (click)='view_description(false, curr_project.id)'></i>
+								</div>
+								<p class="technologies">{{curr_project.technologies}}</p>
+							</div>
+						</div>
+						<div class="description_top">
+							<button type="button" class="btn btn-dark" (click)="view_description(false, curr_project.id)">Return</button>
+							<h1>{{curr_project.name}}- id: {{curr_project.id}}</h1>
+						</div>
+						<p class="description">{{curr_project.description}}</p>
+					</div>
+				</ng-container>
+				<ng-container *ngIf="!description_open">
+					<ng-container *ngFor="let arrayItem of array_all; let i = index">
+						<ng-container *ngIf="i === pageIndex">
+							<div class="project" *ngFor="let project of arrayItem.page">
+								<div class="top">
+									<h1>{{project.name}}</h1>
+									<img src="{{project.image_uri}}" alt="{{project.image_alt}}">
+								</div>
+								<div class="bot">
+									<p class="date">{{project.date | date:'shortDate'}}</p>
+									<div class="links">
+										<a href="{{project.code_uri}}" target="_blank"><i class="fas fa-code fa-2x"></i></a>
+										<a href="{{project.live_uri}}" target="_blank"><i class="fa-solid fa-pager fa-2x"></i></a>
+										<i *ngIf="!description_open" class="fa-solid fa-caret-down fa-2x" (click)='view_description(true, project.id)'></i>
+										<i *ngIf="description_open" class="fa-solid fa-caret-up fa-2x" (click)='view_description(false, project.id)'></i>
+									</div>
+									<p class="technologies">{{project.technologies}}</p>
+								</div>
+							</div>
+						</ng-container>
+					</ng-container>
+				</ng-container>
+			</div>
+			<div class="low_buttons" *ngIf="!description_open">
+				<div class="order_by_button">
+					<select class="order_by">
+						<option selected (click)='orderBy("NL")'>Date - New to Last</option>
+						<option (click)='orderBy("LN")'>Date - Last to New</option>
+						<option (click)='orderBy("AZ")'>Name - A to Z</option>
+						<option (click)='orderBy("ZA")'>Name - Z to A</option>
+					</select>
+				</div>
+				<div class="page_selector" id="page_selector" *ngIf="show_arrows">
+					<span class="ps_item" *ngFor="let page of page_selector_items">
+						<input *ngIf="page.number !== 1;else check_item" type="radio" id="{{page.number}}" name="page_number" (click)="changePage(page.number)">
+						<label for="{{page.number}}">{{page.number}}</label>
+						<ng-template #check_item>
+							<input type="radio" id="{{page.number}}" name="page_number" (click)="changePage(page.number)" checked>
+						</ng-template>
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<app-navbar></app-navbar>
 </body>

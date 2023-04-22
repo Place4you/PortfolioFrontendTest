@@ -47,7 +47,6 @@ export class AdminWorkComponent implements AfterViewInit {
 		}
 	}
 
-
 	create_item(
 		name: string,
 		date: string,
@@ -245,6 +244,4 @@ export class AdminWorkComponent implements AfterViewInit {
 			date_input.value = new Date().toLocaleDateString('fr-ca');
 		}
 	}
-
-
 }
