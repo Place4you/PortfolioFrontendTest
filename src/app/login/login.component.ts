@@ -30,8 +30,9 @@ export class LoginComponent {
     this.error_message = error;
 
     if(!error){
+      this.error_message = undefined;
       this.loginService.login(email, password)
-      .subscribe((response: any) => {
+      .subscribe((response: any): void => {
         this.cookieService.set('JWT', response.body, 1);
         this.router.navigate(['admin']);
       });

@@ -14,17 +14,17 @@ export class IndexComponent {
   current_title: string | undefined = undefined;
   curr_title_i:  number = 0;
   second_after:  boolean = true;
-  el:            any = undefined;
-  resize_ob:     any = undefined;
+  el:            HTMLElement | null = null;
+  resize_ob:     ResizeObserver | undefined = undefined;
 
   update_title(): void {
-    if(this.el !== null){
+    if(this.el){
       this.resize_ob = new ResizeObserver((entries) => {
         this.zone.run(() => {
           if(entries !== null){
-            if(this.el.parentElement !== null){
-              const parentElemWidth = +getComputedStyle(this.el.parentElement).width.slice(0, -2);
-              const elemWidth = +getComputedStyle(this.el).width.slice(0, -2);
+            if(this.el !== null && this.el.parentElement !== null){
+              const parentElemWidth: number = +getComputedStyle(this.el.parentElement).width.slice(0, -2);
+              const elemWidth: number = +getComputedStyle(this.el).width.slice(0, -2);
 
               if(Math.round((elemWidth / parentElemWidth) * 100) >= 93){
                 if(this.second_after){
@@ -41,7 +41,6 @@ export class IndexComponent {
           }
         })
       });
-
       this.resize_ob.observe(this.el);
     }
   }
@@ -49,11 +48,11 @@ export class IndexComponent {
 
   ngOnInit(): void {
     this.informationService.getInformationTable()
-    .subscribe((response: any) => {
+    .subscribe((response: any): void => {
       for(let i: number = 0; i < response.body.length; i++){
         if(response.body[i].name === "index_titles" && response.body[i].information){
           this.titles_array = response.body[i].information.split(',');
-          i = response.body.length;
+          break;
         }
       }
     });
@@ -62,6 +61,8 @@ export class IndexComponent {
   }
 
   ngOnDestroy(): void {
-    this.resize_ob.unobserve(this.el);
+    if(this.resize_ob && this.el){
+      this.resize_ob.unobserve(this.el);
+    }
   }
 }

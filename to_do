@@ -7,7 +7,6 @@ The only error in the api call should be the token, make sure all user data can'
 
 Unit testing in everything
 
-
 Diagrama Entidad Relacion
 
 Responsive
@@ -23,14 +22,13 @@ maybe store the responses in the services?
 
 Make all the html, scss and ts code the best I can
 
-
 Add support to non javascript users
 
 Button to reload views maybe (fa-undo)
 
 
 
-Add the typescript type to all the values and functions, remove all "any" and add "void" to functions (use interfaces, dtos, etc), replace all empty strings or 0 values for undefined
+Create DTOs to replace the response type of the service functions both in the service and in the components
 
 
 
@@ -138,6 +136,8 @@ Work page:
 
 
 // questions asked for the project, last-to-first
+https://stackoverflow.com/questions/76078234/set-the-type-of-node-childnodes-variable-in-typescript/76078430?noredirect=1
+
 https://stackoverflow.com/questions/75748843/angular-html-doesnt-update-and-cant-find-scope-binding
 
 https://stackoverflow.com/questions/75682736/set-radio-inputs-in-the-same-line-and-labels-below-in-css

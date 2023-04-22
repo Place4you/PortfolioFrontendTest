@@ -8,3 +8,13 @@ export interface Item {
     date: Date,
     description: string
 }
+
+export interface Page {
+    id: number,
+    name: string,
+    link: string,
+    image_uri: string,
+    image_alt: string,
+    date: Date,
+    description: string
+}

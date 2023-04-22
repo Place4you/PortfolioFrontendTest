@@ -10,7 +10,14 @@ export class ContactComponent {
 
   constructor(private contactService: ContactService) { }
   
-  social_items: Array<{id: number, name: string, link: string, account: string, image_uri: string, image_alt: string }> = []
+  social_items: {
+    id: number,
+    name: string,
+    link: string,
+    account: string,
+    image_uri: string,
+    image_alt: string
+  }[] = []
 
   error_message: string | undefined = undefined;
   success: boolean = false;
@@ -68,7 +75,7 @@ export class ContactComponent {
         }
         else {
           this.response_message(2);
-          const form = <HTMLFormElement>document.getElementById("contact_form");
+          const form: HTMLFormElement = <HTMLFormElement>document.getElementById("contact_form");
           if(form !== null){
             form.reset();
           }

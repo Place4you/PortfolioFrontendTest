@@ -30,7 +30,7 @@ export class AdminHomeComponent implements OnInit{
           }
           else {
             this.router.navigate(['home']);
-            this.error_message = "";
+            this.error_message = undefined;
           }
         });
       }
@@ -47,7 +47,7 @@ export class AdminHomeComponent implements OnInit{
         if(response.body[i].name === "index_titles" && response.body[i].information){
           this.home_titles = response.body[i].information;
           this.index_titles_id = i + 1;
-          i = response.body.length;
+          break;
         }
       }
     });

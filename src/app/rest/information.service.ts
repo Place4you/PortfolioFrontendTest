@@ -3,41 +3,43 @@ import { HttpClientModule, HttpClient, HttpHeaders, HttpErrorResponse } from '@a
 import { catchError } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class InformationService {
 
-  constructor(private http: HttpClient) { }
+	constructor(private http: HttpClient) { }
 
-  uri: string = 'http://localhost:8080/api/v1/information';
+	uri: string = 'http://localhost:8080/api/v1/information';
 
-  getInformationTable(){
-    return this.http.get(
-      this.uri,
-      {
-        observe: 'response',
-        responseType: 'json'
-      });
-  }
+	getInformationTable(){
+		return this.http.get(
+			this.uri,
+			{
+				observe: 'response',
+				responseType: 'json'
+			}
+		);
+	}
 
-  editInformationTable(token: string, id: number, name: string, information: string){
-    return this.http.put(
-      this.uri + '/update',
-      {
-        id: id,
-        name: name,
-        information:
-        information
-      },
-      {
-        headers: {'Authorization':token},
-        observe: 'response',
-        responseType: 'text'
-      })
-    .pipe(
-      catchError((err: HttpErrorResponse) => {
-        return "0";
-      })
-    );
-  }
+	editInformationTable(token: string, id: number, name: string, information: string){
+		return this.http.put(
+			this.uri + '/update',
+			{
+				id: id,
+				name: name,
+				information:
+				information
+			},
+			{
+				headers: {'Authorization':token},
+				observe: 'response',
+				responseType: 'text'
+			}
+		)
+		.pipe(
+			catchError((err: HttpErrorResponse) => {
+				return "0";
+			})
+		);
+	}
 }

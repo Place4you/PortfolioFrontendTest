@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AboutService } from '../rest/about.service';
 import { InformationService } from '../rest/information.service';
-import { Item } from './interfaces/item.interface';
+import { Item, Page } from './interfaces';
 
 @Component({
   selector: 'app-about',
@@ -12,30 +12,27 @@ export class AboutComponent {
 
   constructor(private aboutService: AboutService, private informationService: InformationService){ }
 
-
-  array_all:    Array<{ page: any }> = [];
-  array_page:   Array<{ id: number, name: string, link: string, image_uri: string, image_alt: string, date: Date, description: string }> = [];
-  pageIndex:    number  = 0;
-  total_pages:  number  = 1;
-  show_arrows:  boolean = false;
+  array_all:          { page: Page[] }[] = [];
+  array_page:         Page[] = [];
+  pageIndex:          number  = 0;
+  total_pages:        number  = 1;
+  show_arrows:        boolean = false;
+  knowledge_items:    Item[] = [];
+  badges_items:       Item[] = [];
+  certificates_items: Item[] = [];
   journey: { id: number, title: string, description: string } = {
     id: 0,
     title: "No title",
     description: "No description"
   };
 
-  knowledge_items:    Array<Item> = [];
-  badges_items:       Array<Item> = [];
-  certificates_items: Array<Item> = [];
-
-  
   onNavClick(view: string): void {
     this.show_arrows = false;
 
-    const selectedNavButton = document.getElementById(view);
-    const navKnowledge = document.getElementById('knowledge_items');
-    const navBadges = document.getElementById('badges_items');
-    const navCertificates = document.getElementById('certificates_items');
+    const selectedNavButton: HTMLElement | null = document.getElementById(view);
+    const navKnowledge: HTMLElement | null      = document.getElementById('knowledge_items');
+    const navBadges: HTMLElement | null         = document.getElementById('badges_items');
+    const navCertificates: HTMLElement | null   = document.getElementById('certificates_items');
     if(selectedNavButton != null){
       if(navKnowledge != null && navBadges != null && navCertificates != null){
         navKnowledge.style.backgroundColor = '#5c636a';
@@ -50,7 +47,7 @@ export class AboutComponent {
     this.total_pages = 1;
 
     let start_at: number = 0;
-    let selected_items: Array<Item> = this.knowledge_items;
+    let selected_items: Item[] = this.knowledge_items;
 
     if(view === 'badges_items'){
       selected_items = this.badges_items;
@@ -116,7 +113,7 @@ export class AboutComponent {
   showItemInfo(itemId: number): void {
     let found_id: boolean = false;
 
-    for(let i = 0; i < this.knowledge_items.length; i++){
+    for(let i: number = 0; i < this.knowledge_items.length; i++){
       if(this.knowledge_items[i].id === itemId){
         found_id = true;
         i = this.knowledge_items.length - 1;
@@ -128,7 +125,7 @@ export class AboutComponent {
       }
     }
     if(!found_id){
-      for(let i = 0; i < this.badges_items.length; i++){
+      for(let i: number = 0; i < this.badges_items.length; i++){
         if(this.badges_items[i].id === itemId){
           found_id = true;
           i = this.badges_items.length - 1;
@@ -141,7 +138,7 @@ export class AboutComponent {
       }
     }
     if(!found_id){
-      for(let i = 0; i < this.certificates_items.length; i++){
+      for(let i: number = 0; i < this.certificates_items.length; i++){
         if(this.certificates_items[i].id === itemId){
           found_id = true;
           i = this.certificates_items.length - 1;
@@ -190,7 +187,7 @@ export class AboutComponent {
       }
 
       let start_at: number = 0;
-      let selected_items: Array<Item> = this.knowledge_items;
+      let selected_items: Item[] = this.knowledge_items;
 
       for(let i: number = start_at; i < selected_items.length; i++){
         if(i%2 === 0 && i%3 === 0 && i !== start_at){
@@ -234,8 +231,4 @@ export class AboutComponent {
 
     });
   }
-
 }
-
-
-
