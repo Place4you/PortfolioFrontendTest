@@ -11,7 +11,7 @@ export class WorkService {
 
   uri: string = "http://localhost:8080/api/v1/work_item"
 
-  getItem(id: number){
+  getItem(id: number) {
     return this.http.get(
       this.uri + `/${id}`,
       {
@@ -25,7 +25,7 @@ export class WorkService {
     );
   }
 
-  getItems(){
+  getItems() {
     return this.http.get(
       this.uri,
       {
@@ -44,7 +44,7 @@ export class WorkService {
     live_uri: string,
     image_uri: string,
     image_alt: string
-    ){
+    ) {
     const body = {
       name: name,
       date: date,
@@ -81,7 +81,7 @@ export class WorkService {
     live_uri: string,
     image_uri: string,
     image_alt: string
-  ){
+  ) {
     const body = {
       id: id,
       name: name,
@@ -109,7 +109,7 @@ export class WorkService {
   }
 
 
-  deleteItem(token: string, id: number){
+  deleteItem(token: string, id: number) {
     return this.http.delete(
       this.uri + `/delete/${id}`,
       {

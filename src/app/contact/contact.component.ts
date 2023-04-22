@@ -15,7 +15,7 @@ export class ContactComponent {
   error_message: string | undefined = undefined;
   success: boolean = false;
 
-  response_message(type: number, message?: string){
+  response_message(type: number, message?: string): void {
     if(type === 0){ // no error, no success
       this.error_message = undefined;
       this.success = false;
@@ -30,7 +30,7 @@ export class ContactComponent {
     }
   }
 
-  create_message(subject: string, message: string, replyto: string){
+  create_message(subject: string, message: string, replyto: string): void {
     if(!subject){
       this.response_message(1, "Field <subject> can't be null");
     }
@@ -62,7 +62,7 @@ export class ContactComponent {
     else {
       const date: string = new Date().toLocaleDateString('fr-ca');
       this.contactService.createMessage(subject, message, replyto, date)
-      .subscribe((response: any) => {
+      .subscribe((response: any): void  => {
         if(response === "0"){
           this.response_message(1, "Error while creating the message");
         }
@@ -77,9 +77,9 @@ export class ContactComponent {
     }
   }
 
-  ngOnInit(){
+  ngOnInit(): void {
     this.contactService.getItems()
-    .subscribe((response: any) => {
+    .subscribe((response: any): void  => {
       for(let i: number = 0; i < response.body.length; i++){
         if(response.body[i]){
           this.social_items.push(response.body[i]);

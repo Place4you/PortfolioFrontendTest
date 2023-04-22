@@ -17,7 +17,7 @@ export class IndexComponent {
   el:            any = undefined;
   resize_ob:     any = undefined;
 
-  update_title(): void{
+  update_title(): void {
     if(this.el !== null){
       this.resize_ob = new ResizeObserver((entries) => {
         this.zone.run(() => {
@@ -47,7 +47,7 @@ export class IndexComponent {
   }
 
 
-  ngOnInit(){
+  ngOnInit(): void {
     this.informationService.getInformationTable()
     .subscribe((response: any) => {
       for(let i: number = 0; i < response.body.length; i++){
@@ -61,7 +61,7 @@ export class IndexComponent {
     this.update_title();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.resize_ob.unobserve(this.el);
   }
 }

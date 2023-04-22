@@ -29,7 +29,7 @@ export class AboutComponent {
   certificates_items: Array<Item> = [];
 
   
-  onNavClick(view: string){
+  onNavClick(view: string): void {
     this.show_arrows = false;
 
     const selectedNavButton = document.getElementById(view);
@@ -100,20 +100,20 @@ export class AboutComponent {
     }
   }
 
-  onRightArrow(){
+  onRightArrow(): void {
     this.pageIndex++;
     if(this.pageIndex > this.total_pages - 1){
       this.pageIndex = 0;
     }
   }
-  onLeftArrow(){
+  onLeftArrow(): void {
     this.pageIndex--;
     if(this.pageIndex < 0){
       this.pageIndex = this.total_pages - 1;
     }
   }
 
-  showItemInfo(itemId: number){
+  showItemInfo(itemId: number): void {
     let found_id: boolean = false;
 
     for(let i = 0; i < this.knowledge_items.length; i++){
@@ -156,9 +156,9 @@ export class AboutComponent {
   }
 
 
-  ngOnInit(){
+  ngOnInit(): void {
     this.informationService.getInformationTable()
-    .subscribe((response: any) => {
+    .subscribe((response: any): void  => {
       let journey_message: string = "No description";
       for(let i: number = 0; i < response.body.length; i++){
         if(response.body[i].name === "journey" && response.body[i].information){
@@ -174,7 +174,7 @@ export class AboutComponent {
     });
 
     this.aboutService.getItems()
-    .subscribe((response: any) => {
+    .subscribe((response: any): void  => {
       for(let i: number = 0; i < response.body.length; i++){
         if(response.body[i]){
           if(response.body[i].item_type === 1){

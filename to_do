@@ -23,11 +23,17 @@ maybe store the responses in the services?
 
 Make all the html, scss and ts code the best I can
 
-Add the typescript type to all the values and functions, remove all "any" and add "void" to functions (use interfaces, dtos, etc), replace all empty strings or 0 values for undefined
 
 Add support to non javascript users
 
 Button to reload views maybe (fa-undo)
+
+
+
+Add the typescript type to all the values and functions, remove all "any" and add "void" to functions (use interfaces, dtos, etc), replace all empty strings or 0 values for undefined
+
+
+
 
 Production:
 - Be careful with '*' as Access-Control-Allow-Origin in production. Change this back only to the clients that are allowed to connect to the API.

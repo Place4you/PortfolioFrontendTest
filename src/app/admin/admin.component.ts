@@ -13,7 +13,7 @@ export class AdminComponent implements OnInit {
 
     constructor(private loginService: LoginService, private cookieService: CookieService, private router: Router){ }
     
-    view_click(view: string){
+    view_click(view: string): void {
         const elemView: any = document.getElementById(`app_${view}`);
         let arrow: any = {}
         if(elemView !== null){
@@ -101,7 +101,7 @@ export class AdminComponent implements OnInit {
         else{
             const cookieValue: string = this.cookieService.get('JWT');
             this.loginService.check_token(cookieValue)
-            .subscribe((response: any) => {
+            .subscribe((response: any): void  => {
                 if(response === "0"){
                     this.b_logout();
                 }

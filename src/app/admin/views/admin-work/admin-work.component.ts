@@ -78,7 +78,7 @@ export class AdminWorkComponent implements AfterViewInit {
       else{
         const cookieValue: string = this.cookieService.get('JWT');
         this.workService.createItem(cookieValue, name, date, technologies, description, code_uri, live_uri, image_uri, image_alt)
-        .subscribe((response: any) => {
+        .subscribe((response: any): void  => {
           if(response === "0"){
             this.router.navigate(['login']);
           }
@@ -104,7 +104,7 @@ export class AdminWorkComponent implements AfterViewInit {
     }
     else {
       this.workService.getItem(projectId)
-      .subscribe((response: any) => {
+      .subscribe((response: any): void  => {
         if(response === "0"){
           this.router.navigate(['login']);
         }
@@ -184,7 +184,7 @@ export class AdminWorkComponent implements AfterViewInit {
           else{
             const cookieValue: string = this.cookieService.get('JWT');
             this.workService.updateItem(cookieValue, this.project_to_edit.id, name, date, technologies, description, code_uri, live_uri, image_uri, image_alt)
-            .subscribe((response: any) => {
+            .subscribe((response: any): void  => {
               if(response === "0"){
                 this.router.navigate(['login']);
               }
@@ -224,7 +224,7 @@ export class AdminWorkComponent implements AfterViewInit {
       else{
         const cookieValue: string = this.cookieService.get('JWT');
         this.workService.deleteItem(cookieValue, projectId)
-        .subscribe((response: any) => {
+        .subscribe((response: any): void  => {
           if(response === "0"){
             this.router.navigate(['login']);
           }

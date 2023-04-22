@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router'
 import { LoginService } from '../rest/login.service';
@@ -10,11 +10,11 @@ import { LoginService } from '../rest/login.service';
   providers: [CookieService]
 })
 
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
   constructor(private loginService: LoginService, private cookieService: CookieService, private router: Router) {}
 
-  Login(email: string, password: string){
+  Login(email: string, password: string): void {
     let error: string | undefined = undefined;
 
     if(!email || !password){
@@ -39,6 +39,4 @@ export class LoginComponent implements OnInit {
   }
 
   error_message: string | undefined = undefined;
-
-  ngOnInit() { }
 }

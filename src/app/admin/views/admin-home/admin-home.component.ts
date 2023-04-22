@@ -16,7 +16,7 @@ export class AdminHomeComponent implements OnInit{
   error_message: string | undefined = undefined;
   index_titles_id: number = 0;
 
-  Update(titles: string): void {
+  update(titles: string): void {
     if(this.home_titles !== titles){
       if(!this.cookieService.get('JWT')){
         this.router.navigate(['login']);
@@ -24,7 +24,7 @@ export class AdminHomeComponent implements OnInit{
       else{
         const cookieValue: string = this.cookieService.get('JWT');
         this.informationService.editInformationTable(cookieValue, this.index_titles_id, "index_titles", titles)
-        .subscribe((response: any) => {
+        .subscribe((response: any): void  => {
           if(response === "0"){
             this.router.navigate(['login']);
           }
@@ -42,7 +42,7 @@ export class AdminHomeComponent implements OnInit{
 
   ngOnInit(): void {
     this.informationService.getInformationTable()
-    .subscribe((response: any) => {
+    .subscribe((response: any): void  => {
       for(let i: number = 0; i < response.body.length; i++){
         if(response.body[i].name === "index_titles" && response.body[i].information){
           this.home_titles = response.body[i].information;

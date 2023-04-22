@@ -43,7 +43,7 @@ export class AdminAboutComponent implements AfterViewInit {
         else{
           const cookieValue: string = this.cookieService.get('JWT');
           this.informationService.editInformationTable(cookieValue, this.journey_info_id, "journey", text)
-          .subscribe((response: any) => {
+          .subscribe((response: any): void  => {
             if(response === "0"){
               this.router.navigate(['login']);
             }
@@ -119,7 +119,7 @@ export class AdminAboutComponent implements AfterViewInit {
       else{
         const cookieValue: string = this.cookieService.get('JWT');
         this.aboutService.createItem(cookieValue, type, name, date, description, uri, image_uri, image_alt)
-        .subscribe((response: any) => {
+        .subscribe((response: any): void  => {
           if(response === "0"){
             this.router.navigate(['login']);
           }
@@ -145,7 +145,7 @@ export class AdminAboutComponent implements AfterViewInit {
     }
     else {
       this.aboutService.getItem(itemId)
-      .subscribe((response: any) => {
+      .subscribe((response: any): void  => {
         if(response === "0"){
           this.router.navigate(['login']);
         }
@@ -213,7 +213,7 @@ export class AdminAboutComponent implements AfterViewInit {
           else{
             const cookieValue: string = this.cookieService.get('JWT');
             this.aboutService.updateItem(cookieValue, this.item_to_edit.id, this.item_to_edit.type, name, date, description, uri, image_uri, image_alt)
-            .subscribe((response: any) => {
+            .subscribe((response: any): void  => {
               if(response === "0"){
                 this.router.navigate(['login']);
               }
@@ -253,7 +253,7 @@ export class AdminAboutComponent implements AfterViewInit {
       else{
         const cookieValue: string = this.cookieService.get('JWT');
         this.aboutService.deleteItem(cookieValue, itemId)
-        .subscribe((response: any) => {
+        .subscribe((response: any): void  => {
           if(response === "0"){
             this.router.navigate(['login']);
           }
@@ -268,7 +268,7 @@ export class AdminAboutComponent implements AfterViewInit {
 
   ngOnInit(): void {
     this.informationService.getInformationTable()
-    .subscribe((response: any) => {
+    .subscribe((response: any): void  => {
       for(let i: number = 0; i < response.body.length; i++){
         if(response.body[i].name === "journey" && response.body[i].information){
           this.journey_info = response.body[i].information;

@@ -9,14 +9,31 @@ export class InformationService {
 
   constructor(private http: HttpClient) { }
 
-  uri: string = 'http://localhost:8080/';
+  uri: string = 'http://localhost:8080/api/v1/information';
 
   getInformationTable(){
-    return this.http.get(this.uri + 'api/v1/information', {observe: 'response', responseType: 'json'});
+    return this.http.get(
+      this.uri,
+      {
+        observe: 'response',
+        responseType: 'json'
+      });
   }
 
   editInformationTable(token: string, id: number, name: string, information: string){
-    return this.http.put(this.uri + 'api/v1/information/update', { id: id, name: name, information: information }, {headers: {'Authorization':token}, observe: 'response', responseType: 'text'})
+    return this.http.put(
+      this.uri + '/update',
+      {
+        id: id,
+        name: name,
+        information:
+        information
+      },
+      {
+        headers: {'Authorization':token},
+        observe: 'response',
+        responseType: 'text'
+      })
     .pipe(
       catchError((err: HttpErrorResponse) => {
         return "0";

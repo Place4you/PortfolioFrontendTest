@@ -63,7 +63,7 @@ export class AdminContactComponent implements OnInit{
       else{
         const cookieValue: string = this.cookieService.get('JWT');
         this.contactService.createItem(cookieValue, name, account, uri, image_uri, image_alt)
-        .subscribe((response: any) => {
+        .subscribe((response: any): void  => {
           if(response === "0"){
             this.router.navigate(['login']);
           }
@@ -89,7 +89,7 @@ export class AdminContactComponent implements OnInit{
     }
     else {
       this.contactService.getItem(itemId)
-      .subscribe((response: any) => {
+      .subscribe((response: any): void  => {
         if(response === "0"){
           this.router.navigate(['login']);
         }
@@ -148,7 +148,7 @@ export class AdminContactComponent implements OnInit{
           else{
             const cookieValue: string = this.cookieService.get('JWT');
             this.contactService.updateItem(cookieValue, this.item_to_edit.id, name, account, uri, image_uri, image_alt)
-            .subscribe((response: any) => {
+            .subscribe((response: any): void  => {
               if(response === "0"){
                 this.router.navigate(['login']);
               }
@@ -188,7 +188,7 @@ export class AdminContactComponent implements OnInit{
       else{
         const cookieValue: string = this.cookieService.get('JWT');
         this.contactService.deleteItem(cookieValue, itemId)
-        .subscribe((response: any) => {
+        .subscribe((response: any): void  => {
           if(response === "0"){
             this.router.navigate(['login']);
           }
@@ -202,14 +202,14 @@ export class AdminContactComponent implements OnInit{
   }
 
 
-  show_message(id: number){
+  show_message(id: number): void {
     if(!this.cookieService.get('JWT')){
       this.router.navigate(['login']);
     }
     else{
       const cookieValue: string = this.cookieService.get('JWT');
       this.contactService.getMessage(cookieValue, id)
-      .subscribe((response: any) => {
+      .subscribe((response: any): void  => {
         if(response === "0"){
           this.router.navigate(['login']);
         }
@@ -225,7 +225,7 @@ export class AdminContactComponent implements OnInit{
           this.one_message = true;
           if(!response.body.read){
             this.contactService.changeMessageRead(cookieValue, this.current_message)
-            .subscribe((response: any) => {
+            .subscribe((response: any): void  => {
               if(response === "0"){
                 this.router.navigate(['login']);
               }
@@ -252,7 +252,7 @@ export class AdminContactComponent implements OnInit{
     else{
       const cookieValue: string = this.cookieService.get('JWT');
       this.contactService.getMessages(cookieValue)
-      .subscribe((response: any) => {
+      .subscribe((response: any): void  => {
         if(response === "0"){
           this.router.navigate(['login']);
         }

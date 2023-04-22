@@ -20,7 +20,7 @@ export class WorkComponent {
   page_selector_items:  Array<{ number: number }> = [{number: 1}];
   current_order:        string = "AZ";
 
-  curr_project:         { id: number, name: string, code_uri: string, live_uri: string, image_uri: string, image_alt: string, date: Date, technologies: string, description: string } = {
+  curr_project: { id: number, name: string, code_uri: string, live_uri: string, image_uri: string, image_alt: string, date: Date, technologies: string, description: string } = {
     id: 0,
     name: "Not assigned",
     code_uri: "Not assigned",
@@ -194,7 +194,7 @@ export class WorkComponent {
   }
 
 
-  ngOnInit(){
+  ngOnInit(): void {
 
     this.workService.getItems()
     .subscribe((response: any) => {
