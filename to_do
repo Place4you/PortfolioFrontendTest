@@ -7,8 +7,6 @@ The only error in the api call should be the token, make sure all user data can'
 
 Unit testing in everything
 
-Readme
-Documentation in the readme file to know how to host the portfolio
 
 Diagrama Entidad Relacion
 
@@ -21,10 +19,11 @@ Fancy loading page
 Transitions/effects to almost everything, same for fonts and colors
 
 Add a layer so it only makes one api call instead of every time the route changes
+maybe store the responses in the services?
 
 Make all the html, scss and ts code the best I can
 
-Add the typescript type to all the values and functions, remove all "any" and add "void" to functions (use interfaces, dtos, etc)
+Add the typescript type to all the values and functions, remove all "any" and add "void" to functions (use interfaces, dtos, etc), replace all empty strings or 0 values for undefined
 
 Add support to non javascript users
 
@@ -33,6 +32,7 @@ Button to reload views maybe (fa-undo)
 Production:
 - Be careful with '*' as Access-Control-Allow-Origin in production. Change this back only to the clients that are allowed to connect to the API.
 
+Add to the readme: contact by webiste, website link at the description, how to test section and help with translations
 
 
 

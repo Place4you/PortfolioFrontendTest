@@ -10,7 +10,7 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class NavbarComponent {
 
-  currentRoute: String = '';
+  currentRoute: string | undefined = undefined;
 
   constructor (private router: Router, private cookieService: CookieService) {
     this.currentRoute = router.url;

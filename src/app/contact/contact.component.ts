@@ -12,12 +12,12 @@ export class ContactComponent {
   
   social_items: Array<{id: number, name: string, link: string, account: string, image_uri: string, image_alt: string }> = []
 
-  error_message: string = "";
+  error_message: string | undefined = undefined;
   success: boolean = false;
 
   response_message(type: number, message?: string){
     if(type === 0){ // no error, no success
-      this.error_message = "";
+      this.error_message = undefined;
       this.success = false;
     }
     else if(type === 1 && message){ // error
@@ -25,7 +25,7 @@ export class ContactComponent {
       this.success = false;
     }
     else if(type === 2){ // success
-      this.error_message = "";
+      this.error_message = undefined;
       this.success = true;
     }
   }

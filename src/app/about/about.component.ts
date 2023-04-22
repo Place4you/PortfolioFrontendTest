@@ -156,8 +156,6 @@ export class AboutComponent {
   }
 
 
-
-  // https://stackoverflow.com/a/35763811/18895342
   ngOnInit(){
     this.informationService.getInformationTable()
     .subscribe((response: any) => {

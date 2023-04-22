@@ -12,9 +12,9 @@ export class AdminContactComponent implements OnInit{
 
   constructor(private router: Router, private cookieService: CookieService, private contactService: ContactService) { }
 
-  error_message_add: string = "";
-  error_message_edit: string = "";
-  error_message_delete: string = "";
+  error_message_add: string | undefined = undefined;
+  error_message_edit: string | undefined = undefined;
+  error_message_delete: string | undefined = undefined;
   current_value: string = "add";
   found_item_id: boolean = false;
   item_to_edit: any = {};
@@ -26,9 +26,9 @@ export class AdminContactComponent implements OnInit{
 
 
   reset_default_item_values(): void {
-    this.error_message_add    = "";
-    this.error_message_edit   = "";
-    this.error_message_delete = "";
+    this.error_message_add    = undefined;
+    this.error_message_edit   = undefined;
+    this.error_message_delete = undefined;
     this.current_value        = "add";
     this.found_item_id        = false;
   }
@@ -69,7 +69,7 @@ export class AdminContactComponent implements OnInit{
           }
           else {
             this.router.navigate(['home']);
-            this.error_message_add = "";
+            this.error_message_add = undefined;
           }
         });
       }
@@ -154,7 +154,7 @@ export class AdminContactComponent implements OnInit{
               }
               else {
                 this.router.navigate(['home']);
-                this.error_message_edit = "";
+                this.error_message_edit = undefined;
               }
             });
           }
@@ -194,7 +194,7 @@ export class AdminContactComponent implements OnInit{
           }
           else {
             this.router.navigate(['home']);
-            this.error_message_delete = "";
+            this.error_message_delete = undefined;
           }
         });
       }

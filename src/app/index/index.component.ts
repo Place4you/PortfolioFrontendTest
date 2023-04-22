@@ -11,7 +11,7 @@ export class IndexComponent {
   constructor(private zone: NgZone, private informationService: InformationService) { }
 
   titles_array:  string[] = [];
-  current_title: string = "";
+  current_title: string | undefined = undefined;
   curr_title_i:  number = 0;
   second_after:  boolean = true;
   el:            any = undefined;

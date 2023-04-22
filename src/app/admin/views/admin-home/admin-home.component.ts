@@ -12,8 +12,8 @@ export class AdminHomeComponent implements OnInit{
 
   constructor(private router: Router, private cookieService: CookieService, private informationService: InformationService) { }
 
-  home_titles: string = "";
-  error_message: string = "";
+  home_titles: string | undefined = undefined;
+  error_message: string | undefined = undefined;
   index_titles_id: number = 0;
 
   Update(titles: string): void {

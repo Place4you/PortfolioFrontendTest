@@ -13,17 +13,17 @@ export class AdminWorkComponent implements AfterViewInit {
 
   constructor(private router: Router, private cookieService: CookieService, private workService: WorkService) { }
 
-  error_message_add: string = "";
-  error_message_edit: string = "";
-  error_message_delete: string = "";
+  error_message_add: string | undefined = undefined;
+  error_message_edit: string | undefined = undefined;
+  error_message_delete: string | undefined = undefined;
   current_value: string = "add";
   found_item_id: boolean = false;
   project_to_edit: any = {};
 
   reset_default_values(): void {
-    this.error_message_add    = "";
-    this.error_message_edit   = "";
-    this.error_message_delete = "";
+    this.error_message_add    = undefined;
+    this.error_message_edit   = undefined;
+    this.error_message_delete = undefined;
     this.current_value        = "add";
     this.found_item_id        = false;
   }
@@ -190,7 +190,7 @@ export class AdminWorkComponent implements AfterViewInit {
               }
               else {
                 this.router.navigate(['home']);
-                this.error_message_edit = "";
+                this.error_message_edit = undefined;
               }
             });
           }
@@ -230,7 +230,7 @@ export class AdminWorkComponent implements AfterViewInit {
           }
           else {
             this.router.navigate(['home']);
-            this.error_message_delete = "";
+            this.error_message_delete = undefined;
           }
         });
       }

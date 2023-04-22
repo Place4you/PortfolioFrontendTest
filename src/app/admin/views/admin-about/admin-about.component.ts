@@ -13,20 +13,20 @@ export class AdminAboutComponent implements AfterViewInit {
 
   constructor(private router: Router, private cookieService: CookieService, private aboutService: AboutService, private informationService: InformationService) { }
 
-  error_message_add: string = "";
-  error_message_edit: string = "";
-  error_message_delete: string = "";
-  error_message_journey: string = "";
+  error_message_add: string | undefined = undefined;
+  error_message_edit: string | undefined = undefined;
+  error_message_delete: string | undefined = undefined;
+  error_message_journey: string | undefined = undefined;
   current_value: string = "add";
   found_item_id: boolean = false;
   item_to_edit: any = {};
-  journey_info: string = "";
+  journey_info: string | undefined = undefined;
   journey_info_id: number = 0;
 
   reset_default_values(): void {
-    this.error_message_add    = "";
-    this.error_message_edit   = "";
-    this.error_message_delete = "";
+    this.error_message_add    = undefined;
+    this.error_message_edit   = undefined;
+    this.error_message_delete = undefined;
     this.current_value        = "add";
     this.found_item_id        = false;
   }
@@ -49,7 +49,7 @@ export class AdminAboutComponent implements AfterViewInit {
             }
             else {
               this.router.navigate(['home']);
-              this.error_message_journey = "";
+              this.error_message_journey = undefined;
             }
           });
         }
@@ -125,7 +125,7 @@ export class AdminAboutComponent implements AfterViewInit {
           }
           else {
             this.router.navigate(['home']);
-            this.error_message_add = "";
+            this.error_message_add = undefined;
           }
         });
       }
@@ -219,7 +219,7 @@ export class AdminAboutComponent implements AfterViewInit {
               }
               else {
                 this.router.navigate(['home']);
-                this.error_message_edit = "";
+                this.error_message_edit = undefined;
               }
             });
           }
@@ -259,7 +259,7 @@ export class AdminAboutComponent implements AfterViewInit {
           }
           else {
             this.router.navigate(['home']);
-            this.error_message_delete = "";
+            this.error_message_delete = undefined;
           }
         });
       }

@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   constructor(private loginService: LoginService, private cookieService: CookieService, private router: Router) {}
 
   Login(email: string, password: string){
-    let error: string = '';
+    let error: string | undefined = undefined;
 
     if(!email || !password){
       error = 'Invalid username or password';
@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  error_message: string = '';
+  error_message: string | undefined = undefined;
 
   ngOnInit() { }
 }
