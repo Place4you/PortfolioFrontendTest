@@ -1,5 +1,5 @@
 import { Component, NgZone } from '@angular/core';
-import { InformationService } from '../rest/information.service';
+import { InformationService } from '../services/information.service';
 
 @Component({
 	selector: 'app-index',

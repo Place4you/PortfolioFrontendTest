@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router'
 import { CookieService } from 'ngx-cookie-service';
-import { InformationService } from '../../../rest/information.service';
+import { InformationService } from '../../../services/information.service';
 
 @Component({
 	selector: 'app-admin-home',

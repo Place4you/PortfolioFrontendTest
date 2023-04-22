@@ -18,7 +18,7 @@ Fancy loading page
 Transitions/effects to almost everything, same for fonts and colors
 
 Add a layer so it only makes one api call instead of every time the route changes
-maybe store the responses in the services?
+also store the responses in the services or something like that
 
 Add support to non javascript users
 
@@ -28,6 +28,13 @@ Button to reload views maybe (fa-undo)
 Make all the html, scss and ts code the best I can
 
 Create DTOs to replace the response type of the service functions both in the service and in the components
+
+
+import { HttpResponse } from '@angular/common/http'
+import { Observable } from 'rxjs';
+
+Observable<string | HttpResponse<Object>>
+
 
 
 

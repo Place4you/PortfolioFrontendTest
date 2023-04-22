@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClientModule, HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http'
+import { HttpClientModule, HttpClient, HttpHeaders, HttpErrorResponse, HttpResponse } from '@angular/common/http'
 import { catchError } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root'
@@ -11,7 +12,7 @@ export class LoginService {
 
 	uri: string = 'http://localhost:8080';
 
-	login(email: string, password: string) {
+	login(email: string, password: string): Observable<string | HttpResponse<Object>> {
 		return this.http.post(
 			this.uri + '/login',
 			{
@@ -25,7 +26,7 @@ export class LoginService {
 		);
 	}
 
-	check_token(token: string) {
+	check_token(token: string): Observable<string | HttpResponse<Object>> {
 		return this.http.delete(
 			this.uri + '/api/v1/about_item/check_token',
 			{

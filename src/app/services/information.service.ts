@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClientModule, HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http'
+import { HttpClientModule, HttpClient, HttpHeaders, HttpErrorResponse, HttpResponse } from '@angular/common/http'
 import { catchError } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root'
@@ -11,7 +12,7 @@ export class InformationService {
 
 	uri: string = 'http://localhost:8080/api/v1/information';
 
-	getInformationTable(){
+	getInformationTable(): Observable<string | HttpResponse<Object>> {
 		return this.http.get(
 			this.uri,
 			{
@@ -21,7 +22,12 @@ export class InformationService {
 		);
 	}
 
-	editInformationTable(token: string, id: number, name: string, information: string){
+	editInformationTable(
+		token: string,
+		id: number,
+		name: string,
+		information: string
+	): Observable<string | HttpResponse<Object>> {
 		return this.http.put(
 			this.uri + '/update',
 			{

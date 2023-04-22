@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { WorkService } from '../rest/work.service';
+import { WorkService } from '../services/work.service';
 import { Project } from "./interfaces";
 
 @Component({

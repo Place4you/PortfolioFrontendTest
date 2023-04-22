@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { AboutService } from '../rest/about.service';
-import { InformationService } from '../rest/information.service';
+import { AboutService } from '../services/about.service';
+import { InformationService } from '../services/information.service';
 import { Item, Page } from './interfaces';
 
 @Component({

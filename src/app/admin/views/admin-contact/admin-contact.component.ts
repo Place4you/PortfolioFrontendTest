@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router'
 import { CookieService } from 'ngx-cookie-service';
-import { ContactService } from '../../../rest/contact.service';
+import { ContactService } from '../../../services/contact.service';
 import { Item, Message } from './interfaces';
 
 @Component({

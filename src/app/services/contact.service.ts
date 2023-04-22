@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClientModule, HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http'
+import { HttpClientModule, HttpClient, HttpHeaders, HttpErrorResponse, HttpResponse } from '@angular/common/http'
 import { catchError } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { Message } from '../admin/views/admin-contact/interfaces';
 
 @Injectable({
 	providedIn: 'root'
@@ -12,7 +14,7 @@ export class ContactService {
 	uri_ci: string = "http://localhost:8080/api/v1/contact_item"
 	uri_cm: string = "http://localhost:8080/api/v1/contact_message"
 
-	getItem(id: number){
+	getItem(id: number): Observable<string | HttpResponse<Object>> {
 		return this.http.get(
 			this.uri_ci + `/${id}`,
 			{
@@ -27,7 +29,7 @@ export class ContactService {
 		);
 	}
 
-	getItems(){
+	getItems(): Observable<string | HttpResponse<Object>> {
 		return this.http.get(
 			this.uri_ci,
 			{
@@ -44,7 +46,7 @@ export class ContactService {
 		link: string,
 		image_uri: string,
 		image_alt: string
-	){
+	): Observable<string | HttpResponse<Object>> {
 		const body = {
 			name: name,
 			account: account,
@@ -76,7 +78,7 @@ export class ContactService {
 		link: string,
 		image_uri: string,
 		image_alt: string
-	){
+	): Observable<string | HttpResponse<Object>> {
 		const body = {
 			id: id,
 			name: name,
@@ -101,7 +103,7 @@ export class ContactService {
 		);
 	}
 
-	deleteItem(token: string, id: number){
+	deleteItem(token: string, id: number): Observable<string | HttpResponse<Object>> {
 		return this.http.delete(
 			this.uri_ci + `/delete/${id}`,
 			{
@@ -117,7 +119,7 @@ export class ContactService {
 		);
 	}
 
-	getMessage(token: string, id: number){
+	getMessage(token: string, id: number): Observable<string | HttpResponse<Object>> {
 		return this.http.get(
 			this.uri_cm + `/${id}`,
 			{
@@ -133,7 +135,7 @@ export class ContactService {
 		);
 	}
 
-	getMessages(token: string){
+	getMessages(token: string): Observable<string | HttpResponse<Object>> {
 		return this.http.get(
 			this.uri_cm,
 			{
@@ -154,7 +156,7 @@ export class ContactService {
 		message: string,
 		reply: string,
 		date: string
-	){
+	): Observable<string | HttpResponse<Object>> {
 		const body = {
 			subject: subject,
 			message: message,
@@ -177,7 +179,7 @@ export class ContactService {
 		);
 	}
 
-	changeMessageRead(token: string, message: any){
+	changeMessageRead(token: string, message: Message): Observable<string | HttpResponse<Object>> {
 		const body = {
 			id: message.id,
 			subject: message.subject,
@@ -202,7 +204,7 @@ export class ContactService {
 		);
 	}
 
-	deleteMessage(token: string, id: number){
+	deleteMessage(token: string, id: number): Observable<string | HttpResponse<Object>> {
 		return this.http.delete(
 			this.uri_cm + `/delete/${id}`,
 			{

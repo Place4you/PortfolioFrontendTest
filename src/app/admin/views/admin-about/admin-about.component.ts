@@ -1,8 +1,8 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router'
 import { CookieService } from 'ngx-cookie-service';
-import { AboutService } from '../../../rest/about.service';
-import { InformationService } from '../../../rest/information.service';
+import { AboutService } from '../../../services/about.service';
+import { InformationService } from '../../../services/information.service';
 import { Item } from './interfaces';
 
 @Component({

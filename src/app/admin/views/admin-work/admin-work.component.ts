@@ -1,5 +1,5 @@
 import { Component, AfterViewInit } from '@angular/core';
-import { WorkService } from '../../../rest/work.service';
+import { WorkService } from '../../../services/work.service';
 import { Router } from '@angular/router'
 import { CookieService } from 'ngx-cookie-service';
 import { Project } from './interfaces';

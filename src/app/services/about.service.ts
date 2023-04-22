@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
-import { HttpClientModule, HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http'
+import { HttpClientModule, HttpClient, HttpHeaders, HttpErrorResponse, HttpResponse } from '@angular/common/http'
 import { catchError } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root'
 })
-export class WorkService {
+export class AboutService {
 
 	constructor(private http: HttpClient) { }
 
-	uri: string = "http://localhost:8080/api/v1/work_item"
+	uri: string = "http://localhost:8080/api/v1/about_item"
 
-	getItem(id: number) {
+	getItem(id: number): Observable<string | HttpResponse<Object>> {
 		return this.http.get(
 			this.uri + `/${id}`,
 			{
@@ -26,7 +27,7 @@ export class WorkService {
 		);
 	}
 
-	getItems() {
+	getItems(): Observable<string | HttpResponse<Object>> {
 		return this.http.get(
 			this.uri,
 			{
@@ -38,22 +39,20 @@ export class WorkService {
 
 	createItem(
 		token: string,
+		type: number,
 		name: string,
 		date: string,
-		technologies: string,
 		description: string,
-		code_uri: string,
-		live_uri: string,
+		link: string,
 		image_uri: string,
 		image_alt: string
-	) {
+	): Observable<string | HttpResponse<Object>> {
 		const body = {
+			item_type: type,
 			name: name,
 			date: date,
-			technologies: technologies,
 			description: description,
-			code_uri: code_uri,
-			live_uri: live_uri,
+			link: link,
 			image_uri: image_uri,
 			image_alt: image_alt
 		}
@@ -76,23 +75,21 @@ export class WorkService {
 	updateItem(
 		token: string,
 		id: number,
+		type: number,
 		name: string,
 		date: string,
-		technologies: string,
 		description: string,
-		code_uri: string,
-		live_uri: string,
+		link: string,
 		image_uri: string,
 		image_alt: string
-	) {
+	): Observable<string | HttpResponse<Object>> {
 		const body = {
 			id: id,
 			name: name,
+			item_type: type,
 			date: date,
-			technologies: technologies,
 			description: description,
-			code_uri: code_uri,
-			live_uri: live_uri,
+			link: link,
 			image_uri: image_uri,
 			image_alt: image_alt
 		}
@@ -112,7 +109,7 @@ export class WorkService {
 		);
 	}
 
-	deleteItem(token: string, id: number) {
+	deleteItem(token: string, id: number): Observable<string | HttpResponse<Object>> {
 		return this.http.delete(
 			this.uri + `/delete/${id}`,
 			{
