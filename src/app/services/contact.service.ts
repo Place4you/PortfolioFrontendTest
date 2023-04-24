@@ -8,7 +8,7 @@ import {
 } from '@angular/common/http'
 import { catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { Message } from '../admin/views/admin-contact/interfaces';
+import { TableContactItemRes, TableContactMessageRes } from '../interfaces/tableContactRes.interface';
 
 @Injectable({
 	providedIn: 'root'
@@ -20,8 +20,8 @@ export class ContactService {
 	uri_ci: string = "http://localhost:8080/api/v1/contact_item"
 	uri_cm: string = "http://localhost:8080/api/v1/contact_message"
 
-	getItem(id: number): Observable<string | HttpResponse<Object>> {
-		return this.http.get(
+	getItem(id: number): Observable<HttpResponse<TableContactItemRes>> {
+		return this.http.get<TableContactItemRes>(
 			this.uri_ci + `/${id}`,
 			{
 				observe: 'response',
@@ -30,8 +30,8 @@ export class ContactService {
 		)
 	}
 
-	getItems(): Observable<string | HttpResponse<Object>> {
-		return this.http.get(
+	getItems(): Observable<HttpResponse<TableContactItemRes[]>> {
+		return this.http.get<TableContactItemRes[]>(
 			this.uri_ci,
 			{
 				observe: 'response',
@@ -47,7 +47,7 @@ export class ContactService {
 		link: string,
 		image_uri: string,
 		image_alt: string
-	): Observable<string | HttpResponse<Object>> {
+	): Observable<HttpResponse<TableContactItemRes>> {
 		const body = {
 			name: name,
 			account: account,
@@ -55,7 +55,7 @@ export class ContactService {
 			image_uri: image_uri,
 			image_alt: image_alt
 		}
-		return this.http.post(
+		return this.http.post<TableContactItemRes>(
 			this.uri_ci + "/add",
 			body,
 			{
@@ -74,7 +74,7 @@ export class ContactService {
 		link: string,
 		image_uri: string,
 		image_alt: string
-	): Observable<string | HttpResponse<Object>> {
+	): Observable<HttpResponse<TableContactItemRes>> {
 		const body = {
 			id: id,
 			name: name,
@@ -83,7 +83,7 @@ export class ContactService {
 			image_uri: image_uri,
 			image_alt: image_alt
 		}
-		return this.http.put(
+		return this.http.put<TableContactItemRes>(
 			this.uri_ci + "/update",
 			body,
 			{
@@ -94,19 +94,18 @@ export class ContactService {
 		)
 	}
 
-	deleteItem(token: string, id: number): Observable<string | HttpResponse<Object>> {
-		return this.http.delete(
+	deleteItem(token: string, id: number): Observable<HttpResponse<{}>> {
+		return this.http.delete<{}>(
 			this.uri_ci + `/delete/${id}`,
 			{
 				headers: {'Authorization':token},
-				observe: 'response',
-				responseType: 'json'
+				observe: 'response'
 			}
 		)
 	}
 
-	getMessage(token: string, id: number): Observable<string | HttpResponse<Object>> {
-		return this.http.get(
+	getMessage(token: string, id: number): Observable<HttpResponse<TableContactMessageRes>> {
+		return this.http.get<TableContactMessageRes>(
 			this.uri_cm + `/${id}`,
 			{
 				headers: {'Authorization':token},
@@ -116,8 +115,8 @@ export class ContactService {
 		)
 	}
 
-	getMessages(token: string): Observable<string | HttpResponse<Object>> {
-		return this.http.get(
+	getMessages(token: string): Observable<HttpResponse<TableContactMessageRes[]>> {
+		return this.http.get<TableContactMessageRes[]>(
 			this.uri_cm,
 			{
 				headers: {'Authorization':token},
@@ -132,7 +131,7 @@ export class ContactService {
 		message: string,
 		reply: string,
 		date: string
-	): Observable<string | HttpResponse<Object>> {
+	): Observable<HttpResponse<TableContactMessageRes>> {
 		const body = {
 			subject: subject,
 			message: message,
@@ -140,7 +139,7 @@ export class ContactService {
 			date: date,
 			read: false
 		}
-		return this.http.post(
+		return this.http.post<TableContactMessageRes>(
 			this.uri_cm + "/add",
 			body,
 			{
@@ -150,7 +149,7 @@ export class ContactService {
 		)
 	}
 
-	changeMessageRead(token: string, message: Message): Observable<string | HttpResponse<Object>> {
+	changeMessageRead(token: string, message: TableContactMessageRes): Observable<HttpResponse<TableContactMessageRes>> {
 		const body = {
 			id: message.id,
 			subject: message.subject,
@@ -159,7 +158,7 @@ export class ContactService {
 			date: message.date,
 			read: true
 		}
-		return this.http.put(
+		return this.http.put<TableContactMessageRes>(
 			this.uri_cm + `/update`,
 			body,
 			{
@@ -170,13 +169,12 @@ export class ContactService {
 		)
 	}
 
-	deleteMessage(token: string, id: number): Observable<string | HttpResponse<Object>> {
-		return this.http.delete(
+	deleteMessage(token: string, id: number): Observable<HttpResponse<{}>> {
+		return this.http.delete<{}>(
 			this.uri_cm + `/delete/${id}`,
 			{
 				headers: {'Authorization':token},
-				observe: 'response',
-				responseType: 'json'
+				observe: 'response'
 			}
 		)
 	}

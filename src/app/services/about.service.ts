@@ -8,6 +8,7 @@ import {
 } from '@angular/common/http'
 import { catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { TableAboutItemRes } from '../interfaces/tableAboutItemRes.interface';
 
 @Injectable({
 	providedIn: 'root'
@@ -18,8 +19,8 @@ export class AboutService {
 
 	uri: string = "http://localhost:8080/api/v1/about_item"
 
-	getItem(id: number): Observable<HttpResponse<Object>> {
-		return this.http.get(
+	getItem(id: number): Observable<HttpResponse<TableAboutItemRes>> {
+		return this.http.get<TableAboutItemRes>(
 			this.uri + `/${id}`,
 			{
 				observe: 'response',
@@ -28,8 +29,8 @@ export class AboutService {
 		);
 	}
 
-	getItems(): Observable<HttpResponse<Object>> {
-		return this.http.get(
+	getItems(): Observable<HttpResponse<TableAboutItemRes[]>> {
+		return this.http.get<TableAboutItemRes[]>(
 			this.uri,
 			{
 				observe: 'response',
@@ -47,7 +48,7 @@ export class AboutService {
 		link: string,
 		image_uri: string,
 		image_alt: string
-	): Observable<HttpResponse<Object>> {
+	): Observable<HttpResponse<TableAboutItemRes>> {
 		const body = {
 			item_type: type,
 			name: name,
@@ -57,7 +58,7 @@ export class AboutService {
 			image_uri: image_uri,
 			image_alt: image_alt
 		}
-		return this.http.post(
+		return this.http.post<TableAboutItemRes>(
 			this.uri + "/add",
 			body,
 			{
@@ -78,7 +79,7 @@ export class AboutService {
 		link: string,
 		image_uri: string,
 		image_alt: string
-	): Observable<HttpResponse<Object>> {
+	): Observable<HttpResponse<TableAboutItemRes>> {
 		const body = {
 			id: id,
 			name: name,
@@ -89,7 +90,7 @@ export class AboutService {
 			image_uri: image_uri,
 			image_alt: image_alt
 		}
-		return this.http.put(
+		return this.http.put<TableAboutItemRes>(
 			this.uri + "/update",
 			body,
 			{
@@ -100,13 +101,12 @@ export class AboutService {
 		);
 	}
 
-	deleteItem(token: string, id: number): Observable<HttpResponse<Object>> {
-		return this.http.delete(
+	deleteItem(token: string, id: number): Observable<HttpResponse<{}>> {
+		return this.http.delete<{}>(
 			this.uri + `/delete/${id}`,
 			{
 				headers: {'Authorization':token},
-				observe: 'response',
-				responseType: 'json'
+				observe: 'response'
 			}
 		);
 	}

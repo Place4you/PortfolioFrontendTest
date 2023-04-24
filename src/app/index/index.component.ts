@@ -1,5 +1,7 @@
 import { Component, NgZone } from '@angular/core';
 import { InformationService } from '../services/information.service';
+import { TableInfoRes } from '../interfaces/tableInfoRes.interface';
+import { HttpClientModule, HttpClient, HttpResponse } from '@angular/common/http'
 
 @Component({
 	selector: 'app-index',
@@ -48,11 +50,13 @@ export class IndexComponent {
 	ngOnInit(): void {
 		this.informationService.getInformationTable()
 		.subscribe(
-			(response: any): void  => {
-				for(let i: number = 0; i < response.body.length; i++){
-					if(response.body[i].name === "index_titles" && response.body[i].information){
-						this.titles_array = response.body[i].information.split(',');
-						break;
+			(response: HttpResponse<TableInfoRes[]>): void  => {
+				if(response.body !== null){
+					for(let i: number = 0; i < response.body.length; i++){
+						if(response.body[i].name === "index_titles" && response.body[i].information){
+							this.titles_array = response.body[i].information.split(',');
+							break;
+						}
 					}
 				}
 			},

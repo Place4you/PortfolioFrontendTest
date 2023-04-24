@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router'
 import { CookieService } from 'ngx-cookie-service';
 import { InformationService } from '../../../services/information.service';
+import { TableInfoRes } from '../../../interfaces/tableInfoRes.interface';
+import { HttpClientModule, HttpClient, HttpResponse } from '@angular/common/http'
 
 @Component({
 	selector: 'app-admin-home',
@@ -25,7 +27,7 @@ export class AdminHomeComponent implements OnInit{
 				const cookieValue: string = this.cookieService.get('JWT');
 				this.informationService.editInformationTable(cookieValue, this.index_titles_id, "index_titles", titles)
 				.subscribe(
-					(response: any): void  => {
+					(response: HttpResponse<TableInfoRes>): void  => {
 						this.router.navigate(['home']);
 						this.error_message = undefined;
 					},
@@ -44,12 +46,14 @@ export class AdminHomeComponent implements OnInit{
 	ngOnInit(): void {
 		this.informationService.getInformationTable()
 		.subscribe(
-			(response: any): void  => {
-				for(let i: number = 0; i < response.body.length; i++){
-					if(response.body[i].name === "index_titles" && response.body[i].information){
-						this.home_titles = response.body[i].information;
-						this.index_titles_id = i + 1;
-						break;
+			(response: HttpResponse<TableInfoRes[]>): void  => {
+				if(response.body !== null){
+					for(let i: number = 0; i < response.body.length; i++){
+						if(response.body[i].name === "index_titles" && response.body[i].information){
+							this.home_titles = response.body[i].information;
+							this.index_titles_id = i + 1;
+							break;
+						}
 					}
 				}
 			},

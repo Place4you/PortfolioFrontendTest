@@ -8,7 +8,6 @@ Maybe remove translation's section
 =============== development
 
 Error handling in everything
-In the interceptor redirect 401's and 500's
 
 Sanitize all input, even admin and server input, both in the frontend and in the backend
 The only error in the api call should be the token, make sure all user data can't escape the backend to the database without passing proper checks
@@ -18,8 +17,7 @@ Unit testing in everything and end-to-end testing
 Add a layer so it only makes one api call instead of every time the route changes
 also store the responses in the services or something like that ---------> the responses can be cached in the interceptor: https://angular.io/guide/http#caching-requests
 
-Create DTOs to replace the response type of the service functions both in the service and in the components
-* that is A LOT more complex than I thought, observables, async/await and promises need to be involved.
+put all optional values AS OPTIONAL in the components
 
 ===== less important
 Add real data, delete all examples
@@ -34,6 +32,10 @@ Transitions/effects to almost everything, same for fonts and colors
 Add support to non javascript users
 
 Make all the html, scss and ts code the best I can
+
+
+
+
 
 
 

@@ -8,6 +8,7 @@ import {
 } from '@angular/common/http'
 import { catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { TableWorkItemRes } from '../interfaces/tableWorkItemRes.interface';
 
 @Injectable({
 	providedIn: 'root'
@@ -18,8 +19,8 @@ export class WorkService {
 
 	uri: string = "http://localhost:8080/api/v1/work_item"
 
-	getItem(id: number): Observable<string | HttpResponse<Object>> {
-		return this.http.get(
+	getItem(id: number): Observable<HttpResponse<TableWorkItemRes>> {
+		return this.http.get<TableWorkItemRes>(
 			this.uri + `/${id}`,
 			{
 				observe: 'response',
@@ -28,8 +29,8 @@ export class WorkService {
 		)
 	}
 
-	getItems(): Observable<string | HttpResponse<Object>> {
-		return this.http.get(
+	getItems(): Observable<HttpResponse<TableWorkItemRes[]>> {
+		return this.http.get<TableWorkItemRes[]>(
 			this.uri,
 			{
 				observe: 'response',
@@ -48,7 +49,7 @@ export class WorkService {
 		live_uri: string,
 		image_uri: string,
 		image_alt: string
-	): Observable<string | HttpResponse<Object>> {
+	): Observable<HttpResponse<TableWorkItemRes>> {
 		const body = {
 			name: name,
 			date: date,
@@ -59,7 +60,7 @@ export class WorkService {
 			image_uri: image_uri,
 			image_alt: image_alt
 		}
-		return this.http.post(
+		return this.http.post<TableWorkItemRes>(
 			this.uri + "/add",
 			body,
 			{
@@ -81,7 +82,7 @@ export class WorkService {
 		live_uri: string,
 		image_uri: string,
 		image_alt: string
-	): Observable<string | HttpResponse<Object>> {
+	): Observable<HttpResponse<TableWorkItemRes>> {
 		const body = {
 			id: id,
 			name: name,
@@ -93,7 +94,7 @@ export class WorkService {
 			image_uri: image_uri,
 			image_alt: image_alt
 		}
-		return this.http.put(
+		return this.http.put<TableWorkItemRes>(
 			this.uri + "/update",
 			body,
 			{
@@ -104,13 +105,12 @@ export class WorkService {
 		)
 	}
 
-	deleteItem(token: string, id: number): Observable<string | HttpResponse<Object>> {
-		return this.http.delete(
+	deleteItem(token: string, id: number): Observable<HttpResponse<{}>> {
+		return this.http.delete<{}>(
 			this.uri + `/delete/${id}`,
 			{
 				headers: {'Authorization':token},
-				observe: 'response',
-				responseType: 'json'
+				observe: 'response'
 			}
 		)
 	}

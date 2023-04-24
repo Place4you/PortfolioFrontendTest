@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { WorkService } from '../services/work.service';
 import { Project } from "./interfaces";
-
+import { HttpClientModule, HttpClient, HttpResponse } from '@angular/common/http';
+import { TableWorkItemRes } from '../interfaces/tableWorkItemRes.interface';
 @Component({
 	selector: 'app-work',
 	templateUrl: './work.component.html',
@@ -27,7 +28,7 @@ export class WorkComponent {
 		live_uri: "Not assigned",
 		image_uri: "Not assigned",
 		image_alt: "Not assigned",
-		date: new Date(),
+		date: new Date().toISOString().slice(0, 10),
 		technologies: "Not assigned",
 		description: "Not assigned"
 	};
@@ -197,9 +198,11 @@ export class WorkComponent {
 	ngOnInit(): void {
 		this.workService.getItems()
 		.subscribe(
-			(response: any): void  => {
-				for(let i: number = 0; i < response.body.length; i++){
-					this.project_items.push(response.body[i]);
+			(response: HttpResponse<TableWorkItemRes[]>): void  => {
+				if(response.body !== null){
+					for(let i: number = 0; i < response.body.length; i++){
+						this.project_items.push(response.body[i]);
+					}
 				}
 				this.orderBy("NL");
 			},

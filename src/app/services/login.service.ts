@@ -18,7 +18,7 @@ export class LoginService {
 
 	uri: string = 'http://localhost:8080';
 
-	login(email: string, password: string): Observable<string | HttpResponse<Object>> {
+	login(email: string, password: string): Observable<HttpResponse<string>> {
 		return this.http.post(
 			this.uri + '/login',
 			{
@@ -32,13 +32,13 @@ export class LoginService {
 		);
 	}
 
-	check_token(token: string): Observable<string | HttpResponse<Object>> {
-		return this.http.delete(
+	check_token(token: string): Observable<HttpResponse<{}>> {
+		return this.http.delete<{}>(
 			this.uri + '/api/v1/about_item/check_token',
 			{
 				headers: {'Authorization':token},
 				observe: 'response',
-				responseType: 'text'
+				responseType: 'json'
 			}
 		)
 	}

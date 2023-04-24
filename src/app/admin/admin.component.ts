@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router'
 import { CookieService } from 'ngx-cookie-service';
 import { LoginService } from '../services/login.service';
+import { HttpClientModule, HttpClient, HttpResponse } from '@angular/common/http';
 
 @Component({
 	selector: 'app-admin',
@@ -95,24 +96,21 @@ export class AdminComponent implements OnInit {
 	
 	b_logout(): void {
 		this.cookieService.delete("JWT", "/");
-		this.router.navigate(['home']);
+		this.router.navigate(['login']);
 	}
 
 	ngOnInit(): void {
 		if(!this.cookieService.get('JWT')){
-			this.router.navigate(['login']);
+			this.router.navigate(['error401']);
 		}
 		else{
 			const cookieValue: string = this.cookieService.get('JWT');
 			this.loginService.check_token(cookieValue)
 			.subscribe(
-				(response: any): void  => {
-					if(response === "0"){
-						this.b_logout();
-					}
-				},
+				(response: HttpResponse<{}>): void  => {},
 				(error: any): void => {
 					console.log(error.body.error);
+					this.b_logout();
 					// redirect to error pages
 				}
 			);

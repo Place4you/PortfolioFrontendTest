@@ -3,8 +3,10 @@ import { Router } from '@angular/router'
 import { CookieService } from 'ngx-cookie-service';
 import { AboutService } from '../../../services/about.service';
 import { InformationService } from '../../../services/information.service';
-import { Item } from './interfaces';
 import { ErrorObject } from '../../../interceptors/errorObject.interface'
+import { TableInfoRes } from '../../../interfaces/tableInfoRes.interface';
+import { HttpClientModule, HttpClient, HttpResponse } from '@angular/common/http'
+import { TableAboutItemRes } from '../../../interfaces/tableAboutItemRes.interface';
 
 @Component({
 	selector: 'app-admin-about',
@@ -23,7 +25,7 @@ export class AdminAboutComponent implements AfterViewInit {
 	current_value:          string = "add";
 	found_item_id:          boolean = false;
 	journey_info_id:        number = 0;
-	item_to_edit:           Item = {} as Item;
+	item_to_edit:           TableAboutItemRes = {} as TableAboutItemRes;
 
 	reset_default_values(): void {
 		this.error_message_add    = undefined;
@@ -46,7 +48,7 @@ export class AdminAboutComponent implements AfterViewInit {
 					const cookieValue: string = this.cookieService.get('JWT');
 					this.informationService.editInformationTable(cookieValue, this.journey_info_id, "journey", text)
 					.subscribe(
-						(response: any): void  => {
+						(response: HttpResponse<TableInfoRes>): void  => {
 							this.error_message_journey = undefined;
 							this.router.navigate(['home']);
 						},
@@ -91,7 +93,7 @@ export class AdminAboutComponent implements AfterViewInit {
 		name: string,
 		date: string,
 		description: string,
-		uri: string,
+		link: string,
 		image_uri: string,
 		image_alt: string
 	): void {
@@ -121,9 +123,9 @@ export class AdminAboutComponent implements AfterViewInit {
 			}
 			else{
 				const cookieValue: string = this.cookieService.get('JWT');
-				this.aboutService.createItem(cookieValue, type, name, date, description, uri, image_uri, image_alt)
+				this.aboutService.createItem(cookieValue, type, name, date, description, link, image_uri, image_alt)
 				.subscribe(
-					(response: any): void  => {
+					(response: HttpResponse<TableAboutItemRes>): void  => {
 						this.error_message_add = undefined;
 						this.router.navigate(['home']);
 					},
@@ -150,18 +152,20 @@ export class AdminAboutComponent implements AfterViewInit {
 		else {
 			this.aboutService.getItem(itemId)
 			.subscribe(
-				(response: any): void  => {
-					this.error_message_edit = undefined;
-					this.found_item_id = true;
-					this.item_to_edit = {
-						id: response.body.id,
-						type: response.body.item_type,
-						name: response.body.name,
-						date: response.body.date,
-						description: response.body.description,
-						uri: response.body.link,
-						image_uri: response.body.image_uri,
-						image_alt: response.body.image_alt
+				(response: HttpResponse<TableAboutItemRes>): void  => {
+					if(response.body !== null){
+						this.error_message_edit = undefined;
+						this.found_item_id = true;
+						this.item_to_edit = {
+							id: response.body.id,
+							item_type: response.body.item_type,
+							name: response.body.name,
+							date: response.body.date,
+							description: response.body.description,
+							link: response.body.link,
+							image_uri: response.body.image_uri,
+							image_alt: response.body.image_alt
+						}
 					}
 				},
 				(error: any): void => {
@@ -176,7 +180,7 @@ export class AdminAboutComponent implements AfterViewInit {
 		name: string,
 		date: string,
 		description: string,
-		uri: string,
+		link: string,
 		image_uri: string,
 		image_alt: string
 	): void {
@@ -201,7 +205,7 @@ export class AdminAboutComponent implements AfterViewInit {
 				if(description !== this.item_to_edit.description){
 					something_changed = true;
 				}
-				if(uri !== this.item_to_edit.uri){
+				if(link !== this.item_to_edit.link){
 					something_changed = true;
 				}
 				if(image_uri !== this.item_to_edit.image_uri){
@@ -217,9 +221,9 @@ export class AdminAboutComponent implements AfterViewInit {
 					}
 					else{
 						const cookieValue: string = this.cookieService.get('JWT');
-						this.aboutService.updateItem(cookieValue, this.item_to_edit.id, this.item_to_edit.type, name, date, description, uri, image_uri, image_alt)
+						this.aboutService.updateItem(cookieValue, this.item_to_edit.id, this.item_to_edit.item_type, name, date, description, link, image_uri, image_alt)
 						.subscribe(
-							(response: any): void  => {
+							(response: HttpResponse<TableAboutItemRes>): void  => {
 								this.router.navigate(['home']);
 								this.error_message_edit = undefined;
 							},
@@ -260,7 +264,7 @@ export class AdminAboutComponent implements AfterViewInit {
 				const cookieValue: string = this.cookieService.get('JWT');
 				this.aboutService.deleteItem(cookieValue, itemId)
 				.subscribe(
-					(response: any): void  => {
+					(response: HttpResponse<{}>): void  => {
 						this.router.navigate(['home']);
 						this.error_message_delete = undefined;
 					},
@@ -276,12 +280,14 @@ export class AdminAboutComponent implements AfterViewInit {
 	ngOnInit(): void {
 		this.informationService.getInformationTable()
 		.subscribe(
-			(response: any): void  => {
-				for(let i: number = 0; i < response.body.length; i++){
-					if(response.body[i].name === "journey" && response.body[i].information){
-						this.journey_info = response.body[i].information;
-						this.journey_info_id = i + 1;
-						break;
+			(response: HttpResponse<TableInfoRes[]>): void  => {
+				if(response.body !== null){
+					for(let i: number = 0; i < response.body.length; i++){
+						if(response.body[i].name === "journey" && response.body[i].information){
+							this.journey_info = response.body[i].information;
+							this.journey_info_id = i + 1;
+							break;
+						}
 					}
 				}
 			},

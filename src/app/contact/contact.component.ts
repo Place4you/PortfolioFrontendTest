@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { ContactService } from '../services/contact.service';
+import { TableContactItemRes, TableContactMessageRes } from '../interfaces/tableContactRes.interface';
+import { HttpClientModule, HttpClient, HttpResponse } from '@angular/common/http'
+
 
 @Component({
 	selector: 'app-contact',
@@ -13,10 +16,10 @@ export class ContactComponent {
 	social_items: {
 		id: number,
 		name: string,
-		link: string,
+		link?: string,
 		account: string,
-		image_uri: string,
-		image_alt: string
+		image_uri?: string,
+		image_alt?: string
 	}[] = []
 
 	error_message: string | undefined = undefined;
@@ -70,7 +73,7 @@ export class ContactComponent {
 			const date: string = new Date().toLocaleDateString('fr-ca');
 			this.contactService.createMessage(subject, message, replyto, date)
 			.subscribe(
-				(response: any): void  => {
+				(response: HttpResponse<TableContactMessageRes>): void  => {
 					this.response_message(2);
 					const form: HTMLFormElement = <HTMLFormElement>document.getElementById("contact_form");
 					if(form !== null){
@@ -89,10 +92,12 @@ export class ContactComponent {
 	ngOnInit(): void {
 		this.contactService.getItems()
 		.subscribe(
-			(response: any): void  => {
-				for(let i: number = 0; i < response.body.length; i++){
-					if(response.body[i]){
-						this.social_items.push(response.body[i]);
+			(response: HttpResponse<TableContactItemRes[]>): void  => {
+				if(response.body !== null){
+					for(let i: number = 0; i < response.body.length; i++){
+						if(response.body[i]){
+							this.social_items.push(response.body[i]);
+						}
 					}
 				}
 			},

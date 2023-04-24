@@ -8,18 +8,25 @@ import {
 } from '@angular/common/http'
 import { catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { TableInfoRes } from '../interfaces/tableInfoRes.interface';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class InformationService {
 
-	constructor(private http: HttpClient) { }
+	constructor(private http: HttpClient) {
+		interface InformationTableResponse {
+			id: number,
+			name: string,
+			information: string
+		}
+	}
 
 	uri: string = 'http://localhost:8080/api/v1/information';
 
-	getInformationTable(): Observable<string | HttpResponse<Object>> {
-		return this.http.get(
+	getInformationTable(): Observable<HttpResponse<TableInfoRes[]>> {
+		return this.http.get<TableInfoRes[]>(
 			this.uri,
 			{
 				observe: 'response',
@@ -33,19 +40,18 @@ export class InformationService {
 		id: number,
 		name: string,
 		information: string
-	): Observable<string | HttpResponse<Object>> {
-		return this.http.put(
+	): Observable<HttpResponse<TableInfoRes>> {
+		return this.http.put<TableInfoRes>(
 			this.uri + '/update',
 			{
 				id: id,
 				name: name,
-				information:
-				information
+				information: information
 			},
 			{
 				headers: {'Authorization':token},
 				observe: 'response',
-				responseType: 'text'
+				responseType: 'json'
 			}
 		)
 	}

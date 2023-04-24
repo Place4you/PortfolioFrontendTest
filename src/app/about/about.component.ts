@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import { AboutService } from '../services/about.service';
 import { InformationService } from '../services/information.service';
-import { Item, Page } from './interfaces';
+import { Page } from './interfaces';
+import { HttpClientModule, HttpClient, HttpResponse } from '@angular/common/http'
+import { TableInfoRes } from '../interfaces/tableInfoRes.interface';
+import { TableAboutItemRes } from '../interfaces/tableAboutItemRes.interface';
 
 @Component({
 	selector: 'app-about',
@@ -10,16 +13,16 @@ import { Item, Page } from './interfaces';
 })
 export class AboutComponent {
 
-	constructor(private aboutService: AboutService, private informationService: InformationService){ }
+	constructor(private http: HttpClient, private aboutService: AboutService, private informationService: InformationService){ }
 
 	array_all:          { page: Page[] }[] = [];
 	array_page:         Page[] = [];
 	pageIndex:          number  = 0;
 	total_pages:        number  = 1;
 	show_arrows:        boolean = false;
-	knowledge_items:    Item[] = [];
-	badges_items:       Item[] = [];
-	certificates_items: Item[] = [];
+	knowledge_items:    TableAboutItemRes[] = [];
+	badges_items:       TableAboutItemRes[] = [];
+	certificates_items: TableAboutItemRes[] = [];
 	journey: { id: number, title: string, description: string } = {
 		id: 0,
 		title: "No title",
@@ -47,7 +50,7 @@ export class AboutComponent {
 		this.total_pages = 1;
 
 		let start_at: number = 0;
-		let selected_items: Item[] = this.knowledge_items;
+		let selected_items: TableAboutItemRes[] = this.knowledge_items;
 
 		if(view === 'badges_items'){
 			selected_items = this.badges_items;
@@ -153,20 +156,21 @@ export class AboutComponent {
 	}
 
 	ngOnInit(): void {
-		this.informationService.getInformationTable()
-		.subscribe(
-			(response: any): void  => {
-				let journey_message: string = "No description";
-				for(let i: number = 0; i < response.body.length; i++){
-					if(response.body[i].name === "journey" && response.body[i].information){
-						journey_message = response.body[i].information;
-						i = response.body.length;
+		this.informationService.getInformationTable().subscribe(
+			(response: HttpResponse<TableInfoRes[]>): void  => {
+				if(response.body !== null){
+					let journey_message: string = "No description";
+					for(let i: number = 0; i < response.body.length; i++){
+						if(response.body[i].name === "journey" && response.body[i].information){
+							journey_message = response.body[i].information;
+							i = response.body.length;
+						}
 					}
-				}
-				this.journey = {
-					id: 0,
-					title: "My journey",
-					description: journey_message
+					this.journey = {
+						id: 0,
+						title: "My journey",
+						description: journey_message
+					}
 				}
 			},
 			(error: any): void => {
@@ -177,9 +181,9 @@ export class AboutComponent {
 
 		this.aboutService.getItems()
 		.subscribe(
-			(response: any): void  => {
-				for(let i: number = 0; i < response.body.length; i++){
-					if(response.body[i]){
+			(response: HttpResponse<TableAboutItemRes[]>): void  => {
+				if(response.body !== null){
+					for(let i: number = 0; i < response.body.length; i++){
 						if(response.body[i].item_type === 1){
 							this.knowledge_items.push(response.body[i]);
 						}
@@ -193,7 +197,7 @@ export class AboutComponent {
 				}
 
 				let start_at: number = 0;
-				let selected_items: Item[] = this.knowledge_items;
+				let selected_items: TableAboutItemRes[] = this.knowledge_items;
 
 				for(let i: number = start_at; i < selected_items.length; i++){
 					if(i%2 === 0 && i%3 === 0 && i !== start_at){

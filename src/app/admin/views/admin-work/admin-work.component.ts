@@ -2,7 +2,8 @@ import { Component, AfterViewInit } from '@angular/core';
 import { WorkService } from '../../../services/work.service';
 import { Router } from '@angular/router'
 import { CookieService } from 'ngx-cookie-service';
-import { Project } from './interfaces';
+import { HttpClientModule, HttpClient, HttpResponse } from '@angular/common/http';
+import { TableWorkItemRes } from '../../../interfaces/tableWorkItemRes.interface';
 
 @Component({
 	selector: 'app-admin-work',
@@ -19,7 +20,7 @@ export class AdminWorkComponent implements AfterViewInit {
 	current_value: string = "add";
 	found_item_id: boolean = false;
 
-	project_to_edit: Project = {} as Project;
+	project_to_edit: TableWorkItemRes = {} as TableWorkItemRes;
 
 	reset_default_values(): void {
 		this.error_message_add    = undefined;
@@ -79,7 +80,7 @@ export class AdminWorkComponent implements AfterViewInit {
 				const cookieValue: string = this.cookieService.get('JWT');
 				this.workService.createItem(cookieValue, name, date, technologies, description, code_uri, live_uri, image_uri, image_alt)
 				.subscribe(
-					(response: any): void  => {
+					(response: HttpResponse<TableWorkItemRes>): void  => {
 						this.router.navigate(['home']);
 						this.error_message_add = "";
 					},
@@ -106,19 +107,21 @@ export class AdminWorkComponent implements AfterViewInit {
 		else {
 			this.workService.getItem(projectId)
 			.subscribe(
-				(response: any): void  => {
-					this.error_message_edit = "";
-					this.found_item_id = true;
-					this.project_to_edit = {
-						id: response.body.id,
-						name: response.body.name,
-						date: response.body.date,
-						technologies: response.body.technologies,
-						description: response.body.description,
-						code_uri: response.body.code_uri,
-						live_uri: response.body.live_uri,
-						image_uri: response.body.image_uri,
-						image_alt: response.body.image_alt
+				(response: HttpResponse<TableWorkItemRes>): void  => {
+					if(response.body !== null){
+						this.error_message_edit = "";
+						this.found_item_id = true;
+						this.project_to_edit = {
+							id: response.body.id,
+							name: response.body.name,
+							date: response.body.date,
+							technologies: response.body.technologies,
+							description: response.body.description,
+							code_uri: response.body.code_uri,
+							live_uri: response.body.live_uri,
+							image_uri: response.body.image_uri,
+							image_alt: response.body.image_alt
+						}
 					}
 				},
 				(error: any): void => {
@@ -187,7 +190,7 @@ export class AdminWorkComponent implements AfterViewInit {
 						const cookieValue: string = this.cookieService.get('JWT');
 						this.workService.updateItem(cookieValue, this.project_to_edit.id, name, date, technologies, description, code_uri, live_uri, image_uri, image_alt)
 						.subscribe(
-							(response: any): void  => {
+							(response: HttpResponse<TableWorkItemRes>): void  => {
 								this.router.navigate(['home']);
 								this.error_message_edit = undefined;
 							},
@@ -228,7 +231,7 @@ export class AdminWorkComponent implements AfterViewInit {
 				const cookieValue: string = this.cookieService.get('JWT');
 				this.workService.deleteItem(cookieValue, projectId)
 				.subscribe(
-					(response: any): void  => {
+					(response: HttpResponse<{}>): void  => {
 						this.router.navigate(['home']);
 						this.error_message_delete = undefined;
 					},

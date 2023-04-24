@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router'
 import { LoginService } from '../services/login.service';
+import { HttpClientModule, HttpClient, HttpResponse } from '@angular/common/http';
 
 @Component({
 	selector: 'app-login',
@@ -33,9 +34,11 @@ export class LoginComponent {
 			this.error_message = undefined;
 			this.loginService.login(email, password)
 			.subscribe(
-				(response: any): void  => {
-					this.cookieService.set('JWT', response.body, 1);
-					this.router.navigate(['admin']);
+				(response: HttpResponse<string>): void  => {
+					if(response.body !== null){
+						this.cookieService.set('JWT', response.body, 1);
+						this.router.navigate(['admin']);
+					}
 				},
 				(error: any): void => {
 					console.log(error.body.error);

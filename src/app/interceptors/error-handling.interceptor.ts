@@ -10,12 +10,21 @@ import {
 import { Observable, throwError, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { ErrorObject } from './errorObject.interface'
+import { Router } from '@angular/router'
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
+	constructor(private router: Router) { }
+	
 	intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 		return next.handle(request).pipe(
 			catchError((error: HttpErrorResponse) => {
+				if(error && error.status && error.status === 401){
+					this.router.navigate(['error401']);
+				}
+				if(error && error.status && error.status === 500){
+					this.router.navigate(['error500']);
+				}
 				let errorMsg: ErrorObject = {
 					error: {
 						type: "server",
