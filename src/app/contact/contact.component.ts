@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ContactService } from '../services/contact.service';
 import { TableContactItemRes, TableContactMessageRes } from '../interfaces/tableContactRes.interface';
 import { HttpClientModule, HttpClient, HttpResponse } from '@angular/common/http'
-
+import { ErrorObject } from '../interfaces/errorObject.interface'
 
 @Component({
 	selector: 'app-contact',
@@ -80,10 +80,12 @@ export class ContactComponent {
 						form.reset();
 					}
 				},
-				(error: any): void => {
-					this.response_message(1, "Error while creating the message");
-					console.log(error.body.error);
-					// redirect to error pages
+				(error: HttpResponse<ErrorObject>): void => {
+					if(error.body !== null){
+						this.response_message(1, "Error while creating the message");
+						console.log(error.body.error);
+						// redirect to error pages
+					}
 				}
 			);
 		}
@@ -101,9 +103,11 @@ export class ContactComponent {
 					}
 				}
 			},
-			(error: any): void => {
-				console.log(error.body.error);
-				// redirect to error pages
+			(error: HttpResponse<ErrorObject>): void => {
+				if(error.body !== null){
+					console.log(error.body.error);
+					// redirect to error pages
+				}
 			}
 		);
 	}

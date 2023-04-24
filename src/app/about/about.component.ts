@@ -5,6 +5,7 @@ import { Page } from './interfaces';
 import { HttpClientModule, HttpClient, HttpResponse } from '@angular/common/http'
 import { TableInfoRes } from '../interfaces/tableInfoRes.interface';
 import { TableAboutItemRes } from '../interfaces/tableAboutItemRes.interface';
+import { ErrorObject } from '../interfaces/errorObject.interface'
 
 @Component({
 	selector: 'app-about',
@@ -173,9 +174,11 @@ export class AboutComponent {
 					}
 				}
 			},
-			(error: any): void => {
-				console.log(error.body.error);
-				// redirect to error pages
+			(error: HttpResponse<ErrorObject>): void => {
+				if(error.body !== null){
+					console.log(error.body.error);
+					// redirect to error pages
+				}
 			}
 		);
 
@@ -239,9 +242,11 @@ export class AboutComponent {
 					}
 				}
 			},
-			(error: any): void => {
-				console.log(error.body.error);
-				// redirect to error pages
+			(error: HttpResponse<ErrorObject>): void => {
+				if(error.body !== null){
+					console.log(error.body.error);
+					// redirect to error pages
+				}
 			}
 		);
 	}

@@ -3,6 +3,7 @@ import { Router } from '@angular/router'
 import { CookieService } from 'ngx-cookie-service';
 import { LoginService } from '../services/login.service';
 import { HttpClientModule, HttpClient, HttpResponse } from '@angular/common/http';
+import { ErrorObject } from '../interfaces/errorObject.interface'
 
 @Component({
 	selector: 'app-admin',
@@ -108,10 +109,12 @@ export class AdminComponent implements OnInit {
 			this.loginService.check_token(cookieValue)
 			.subscribe(
 				(response: HttpResponse<{}>): void  => {},
-				(error: any): void => {
-					console.log(error.body.error);
-					this.b_logout();
-					// redirect to error pages
+				(error: HttpResponse<ErrorObject>): void => {
+					if(error.body !== null){
+						console.log(error.body.error);
+						this.b_logout();
+						// redirect to error pages
+					}
 				}
 			);
 		}

@@ -4,6 +4,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { ContactService } from '../../../services/contact.service';
 import { TableContactItemRes, TableContactMessageRes } from '../../../interfaces/tableContactRes.interface';
 import { HttpClientModule, HttpClient, HttpResponse } from '@angular/common/http'
+import { ErrorObject } from '../../../interfaces/errorObject.interface'
 
 @Component({
 	selector: 'app-admin-contact',
@@ -68,9 +69,11 @@ export class AdminContactComponent implements OnInit{
 						this.router.navigate(['home']);
 						this.error_message_add = undefined;
 					},
-					(error: any): void => {
-						console.log(error.body.error);
-						// redirect to error pages
+					(error: HttpResponse<ErrorObject>): void => {
+						if(error.body !== null){
+							console.log(error.body.error);
+							// redirect to error pages
+						}
 					}
 				);
 			}
@@ -105,9 +108,11 @@ export class AdminContactComponent implements OnInit{
 						}
 					}
 				},
-				(error: any): void => {
-					console.log(error.body.error);
-					// redirect to error pages
+				(error: HttpResponse<ErrorObject>): void => {
+					if(error.body !== null){
+						console.log(error.body.error);
+						// redirect to error pages
+					}
 				}
 			);
 		}
@@ -157,9 +162,11 @@ export class AdminContactComponent implements OnInit{
 								this.router.navigate(['home']);
 								this.error_message_edit = undefined;
 							},
-							(error: any): void => {
-								console.log(error.body.error);
-								// redirect to error pages
+							(error: HttpResponse<ErrorObject>): void => {
+								if(error.body !== null){
+									console.log(error.body.error);
+									// redirect to error pages
+								}
 							}
 						);
 					}
@@ -198,9 +205,11 @@ export class AdminContactComponent implements OnInit{
 						this.router.navigate(['home']);
 						this.error_message_delete = undefined;
 					},
-					(error: any): void => {
-						console.log(error.body.error);
-						// redirect to error pages
+					(error: HttpResponse<ErrorObject>): void => {
+						if(error.body !== null){
+							console.log(error.body.error);
+							// redirect to error pages
+						}
 					}
 				);
 			}
@@ -229,7 +238,7 @@ export class AdminContactComponent implements OnInit{
 						if(!response.body.read){
 							this.contactService.changeMessageRead(cookieValue, this.current_message)
 							.subscribe(
-								(response: any): void  => {
+								(response: HttpResponse<TableContactMessageRes>): void  => {
 									for(let i: number = 0; i < this.all_messages.length; i++){
 										if(this.all_messages[i].id === this.current_message.id){
 											this.all_messages[i].read = true;
@@ -237,17 +246,21 @@ export class AdminContactComponent implements OnInit{
 										}
 									}
 								},
-								(error: any): void => {
-									console.log(error.body.error);
-									// redirect to error pages
+								(error: HttpResponse<ErrorObject>): void => {
+									if(error.body !== null){
+										console.log(error.body.error);
+										// redirect to error pages
+									}
 								}
 							);
 						}
 					}
 				},
-				(error: any): void => {
-					console.log(error.body.error);
-					// redirect to error pages
+				(error: HttpResponse<ErrorObject>): void => {
+					if(error.body !== null){
+						console.log(error.body.error);
+						// redirect to error pages
+					}
 				}
 			);
 		}
@@ -281,9 +294,11 @@ export class AdminContactComponent implements OnInit{
 						});
 					}
 				},
-				(error: any): void => {
-					console.log(error.body.error);
-					// redirect to error pages
+				(error: HttpResponse<ErrorObject>): void => {
+					if(error.body !== null){
+						console.log(error.body.error);
+						// redirect to error pages
+					}
 				}
 			);
 		}

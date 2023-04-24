@@ -9,7 +9,7 @@ import {
 } from '@angular/common/http';
 import { Observable, throwError, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { ErrorObject } from './errorObject.interface'
+import { ErrorObject } from '../interfaces/errorObject.interface'
 import { Router } from '@angular/router'
 
 @Injectable()

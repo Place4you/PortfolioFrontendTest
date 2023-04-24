@@ -4,6 +4,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { InformationService } from '../../../services/information.service';
 import { TableInfoRes } from '../../../interfaces/tableInfoRes.interface';
 import { HttpClientModule, HttpClient, HttpResponse } from '@angular/common/http'
+import { ErrorObject } from '../../../interfaces/errorObject.interface'
 
 @Component({
 	selector: 'app-admin-home',
@@ -31,9 +32,11 @@ export class AdminHomeComponent implements OnInit{
 						this.router.navigate(['home']);
 						this.error_message = undefined;
 					},
-					(error: any): void => {
-						console.log(error.body.error);
-						// redirect to error pages
+					(error: HttpResponse<ErrorObject>): void => {
+						if(error.body !== null){
+							console.log(error.body.error);
+							// redirect to error pages
+						}
 					}
 				);
 			}
@@ -57,9 +60,11 @@ export class AdminHomeComponent implements OnInit{
 					}
 				}
 			},
-			(error: any): void => {
-				console.log(error.body.error);
-				// redirect to error pages
+			(error: HttpResponse<ErrorObject>): void => {
+				if(error.body !== null){
+					console.log(error.body.error);
+					// redirect to error pages
+				}
 			}
 		);
 	}

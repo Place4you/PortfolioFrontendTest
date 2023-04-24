@@ -4,6 +4,7 @@ import { Router } from '@angular/router'
 import { CookieService } from 'ngx-cookie-service';
 import { HttpClientModule, HttpClient, HttpResponse } from '@angular/common/http';
 import { TableWorkItemRes } from '../../../interfaces/tableWorkItemRes.interface';
+import { ErrorObject } from '../../../interfaces/errorObject.interface'
 
 @Component({
 	selector: 'app-admin-work',
@@ -84,9 +85,11 @@ export class AdminWorkComponent implements AfterViewInit {
 						this.router.navigate(['home']);
 						this.error_message_add = "";
 					},
-					(error: any): void => {
-						console.log(error.body.error);
-						// redirect to error pages
+					(error: HttpResponse<ErrorObject>): void => {
+						if(error.body !== null){
+							console.log(error.body.error);
+							// redirect to error pages
+						}
 					}
 				);
 			}
@@ -124,9 +127,11 @@ export class AdminWorkComponent implements AfterViewInit {
 						}
 					}
 				},
-				(error: any): void => {
-					console.log(error.body.error);
-					// redirect to error pages
+				(error: HttpResponse<ErrorObject>): void => {
+					if(error.body !== null){
+						console.log(error.body.error);
+						// redirect to error pages
+					}
 				}
 			);
 		}
@@ -194,9 +199,11 @@ export class AdminWorkComponent implements AfterViewInit {
 								this.router.navigate(['home']);
 								this.error_message_edit = undefined;
 							},
-							(error: any): void => {
-								console.log(error.body.error);
-								// redirect to error pages
+							(error: HttpResponse<ErrorObject>): void => {
+								if(error.body !== null){
+									console.log(error.body.error);
+									// redirect to error pages
+								}
 							}
 						);
 					}
@@ -235,9 +242,11 @@ export class AdminWorkComponent implements AfterViewInit {
 						this.router.navigate(['home']);
 						this.error_message_delete = undefined;
 					},
-					(error: any): void => {
-						console.log(error.body.error);
-						// redirect to error pages
+					(error: HttpResponse<ErrorObject>): void => {
+						if(error.body !== null){
+							console.log(error.body.error);
+							// redirect to error pages
+						}
 					}
 				);
 			}

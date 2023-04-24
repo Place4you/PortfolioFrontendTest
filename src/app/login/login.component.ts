@@ -3,6 +3,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router'
 import { LoginService } from '../services/login.service';
 import { HttpClientModule, HttpClient, HttpResponse } from '@angular/common/http';
+import { ErrorObject } from '../interfaces/errorObject.interface'
 
 @Component({
 	selector: 'app-login',
@@ -40,9 +41,11 @@ export class LoginComponent {
 						this.router.navigate(['admin']);
 					}
 				},
-				(error: any): void => {
-					console.log(error.body.error);
-					// redirect to error pages
+				(error: HttpResponse<ErrorObject>): void => {
+					if(error.body !== null){
+						console.log(error.body.error);
+						// redirect to error pages
+					}
 				}
 			);
 		}

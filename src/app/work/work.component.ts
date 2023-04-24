@@ -3,6 +3,8 @@ import { WorkService } from '../services/work.service';
 import { Project } from "./interfaces";
 import { HttpClientModule, HttpClient, HttpResponse } from '@angular/common/http';
 import { TableWorkItemRes } from '../interfaces/tableWorkItemRes.interface';
+import { ErrorObject } from '../interfaces/errorObject.interface'
+
 @Component({
 	selector: 'app-work',
 	templateUrl: './work.component.html',
@@ -206,9 +208,11 @@ export class WorkComponent {
 				}
 				this.orderBy("NL");
 			},
-			(error: any): void => {
-				console.log(error.body.error);
-				// redirect to error pages
+			(error: HttpResponse<ErrorObject>): void => {
+				if(error.body !== null){
+					console.log(error.body.error);
+					// redirect to error pages
+				}
 			}
 		);
 	}

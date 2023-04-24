@@ -3,7 +3,7 @@ import { Router } from '@angular/router'
 import { CookieService } from 'ngx-cookie-service';
 import { AboutService } from '../../../services/about.service';
 import { InformationService } from '../../../services/information.service';
-import { ErrorObject } from '../../../interceptors/errorObject.interface'
+import { ErrorObject } from '../../../interfaces/errorObject.interface'
 import { TableInfoRes } from '../../../interfaces/tableInfoRes.interface';
 import { HttpClientModule, HttpClient, HttpResponse } from '@angular/common/http'
 import { TableAboutItemRes } from '../../../interfaces/tableAboutItemRes.interface';
@@ -52,9 +52,11 @@ export class AdminAboutComponent implements AfterViewInit {
 							this.error_message_journey = undefined;
 							this.router.navigate(['home']);
 						},
-						(error: any): void => {
-							console.log(error.body.error);
-							// redirect to error pages
+						(error: HttpResponse<ErrorObject>): void => {
+							if(error.body !== null){
+								console.log(error.body.error);
+								// redirect to error pages
+							}
 						}
 					);
 				}
@@ -129,9 +131,11 @@ export class AdminAboutComponent implements AfterViewInit {
 						this.error_message_add = undefined;
 						this.router.navigate(['home']);
 					},
-					(error: any): void => {
-						console.log(error.body.error);
-						// redirect to error pages
+					(error: HttpResponse<ErrorObject>): void => {
+						if(error.body !== null){
+							console.log(error.body.error);
+							// redirect to error pages
+						}
 					}
 				);
 			}
@@ -168,9 +172,11 @@ export class AdminAboutComponent implements AfterViewInit {
 						}
 					}
 				},
-				(error: any): void => {
-					console.log(error.body.error);
-					// redirect to error pages
+				(error: HttpResponse<ErrorObject>): void => {
+					if(error.body !== null){
+						console.log(error.body.error);
+						// redirect to error pages
+					}
 				}
 			);
 		}
@@ -227,9 +233,11 @@ export class AdminAboutComponent implements AfterViewInit {
 								this.router.navigate(['home']);
 								this.error_message_edit = undefined;
 							},
-							(error: any): void => {
-								console.log(error.body.error);
-								// redirect to error pages
+							(error: HttpResponse<ErrorObject>): void => {
+								if(error.body !== null){
+									console.log(error.body.error);
+									// redirect to error pages
+								}
 							}
 						);
 					}
@@ -268,9 +276,11 @@ export class AdminAboutComponent implements AfterViewInit {
 						this.router.navigate(['home']);
 						this.error_message_delete = undefined;
 					},
-					(error: any): void => {
-						console.log(error.body.error);
-						// redirect to error pages
+					(error: HttpResponse<ErrorObject>): void => {
+						if(error.body !== null){
+							console.log(error.body.error);
+							// redirect to error pages
+						}
 					}
 				);
 			}
@@ -291,9 +301,11 @@ export class AdminAboutComponent implements AfterViewInit {
 					}
 				}
 			},
-			(error: any): void => {
-				console.log(error.body.error);
-				// redirect to error pages
+			(error: HttpResponse<ErrorObject>): void => {
+				if(error.body !== null){
+					console.log(error.body.error);
+					// redirect to error pages
+				}
 			}
 		);
 	}

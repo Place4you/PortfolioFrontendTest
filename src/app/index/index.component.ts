@@ -2,6 +2,7 @@ import { Component, NgZone } from '@angular/core';
 import { InformationService } from '../services/information.service';
 import { TableInfoRes } from '../interfaces/tableInfoRes.interface';
 import { HttpClientModule, HttpClient, HttpResponse } from '@angular/common/http'
+import { ErrorObject } from '../interfaces/errorObject.interface'
 
 @Component({
 	selector: 'app-index',
@@ -60,9 +61,11 @@ export class IndexComponent {
 					}
 				}
 			},
-			(error: any): void => {
-				console.log(error.body.error);
-				// redirect to error pages
+			(error: HttpResponse<ErrorObject>): void => {
+				if(error.body !== null){
+					console.log(error.body.error);
+					// redirect to error pages
+				}
 			}
 		);
 		this.el = document.querySelector("#home_title_box");
