@@ -105,11 +105,17 @@ export class AdminComponent implements OnInit {
 		else{
 			const cookieValue: string = this.cookieService.get('JWT');
 			this.loginService.check_token(cookieValue)
-			.subscribe((response: any): void  => {
-				if(response === "0"){
-					this.b_logout();
+			.subscribe(
+				(response: any): void  => {
+					if(response === "0"){
+						this.b_logout();
+					}
+				},
+				(error: any): void => {
+					console.log(error.body.error);
+					// redirect to error pages
 				}
-			});
+			);
 		}
 	}
 }

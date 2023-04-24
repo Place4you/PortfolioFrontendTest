@@ -154,79 +154,91 @@ export class AboutComponent {
 
 	ngOnInit(): void {
 		this.informationService.getInformationTable()
-		.subscribe((response: any): void  => {
-			let journey_message: string = "No description";
-			for(let i: number = 0; i < response.body.length; i++){
-				if(response.body[i].name === "journey" && response.body[i].information){
-					journey_message = response.body[i].information;
-					i = response.body.length;
+		.subscribe(
+			(response: any): void  => {
+				let journey_message: string = "No description";
+				for(let i: number = 0; i < response.body.length; i++){
+					if(response.body[i].name === "journey" && response.body[i].information){
+						journey_message = response.body[i].information;
+						i = response.body.length;
+					}
 				}
+				this.journey = {
+					id: 0,
+					title: "My journey",
+					description: journey_message
+				}
+			},
+			(error: any): void => {
+				console.log(error.body.error);
+				// redirect to error pages
 			}
-			this.journey = {
-				id: 0,
-				title: "My journey",
-				description: journey_message
-			}
-		});
+		);
 
 		this.aboutService.getItems()
-		.subscribe((response: any): void  => {
-			for(let i: number = 0; i < response.body.length; i++){
-				if(response.body[i]){
-					if(response.body[i].item_type === 1){
-						this.knowledge_items.push(response.body[i]);
-					}
-					else if(response.body[i].item_type === 2){
-						this.badges_items.push(response.body[i]);
-					}
-					else if(response.body[i].item_type === 3){
-						this.certificates_items.push(response.body[i]);
+		.subscribe(
+			(response: any): void  => {
+				for(let i: number = 0; i < response.body.length; i++){
+					if(response.body[i]){
+						if(response.body[i].item_type === 1){
+							this.knowledge_items.push(response.body[i]);
+						}
+						else if(response.body[i].item_type === 2){
+							this.badges_items.push(response.body[i]);
+						}
+						else if(response.body[i].item_type === 3){
+							this.certificates_items.push(response.body[i]);
+						}
 					}
 				}
-			}
 
-			let start_at: number = 0;
-			let selected_items: Item[] = this.knowledge_items;
+				let start_at: number = 0;
+				let selected_items: Item[] = this.knowledge_items;
 
-			for(let i: number = start_at; i < selected_items.length; i++){
-				if(i%2 === 0 && i%3 === 0 && i !== start_at){
-					if(!this.show_arrows){
-						this.show_arrows = true;
-					}
-					this.total_pages++;
-					this.array_all.push({page: this.array_page});
-					this.array_page = [];
-					this.array_page.push({
-						id: selected_items[i].id,
-						name: selected_items[i].name,
-						link: selected_items[i].link,
-						image_uri: selected_items[i].image_uri,
-						image_alt: selected_items[i].image_alt,
-						date: selected_items[i].date,
-						description: selected_items[i].description
-					});
-					if(i === selected_items.length - 1){
+				for(let i: number = start_at; i < selected_items.length; i++){
+					if(i%2 === 0 && i%3 === 0 && i !== start_at){
+						if(!this.show_arrows){
+							this.show_arrows = true;
+						}
+						this.total_pages++;
 						this.array_all.push({page: this.array_page});
 						this.array_page = [];
+						this.array_page.push({
+							id: selected_items[i].id,
+							name: selected_items[i].name,
+							link: selected_items[i].link,
+							image_uri: selected_items[i].image_uri,
+							image_alt: selected_items[i].image_alt,
+							date: selected_items[i].date,
+							description: selected_items[i].description
+						});
+						if(i === selected_items.length - 1){
+							this.array_all.push({page: this.array_page});
+							this.array_page = [];
+						}
+						start_at = i;
 					}
-					start_at = i;
-				}
-				else{
-					this.array_page.push({
-						id: selected_items[i].id,
-						name: selected_items[i].name,
-						link: selected_items[i].link,
-						image_uri: selected_items[i].image_uri,
-						image_alt: selected_items[i].image_alt,
-						date: selected_items[i].date,
-						description: selected_items[i].description
-					});
-					if(i === selected_items.length - 1){
-						this.array_all.push({page: this.array_page});
-						this.array_page = [];
+					else{
+						this.array_page.push({
+							id: selected_items[i].id,
+							name: selected_items[i].name,
+							link: selected_items[i].link,
+							image_uri: selected_items[i].image_uri,
+							image_alt: selected_items[i].image_alt,
+							date: selected_items[i].date,
+							description: selected_items[i].description
+						});
+						if(i === selected_items.length - 1){
+							this.array_all.push({page: this.array_page});
+							this.array_page = [];
+						}
 					}
 				}
+			},
+			(error: any): void => {
+				console.log(error.body.error);
+				// redirect to error pages
 			}
-		});
+		);
 	}
 }

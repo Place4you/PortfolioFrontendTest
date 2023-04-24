@@ -196,11 +196,17 @@ export class WorkComponent {
 
 	ngOnInit(): void {
 		this.workService.getItems()
-		.subscribe((response: any): void => {
-			for(let i: number = 0; i < response.body.length; i++){
-				this.project_items.push(response.body[i]);
+		.subscribe(
+			(response: any): void  => {
+				for(let i: number = 0; i < response.body.length; i++){
+					this.project_items.push(response.body[i]);
+				}
+				this.orderBy("NL");
+			},
+			(error: any): void => {
+				console.log(error.body.error);
+				// redirect to error pages
 			}
-			this.orderBy("NL");
-		});
+		);
 	}
 }

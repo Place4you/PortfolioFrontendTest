@@ -1,5 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClientModule, HttpClient, HttpHeaders, HttpErrorResponse, HttpResponse } from '@angular/common/http'
+import { 
+	HttpClientModule, 
+	HttpClient, 
+	HttpHeaders, 
+	HttpErrorResponse, 
+	HttpResponse 
+} from '@angular/common/http'
 import { catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
@@ -35,10 +41,5 @@ export class LoginService {
 				responseType: 'text'
 			}
 		)
-		.pipe(
-			catchError((err: HttpErrorResponse) => {
-				return "0";
-			})
-		);
 	}
 }

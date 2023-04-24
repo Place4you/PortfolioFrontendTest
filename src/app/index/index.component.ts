@@ -47,14 +47,20 @@ export class IndexComponent {
 
 	ngOnInit(): void {
 		this.informationService.getInformationTable()
-		.subscribe((response: any): void => {
-			for(let i: number = 0; i < response.body.length; i++){
-				if(response.body[i].name === "index_titles" && response.body[i].information){
-					this.titles_array = response.body[i].information.split(',');
-					break;
+		.subscribe(
+			(response: any): void  => {
+				for(let i: number = 0; i < response.body.length; i++){
+					if(response.body[i].name === "index_titles" && response.body[i].information){
+						this.titles_array = response.body[i].information.split(',');
+						break;
+					}
 				}
+			},
+			(error: any): void => {
+				console.log(error.body.error);
+				// redirect to error pages
 			}
-		});
+		);
 		this.el = document.querySelector("#home_title_box");
 		this.update_title();
 	}

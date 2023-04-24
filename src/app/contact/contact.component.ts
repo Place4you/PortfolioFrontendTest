@@ -69,29 +69,37 @@ export class ContactComponent {
 		else {
 			const date: string = new Date().toLocaleDateString('fr-ca');
 			this.contactService.createMessage(subject, message, replyto, date)
-			.subscribe((response: any): void  => {
-				if(response === "0"){
-					this.response_message(1, "Error while creating the message");
-				}
-				else {
+			.subscribe(
+				(response: any): void  => {
 					this.response_message(2);
 					const form: HTMLFormElement = <HTMLFormElement>document.getElementById("contact_form");
 					if(form !== null){
 						form.reset();
 					}
+				},
+				(error: any): void => {
+					this.response_message(1, "Error while creating the message");
+					console.log(error.body.error);
+					// redirect to error pages
 				}
-			});
+			);
 		}
 	}
 
 	ngOnInit(): void {
 		this.contactService.getItems()
-		.subscribe((response: any): void  => {
-			for(let i: number = 0; i < response.body.length; i++){
-				if(response.body[i]){
-					this.social_items.push(response.body[i]);
+		.subscribe(
+			(response: any): void  => {
+				for(let i: number = 0; i < response.body.length; i++){
+					if(response.body[i]){
+						this.social_items.push(response.body[i]);
+					}
 				}
+			},
+			(error: any): void => {
+				console.log(error.body.error);
+				// redirect to error pages
 			}
-		});
+		);
 	}
 }

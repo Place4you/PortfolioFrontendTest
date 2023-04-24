@@ -7,6 +7,8 @@ import { ContactComponent } from './contact/contact.component';
 import { LoginComponent } from './login/login.component';
 import { AdminComponent } from './admin/admin.component';
 import { Page404Component } from './errors/page404/page404.component';
+import { Page401Component } from './errors/page401/page401.component';
+import { Page500Component } from './errors/page500/page500.component';
 
 const routes: Routes = [
 	{path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -16,6 +18,8 @@ const routes: Routes = [
 	{path: 'contact', component:ContactComponent},
 	{path: 'login', component:LoginComponent},
 	{path: 'admin', component:AdminComponent},
+	{path: 'error401', component:Page401Component},
+	{path: 'error500', component:Page500Component},
 	{path: '**', component:Page404Component}
 ];
 

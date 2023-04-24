@@ -1,5 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClientModule, HttpClient, HttpHeaders, HttpErrorResponse, HttpResponse } from '@angular/common/http'
+import { 
+	HttpClientModule, 
+	HttpClient, 
+	HttpHeaders, 
+	HttpErrorResponse,
+	HttpResponse 
+} from '@angular/common/http'
 import { catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
@@ -20,11 +26,6 @@ export class WorkService {
 				responseType: 'json'
 			}
 		)
-		.pipe(
-			catchError((err: HttpErrorResponse) => {
-				return "0";
-			})
-		);
 	}
 
 	getItems(): Observable<string | HttpResponse<Object>> {
@@ -67,11 +68,6 @@ export class WorkService {
 				responseType: 'json'
 			}
 		)
-		.pipe(
-			catchError((err: HttpErrorResponse) => {
-				return "0";
-			})
-		);
 	}
 
 	updateItem(
@@ -106,11 +102,6 @@ export class WorkService {
 				responseType: 'json'
 			}
 		)
-		.pipe(
-			catchError((err: HttpErrorResponse) => {
-				return "0";
-			})
-		);
 	}
 
 	deleteItem(token: string, id: number): Observable<string | HttpResponse<Object>> {
@@ -122,10 +113,5 @@ export class WorkService {
 				responseType: 'json'
 			}
 		)
-		.pipe(
-			catchError((err: HttpErrorResponse) => {
-				return "0";
-			})
-		);
 	}
 }

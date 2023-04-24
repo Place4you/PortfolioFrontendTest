@@ -78,15 +78,16 @@ export class AdminWorkComponent implements AfterViewInit {
 			else{
 				const cookieValue: string = this.cookieService.get('JWT');
 				this.workService.createItem(cookieValue, name, date, technologies, description, code_uri, live_uri, image_uri, image_alt)
-				.subscribe((response: any): void  => {
-					if(response === "0"){
-						this.router.navigate(['login']);
-					}
-					else {
+				.subscribe(
+					(response: any): void  => {
 						this.router.navigate(['home']);
 						this.error_message_add = "";
+					},
+					(error: any): void => {
+						console.log(error.body.error);
+						// redirect to error pages
 					}
-				});
+				);
 			}
 		}
 	}
@@ -104,11 +105,8 @@ export class AdminWorkComponent implements AfterViewInit {
 		}
 		else {
 			this.workService.getItem(projectId)
-			.subscribe((response: any): void  => {
-				if(response === "0"){
-					this.router.navigate(['login']);
-				}
-				else {
+			.subscribe(
+				(response: any): void  => {
 					this.error_message_edit = "";
 					this.found_item_id = true;
 					this.project_to_edit = {
@@ -122,8 +120,12 @@ export class AdminWorkComponent implements AfterViewInit {
 						image_uri: response.body.image_uri,
 						image_alt: response.body.image_alt
 					}
+				},
+				(error: any): void => {
+					console.log(error.body.error);
+					// redirect to error pages
 				}
-			});
+			);
 		}
 	}
 
@@ -184,15 +186,16 @@ export class AdminWorkComponent implements AfterViewInit {
 					else{
 						const cookieValue: string = this.cookieService.get('JWT');
 						this.workService.updateItem(cookieValue, this.project_to_edit.id, name, date, technologies, description, code_uri, live_uri, image_uri, image_alt)
-						.subscribe((response: any): void  => {
-							if(response === "0"){
-								this.router.navigate(['login']);
-							}
-							else {
+						.subscribe(
+							(response: any): void  => {
 								this.router.navigate(['home']);
 								this.error_message_edit = undefined;
+							},
+							(error: any): void => {
+								console.log(error.body.error);
+								// redirect to error pages
 							}
-						});
+						);
 					}
 				}
 				else {
@@ -224,15 +227,16 @@ export class AdminWorkComponent implements AfterViewInit {
 			else{
 				const cookieValue: string = this.cookieService.get('JWT');
 				this.workService.deleteItem(cookieValue, projectId)
-				.subscribe((response: any): void  => {
-					if(response === "0"){
-						this.router.navigate(['login']);
-					}
-					else {
+				.subscribe(
+					(response: any): void  => {
 						this.router.navigate(['home']);
 						this.error_message_delete = undefined;
+					},
+					(error: any): void => {
+						console.log(error.body.error);
+						// redirect to error pages
 					}
-				});
+				);
 			}
 		}
 	}

@@ -1,5 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClientModule, HttpClient, HttpHeaders, HttpErrorResponse, HttpResponse } from '@angular/common/http'
+import { 
+	HttpClientModule, 
+	HttpClient, 
+	HttpHeaders, 
+	HttpErrorResponse, 
+	HttpResponse
+} from '@angular/common/http'
 import { catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
@@ -12,22 +18,17 @@ export class AboutService {
 
 	uri: string = "http://localhost:8080/api/v1/about_item"
 
-	getItem(id: number): Observable<string | HttpResponse<Object>> {
+	getItem(id: number): Observable<HttpResponse<Object>> {
 		return this.http.get(
 			this.uri + `/${id}`,
 			{
 				observe: 'response',
 				responseType: 'json'
 			}
-		)
-		.pipe(
-			catchError((err: HttpErrorResponse) => {
-				return "0";
-			})
 		);
 	}
 
-	getItems(): Observable<string | HttpResponse<Object>> {
+	getItems(): Observable<HttpResponse<Object>> {
 		return this.http.get(
 			this.uri,
 			{
@@ -46,7 +47,7 @@ export class AboutService {
 		link: string,
 		image_uri: string,
 		image_alt: string
-	): Observable<string | HttpResponse<Object>> {
+	): Observable<HttpResponse<Object>> {
 		const body = {
 			item_type: type,
 			name: name,
@@ -64,11 +65,6 @@ export class AboutService {
 				observe: 'response',
 				responseType: 'json'
 			}
-		)
-		.pipe(
-			catchError((err: HttpErrorResponse) => {
-				return "0";
-			})
 		);
 	}
 
@@ -82,7 +78,7 @@ export class AboutService {
 		link: string,
 		image_uri: string,
 		image_alt: string
-	): Observable<string | HttpResponse<Object>> {
+	): Observable<HttpResponse<Object>> {
 		const body = {
 			id: id,
 			name: name,
@@ -101,15 +97,10 @@ export class AboutService {
 				observe: 'response',
 				responseType: 'json'
 			}
-		)
-		.pipe(
-			catchError((err: HttpErrorResponse) => {
-				return "0";
-			})
 		);
 	}
 
-	deleteItem(token: string, id: number): Observable<string | HttpResponse<Object>> {
+	deleteItem(token: string, id: number): Observable<HttpResponse<Object>> {
 		return this.http.delete(
 			this.uri + `/delete/${id}`,
 			{
@@ -117,11 +108,6 @@ export class AboutService {
 				observe: 'response',
 				responseType: 'json'
 			}
-		)
-		.pipe(
-			catchError((err: HttpErrorResponse) => {
-				return "0";
-			})
 		);
 	}
 }

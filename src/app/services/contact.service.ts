@@ -1,5 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClientModule, HttpClient, HttpHeaders, HttpErrorResponse, HttpResponse } from '@angular/common/http'
+import { 
+	HttpClientModule, 
+	HttpClient, 
+	HttpHeaders, 
+	HttpErrorResponse, 
+	HttpResponse 
+} from '@angular/common/http'
 import { catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Message } from '../admin/views/admin-contact/interfaces';
@@ -22,11 +28,6 @@ export class ContactService {
 				responseType: 'json'
 			}
 		)
-		.pipe(
-			catchError((err: HttpErrorResponse) => {
-				return "0";
-			})
-		);
 	}
 
 	getItems(): Observable<string | HttpResponse<Object>> {
@@ -63,11 +64,6 @@ export class ContactService {
 				responseType: 'json'
 			}
 		)
-		.pipe(
-			catchError((err: HttpErrorResponse) => {
-				return "0";
-			})
-		);
 	}
 
 	updateItem(
@@ -96,11 +92,6 @@ export class ContactService {
 				responseType: 'json'
 			}
 		)
-		.pipe(
-			catchError((err: HttpErrorResponse) => {
-				return "0";
-			})
-		);
 	}
 
 	deleteItem(token: string, id: number): Observable<string | HttpResponse<Object>> {
@@ -112,11 +103,6 @@ export class ContactService {
 				responseType: 'json'
 			}
 		)
-		.pipe(
-			catchError((err: HttpErrorResponse) => {
-				return "0";
-			})
-		);
 	}
 
 	getMessage(token: string, id: number): Observable<string | HttpResponse<Object>> {
@@ -128,11 +114,6 @@ export class ContactService {
 				responseType: 'json'
 			}
 		)
-		.pipe(
-			catchError((err: HttpErrorResponse) => {
-				return "0";
-			})
-		);
 	}
 
 	getMessages(token: string): Observable<string | HttpResponse<Object>> {
@@ -144,11 +125,6 @@ export class ContactService {
 				responseType: 'json'
 			}
 		)
-		.pipe(
-			catchError((err: HttpErrorResponse) => {
-				return "0";
-			})
-		);
 	}
 
 	createMessage(
@@ -172,11 +148,6 @@ export class ContactService {
 				responseType: 'json'
 			}
 		)
-		.pipe(
-			catchError((err: HttpErrorResponse) => {
-				return "0";
-			})
-		);
 	}
 
 	changeMessageRead(token: string, message: Message): Observable<string | HttpResponse<Object>> {
@@ -197,11 +168,6 @@ export class ContactService {
 				responseType: 'json'
 			}
 		)
-		.pipe(
-			catchError((err: HttpErrorResponse) => {
-				return "0";
-			})
-		);
 	}
 
 	deleteMessage(token: string, id: number): Observable<string | HttpResponse<Object>> {
@@ -213,11 +179,6 @@ export class ContactService {
 				responseType: 'json'
 			}
 		)
-		.pipe(
-			catchError((err: HttpErrorResponse) => {
-				return "0";
-			})
-		);
 	}
 
 }

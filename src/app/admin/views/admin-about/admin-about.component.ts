@@ -4,6 +4,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { AboutService } from '../../../services/about.service';
 import { InformationService } from '../../../services/information.service';
 import { Item } from './interfaces';
+import { ErrorObject } from '../../../interceptors/errorObject.interface'
 
 @Component({
 	selector: 'app-admin-about',
@@ -39,20 +40,21 @@ export class AdminAboutComponent implements AfterViewInit {
 		else {
 			if(text !== this.journey_info){
 				if(!this.cookieService.get('JWT')){
-					this.router.navigate(['login']);
+					this.router.navigate(['error401']);
 				}
 				else{
 					const cookieValue: string = this.cookieService.get('JWT');
 					this.informationService.editInformationTable(cookieValue, this.journey_info_id, "journey", text)
-					.subscribe((response: any): void  => {
-						if(response === "0"){
-							this.router.navigate(['login']);
-						}
-						else {
-							this.router.navigate(['home']);
+					.subscribe(
+						(response: any): void  => {
 							this.error_message_journey = undefined;
+							this.router.navigate(['home']);
+						},
+						(error: any): void => {
+							console.log(error.body.error);
+							// redirect to error pages
 						}
-					});
+					);
 				}
 			}
 			else{
@@ -115,20 +117,21 @@ export class AdminAboutComponent implements AfterViewInit {
 
 		else {
 			if(!this.cookieService.get('JWT')){
-				this.router.navigate(['login']);
+				this.router.navigate(['error401']);
 			}
 			else{
 				const cookieValue: string = this.cookieService.get('JWT');
 				this.aboutService.createItem(cookieValue, type, name, date, description, uri, image_uri, image_alt)
-				.subscribe((response: any): void  => {
-					if(response === "0"){
-						this.router.navigate(['login']);
-					}
-					else {
-						this.router.navigate(['home']);
+				.subscribe(
+					(response: any): void  => {
 						this.error_message_add = undefined;
+						this.router.navigate(['home']);
+					},
+					(error: any): void => {
+						console.log(error.body.error);
+						// redirect to error pages
 					}
-				});
+				);
 			}
 		}
 	}
@@ -146,11 +149,8 @@ export class AdminAboutComponent implements AfterViewInit {
 		}
 		else {
 			this.aboutService.getItem(itemId)
-			.subscribe((response: any): void  => {
-				if(response === "0"){
-					this.router.navigate(['login']);
-				}
-				else {
+			.subscribe(
+				(response: any): void  => {
 					this.error_message_edit = undefined;
 					this.found_item_id = true;
 					this.item_to_edit = {
@@ -163,8 +163,12 @@ export class AdminAboutComponent implements AfterViewInit {
 						image_uri: response.body.image_uri,
 						image_alt: response.body.image_alt
 					}
+				},
+				(error: any): void => {
+					console.log(error.body.error);
+					// redirect to error pages
 				}
-			});
+			);
 		}
 	}
 
@@ -209,20 +213,21 @@ export class AdminAboutComponent implements AfterViewInit {
 
 				if(something_changed){
 					if(!this.cookieService.get('JWT')){
-						this.router.navigate(['login']);
+						this.router.navigate(['error401']);
 					}
 					else{
 						const cookieValue: string = this.cookieService.get('JWT');
 						this.aboutService.updateItem(cookieValue, this.item_to_edit.id, this.item_to_edit.type, name, date, description, uri, image_uri, image_alt)
-						.subscribe((response: any): void  => {
-							if(response === "0"){
-								this.router.navigate(['login']);
-							}
-							else {
+						.subscribe(
+							(response: any): void  => {
 								this.router.navigate(['home']);
 								this.error_message_edit = undefined;
+							},
+							(error: any): void => {
+								console.log(error.body.error);
+								// redirect to error pages
 							}
-						});
+						);
 					}
 				}
 				else {
@@ -249,35 +254,42 @@ export class AdminAboutComponent implements AfterViewInit {
 		}
 		else {
 			if(!this.cookieService.get('JWT')){
-				this.router.navigate(['login']);
+				this.router.navigate(['error401']);
 			}
 			else{
 				const cookieValue: string = this.cookieService.get('JWT');
 				this.aboutService.deleteItem(cookieValue, itemId)
-				.subscribe((response: any): void  => {
-					if(response === "0"){
-						this.router.navigate(['login']);
-					}
-					else {
+				.subscribe(
+					(response: any): void  => {
 						this.router.navigate(['home']);
 						this.error_message_delete = undefined;
+					},
+					(error: any): void => {
+						console.log(error.body.error);
+						// redirect to error pages
 					}
-				});
+				);
 			}
 		}
 	}
 
 	ngOnInit(): void {
 		this.informationService.getInformationTable()
-		.subscribe((response: any): void  => {
-			for(let i: number = 0; i < response.body.length; i++){
-				if(response.body[i].name === "journey" && response.body[i].information){
-					this.journey_info = response.body[i].information;
-					this.journey_info_id = i + 1;
-					break;
+		.subscribe(
+			(response: any): void  => {
+				for(let i: number = 0; i < response.body.length; i++){
+					if(response.body[i].name === "journey" && response.body[i].information){
+						this.journey_info = response.body[i].information;
+						this.journey_info_id = i + 1;
+						break;
+					}
 				}
+			},
+			(error: any): void => {
+				console.log(error.body.error);
+				// redirect to error pages
 			}
-		});
+		);
 	}
 
 	ngAfterViewInit(): void {

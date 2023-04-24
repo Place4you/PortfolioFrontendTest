@@ -57,20 +57,21 @@ export class AdminContactComponent implements OnInit{
 		}
 		else {
 			if(!this.cookieService.get('JWT')){
-				this.router.navigate(['login']);
+				this.router.navigate(['error401']);
 			}
 			else{
 				const cookieValue: string = this.cookieService.get('JWT');
 				this.contactService.createItem(cookieValue, name, account, uri, image_uri, image_alt)
-				.subscribe((response: any): void  => {
-					if(response === "0"){
-						this.router.navigate(['login']);
-					}
-					else {
+				.subscribe(
+					(response: any): void  => {
 						this.router.navigate(['home']);
 						this.error_message_add = undefined;
+					},
+					(error: any): void => {
+						console.log(error.body.error);
+						// redirect to error pages
 					}
-				});
+				);
 			}
 		}
 	}
@@ -88,11 +89,8 @@ export class AdminContactComponent implements OnInit{
 		}
 		else {
 			this.contactService.getItem(itemId)
-			.subscribe((response: any): void  => {
-				if(response === "0"){
-					this.router.navigate(['login']);
-				}
-				else {
+			.subscribe(
+				(response: any): void  => {
 					this.error_message_edit = undefined;
 					this.found_item_id = true;
 					this.item_to_edit = {
@@ -103,8 +101,12 @@ export class AdminContactComponent implements OnInit{
 						image_uri: response.body.image_uri,
 						image_alt: response.body.image_alt
 					}
+				},
+				(error: any): void => {
+					console.log(error.body.error);
+					// redirect to error pages
 				}
-			});
+			);
 		}
 	}
 
@@ -147,15 +149,16 @@ export class AdminContactComponent implements OnInit{
 					else{
 						const cookieValue: string = this.cookieService.get('JWT');
 						this.contactService.updateItem(cookieValue, this.item_to_edit.id, name, account, uri, image_uri, image_alt)
-						.subscribe((response: any): void  => {
-							if(response === "0"){
-								this.router.navigate(['login']);
-							}
-							else {
+						.subscribe(
+							(response: any): void  => {
 								this.router.navigate(['home']);
 								this.error_message_edit = undefined;
+							},
+							(error: any): void => {
+								console.log(error.body.error);
+								// redirect to error pages
 							}
-						});
+						);
 					}
 				}
 				else {
@@ -187,15 +190,16 @@ export class AdminContactComponent implements OnInit{
 			else{
 				const cookieValue: string = this.cookieService.get('JWT');
 				this.contactService.deleteItem(cookieValue, itemId)
-				.subscribe((response: any): void  => {
-					if(response === "0"){
-						this.router.navigate(['login']);
-					}
-					else {
+				.subscribe(
+					(response: any): void  => {
 						this.router.navigate(['home']);
 						this.error_message_delete = undefined;
+					},
+					(error: any): void => {
+						console.log(error.body.error);
+						// redirect to error pages
 					}
-				});
+				);
 			}
 		}
 	}
@@ -207,11 +211,8 @@ export class AdminContactComponent implements OnInit{
 		else{
 			const cookieValue: string = this.cookieService.get('JWT');
 			this.contactService.getMessage(cookieValue, id)
-			.subscribe((response: any): void  => {
-				if(response === "0"){
-					this.router.navigate(['login']);
-				}
-				else {
+			.subscribe(
+				(response: any): void  => {
 					this.current_message = {
 						id: response.body.id,
 						subject: response.body.subject,
@@ -223,22 +224,27 @@ export class AdminContactComponent implements OnInit{
 					this.one_message = true;
 					if(!response.body.read){
 						this.contactService.changeMessageRead(cookieValue, this.current_message)
-						.subscribe((response: any): void  => {
-							if(response === "0"){
-								this.router.navigate(['login']);
-							}
-							else {
+						.subscribe(
+							(response: any): void  => {
 								for(let i: number = 0; i < this.all_messages.length; i++){
 									if(this.all_messages[i].id === this.current_message.id){
 										this.all_messages[i].read = true;
 										break;
 									}
 								}
+							},
+							(error: any): void => {
+								console.log(error.body.error);
+								// redirect to error pages
 							}
-						});
+						);
 					}
+				},
+				(error: any): void => {
+					console.log(error.body.error);
+					// redirect to error pages
 				}
-			});
+			);
 		}
 	}
 
@@ -249,11 +255,8 @@ export class AdminContactComponent implements OnInit{
 		else{
 			const cookieValue: string = this.cookieService.get('JWT');
 			this.contactService.getMessages(cookieValue)
-			.subscribe((response: any): void  => {
-				if(response === "0"){
-					this.router.navigate(['login']);
-				}
-				else {
+			.subscribe(
+				(response: any): void  => {
 					for(let i: number = 0; i < response.body.length; i++){
 						this.all_messages.push({
 							id: response.body[i].id,
@@ -270,8 +273,12 @@ export class AdminContactComponent implements OnInit{
 							return +new Date(b.date) - +new Date(a.date);
 						});
 					}
+				},
+				(error: any): void => {
+					console.log(error.body.error);
+					// redirect to error pages
 				}
-			});
+			);
 		}
 	}
 }

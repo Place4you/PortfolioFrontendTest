@@ -1,80 +1,39 @@
-Redirecto to error pages 401, 404, 500
+============== Production
+- Be careful with '*' as Access-Control-Allow-Origin in production. Change this back only to the clients that are allowed to connect to the API.
+
+Add to the readme: features, contact by webiste, website link at the description, how to test section and help with translations
+Maybe remove translation's section
+
+
+=============== development
 
 Error handling in everything
+In the interceptor redirect 401's and 500's
 
 Sanitize all input, even admin and server input, both in the frontend and in the backend
 The only error in the api call should be the token, make sure all user data can't escape the backend to the database without passing proper checks
 
-Unit testing in everything
+Unit testing in everything and end-to-end testing
 
-Diagrama Entidad Relacion
+Add a layer so it only makes one api call instead of every time the route changes
+also store the responses in the services or something like that ---------> the responses can be cached in the interceptor: https://angular.io/guide/http#caching-requests
+
+Create DTOs to replace the response type of the service functions both in the service and in the components
+* that is A LOT more complex than I thought, observables, async/await and promises need to be involved.
+
+===== less important
+Add real data, delete all examples
 
 Responsive
 
-Add real data
-
 Fancy loading page
+Also, something in the UI to show the request status: https://angular.io/guide/http#tracking-and-showing-request-progress
 
 Transitions/effects to almost everything, same for fonts and colors
 
-Add a layer so it only makes one api call instead of every time the route changes
-also store the responses in the services or something like that
-
 Add support to non javascript users
 
-Button to reload views maybe (fa-undo)
-
-
 Make all the html, scss and ts code the best I can
-
-Create DTOs to replace the response type of the service functions both in the service and in the components
-
-
-import { HttpResponse } from '@angular/common/http'
-import { Observable } from 'rxjs';
-
-Observable<string | HttpResponse<Object>>
-
-
-
-
-
-Production:
-- Be careful with '*' as Access-Control-Allow-Origin in production. Change this back only to the clients that are allowed to connect to the API.
-
-Add to the readme: contact by webiste, website link at the description, how to test section and help with translations
-
-
-
-
-
-
-Admin page:
-- If there is an error with the parameters (like a  simply not found) the user will be taken to the login page.. it should only show an error, and logout in case the token is invalid. How to achieve this? By making more descriptive responses in the backend, with ERROR HANDLING
-
-
-
-// done
-- Main structure
-- Logout button
-- Create a backend uri to send a request that only authorized users can do, and use the cookie as the authorization header. If error logout
-- Onclick on element display the view in cascade
-- Floating button to go to top and one for each view, onclick on top close all views
-- When closing all the tabs for pressing in the arrow to go to the top the tab's arrows don't change
-- Home view
-- Use the cookie of the client as auth header to send the admin requests to the backend
-- Work view
-* Search bar to enter the work item id/name in case the method is put/delete
-* Select element to select the http method, onchange load the required fields
-- About view
-- Contact view
-- Add the change journey text as an option from the select option button in the admin's about view
-- Add panel to see messages sent by users from the contact form inside the contact view
-- Create update controller for the messages
-- Change the message "READ" status to "TRUE" when viewing a message for the first time
-- Open panel to see the full message when clicking a specific message
-
-
 
 
 
@@ -82,66 +41,80 @@ Admin page:
 Contact page:
 - Allow 3 messages/hour per ip
 - Send notification to email
-// done
-- Add right bar to the socials, same as in about journey, so there's no social's limit
-- Get the contact data from the backend
-- Show item id somewhere
-- Change trash color while hovering in profiles that don't have link
-- Save the message in the database
+// done {
+	- Add right bar to the socials, same as in about journey, so there's no social's limit
+	- Get the contact data from the backend
+	- Show item id somewhere
+	- Change trash color while hovering in profiles that don't have link
+	- Save the message in the database
+}
 
-
-
-//done
-Login page:
-- Something to fill the space
-
-
-// done
-Home page:
-- Receive all the data from the backend
-- Make the titles work
-
-
-// done
-About page:
-- Add description to items
-- Show date of item on hover
-- Only show the side arrows if there is more than 1 page
-- Change about page icon for something else
-- Onclick on item makes a get request to the item id and shows the user stuff about the item (description, date, how I got it, where I used it, etc) replacing "My journey" text (maybe also replacing the buttons)
-- Read the html tags in the description and make them work
-- The knowledge button should be black in the constructor
-- "get this from the database" my journey
-- showItemInfo() should be done better and fancy
-- Go to other items if mentioned in the description of the item. MAKE THIS WITH THE FUNCTION showItemInfo(item_id)
-- Bug: When there's only one item in the new page it is not shown
-
-
-// done
-Login page:
-- Only the correct username and password should be redirected to the admin page and get the JWT set
-
-
-Work page:
-- Add "currently working" button, show commit history of the projects, etc
-
-// done
-- Get the work data from the backend
-- Only show the side arrows if there are more projects than the screen capacity
-- Add page selector at the side of the order by, it must have overflow x visible and numbers below, don't show more than 5
-- Make the order by options work
-- Bug: When there's only one item in the new page it is not shown, probably the same happens for the about page
-- Bug: when selecting different order by there are more pages added, yet you can't select them, is something visual
-- Show the project technologies instead of the description when hovering on the project
-- Add button to see more of the project at the side of the view live button, and when clicked show the description, replacing all the projects in the screen (maybe even adapting to the project position)
-- Add id after project name when viewing the description
-
-
+======================= done
+// done {
+	Admin page:
+	- Main structure
+	- Logout button
+	- Create a backend uri to send a request that only authorized users can do, and use the cookie as the authorization header. If error logout
+	- Onclick on element display the view in cascade
+	- Floating button to go to top and one for each view, onclick on top close all views
+	- When closing all the tabs for pressing in the arrow to go to the top the tab's arrows don't change
+	- Home view
+	- Use the cookie of the client as auth header to send the admin requests to the backend
+	- Work view
+	* Search bar to enter the work item id/name in case the method is put/delete
+	* Select element to select the http method, onchange load the required fields
+	- About view
+	- Contact view
+	- Add the change journey text as an option from the select option button in the admin's about view
+	- Add panel to see messages sent by users from the contact form inside the contact view
+	- Create update controller for the messages
+	- Change the message "READ" status to "TRUE" when viewing a message for the first time
+	- Open panel to see the full message when clicking a specific message
+}
+//done {
+	Login page
+}
+// done {
+	Home page:
+	- Receive all the data from the backend
+	- Make the titles work
+}
+// done {
+	About page:
+	- Add description to items
+	- Show date of item on hover
+	- Only show the side arrows if there is more than 1 page
+	- Change about page icon for something else
+	- Onclick on item makes a get request to the item id and shows the user stuff about the item (description, date, how I got it, where I used it, etc) replacing "My journey" text (maybe also replacing the buttons)
+	- Read the html tags in the description and make them work
+	- The knowledge button should be black in the constructor
+	- "get this from the database" my journey
+	- showItemInfo() should be done better and fancy
+	- Go to other items if mentioned in the description of the item. MAKE THIS WITH THE FUNCTION showItemInfo(item_id)
+	- Bug: When there's only one item in the new page it is not shown
+}
+// done {
+	Login page:
+	- Only the correct username and password should be redirected to the admin page and get the JWT set
+}
+// done {
+	Work page:
+	- Get the work data from the backend
+	- Only show the side arrows if there are more projects than the screen capacity
+	- Add page selector at the side of the order by, it must have overflow x visible and numbers below, don't show more than 5
+	- Make the order by options work
+	- Bug: When there's only one item in the new page it is not shown, probably the same happens for the about page
+	- Bug: when selecting different order by there are more pages added, yet you can't select them, is something visual
+	- Show the project technologies instead of the description when hovering on the project
+	- Add button to see more of the project at the side of the view live button, and when clicked show the description, replacing all the projects in the screen (maybe even adapting to the project position)
+	- Add id after project name when viewing the description
+}
 
 
 
 
 // questions asked for the project, last-to-first
+
 https://stackoverflow.com/questions/76078234/set-the-type-of-node-childnodes-variable-in-typescript/76078430?noredirect=1
 
 https://stackoverflow.com/questions/75748843/angular-html-doesnt-update-and-cant-find-scope-binding
@@ -167,6 +140,8 @@ https://stackoverflow.com/questions/74651363/variable-in-curly-brackets-in-angul
 
 
 
+
+============ Examples to copy paste
 // about item data example
 {
 	"item_type": 3,
@@ -206,5 +181,3 @@ https://stackoverflow.com/questions/74651363/variable-in-curly-brackets-in-angul
 	"date": "2022-06-30",
 	"read": false
 }
-
-

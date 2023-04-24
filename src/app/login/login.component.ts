@@ -32,10 +32,16 @@ export class LoginComponent {
 		if(!error){
 			this.error_message = undefined;
 			this.loginService.login(email, password)
-			.subscribe((response: any): void => {
-				this.cookieService.set('JWT', response.body, 1);
-				this.router.navigate(['admin']);
-			});
+			.subscribe(
+				(response: any): void  => {
+					this.cookieService.set('JWT', response.body, 1);
+					this.router.navigate(['admin']);
+				},
+				(error: any): void => {
+					console.log(error.body.error);
+					// redirect to error pages
+				}
+			);
 		}
 	}
 }
