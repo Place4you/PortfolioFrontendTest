@@ -1,4 +1,5 @@
 <div class="container content">
+	<div id="liveAlertPlaceholder" style="position: absolute; z-index: 9; width: 100%;"></div>
 	<section class="select_method">
 		<div class="select_h4">
 			<h4>Select option:</h4>
@@ -43,7 +44,6 @@
 
             	<input type="submit" value="Create" (click)="create_item(add_name.value, add_date.value, add_technologies.value, add_description.value, add_code_uri.value, add_live_uri.value, add_image_uri.value, add_image_alt.value)">
 			</form>
-			<p class="error" *ngIf="error_message_add">{{error_message_add}}</p>
 		</div>
 
 		<div *ngIf="current_value === 'edit'">
@@ -85,7 +85,6 @@
 	            	<input type="submit" value="Update" (click)="edit_item(edit_name.value, edit_date.value, edit_technologies.value, edit_description.value, edit_code_uri.value, edit_live_uri.value, edit_image_uri.value, edit_image_alt.value)">
 				</div>
 			</form>
-			<p class="error" *ngIf="error_message_edit">{{error_message_edit}}</p>
 		</div>
 
 		<div *ngIf="current_value === 'delete'">
@@ -97,7 +96,6 @@
 
             	<input type="submit" value="Delete" (click)="delete_item(deleteId.value)">
 			</form>
-			<p class="error" *ngIf="error_message_delete">{{error_message_delete}}</p>
 		</div>
 	</div>
 </div>

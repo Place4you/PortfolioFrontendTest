@@ -15,18 +15,34 @@ export class AdminWorkComponent implements AfterViewInit {
 
 	constructor(private router: Router, private cookieService: CookieService, private workService: WorkService) { }
 
-	error_message_add: string | undefined = undefined;
-	error_message_edit: string | undefined = undefined;
-	error_message_delete: string | undefined = undefined;
 	current_value: string = "add";
 	found_item_id: boolean = false;
 
 	project_to_edit: TableWorkItemRes = {} as TableWorkItemRes;
 
+
+	current_alert: boolean = false;
+	myAlert(message: string, type: string): void {
+		const alertPlaceholder: HTMLElement | null = document.getElementById('liveAlertPlaceholder');
+		if(!this.current_alert){
+			this.current_alert = true;
+			const wrapper: HTMLElement = document.createElement('div');
+			wrapper.innerHTML = [
+				`<div class="alert alert-${type}" role="alert">`,
+				`   <div style="text-align: center;">${message}</div>`,
+				'</div>'
+				].join('');
+			if(alertPlaceholder !== null){
+				alertPlaceholder.append(wrapper);
+				setTimeout(() => {
+					alertPlaceholder.innerHTML = '';
+					this.current_alert = false;
+				}, 5000);
+			}
+		}
+	}
+
 	reset_default_values(): void {
-		this.error_message_add    = undefined;
-		this.error_message_edit   = undefined;
-		this.error_message_delete = undefined;
 		this.current_value        = "add";
 		this.found_item_id        = false;
 	}
@@ -34,18 +50,8 @@ export class AdminWorkComponent implements AfterViewInit {
 	method_change(event: Event): void {
 		const value: string = (event.target as HTMLFormElement)['value'];
 		if(value !== this.current_value){
-			if(value === "add"){
-				this.reset_default_values();
-				this.current_value = "add";
-			}
-			else if(value === "edit"){
-				this.reset_default_values();
-				this.current_value = "edit";
-			}
-			else if(value === "delete"){
-				this.reset_default_values();
-				this.current_value = "delete";
-			}
+			this.reset_default_values();
+			this.current_value = value;
 		}
 	}
 
@@ -61,21 +67,21 @@ export class AdminWorkComponent implements AfterViewInit {
 		): void {
 
 		if(!name){
-			this.error_message_add = "Field <name> can't be null";
+			this.myAlert("Field 'name' can't be null", 'danger');
 		}
 		else if(!date){
-			this.error_message_add = "Field <date> can't be null";
+			this.myAlert("Field 'date' can't be null", 'danger');
 		}
 		else if(!technologies){
-			this.error_message_add = "Field <technologies> can't be null";
+			this.myAlert("Field 'technologies' can't be null", 'danger');
 		}
 		else if(!description){
-			this.error_message_add = "Field <description> can't be null";
+			this.myAlert("Field 'description' can't be null", 'danger');
 		}
 
 		else {
 			if(!this.cookieService.get('JWT')){
-				this.router.navigate(['login']);
+				this.router.navigate(['error401']);
 			}
 			else{
 				const cookieValue: string = this.cookieService.get('JWT');
@@ -83,12 +89,11 @@ export class AdminWorkComponent implements AfterViewInit {
 				.subscribe(
 					(response: HttpResponse<TableWorkItemRes>): void  => {
 						this.router.navigate(['home']);
-						this.error_message_add = "";
 					},
 					(error: HttpResponse<ErrorObject>): void => {
 						if(error.body !== null){
+							this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
 							console.log(error.body.error);
-							// redirect to error pages
 						}
 					}
 				);
@@ -99,20 +104,19 @@ export class AdminWorkComponent implements AfterViewInit {
 	search_edit_item(inputId: string): void {
 		const projectId: number = Number(inputId) || 0;
 		if(projectId === 0){
-			this.error_message_edit = "Invalid project id";
+			this.myAlert("Invalid project id", 'danger');
 		}
 		else if(projectId < 1){
-			this.error_message_edit = "The project id must be greater than 0";
+			this.myAlert("The project id must be greater than 0", 'danger');
 		}
 		else if(projectId > 65535){
-			this.error_message_edit = "The project id must be lesser than 65536";
+			this.myAlert("The project id must be lesser than 65536", 'danger');
 		}
 		else {
 			this.workService.getItem(projectId)
 			.subscribe(
 				(response: HttpResponse<TableWorkItemRes>): void  => {
 					if(response.body !== null){
-						this.error_message_edit = "";
 						this.found_item_id = true;
 						this.project_to_edit = {
 							id: response.body.id,
@@ -125,12 +129,13 @@ export class AdminWorkComponent implements AfterViewInit {
 							image_uri: response.body.image_uri,
 							image_alt: response.body.image_alt
 						}
+						this.myAlert("Project found", 'success');
 					}
 				},
 				(error: HttpResponse<ErrorObject>): void => {
 					if(error.body !== null){
+						this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
 						console.log(error.body.error);
-						// redirect to error pages
 					}
 				}
 			);
@@ -148,16 +153,16 @@ export class AdminWorkComponent implements AfterViewInit {
 		image_alt: string
 		): void {
 		if(!name){
-			this.error_message_edit = "Field <name> can't be null";
+			this.myAlert("Field 'name' can't be null", 'danger');
 		}
 		else if(!date){
-			this.error_message_edit = "Field <date> can't be null";
+			this.myAlert("Field 'date' can't be null", 'danger');
 		}
 		else if(!technologies){
-			this.error_message_edit = "Field <technologies> can't be null";
+			this.myAlert("Field 'technologies' can't be null", 'danger');
 		}
 		else if(!description){
-			this.error_message_edit = "Field <description> can't be null";
+			this.myAlert("Field 'description' can't be null", 'danger');
 		}
 		else {
 			if(this.project_to_edit.name){
@@ -189,7 +194,7 @@ export class AdminWorkComponent implements AfterViewInit {
 
 				if(something_changed){
 					if(!this.cookieService.get('JWT')){
-						this.router.navigate(['login']);
+						this.router.navigate(['error401']);
 					}
 					else{
 						const cookieValue: string = this.cookieService.get('JWT');
@@ -197,23 +202,22 @@ export class AdminWorkComponent implements AfterViewInit {
 						.subscribe(
 							(response: HttpResponse<TableWorkItemRes>): void  => {
 								this.router.navigate(['home']);
-								this.error_message_edit = undefined;
 							},
 							(error: HttpResponse<ErrorObject>): void => {
 								if(error.body !== null){
+									this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
 									console.log(error.body.error);
-									// redirect to error pages
 								}
 							}
 						);
 					}
 				}
 				else {
-					this.error_message_edit = "Project not edited";
+					this.myAlert("Project not edited", 'danger');
 				}
 			}
 			else {
-				this.error_message_edit = "Project to update not found";
+				this.myAlert("Project to update not found", 'danger');
 				this.found_item_id = false;
 			}
 		}
@@ -222,17 +226,17 @@ export class AdminWorkComponent implements AfterViewInit {
 	delete_item(inputId: string): void {
 		const projectId: number = Number(inputId) || 0;
 		if(projectId === 0){
-			this.error_message_delete = "Invalid project id";
+			this.myAlert("Invalid project id", 'danger');
 		}
 		else if(projectId < 1){
-			this.error_message_delete = "The project id must be greater than 0";
+			this.myAlert("The project id must be greater than 0", 'danger');
 		}
 		else if(projectId > 65535){
-			this.error_message_delete = "The project id must be lesser than 65536";
+			this.myAlert("The project id must be lesser than 65536", 'danger');
 		}
 		else {
 			if(!this.cookieService.get('JWT')){
-				this.router.navigate(['login']);
+				this.router.navigate(['error401']);
 			}
 			else{
 				const cookieValue: string = this.cookieService.get('JWT');
@@ -240,12 +244,11 @@ export class AdminWorkComponent implements AfterViewInit {
 				.subscribe(
 					(response: HttpResponse<{}>): void  => {
 						this.router.navigate(['home']);
-						this.error_message_delete = undefined;
 					},
 					(error: HttpResponse<ErrorObject>): void => {
 						if(error.body !== null){
+							this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
 							console.log(error.body.error);
-							// redirect to error pages
 						}
 					}
 				);

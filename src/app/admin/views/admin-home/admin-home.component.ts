@@ -16,13 +16,34 @@ export class AdminHomeComponent implements OnInit{
 	constructor(private router: Router, private cookieService: CookieService, private informationService: InformationService) { }
 
 	home_titles: string | undefined = undefined;
-	error_message: string | undefined = undefined;
 	index_titles_id: number = 0;
+
+
+	current_alert: boolean = false;
+	myAlert(message: string, type: string): void {
+		const alertPlaceholder: HTMLElement | null = document.getElementById('liveAlertPlaceholder');
+		if(!this.current_alert){
+			this.current_alert = true;
+			const wrapper: HTMLElement = document.createElement('div');
+			wrapper.innerHTML = [
+				`<div class="alert alert-${type}" role="alert">`,
+				`   <div style="text-align: center;">${message}</div>`,
+				'</div>'
+				].join('');
+			if(alertPlaceholder !== null){
+				alertPlaceholder.append(wrapper);
+				setTimeout(() => {
+					alertPlaceholder.innerHTML = '';
+					this.current_alert = false;
+				}, 5000);
+			}
+		}
+	}
 
 	update(titles: string): void {
 		if(this.home_titles !== titles){
 			if(!this.cookieService.get('JWT')){
-				this.router.navigate(['login']);
+				this.router.navigate(['error401']);
 			}
 			else{
 				const cookieValue: string = this.cookieService.get('JWT');
@@ -30,19 +51,18 @@ export class AdminHomeComponent implements OnInit{
 				.subscribe(
 					(response: HttpResponse<TableInfoRes>): void  => {
 						this.router.navigate(['home']);
-						this.error_message = undefined;
 					},
 					(error: HttpResponse<ErrorObject>): void => {
 						if(error.body !== null){
+							this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
 							console.log(error.body.error);
-							// redirect to error pages
 						}
 					}
 				);
 			}
 		}
 		else{
-			this.error_message = "Information not edited";
+			this.myAlert('Information not edited', 'danger');
 		}
 	}
 
@@ -62,8 +82,8 @@ export class AdminHomeComponent implements OnInit{
 			},
 			(error: HttpResponse<ErrorObject>): void => {
 				if(error.body !== null){
+					this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
 					console.log(error.body.error);
-					// redirect to error pages
 				}
 			}
 		);

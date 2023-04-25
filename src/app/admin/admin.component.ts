@@ -15,6 +15,28 @@ export class AdminComponent implements OnInit {
 
 	constructor(private loginService: LoginService, private cookieService: CookieService, private router: Router){ }
 	
+
+	current_alert: boolean = false;
+	myAlert(message: string, type: string): void {
+		const alertPlaceholder: HTMLElement | null = document.getElementById('liveAlertPlaceholder');
+		if(!this.current_alert){
+			this.current_alert = true;
+			const wrapper: HTMLElement = document.createElement('div');
+			wrapper.innerHTML = [
+				`<div class="alert alert-${type}" role="alert">`,
+				`   <div style="text-align: center;">${message}</div>`,
+				'</div>'
+				].join('');
+			if(alertPlaceholder !== null){
+				alertPlaceholder.append(wrapper);
+				setTimeout(() => {
+					alertPlaceholder.innerHTML = '';
+					this.current_alert = false;
+				}, 5000);
+			}
+		}
+	}
+
 	view_click(view: string): void {
 		const elemView: HTMLElement | null = document.getElementById(`app_${view}`);
 		let arrow: NodeListOf<ChildNode> | undefined = undefined;
@@ -111,9 +133,9 @@ export class AdminComponent implements OnInit {
 				(response: HttpResponse<{}>): void  => {},
 				(error: HttpResponse<ErrorObject>): void => {
 					if(error.body !== null){
+						this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
 						console.log(error.body.error);
 						this.b_logout();
-						// redirect to error pages
 					}
 				}
 			);

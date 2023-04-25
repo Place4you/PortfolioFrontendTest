@@ -34,7 +34,29 @@ export class WorkComponent {
 		technologies: "Not assigned",
 		description: "Not assigned"
 	};
-	
+
+
+	current_alert: boolean = false;
+	myAlert(message: string, type: string): void {
+		const alertPlaceholder: HTMLElement | null = document.getElementById('liveAlertPlaceholder');
+		if(!this.current_alert){
+			this.current_alert = true;
+			const wrapper: HTMLElement = document.createElement('div');
+			wrapper.innerHTML = [
+				`<div class="alert alert-${type}" role="alert">`,
+				`   <div style="text-align: center;">${message}</div>`,
+				'</div>'
+				].join('');
+			if(alertPlaceholder !== null){
+				alertPlaceholder.append(wrapper);
+				setTimeout(() => {
+					alertPlaceholder.innerHTML = '';
+					this.current_alert = false;
+				}, 5000);
+			}
+		}
+	}
+
 	onRightArrow(): void {
 		this.pageIndex++;
 		if(this.pageIndex > this.total_pages - 1){
@@ -210,8 +232,8 @@ export class WorkComponent {
 			},
 			(error: HttpResponse<ErrorObject>): void => {
 				if(error.body !== null){
+					this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
 					console.log(error.body.error);
-					// redirect to error pages
 				}
 			}
 		);

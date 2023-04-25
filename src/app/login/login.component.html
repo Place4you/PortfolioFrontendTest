@@ -1,5 +1,6 @@
 <body>
 	<div class="container content">
+		<div id="liveAlertPlaceholder" style="position: absolute; z-index: 9; width: 100%;"></div>
 		<div class="container login" id="login">
 			<div class="form">
 				<h1>Login as admin</h1>
@@ -8,7 +9,6 @@
 					<input type="password" placeholder="Password" class="password" minlength="3" maxlength="128" required #password>
 					<input type="submit" value="Login" (click)="Login(username.value, password.value)">
 				</form>
-				<p class="error" *ngIf="error_message">{{error_message}}</p>
 			</div>
 		</div>
 	</div>

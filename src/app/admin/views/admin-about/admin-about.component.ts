@@ -17,27 +17,42 @@ export class AdminAboutComponent implements AfterViewInit {
 
 	constructor(private router: Router, private cookieService: CookieService, private aboutService: AboutService, private informationService: InformationService) { }
 
-	error_message_add:      string | undefined = undefined;
-	error_message_edit:     string | undefined = undefined;
-	error_message_delete:   string | undefined = undefined;
-	error_message_journey:  string | undefined = undefined;
 	journey_info:           string | undefined = undefined;
 	current_value:          string = "add";
 	found_item_id:          boolean = false;
 	journey_info_id:        number = 0;
 	item_to_edit:           TableAboutItemRes = {} as TableAboutItemRes;
 
+
+	current_alert: boolean = false;
+	myAlert(message: string, type: string): void {
+		const alertPlaceholder: HTMLElement | null = document.getElementById('liveAlertPlaceholder');
+		if(!this.current_alert){
+			this.current_alert = true;
+			const wrapper: HTMLElement = document.createElement('div');
+			wrapper.innerHTML = [
+				`<div class="alert alert-${type}" role="alert">`,
+				`   <div style="text-align: center;">${message}</div>`,
+				'</div>'
+				].join('');
+			if(alertPlaceholder !== null){
+				alertPlaceholder.append(wrapper);
+				setTimeout(() => {
+					alertPlaceholder.innerHTML = '';
+					this.current_alert = false;
+				}, 5000);
+			}
+		}
+	}
+
 	reset_default_values(): void {
-		this.error_message_add    = undefined;
-		this.error_message_edit   = undefined;
-		this.error_message_delete = undefined;
-		this.current_value        = "add";
-		this.found_item_id        = false;
+		this.current_value = "add";
+		this.found_item_id = false;
 	}
 
 	edit_journey(text: string): void {
 		if(!text){
-			this.error_message_journey = "Field <journey> can't be null";
+			this.myAlert("Field 'journey' can't be null", 'danger');
 		}
 		else {
 			if(text !== this.journey_info){
@@ -49,44 +64,28 @@ export class AdminAboutComponent implements AfterViewInit {
 					this.informationService.editInformationTable(cookieValue, this.journey_info_id, "journey", text)
 					.subscribe(
 						(response: HttpResponse<TableInfoRes>): void  => {
-							this.error_message_journey = undefined;
 							this.router.navigate(['home']);
 						},
 						(error: HttpResponse<ErrorObject>): void => {
 							if(error.body !== null){
+								this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
 								console.log(error.body.error);
-								// redirect to error pages
 							}
 						}
 					);
 				}
 			}
 			else{
-				this.error_message_journey = "Information not edited";
+				this.myAlert("Information not edited", 'danger');
 			}
 		}
 	}
 
-
 	method_change(event: Event): void {
 		const value: string = (event.target as HTMLFormElement)['value'];
 		if(value !== this.current_value){
-			if(value === "add"){
-				this.reset_default_values();
-				this.current_value = "add";
-			}
-			else if(value === "edit"){
-				this.reset_default_values();
-				this.current_value = "edit";
-			}
-			else if(value === "delete"){
-				this.reset_default_values();
-				this.current_value = "delete";
-			}
-			else if(value === "journey"){
-				this.reset_default_values();
-				this.current_value = "journey";
-			}
+			this.reset_default_values();
+			this.current_value = value;
 		}
 	}
 
@@ -101,22 +100,22 @@ export class AdminAboutComponent implements AfterViewInit {
 	): void {
 		const type: number = Number(input_type) || 0;
 		if(type === 0){
-			this.error_message_add = "Invalid item type";
+			this.myAlert("Invalid item type", 'danger');
 		}
 		else if(type < 1){
-			this.error_message_add = "Item type must be greater than 0";
+			this.myAlert("Item type must be greater than 0", 'danger');
 		}
 		else if(type > 3){
-			this.error_message_add = "Item type must be lesser than 4";
+			this.myAlert("Item type must be lesser than 4", 'danger');
 		}
 		else if(!name){
-			this.error_message_add = "Field <name> can't be null";
+			this.myAlert("Field 'name' can't be null", 'danger');
 		}
 		else if(!date){
-			this.error_message_add = "Field <date> can't be null";
+			this.myAlert("Field 'date' can't be null", 'danger');
 		}
 		else if(!description){
-			this.error_message_add = "Field <description> can't be null";
+			this.myAlert("Field 'description' can't be null", 'danger');
 		}
 
 		else {
@@ -128,13 +127,12 @@ export class AdminAboutComponent implements AfterViewInit {
 				this.aboutService.createItem(cookieValue, type, name, date, description, link, image_uri, image_alt)
 				.subscribe(
 					(response: HttpResponse<TableAboutItemRes>): void  => {
-						this.error_message_add = undefined;
 						this.router.navigate(['home']);
 					},
 					(error: HttpResponse<ErrorObject>): void => {
 						if(error.body !== null){
+							this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
 							console.log(error.body.error);
-							// redirect to error pages
 						}
 					}
 				);
@@ -145,20 +143,19 @@ export class AdminAboutComponent implements AfterViewInit {
 	search_edit_item(inputId: string): void {
 		const itemId: number = Number(inputId) || 0;
 		if(itemId === 0){
-			this.error_message_edit = "Invalid item id";
+			this.myAlert("Invalid item id", 'danger');
 		}
 		else if(itemId < 1){
-			this.error_message_edit = "The item id must be greater than 0";
+			this.myAlert("The item id must be greater than 0", 'danger');
 		}
 		else if(itemId > 65535){
-			this.error_message_edit = "The item id must be lesser than 65536";
+			this.myAlert("The item id must be lesser than 65536", 'danger');
 		}
 		else {
 			this.aboutService.getItem(itemId)
 			.subscribe(
 				(response: HttpResponse<TableAboutItemRes>): void  => {
 					if(response.body !== null){
-						this.error_message_edit = undefined;
 						this.found_item_id = true;
 						this.item_to_edit = {
 							id: response.body.id,
@@ -174,8 +171,8 @@ export class AdminAboutComponent implements AfterViewInit {
 				},
 				(error: HttpResponse<ErrorObject>): void => {
 					if(error.body !== null){
+						this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
 						console.log(error.body.error);
-						// redirect to error pages
 					}
 				}
 			);
@@ -191,13 +188,13 @@ export class AdminAboutComponent implements AfterViewInit {
 		image_alt: string
 	): void {
 		if(!name){
-			this.error_message_edit = "Field <name> can't be null";
+			this.myAlert("Field 'name' can't be null", 'danger');
 		}
 		else if(!date){
-			this.error_message_edit = "Field <date> can't be null";
+			this.myAlert("Field 'date' can't be null", 'danger');
 		}
 		else if(!description){
-			this.error_message_edit = "Field <description> can't be null";
+			this.myAlert("Field 'description' can't be null", 'danger');
 		}
 		else {
 			if(this.item_to_edit.name){
@@ -231,23 +228,22 @@ export class AdminAboutComponent implements AfterViewInit {
 						.subscribe(
 							(response: HttpResponse<TableAboutItemRes>): void  => {
 								this.router.navigate(['home']);
-								this.error_message_edit = undefined;
 							},
 							(error: HttpResponse<ErrorObject>): void => {
 								if(error.body !== null){
+									this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
 									console.log(error.body.error);
-									// redirect to error pages
 								}
 							}
 						);
 					}
 				}
 				else {
-					this.error_message_edit = "Item not edited";
+					this.myAlert("Item not edited", 'danger');
 				}
 			}
 			else {
-				this.error_message_edit = "Item to update not found";
+				this.myAlert("Item to update not found", 'danger');
 				this.found_item_id = false;
 			}
 		}
@@ -256,13 +252,13 @@ export class AdminAboutComponent implements AfterViewInit {
 	delete_item(inputId: string): void {
 		const itemId: number = Number(inputId) || 0;
 		if(itemId === 0){
-			this.error_message_delete = "Invalid item id";
+			this.myAlert("Invalid item id", 'danger');
 		}
 		else if(itemId < 1){
-			this.error_message_delete = "The item id must be greater than 0";
+			this.myAlert("The item id must be greater than 0", 'danger');
 		}
 		else if(itemId > 65535){
-			this.error_message_delete = "The item id must be lesser than 65536";
+			this.myAlert("The item id must be lesser than 65536", 'danger');
 		}
 		else {
 			if(!this.cookieService.get('JWT')){
@@ -274,12 +270,11 @@ export class AdminAboutComponent implements AfterViewInit {
 				.subscribe(
 					(response: HttpResponse<{}>): void  => {
 						this.router.navigate(['home']);
-						this.error_message_delete = undefined;
 					},
 					(error: HttpResponse<ErrorObject>): void => {
 						if(error.body !== null){
+							this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
 							console.log(error.body.error);
-							// redirect to error pages
 						}
 					}
 				);
@@ -303,8 +298,8 @@ export class AdminAboutComponent implements AfterViewInit {
 			},
 			(error: HttpResponse<ErrorObject>): void => {
 				if(error.body !== null){
+					this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
 					console.log(error.body.error);
-					// redirect to error pages
 				}
 			}
 		);

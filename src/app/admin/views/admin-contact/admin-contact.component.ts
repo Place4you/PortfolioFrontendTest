@@ -15,9 +15,6 @@ export class AdminContactComponent implements OnInit{
 
 	constructor(private router: Router, private cookieService: CookieService, private contactService: ContactService) { }
 
-	error_message_add: 		string | undefined = undefined;
-	error_message_edit: 	string | undefined = undefined;
-	error_message_delete: 	string | undefined = undefined;
 	current_value: 			string = "add";
 	found_item_id: 			boolean = false;
 	item_to_edit: 			TableContactItemRes = {} as TableContactItemRes;
@@ -27,10 +24,28 @@ export class AdminContactComponent implements OnInit{
 	messages_empty: 		boolean = true;
 
 
+	current_alert: boolean = false;
+	myAlert(message: string, type: string): void {
+		const alertPlaceholder: HTMLElement | null = document.getElementById('liveAlertPlaceholder');
+		if(!this.current_alert){
+			this.current_alert = true;
+			const wrapper: HTMLElement = document.createElement('div');
+			wrapper.innerHTML = [
+				`<div class="alert alert-${type}" role="alert">`,
+				`   <div style="text-align: center;">${message}</div>`,
+				'</div>'
+				].join('');
+			if(alertPlaceholder !== null){
+				alertPlaceholder.append(wrapper);
+				setTimeout(() => {
+					alertPlaceholder.innerHTML = '';
+					this.current_alert = false;
+				}, 5000);
+			}
+		}
+	}
+
 	reset_default_item_values(): void {
-		this.error_message_add		= undefined;
-		this.error_message_edit		= undefined;
-		this.error_message_delete 	= undefined;
 		this.current_value			= "add";
 		this.found_item_id			= false;
 	}
@@ -52,10 +67,10 @@ export class AdminContactComponent implements OnInit{
 		image_alt: string
 	): void {
 		if(!name){
-			this.error_message_add = "Field <name> can't be null";
+			this.myAlert("Field 'name' can't be null", 'danger');
 		}
 		else if(!account){
-			this.error_message_add = "Field <account> can't be null";
+			this.myAlert("Field 'account' can't be null", 'danger');
 		}
 		else {
 			if(!this.cookieService.get('JWT')){
@@ -67,12 +82,11 @@ export class AdminContactComponent implements OnInit{
 				.subscribe(
 					(response: HttpResponse<TableContactItemRes>): void  => {
 						this.router.navigate(['home']);
-						this.error_message_add = undefined;
 					},
 					(error: HttpResponse<ErrorObject>): void => {
 						if(error.body !== null){
+							this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
 							console.log(error.body.error);
-							// redirect to error pages
 						}
 					}
 				);
@@ -83,20 +97,19 @@ export class AdminContactComponent implements OnInit{
 	search_edit_item(inputId: string): void {
 		const itemId: number = Number(inputId) || 0;
 		if(itemId === 0){
-			this.error_message_edit = "Invalid item id";
+			this.myAlert("Invalid item id", 'danger');
 		}
 		else if(itemId < 1){
-			this.error_message_edit = "The item id must be greater than 0";
+			this.myAlert("The item id must be greater than 0", 'danger');
 		}
 		else if(itemId > 65535){
-			this.error_message_edit = "The item id must be lesser than 65536";
+			this.myAlert("The item id must be lesser than 65536", 'danger');
 		}
 		else {
 			this.contactService.getItem(itemId)
 			.subscribe(
 				(response: HttpResponse<TableContactItemRes>): void  => {
 					if(response.body !== null){
-						this.error_message_edit = undefined;
 						this.found_item_id = true;
 						this.item_to_edit = {
 							id: response.body.id,
@@ -106,12 +119,13 @@ export class AdminContactComponent implements OnInit{
 							image_uri: response.body.image_uri,
 							image_alt: response.body.image_alt
 						}
+						this.myAlert("Item found", 'success');
 					}
 				},
 				(error: HttpResponse<ErrorObject>): void => {
 					if(error.body !== null){
+						this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
 						console.log(error.body.error);
-						// redirect to error pages
 					}
 				}
 			);
@@ -126,10 +140,10 @@ export class AdminContactComponent implements OnInit{
 		image_alt: string
 	): void {
 		if(!name){
-			this.error_message_edit = "Field <name> can't be null";
+			this.myAlert("Field 'name' can't be null", 'danger');
 		}
 		else if(!account){
-			this.error_message_edit = "Field <account> can't be null";
+			this.myAlert("Field 'account' can't be null", 'danger');
 		}
 		else {
 			if(this.item_to_edit.name){
@@ -152,7 +166,7 @@ export class AdminContactComponent implements OnInit{
 
 				if(something_changed){
 					if(!this.cookieService.get('JWT')){
-						this.router.navigate(['login']);
+						this.router.navigate(['error401']);
 					}
 					else{
 						const cookieValue: string = this.cookieService.get('JWT');
@@ -160,24 +174,23 @@ export class AdminContactComponent implements OnInit{
 						.subscribe(
 							(response: HttpResponse<TableContactItemRes>): void  => {
 								this.router.navigate(['home']);
-								this.error_message_edit = undefined;
 							},
 							(error: HttpResponse<ErrorObject>): void => {
 								if(error.body !== null){
+									this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
 									console.log(error.body.error);
-									// redirect to error pages
 								}
 							}
 						);
 					}
 				}
 				else {
-					this.error_message_edit = "Item not edited";
+					this.myAlert("Item not edited", 'danger');
 				}
 			}
 			else {
-				this.error_message_edit = "Item to update not found";
 				this.found_item_id = false;
+				this.myAlert("Item to update not found", 'danger');
 			}
 		}
 	}
@@ -185,17 +198,17 @@ export class AdminContactComponent implements OnInit{
 	delete_item(inputId: string): void {
 		const itemId: number = Number(inputId) || 0;
 		if(itemId === 0){
-			this.error_message_delete = "Invalid item id";
+			this.myAlert("Invalid item id", 'danger');
 		}
 		else if(itemId < 1){
-			this.error_message_delete = "The item id must be greater than 0";
+			this.myAlert("The item id must be greater than 0", 'danger');
 		}
 		else if(itemId > 65535){
-			this.error_message_delete = "The item id must be lesser than 65536";
+			this.myAlert("The item id must be lesser than 65536", 'danger');
 		}
 		else {
 			if(!this.cookieService.get('JWT')){
-				this.router.navigate(['login']);
+				this.router.navigate(['error401']);
 			}
 			else{
 				const cookieValue: string = this.cookieService.get('JWT');
@@ -203,12 +216,11 @@ export class AdminContactComponent implements OnInit{
 				.subscribe(
 					(response: HttpResponse<{}>): void  => {
 						this.router.navigate(['home']);
-						this.error_message_delete = undefined;
 					},
 					(error: HttpResponse<ErrorObject>): void => {
 						if(error.body !== null){
+							this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
 							console.log(error.body.error);
-							// redirect to error pages
 						}
 					}
 				);
@@ -218,7 +230,7 @@ export class AdminContactComponent implements OnInit{
 
 	show_message(id: number): void {
 		if(!this.cookieService.get('JWT')){
-			this.router.navigate(['login']);
+			this.router.navigate(['error401']);
 		}
 		else{
 			const cookieValue: string = this.cookieService.get('JWT');
@@ -245,11 +257,12 @@ export class AdminContactComponent implements OnInit{
 											break;
 										}
 									}
+									this.myAlert("Message read status changed", 'success');
 								},
 								(error: HttpResponse<ErrorObject>): void => {
 									if(error.body !== null){
+										this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
 										console.log(error.body.error);
-										// redirect to error pages
 									}
 								}
 							);
@@ -258,8 +271,8 @@ export class AdminContactComponent implements OnInit{
 				},
 				(error: HttpResponse<ErrorObject>): void => {
 					if(error.body !== null){
+						this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
 						console.log(error.body.error);
-						// redirect to error pages
 					}
 				}
 			);
@@ -296,8 +309,8 @@ export class AdminContactComponent implements OnInit{
 				},
 				(error: HttpResponse<ErrorObject>): void => {
 					if(error.body !== null){
+						this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
 						console.log(error.body.error);
-						// redirect to error pages
 					}
 				}
 			);
