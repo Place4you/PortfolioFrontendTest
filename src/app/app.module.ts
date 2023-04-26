@@ -14,7 +14,7 @@ import { AdminHomeComponent } from './admin/views/admin-home/admin-home.componen
 import { AdminWorkComponent } from './admin/views/admin-work/admin-work.component';
 import { AdminAboutComponent } from './admin/views/admin-about/admin-about.component';
 import { AdminContactComponent } from './admin/views/admin-contact/admin-contact.component';
-import { HttpErrorInterceptor } from './interceptors/error-handling.interceptor';
+import { HttpErrorInterceptor } from './interceptors/error-and-cache.interceptor';
 
 @NgModule({
 	declarations: [
@@ -36,11 +36,13 @@ import { HttpErrorInterceptor } from './interceptors/error-handling.interceptor'
 		HttpClientModule,
 		AppRoutingModule
 	],
-	providers: [{
-		provide: HTTP_INTERCEPTORS,
-		useClass: HttpErrorInterceptor,
-		multi: true
-	}],
+	providers: [
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: HttpErrorInterceptor,
+			multi: true
+		}
+	],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }

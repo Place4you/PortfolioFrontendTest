@@ -17,7 +17,6 @@ https://angular.io/guide/security#content-security-policy
 Unit testing in everything and end-to-end testing
 
 Add a layer so it only makes one api call instead of every time the route changes
-also store the responses in the services or something like that ---------> the responses can be cached in the interceptor: https://angular.io/guide/http#caching-requests
 
 
 ===== less important

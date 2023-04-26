@@ -17,6 +17,9 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 	constructor(private router: Router) { }
 	
 	intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+		const cachedResponse = this.getCache(request);
+		if(cachedResponse) return of(cachedResponse);
+
 		return next.handle(request).pipe(
 			catchError((error: HttpErrorResponse) => {
 				if(error && error.status && error.status === 401){
@@ -45,5 +48,15 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 				return throwError(httpError);
 			})
 		);
+	}
+
+	private getCache(request: HttpRequest<any>): HttpResponse<any> | null {
+		const cachedResponse = sessionStorage.getItem(request.url);
+		if(cachedResponse) return new HttpResponse(JSON.parse(cachedResponse));
+		return null;
+	}
+
+	private setCache(request: HttpRequest<any>, response: HttpResponse<any>): void {
+		sessionStorage.setItem(request.url, JSON.stringify(response));
 	}
 }
