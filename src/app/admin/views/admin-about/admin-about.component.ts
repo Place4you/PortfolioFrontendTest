@@ -69,7 +69,7 @@ export class AdminAboutComponent implements AfterViewInit {
 						(error: HttpResponse<ErrorObject>): void => {
 							if(error.body !== null){
 								this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
-								console.log(error.body.error);
+								console.error(error.body.error);
 							}
 						}
 					);
@@ -94,9 +94,9 @@ export class AdminAboutComponent implements AfterViewInit {
 		name: string,
 		date: string,
 		description: string,
-		link: string,
-		image_uri: string,
-		image_alt: string
+		link?: string,
+		image_uri?: string,
+		image_alt?: string
 	): void {
 		const type: number = Number(input_type) || 0;
 		if(type === 0){
@@ -124,7 +124,19 @@ export class AdminAboutComponent implements AfterViewInit {
 			}
 			else{
 				const cookieValue: string = this.cookieService.get('JWT');
-				this.aboutService.createItem(cookieValue, type, name, date, description, link, image_uri, image_alt)
+				const itemData: {
+					link: string | undefined, 
+					image_uri: string | undefined, 
+					image_alt: string | undefined
+				} = {
+					link,
+					image_uri,
+					image_alt
+				};
+				const truthyItemData = Object.fromEntries(
+					Object.entries(itemData).filter(([key, value]) => Boolean(value))
+				);
+				this.aboutService.createItem(cookieValue, type, name, date, description, truthyItemData)
 				.subscribe(
 					(response: HttpResponse<TableAboutItemRes>): void  => {
 						this.router.navigate(['home']);
@@ -132,7 +144,7 @@ export class AdminAboutComponent implements AfterViewInit {
 					(error: HttpResponse<ErrorObject>): void => {
 						if(error.body !== null){
 							this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
-							console.log(error.body.error);
+							console.error(error.body.error);
 						}
 					}
 				);
@@ -163,16 +175,16 @@ export class AdminAboutComponent implements AfterViewInit {
 							name: response.body.name,
 							date: response.body.date,
 							description: response.body.description,
-							link: response.body.link,
-							image_uri: response.body.image_uri,
-							image_alt: response.body.image_alt
 						}
+						if(response.body.link) this.item_to_edit.link = response.body.link;
+						if(response.body.image_uri) this.item_to_edit.image_uri = response.body.image_uri;
+						if(response.body.image_alt) this.item_to_edit.image_alt = response.body.image_alt;
 					}
 				},
 				(error: HttpResponse<ErrorObject>): void => {
 					if(error.body !== null){
 						this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
-						console.log(error.body.error);
+						console.error(error.body.error);
 					}
 				}
 			);
@@ -183,9 +195,9 @@ export class AdminAboutComponent implements AfterViewInit {
 		name: string,
 		date: string,
 		description: string,
-		link: string,
-		image_uri: string,
-		image_alt: string
+		link?: string,
+		image_uri?: string,
+		image_alt?: string
 	): void {
 		if(!name){
 			this.myAlert("Field 'name' can't be null", 'danger');
@@ -224,7 +236,19 @@ export class AdminAboutComponent implements AfterViewInit {
 					}
 					else{
 						const cookieValue: string = this.cookieService.get('JWT');
-						this.aboutService.updateItem(cookieValue, this.item_to_edit.id, this.item_to_edit.item_type, name, date, description, link, image_uri, image_alt)
+						const itemData: {
+							link: string | undefined, 
+							image_uri: string | undefined, 
+							image_alt: string | undefined
+						} = {
+							link,
+							image_uri,
+							image_alt
+						};
+						const truthyItemData = Object.fromEntries(
+							Object.entries(itemData).filter(([key, value]) => Boolean(value))
+						);
+						this.aboutService.updateItem(cookieValue, this.item_to_edit.id, this.item_to_edit.item_type, name, date, description, truthyItemData)
 						.subscribe(
 							(response: HttpResponse<TableAboutItemRes>): void  => {
 								this.router.navigate(['home']);
@@ -232,7 +256,7 @@ export class AdminAboutComponent implements AfterViewInit {
 							(error: HttpResponse<ErrorObject>): void => {
 								if(error.body !== null){
 									this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
-									console.log(error.body.error);
+									console.error(error.body.error);
 								}
 							}
 						);
@@ -274,7 +298,7 @@ export class AdminAboutComponent implements AfterViewInit {
 					(error: HttpResponse<ErrorObject>): void => {
 						if(error.body !== null){
 							this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
-							console.log(error.body.error);
+							console.error(error.body.error);
 						}
 					}
 				);
@@ -299,7 +323,7 @@ export class AdminAboutComponent implements AfterViewInit {
 			(error: HttpResponse<ErrorObject>): void => {
 				if(error.body !== null){
 					this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
-					console.log(error.body.error);
+					console.error(error.body.error);
 				}
 			}
 		);

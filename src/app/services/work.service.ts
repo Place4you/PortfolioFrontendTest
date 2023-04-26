@@ -45,20 +45,17 @@ export class WorkService {
 		date: string,
 		technologies: string,
 		description: string,
-		code_uri: string,
-		live_uri: string,
-		image_uri: string,
-		image_alt: string
+		itemData?: { code_uri?: string, live_uri?: string, image_uri?: string, image_alt?: string }
 	): Observable<HttpResponse<TableWorkItemRes>> {
 		const body = {
 			name: name,
 			date: date,
 			technologies: technologies,
 			description: description,
-			code_uri: code_uri,
-			live_uri: live_uri,
-			image_uri: image_uri,
-			image_alt: image_alt
+			code_uri: itemData?.code_uri ?? null,
+			live_uri: itemData?.live_uri ?? null,
+			image_uri: itemData?.image_uri ?? null,
+			image_alt: itemData?.image_alt ?? null
 		}
 		return this.http.post<TableWorkItemRes>(
 			this.uri + "/add",
@@ -78,10 +75,7 @@ export class WorkService {
 		date: string,
 		technologies: string,
 		description: string,
-		code_uri: string,
-		live_uri: string,
-		image_uri: string,
-		image_alt: string
+		itemData?: { code_uri?: string, live_uri?: string, image_uri?: string, image_alt?: string }
 	): Observable<HttpResponse<TableWorkItemRes>> {
 		const body = {
 			id: id,
@@ -89,10 +83,10 @@ export class WorkService {
 			date: date,
 			technologies: technologies,
 			description: description,
-			code_uri: code_uri,
-			live_uri: live_uri,
-			image_uri: image_uri,
-			image_alt: image_alt
+			code_uri: itemData?.code_uri ?? null,
+			live_uri: itemData?.live_uri ?? null,
+			image_uri: itemData?.image_uri ?? null,
+			image_alt: itemData?.image_alt ?? null
 		}
 		return this.http.put<TableWorkItemRes>(
 			this.uri + "/update",

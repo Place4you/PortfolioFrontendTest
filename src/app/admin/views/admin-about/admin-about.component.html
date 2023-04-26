@@ -66,7 +66,7 @@
 				<input type="text" id="add_image_alt" placeholder="Image alt" minlength="3" maxlength="253" #add_image_alt>
 				
 
-            	<input type="submit" value="Create" (click)="create_item(add_type.value, add_name.value, add_date.value, add_description.value, add_uri.value, add_image_uri.value, add_image_alt.value)">
+            	<input type="submit" value="Create" (click)="create_item(add_type.value, add_name.value, add_date.value, add_description.value, add_uri.value ? add_uri.value : undefined, add_image_uri.value ? add_image_uri.value : undefined, add_image_alt.value ? add_image_alt.value : undefined)">
 			</form>
 		</div>
 
@@ -100,7 +100,7 @@
 					<input type="text" id="edit_image_alt" placeholder="Image alt" minlength="3" maxlength="253" value="{{item_to_edit.image_alt}}" #edit_image_alt>
 					
 
-	            	<input type="submit" value="Update" (click)="edit_item(edit_name.value, edit_date.value, edit_description.value, edit_uri.value, edit_image_uri.value, edit_image_alt.value)">
+	            	<input type="submit" value="Update" (click)="edit_item(edit_name.value, edit_date.value, edit_description.value, edit_uri.value ? edit_uri.value : undefined, edit_image_uri.value ? edit_image_uri.value : undefined, edit_image_alt.value ? edit_image_alt.value : undefined)">
 				</div>
 			</form>
 		</div>

@@ -16,11 +16,11 @@ export class ContactComponent {
 	social_items: {
 		id: number,
 		name: string,
-		link?: string,
 		account: string,
+		link?: string,
 		image_uri?: string,
 		image_alt?: string
-	}[] = []
+	}[] = [];
 
 
 	current_alert: boolean = false;
@@ -87,7 +87,7 @@ export class ContactComponent {
 				(error: HttpResponse<ErrorObject>): void => {
 					if(error.body !== null){
 						this.myAlert("Error while creating the message", 'danger');
-						console.log(error.body.error);
+						console.error(error.body.error);
 					}
 				}
 			);
@@ -109,7 +109,7 @@ export class ContactComponent {
 			(error: HttpResponse<ErrorObject>): void => {
 				if(error.body !== null){
 					this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
-					console.log(error.body.error);
+					console.error(error.body.error);
 				}
 			}
 		);

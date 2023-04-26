@@ -1,8 +1,8 @@
 export interface TableContactItemRes {
     id: number,
     name: string,
-    link?: string,
     account: string,
+    link?: string,
     image_uri?: string,
     image_alt?: string
 }

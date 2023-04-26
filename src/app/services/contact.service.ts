@@ -44,16 +44,14 @@ export class ContactService {
 		token: string,
 		name: string,
 		account: string,
-		link: string,
-		image_uri: string,
-		image_alt: string
+		itemData?: { link?: string, image_uri?: string, image_alt?: string }
 	): Observable<HttpResponse<TableContactItemRes>> {
 		const body = {
 			name: name,
 			account: account,
-			link: link,
-			image_uri: image_uri,
-			image_alt: image_alt
+			link: itemData?.link ?? null,
+			image_uri: itemData?.image_uri ?? null,
+			image_alt: itemData?.image_alt ?? null
 		}
 		return this.http.post<TableContactItemRes>(
 			this.uri_ci + "/add",
@@ -71,17 +69,15 @@ export class ContactService {
 		id: number,
 		name: string,
 		account: string,
-		link: string,
-		image_uri: string,
-		image_alt: string
+		itemData?: { link?: string, image_uri?: string, image_alt?: string }
 	): Observable<HttpResponse<TableContactItemRes>> {
 		const body = {
 			id: id,
 			name: name,
 			account: account,
-			link: link,
-			image_uri: image_uri,
-			image_alt: image_alt
+			link: itemData?.link ?? null,
+			image_uri: itemData?.image_uri ?? null,
+			image_alt: itemData?.image_alt ?? null
 		}
 		return this.http.put<TableContactItemRes>(
 			this.uri_ci + "/update",

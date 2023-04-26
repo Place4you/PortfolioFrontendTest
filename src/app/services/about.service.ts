@@ -45,18 +45,16 @@ export class AboutService {
 		name: string,
 		date: string,
 		description: string,
-		link: string,
-		image_uri: string,
-		image_alt: string
+		itemData?: { link?: string, image_uri?: string, image_alt?: string }
 	): Observable<HttpResponse<TableAboutItemRes>> {
 		const body = {
 			item_type: type,
 			name: name,
 			date: date,
 			description: description,
-			link: link,
-			image_uri: image_uri,
-			image_alt: image_alt
+			link: itemData?.link ?? null,
+			image_uri: itemData?.image_uri ?? null,
+			image_alt: itemData?.image_alt ?? null
 		}
 		return this.http.post<TableAboutItemRes>(
 			this.uri + "/add",
@@ -76,9 +74,7 @@ export class AboutService {
 		name: string,
 		date: string,
 		description: string,
-		link: string,
-		image_uri: string,
-		image_alt: string
+		itemData?: { link?: string, image_uri?: string, image_alt?: string }
 	): Observable<HttpResponse<TableAboutItemRes>> {
 		const body = {
 			id: id,
@@ -86,9 +82,9 @@ export class AboutService {
 			item_type: type,
 			date: date,
 			description: description,
-			link: link,
-			image_uri: image_uri,
-			image_alt: image_alt
+			link: itemData?.link ?? null,
+			image_uri: itemData?.image_uri ?? null,
+			image_alt: itemData?.image_alt ?? null
 		}
 		return this.http.put<TableAboutItemRes>(
 			this.uri + "/update",

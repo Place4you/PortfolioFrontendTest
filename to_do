@@ -7,14 +7,12 @@ Maybe remove translation's section
 
 =============== development
 
-Error handling in everything
-replace console.log for console.error
+Error handling in the backend
 
-
-put all optional values AS OPTIONAL in the components
-
-Sanitize all input, even admin and server input, both in the frontend and in the backend
-The only error in the api call should be the token, make sure all user data can't escape the backend to the database without passing proper checks
+Sanitize all input in the the backend
+also do this in the frontend:
+https://angular.io/guide/security#trusted-types
+https://angular.io/guide/security#content-security-policy
 
 Unit testing in everything and end-to-end testing
 

@@ -63,7 +63,7 @@ export class LoginComponent {
 				(error: HttpResponse<ErrorObject>): void => {
 					if(error.body !== null){
 						this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
-						console.log(error.body.error);
+						console.error(error.body.error);
 					}
 				}
 			);

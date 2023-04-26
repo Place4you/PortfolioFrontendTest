@@ -55,7 +55,7 @@ export class AdminHomeComponent implements OnInit{
 					(error: HttpResponse<ErrorObject>): void => {
 						if(error.body !== null){
 							this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
-							console.log(error.body.error);
+							console.error(error.body.error);
 						}
 					}
 				);
@@ -83,7 +83,7 @@ export class AdminHomeComponent implements OnInit{
 			(error: HttpResponse<ErrorObject>): void => {
 				if(error.body !== null){
 					this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
-					console.log(error.body.error);
+					console.error(error.body.error);
 				}
 			}
 		);

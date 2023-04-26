@@ -62,9 +62,9 @@ export class AdminContactComponent implements OnInit{
 	create_item(
 		name: string,
 		account: string,
-		link: string,
-		image_uri: string,
-		image_alt: string
+		link?: string,
+		image_uri?: string,
+		image_alt?: string
 	): void {
 		if(!name){
 			this.myAlert("Field 'name' can't be null", 'danger');
@@ -78,7 +78,19 @@ export class AdminContactComponent implements OnInit{
 			}
 			else{
 				const cookieValue: string = this.cookieService.get('JWT');
-				this.contactService.createItem(cookieValue, name, account, link, image_uri, image_alt)
+				const itemData: {
+					link: string | undefined,
+					image_uri: string | undefined,
+					image_alt: string | undefined
+				} = {
+					link,
+					image_uri,
+					image_alt
+				};
+				const truthyItemData = Object.fromEntries(
+					Object.entries(itemData).filter(([key, value]) => Boolean(value))
+				);
+				this.contactService.createItem(cookieValue, name, account, truthyItemData)
 				.subscribe(
 					(response: HttpResponse<TableContactItemRes>): void  => {
 						this.router.navigate(['home']);
@@ -86,7 +98,7 @@ export class AdminContactComponent implements OnInit{
 					(error: HttpResponse<ErrorObject>): void => {
 						if(error.body !== null){
 							this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
-							console.log(error.body.error);
+							console.error(error.body.error);
 						}
 					}
 				);
@@ -114,18 +126,18 @@ export class AdminContactComponent implements OnInit{
 						this.item_to_edit = {
 							id: response.body.id,
 							name: response.body.name,
-							account: response.body.account,
-							link: response.body.link,
-							image_uri: response.body.image_uri,
-							image_alt: response.body.image_alt
+							account: response.body.account
 						}
+						if(response.body.link) this.item_to_edit.link = response.body.link;
+						if(response.body.image_uri) this.item_to_edit.image_uri = response.body.image_uri;
+						if(response.body.image_alt) this.item_to_edit.image_alt = response.body.image_alt;
 						this.myAlert("Item found", 'success');
 					}
 				},
 				(error: HttpResponse<ErrorObject>): void => {
 					if(error.body !== null){
 						this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
-						console.log(error.body.error);
+						console.error(error.body.error);
 					}
 				}
 			);
@@ -135,9 +147,9 @@ export class AdminContactComponent implements OnInit{
 	edit_item(
 		name: string,
 		account: string,
-		link: string,
-		image_uri: string,
-		image_alt: string
+		link?: string,
+		image_uri?: string,
+		image_alt?: string
 	): void {
 		if(!name){
 			this.myAlert("Field 'name' can't be null", 'danger');
@@ -170,7 +182,19 @@ export class AdminContactComponent implements OnInit{
 					}
 					else{
 						const cookieValue: string = this.cookieService.get('JWT');
-						this.contactService.updateItem(cookieValue, this.item_to_edit.id, name, account, link, image_uri, image_alt)
+						const itemData: {
+							link: string | undefined,
+							image_uri: string | undefined,
+							image_alt: string | undefined
+						} = {
+							link,
+							image_uri,
+							image_alt
+						};
+						const truthyItemData = Object.fromEntries(
+							Object.entries(itemData).filter(([key, value]) => Boolean(value))
+						);
+						this.contactService.updateItem(cookieValue, this.item_to_edit.id, name, account, truthyItemData)
 						.subscribe(
 							(response: HttpResponse<TableContactItemRes>): void  => {
 								this.router.navigate(['home']);
@@ -178,7 +202,7 @@ export class AdminContactComponent implements OnInit{
 							(error: HttpResponse<ErrorObject>): void => {
 								if(error.body !== null){
 									this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
-									console.log(error.body.error);
+									console.error(error.body.error);
 								}
 							}
 						);
@@ -220,7 +244,7 @@ export class AdminContactComponent implements OnInit{
 					(error: HttpResponse<ErrorObject>): void => {
 						if(error.body !== null){
 							this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
-							console.log(error.body.error);
+							console.error(error.body.error);
 						}
 					}
 				);
@@ -262,7 +286,7 @@ export class AdminContactComponent implements OnInit{
 								(error: HttpResponse<ErrorObject>): void => {
 									if(error.body !== null){
 										this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
-										console.log(error.body.error);
+										console.error(error.body.error);
 									}
 								}
 							);
@@ -272,7 +296,7 @@ export class AdminContactComponent implements OnInit{
 				(error: HttpResponse<ErrorObject>): void => {
 					if(error.body !== null){
 						this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
-						console.log(error.body.error);
+						console.error(error.body.error);
 					}
 				}
 			);
@@ -310,7 +334,7 @@ export class AdminContactComponent implements OnInit{
 				(error: HttpResponse<ErrorObject>): void => {
 					if(error.body !== null){
 						this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
-						console.log(error.body.error);
+						console.error(error.body.error);
 					}
 				}
 			);

@@ -90,15 +90,16 @@ export class AboutComponent {
 				this.total_pages++;
 				this.array_all.push({page: this.array_page});
 				this.array_page = [];
-				this.array_page.push({
+				const myPage: Page = {
 					id: selected_items[i].id,
 					name: selected_items[i].name,
-					link: selected_items[i].link,
-					image_uri: selected_items[i].image_uri,
-					image_alt: selected_items[i].image_alt,
 					date: selected_items[i].date,
 					description: selected_items[i].description
-				});
+				}
+				if(selected_items[i].link) myPage.link = selected_items[i].link;
+				if(selected_items[i].image_uri) myPage.image_uri = selected_items[i].image_uri;
+				if(selected_items[i].image_alt) myPage.image_alt = selected_items[i].image_alt;
+				this.array_page.push(myPage);
 				if(i === selected_items.length - 1){
 					this.array_all.push({page: this.array_page});
 					this.array_page = [];
@@ -106,15 +107,16 @@ export class AboutComponent {
 				start_at = i;
 			}
 			else{
-				this.array_page.push({
+				const myPage: Page = {
 					id: selected_items[i].id,
 					name: selected_items[i].name,
-					link: selected_items[i].link,
-					image_uri: selected_items[i].image_uri,
-					image_alt: selected_items[i].image_alt,
 					date: selected_items[i].date,
 					description: selected_items[i].description
-				});
+				}
+				if(selected_items[i].link) myPage.link = selected_items[i].link;
+				if(selected_items[i].image_uri) myPage.image_uri = selected_items[i].image_uri;
+				if(selected_items[i].image_alt) myPage.image_alt = selected_items[i].image_alt;
+				this.array_page.push(myPage);
 				if(i === selected_items.length - 1){
 					this.array_all.push({page: this.array_page});
 					this.array_page = [];
@@ -199,7 +201,7 @@ export class AboutComponent {
 			(error: HttpResponse<ErrorObject>): void => {
 				if(error.body !== null){
 					this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
-					console.log(error.body.error);
+					console.error(error.body.error);
 				}
 			}
 		);
@@ -232,15 +234,16 @@ export class AboutComponent {
 						this.total_pages++;
 						this.array_all.push({page: this.array_page});
 						this.array_page = [];
-						this.array_page.push({
+						const myPage: Page = {
 							id: selected_items[i].id,
 							name: selected_items[i].name,
-							link: selected_items[i].link,
-							image_uri: selected_items[i].image_uri,
-							image_alt: selected_items[i].image_alt,
 							date: selected_items[i].date,
 							description: selected_items[i].description
-						});
+						}
+						if(selected_items[i].link) myPage.link = selected_items[i].link;
+						if(selected_items[i].image_uri) myPage.image_uri = selected_items[i].image_uri;
+						if(selected_items[i].image_alt) myPage.image_alt = selected_items[i].image_alt;
+						this.array_page.push(myPage);
 						if(i === selected_items.length - 1){
 							this.array_all.push({page: this.array_page});
 							this.array_page = [];
@@ -248,15 +251,16 @@ export class AboutComponent {
 						start_at = i;
 					}
 					else{
-						this.array_page.push({
+						const myPage: Page = {
 							id: selected_items[i].id,
 							name: selected_items[i].name,
-							link: selected_items[i].link,
-							image_uri: selected_items[i].image_uri,
-							image_alt: selected_items[i].image_alt,
 							date: selected_items[i].date,
 							description: selected_items[i].description
-						});
+						}
+						if(selected_items[i].link) myPage.link = selected_items[i].link;
+						if(selected_items[i].image_uri) myPage.image_uri = selected_items[i].image_uri;
+						if(selected_items[i].image_alt) myPage.image_alt = selected_items[i].image_alt;
+						this.array_page.push(myPage);
 						if(i === selected_items.length - 1){
 							this.array_all.push({page: this.array_page});
 							this.array_page = [];
@@ -267,7 +271,7 @@ export class AboutComponent {
 			(error: HttpResponse<ErrorObject>): void => {
 				if(error.body !== null){
 					this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
-					console.log(error.body.error);
+					console.error(error.body.error);
 				}
 			}
 		);

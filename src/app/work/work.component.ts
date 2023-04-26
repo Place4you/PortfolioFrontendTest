@@ -119,14 +119,14 @@ export class WorkComponent {
 					this.curr_project = {
 						id: this.project_items[i].id,
 						name: this.project_items[i].name,
-						code_uri: this.project_items[i].code_uri,
-						live_uri: this.project_items[i].live_uri,
-						image_uri: this.project_items[i].image_uri,
-						image_alt: this.project_items[i].image_alt,
 						date: this.project_items[i].date,
 						technologies: this.project_items[i].technologies,
 						description: this.project_items[i].description
 					};
+					if(this.project_items[i].code_uri) this.curr_project.code_uri = this.project_items[i].code_uri;
+					if(this.project_items[i].live_uri) this.curr_project.live_uri = this.project_items[i].live_uri;
+					if(this.project_items[i].image_uri) this.curr_project.image_uri = this.project_items[i].image_uri;
+					if(this.project_items[i].image_alt) this.curr_project.image_alt = this.project_items[i].image_alt;
 				}
 			}
 		}
@@ -171,28 +171,27 @@ export class WorkComponent {
 
 		for(let i: number = start_at; i < this.project_items.length; i++){
 			if(i%2 === 0 && i%3 === 0 && i !== start_at){
-				if(!this.show_arrows){
-					this.show_arrows = true;
-				}
+				if(!this.show_arrows) this.show_arrows = true;
 
 				this.page_selector_items.push({
 					number: this.total_pages + 1
-				});          
+				});
 
 				this.total_pages++;
 				this.array_all.push({page: array_page});
 				array_page = [];
-				array_page.push({
+				const myProject: Project = {
 					id: this.project_items[i].id,
 					name: this.project_items[i].name,
-					code_uri: this.project_items[i].code_uri,
-					live_uri: this.project_items[i].live_uri,
-					image_uri: this.project_items[i].image_uri,
-					image_alt: this.project_items[i].image_alt,
 					date: this.project_items[i].date,
 					technologies: this.project_items[i].technologies,
 					description: this.project_items[i].description
-				});
+				};
+				if(this.project_items[i].code_uri) myProject.code_uri = this.project_items[i].code_uri;
+				if(this.project_items[i].live_uri) myProject.live_uri = this.project_items[i].live_uri;
+				if(this.project_items[i].image_uri) myProject.image_uri = this.project_items[i].image_uri;
+				if(this.project_items[i].image_alt) myProject.image_alt = this.project_items[i].image_alt;
+				array_page.push(myProject);
 				if(i === this.project_items.length - 1){
 					this.array_all.push({page: array_page});
 					array_page = [];
@@ -200,17 +199,18 @@ export class WorkComponent {
 				start_at = i;
 			}
 			else{
-				array_page.push({
+				const myProject: Project = {
 					id: this.project_items[i].id,
 					name: this.project_items[i].name,
-					code_uri: this.project_items[i].code_uri,
-					live_uri: this.project_items[i].live_uri,
-					image_uri: this.project_items[i].image_uri,
-					image_alt: this.project_items[i].image_alt,
 					date: this.project_items[i].date,
 					technologies: this.project_items[i].technologies,
-					description: this.project_items[i].description
-				});
+					description: this.project_items[i].description,
+				};
+				if(this.project_items[i].code_uri) myProject.code_uri = this.project_items[i].code_uri;
+				if(this.project_items[i].live_uri) myProject.live_uri = this.project_items[i].live_uri;
+				if(this.project_items[i].image_uri) myProject.image_uri = this.project_items[i].image_uri;
+				if(this.project_items[i].image_alt) myProject.image_alt = this.project_items[i].image_alt;
+				array_page.push(myProject);
 				if(i === this.project_items.length - 1){
 					this.array_all.push({page: array_page});
 					array_page = [];
@@ -233,7 +233,7 @@ export class WorkComponent {
 			(error: HttpResponse<ErrorObject>): void => {
 				if(error.body !== null){
 					this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
-					console.log(error.body.error);
+					console.error(error.body.error);
 				}
 			}
 		);

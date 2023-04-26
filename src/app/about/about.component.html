@@ -49,10 +49,12 @@
 										<h5>Missing name</h5>
 									</ng-template>
 									<ng-template #imageMissing>
-										<div class="bot">
-											<p class="date">{{item.date | date:'shortDate'}}</p>
+										<div class="itemImage">
+											<div class="bot">
+												<p class="date">{{item.date | date:'shortDate'}}</p>
+											</div>
+											<img src="https://www.pacificfoodmachinery.com.au/media/catalog/product/placeholder/default/no-product-image-400x400.png" alt="Missing image" (click)="showItemInfo(item.id)">
 										</div>
-										<img src="https://www.pacificfoodmachinery.com.au/media/catalog/product/placeholder/default/no-product-image-400x400.png" alt="Missing image" (click)="showItemInfo(item.id)">
 									</ng-template>
 								</div>
 							</ng-container>
