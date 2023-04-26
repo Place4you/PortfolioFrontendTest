@@ -1,8 +1,8 @@
 ============== Production
 - Be careful with '*' as Access-Control-Allow-Origin in production. Change this back only to the clients that are allowed to connect to the API.
 
-Add to the readme: features, contact by webiste, website link at the description, how to test section and help with translations
-Maybe remove translation's section
+Add to the readme: what's next, features, contact by webiste, website link at the description, how to test section and help with translations
+remove translation's section
 
 
 =============== development
@@ -10,7 +10,7 @@ Maybe remove translation's section
 Error handling in the backend
 
 Sanitize all input in the the backend
-also do this in the frontend:
+also do CSP in the frontend:
 https://angular.io/guide/security#trusted-types
 https://angular.io/guide/security#content-security-policy
 
