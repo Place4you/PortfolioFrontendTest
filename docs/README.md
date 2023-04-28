@@ -5,11 +5,16 @@ This repository is the **frontend section** of my portfolio project. You can fin
 # Description
 
 This project was started in December 1, 2022. It's a web application to present myself professionally, show my work, skills, experiences and how to contact me.
-Everyone is able to see my public information there, and you can view the live version at: -Not implemented yet-
+Everyone is able to see my public information there, and you can view the live version at: https://angular-portfolio-39f38.web.app
 
 - The **frontend** is made with [Angular 15](https://angular.io/guide/update-to-version-15#new-features-in-angular-v15) and [Ruby Sass](https://sass-lang.com/ruby-sass) (deprecated, change for Sass).
 - The **backend** is made with [Spring boot](https://spring.io/) and [MySQL](https://www.mysql.com/).
-- Security features include [JWT](https://jwt.io/) and [BCrypt](https://en.wikipedia.org/wiki/Bcrypt).
+
+## Features
+- Request caching
+- JWT for authentication
+- BCrypt for password hashing
+- Error handling and input validation
 
 ## Preview
 
@@ -44,17 +49,9 @@ In the portfolio directory run:
 
 In your browser, go to `http://localhost:4200/`
 
-## How to test
-
--Not implemented yet-
-
 # How to help
 
-Thank you for your interest in contributing to my project! There are two ways you can help:
-
-## Help with translations:
-
--Not implemented yet-
+Thank you for your interest in contributing to my project! For the moment, there is only one way you can help:
 
 ## Help with bug reports:
 If you encounter a bug or issue, please report it by the email listed at the "contact me" section with the following structure:
@@ -89,6 +86,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 # Contact me / ask questions
 
 You can contact me
-- By **website** at: -To do-
+- By **website** at: https://angular-portfolio-39f38.web.app/contact
 - By **email** at: `lautarocolella1@gmail.com`
 - By **Linkedin** at: https://www.linkedin.com/in/lautaro-colella/
