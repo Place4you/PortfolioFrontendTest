@@ -68,7 +68,7 @@ export class AdminAboutComponent implements AfterViewInit {
 						},
 						(error: HttpResponse<ErrorObject>): void => {
 							if(error.body !== null){
-								this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
+								this.myAlert(error.body.error.message ?? 'Unknown error while updating information', 'danger');
 								console.error(error.body.error);
 							}
 						}
@@ -143,7 +143,7 @@ export class AdminAboutComponent implements AfterViewInit {
 					},
 					(error: HttpResponse<ErrorObject>): void => {
 						if(error.body !== null){
-							this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
+							this.myAlert(error.body.error.message ?? 'Unknown error while creating item', 'danger');
 							console.error(error.body.error);
 						}
 					}
@@ -183,7 +183,7 @@ export class AdminAboutComponent implements AfterViewInit {
 				},
 				(error: HttpResponse<ErrorObject>): void => {
 					if(error.body !== null){
-						this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
+						this.myAlert(error.body.error.message ?? 'Unknown error while retrieving item', 'danger');
 						console.error(error.body.error);
 					}
 				}
@@ -255,7 +255,7 @@ export class AdminAboutComponent implements AfterViewInit {
 							},
 							(error: HttpResponse<ErrorObject>): void => {
 								if(error.body !== null){
-									this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
+									this.myAlert(error.body.error.message ?? 'Unknown error while updating item', 'danger');
 									console.error(error.body.error);
 								}
 							}
@@ -297,7 +297,7 @@ export class AdminAboutComponent implements AfterViewInit {
 					},
 					(error: HttpResponse<ErrorObject>): void => {
 						if(error.body !== null){
-							this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
+							this.myAlert(error.body.error.message ?? 'Unknown error while deleting item', 'danger');
 							console.error(error.body.error);
 						}
 					}
@@ -322,7 +322,7 @@ export class AdminAboutComponent implements AfterViewInit {
 			},
 			(error: HttpResponse<ErrorObject>): void => {
 				if(error.body !== null){
-					this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
+					this.myAlert(error.body.error.message ?? 'Unknown error while retrieving the information table', 'danger');
 					console.error(error.body.error);
 				}
 			}

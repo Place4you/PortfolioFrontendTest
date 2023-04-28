@@ -105,7 +105,7 @@ export class AdminWorkComponent implements AfterViewInit {
 					},
 					(error: HttpResponse<ErrorObject>): void => {
 						if(error.body !== null){
-							this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
+							this.myAlert(error.body.error.message ?? 'Unknown error while creating item', 'danger');
 							console.error(error.body.error);
 						}
 					}
@@ -147,7 +147,7 @@ export class AdminWorkComponent implements AfterViewInit {
 				},
 				(error: HttpResponse<ErrorObject>): void => {
 					if(error.body !== null){
-						this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
+						this.myAlert(error.body.error.message ?? 'Unknown error while retrieving item', 'danger');
 						console.error(error.body.error);
 					}
 				}
@@ -232,7 +232,7 @@ export class AdminWorkComponent implements AfterViewInit {
 							},
 							(error: HttpResponse<ErrorObject>): void => {
 								if(error.body !== null){
-									this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
+									this.myAlert(error.body.error.message ?? 'Unknown error while updating item', 'danger');
 									console.error(error.body.error);
 								}
 							}
@@ -274,7 +274,7 @@ export class AdminWorkComponent implements AfterViewInit {
 					},
 					(error: HttpResponse<ErrorObject>): void => {
 						if(error.body !== null){
-							this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
+							this.myAlert(error.body.error.message ?? 'Unknown error while deleting item', 'danger');
 							console.error(error.body.error);
 						}
 					}

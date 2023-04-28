@@ -85,7 +85,7 @@ export class IndexComponent {
 			},
 			(error: HttpResponse<ErrorObject>): void => {
 				if(error.body !== null){
-					this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
+					this.myAlert(error.body.error.message ?? 'Unknown error while retrieving the information table', 'danger');
 					console.error(error.body.error);
 				}
 			}

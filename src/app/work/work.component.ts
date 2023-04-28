@@ -232,7 +232,7 @@ export class WorkComponent {
 			},
 			(error: HttpResponse<ErrorObject>): void => {
 				if(error.body !== null){
-					this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
+					this.myAlert(error.body.error.message ?? 'Unknown error while retrieving the work items', 'danger');
 					console.error(error.body.error);
 				}
 			}

@@ -133,7 +133,7 @@ export class AdminComponent implements OnInit {
 				(response: HttpResponse<{}>): void  => {},
 				(error: HttpResponse<ErrorObject>): void => {
 					if(error.body !== null){
-						this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
+						this.myAlert(error.body.error.message ?? 'Unknown error while validating JWT', 'danger');
 						console.error(error.body.error);
 						this.b_logout();
 					}

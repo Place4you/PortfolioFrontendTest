@@ -51,8 +51,8 @@ export class ContactComponent {
 		else if(subject.length < 3){
 			this.myAlert("Field 'subject' must have a minimum of 3 characters", 'danger');
 		}
-		else if(subject.length > 128){
-			this.myAlert("Field 'subject' must have a maximum of 128 characters", 'danger');
+		else if(subject.length > 255){
+			this.myAlert("Field 'subject' must have a maximum of 255 characters", 'danger');
 		}
 		else if(!message){
 			this.myAlert("Field 'message' can't be null", 'danger');
@@ -60,8 +60,8 @@ export class ContactComponent {
 		else if(message.length < 3){
 			this.myAlert("Field 'message' must have a minimum of 3 characters", 'danger');
 		}
-		else if(message.length > 512){
-			this.myAlert("Field 'message' must have a maximum of 512 characters", 'danger');
+		else if(message.length > 3000){
+			this.myAlert("Field 'message' must have a maximum of 3000 characters", 'danger');
 		}
 		else if(!replyto){
 			this.myAlert("Field 'replyto' can't be null", 'danger');
@@ -69,8 +69,8 @@ export class ContactComponent {
 		else if(replyto.length < 3){
 			this.myAlert("Field 'replyto' must have a minimum of 3 characters", 'danger');
 		}
-		else if(replyto.length > 512){
-			this.myAlert("Field 'replyto' must have a maximum of 128 characters", 'danger');
+		else if(replyto.length > 255){
+			this.myAlert("Field 'replyto' must have a maximum of 255 characters", 'danger');
 		}
 
 		else {
@@ -86,7 +86,7 @@ export class ContactComponent {
 				},
 				(error: HttpResponse<ErrorObject>): void => {
 					if(error.body !== null){
-						this.myAlert("Error while creating the message", 'danger');
+						this.myAlert(error.body.error.message ?? 'Unknown error while creating the message', 'danger');
 						console.error(error.body.error);
 					}
 				}
@@ -108,7 +108,7 @@ export class ContactComponent {
 			},
 			(error: HttpResponse<ErrorObject>): void => {
 				if(error.body !== null){
-					this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
+					this.myAlert(error.body.error.message ?? 'Unknown error while retrieving items', 'danger');
 					console.error(error.body.error);
 				}
 			}

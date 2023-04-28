@@ -25,7 +25,7 @@ export class AboutComponent {
 	badges_items:       TableAboutItemRes[] = [];
 	certificates_items: TableAboutItemRes[] = [];
 	journey: { id: number, title: string, description: string } = {
-		id: 0,
+		id: 15,
 		title: "No title",
 		description: "No description"
 	};
@@ -192,7 +192,7 @@ export class AboutComponent {
 						}
 					}
 					this.journey = {
-						id: 0,
+						id: 15,
 						title: "My journey",
 						description: journey_message
 					}
@@ -200,7 +200,7 @@ export class AboutComponent {
 			},
 			(error: HttpResponse<ErrorObject>): void => {
 				if(error.body !== null){
-					this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
+					this.myAlert(error.body.error.message ?? 'Unknown error while retrieving the information table', 'danger');
 					console.error(error.body.error);
 				}
 			}
@@ -270,7 +270,7 @@ export class AboutComponent {
 			},
 			(error: HttpResponse<ErrorObject>): void => {
 				if(error.body !== null){
-					this.myAlert(error.body.error.message ?? 'Unknown error', 'danger');
+					this.myAlert(error.body.error.message ?? 'Unknown error while retrieving the about items', 'danger');
 					console.error(error.body.error);
 				}
 			}
