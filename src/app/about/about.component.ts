@@ -144,24 +144,24 @@ export class AboutComponent {
 		for(let i: number = 0; i < this.knowledge_items.length; i++){
 			if(this.knowledge_items[i].id === itemId){
 				found_id = true;
-				i = this.knowledge_items.length - 1;
 				this.journey = {
 					id: this.knowledge_items[i].id,
 					title: this.knowledge_items[i].name,
 					description: this.knowledge_items[i].description
 				}
+				i = this.knowledge_items.length - 1;
 			}
 		}
 		if(!found_id){
 			for(let i: number = 0; i < this.badges_items.length; i++){
 				if(this.badges_items[i].id === itemId){
 					found_id = true;
-					i = this.badges_items.length - 1;
 					this.journey = {
 						id: this.badges_items[i].id,
 						title: this.badges_items[i].name,
 						description: this.badges_items[i].description
 					}
+					i = this.badges_items.length - 1;
 				}
 			}
 		}
@@ -169,12 +169,12 @@ export class AboutComponent {
 			for(let i: number = 0; i < this.certificates_items.length; i++){
 				if(this.certificates_items[i].id === itemId){
 					found_id = true;
-					i = this.certificates_items.length - 1;
 					this.journey = {
 						id: this.certificates_items[i].id,
 						title: this.certificates_items[i].name,
 						description: this.certificates_items[i].description
 					}
+					i = this.certificates_items.length - 1;
 				}
 			}
 		}

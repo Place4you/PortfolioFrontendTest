@@ -1,6 +1,3 @@
-============== Production
-- Be careful with '*' as Access-Control-Allow-Origin in production. Change this back only to the clients that are allowed to connect to the API (frontend)
-
 =============== development
 
 Sanitize all input in the the frontend, currently is only validated in the backend, and the backend doesn't require any type of sanitization
@@ -14,7 +11,7 @@ Add a layer so it only makes one api call instead of every time the route change
 
 
 ===== less important
-Add real data, delete all examples
+Add real data
 
 Responsive
 
@@ -27,7 +24,7 @@ Add support to non javascript users
 
 Make all the html, scss and ts code the best I can
 
-
+Add "currently working" and "experience" in the work page
 
 
 
