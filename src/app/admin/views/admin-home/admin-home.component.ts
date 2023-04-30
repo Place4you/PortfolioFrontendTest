@@ -43,7 +43,7 @@ export class AdminHomeComponent implements OnInit{
 	update(titles: string): void {
 		if(this.home_titles !== titles){
 			if(!this.cookieService.get('JWT')){
-				this.router.navigate(['error401']);
+				this.router.navigate(['error403']);
 			}
 			else{
 				const cookieValue: string = this.cookieService.get('JWT');

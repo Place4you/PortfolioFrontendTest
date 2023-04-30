@@ -22,11 +22,14 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 
 		return next.handle(request).pipe(
 			catchError((error: HttpErrorResponse) => {
-				if(error && error.status && error.status === 401){
-					this.router.navigate(['error401']);
+				if(error && error.status && error.status === 403){
+					this.router.navigate(['error403']);
 				}
-				if(error && error.status && error.status === 500){
-					this.router.navigate(['error500']);
+				if(error){
+					if(error.status === 500 || error.statusText === "Unknown Error"){
+						this.router.navigate(['error500']);
+					}
+					
 				}
 				let errorMsg: ErrorObject = {
 					error: {

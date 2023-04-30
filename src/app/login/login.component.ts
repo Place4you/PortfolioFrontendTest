@@ -62,7 +62,12 @@ export class LoginComponent {
 				},
 				(error: HttpResponse<ErrorObject>): void => {
 					if(error.body !== null){
-						this.myAlert(error.body.error.message ?? 'Unknown error while retrieving the login information', 'danger');
+						if(error.body.error.code === 401){
+							this.myAlert('Invalid username or password', 'danger');
+						}
+						else {
+							this.myAlert('Unknown error while retrieving the login information', 'danger');
+						}
 						console.error(error.body.error);
 					}
 				}

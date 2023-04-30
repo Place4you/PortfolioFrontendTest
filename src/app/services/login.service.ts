@@ -16,7 +16,7 @@ export class LoginService {
 
 	constructor(private http: HttpClient) { }
 
-	uri: string = 'http://localhost:8080';
+	uri: string = 'http://localhost:8080/api/v1';
 
 	login(email: string, password: string): Observable<HttpResponse<string>> {
 		return this.http.post(
@@ -34,7 +34,7 @@ export class LoginService {
 
 	check_token(token: string): Observable<HttpResponse<{}>> {
 		return this.http.delete<{}>(
-			this.uri + '/api/v1/about_item/check_token',
+			this.uri + '/about_item/check_token',
 			{
 				headers: {'Authorization':token},
 				observe: 'response',

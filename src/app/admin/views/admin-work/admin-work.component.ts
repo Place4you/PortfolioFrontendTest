@@ -80,7 +80,7 @@ export class AdminWorkComponent implements AfterViewInit {
 
 		else {
 			if(!this.cookieService.get('JWT')){
-				this.router.navigate(['error401']);
+				this.router.navigate(['error403']);
 			}
 			else{
 				const cookieValue: string = this.cookieService.get('JWT');
@@ -207,7 +207,7 @@ export class AdminWorkComponent implements AfterViewInit {
 
 				if(something_changed){
 					if(!this.cookieService.get('JWT')){
-						this.router.navigate(['error401']);
+						this.router.navigate(['error403']);
 					}
 					else{
 						const cookieValue: string = this.cookieService.get('JWT');
@@ -263,7 +263,7 @@ export class AdminWorkComponent implements AfterViewInit {
 		}
 		else {
 			if(!this.cookieService.get('JWT')){
-				this.router.navigate(['error401']);
+				this.router.navigate(['error403']);
 			}
 			else{
 				const cookieValue: string = this.cookieService.get('JWT');
