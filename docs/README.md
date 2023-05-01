@@ -33,6 +33,33 @@ Everyone is able to see my public information there, and you can view the live v
 
 </details>
 
+<details>
+	<summary>Questions asked for the project</summary>
+
+- https://stackoverflow.com/questions/76078234/set-the-type-of-node-childnodes-variable-in-typescript/76078430?noredirect=1
+
+- https://stackoverflow.com/questions/75748843/angular-html-doesnt-update-and-cant-find-scope-binding
+
+- https://stackoverflow.com/questions/75682736/set-radio-inputs-in-the-same-line-and-labels-below-in-css
+
+- https://stackoverflow.com/questions/75649755/radio-buttons-change-size-instead-of-cutting-off-and-showing-overflow-x-scroll-b
+
+- https://stackoverflow.com/questions/75419220/error-creating-bean-in-spring-boot-app-for-a-repository-unsatisfieddependencyex
+
+- https://stackoverflow.com/questions/75323452/how-to-get-out-of-static-context-in-spring-boot
+
+- https://stackoverflow.com/questions/75246699/implementing-variable-from-application-properties-returns-null
+
+- https://stackoverflow.com/questions/75143071/spring-boot-security-authentication-manager-doesnt-receive-username-parameter
+
+- https://stackoverflow.com/questions/75122784/update-java-alternatives-returns-a-directory-that-was-removed-and-i-cant-get-i
+
+- https://stackoverflow.com/questions/74663778/cant-access-property-of-object-in-html-or-typescript-angular
+
+- https://stackoverflow.com/questions/74651363/variable-in-curly-brackets-in-angular-is-not-hereditary-to-insde-html-elements
+
+</details>
+
 # How to use
 
 ## Setup
