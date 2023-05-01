@@ -1,4 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, OnInit } from '@angular/core';
 import { Router } from '@angular/router'
 import { CookieService } from 'ngx-cookie-service';
 import { AboutService } from '../../../services/about.service';
@@ -13,7 +13,7 @@ import { TableAboutItemRes } from '../../../interfaces/tableAboutItemRes.interfa
 	templateUrl: './admin-about.component.html',
 	styleUrls: ['./admin-about.component.scss']
 })
-export class AdminAboutComponent implements AfterViewInit {
+export class AdminAboutComponent implements OnInit,AfterViewInit {
 
 	constructor(private router: Router, private cookieService: CookieService, private aboutService: AboutService, private informationService: InformationService) { }
 
@@ -43,11 +43,6 @@ export class AdminAboutComponent implements AfterViewInit {
 				}, 5000);
 			}
 		}
-	}
-
-	reset_default_values(): void {
-		this.current_value = "add";
-		this.found_item_id = false;
 	}
 
 	edit_journey(text: string): void {
@@ -84,7 +79,8 @@ export class AdminAboutComponent implements AfterViewInit {
 	method_change(event: Event): void {
 		const value: string = (event.target as HTMLFormElement)['value'];
 		if(value !== this.current_value){
-			this.reset_default_values();
+			this.current_value = "add";
+			this.found_item_id = false;
 			this.current_value = value;
 		}
 	}

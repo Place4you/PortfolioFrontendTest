@@ -4,7 +4,7 @@
 		<h3>Change home page titles</h3>
 		<form onsubmit="return false;">
 			<textarea minlength="3" maxlength="1998" value="{{home_titles}}" required #titles></textarea>
-			<input type="submit" value="Update" (click)="update(titles.value)">
+			<input type="submit" class="btn btn-success" value="Update" (click)="update(titles.value)">
 		</form>
 	</div>
 </div>

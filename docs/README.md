@@ -18,6 +18,9 @@ Everyone is able to see my public information there, and you can view the live v
 
 ## Preview
 
+<details>
+	<summary>Screenshoots</summary>
+
 ![Screenshoot of the project's home page](/docs/images/home.png)
 ![Screenshoot of the project's work page](/docs/images/work.png)
 ![Screenshoot of the project's about page](/docs/images/about.png)
@@ -27,6 +30,8 @@ Everyone is able to see my public information there, and you can view the live v
 ![Screenshoot of the project's admin page 2](/docs/images/admin-2.png)
 ![Screenshoot of the project's admin page 3](/docs/images/admin-3.png)
 ![Screenshoot of the project's admin page 4](/docs/images/admin-4.png)
+
+</details>
 
 # How to use
 

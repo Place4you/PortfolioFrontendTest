@@ -303,6 +303,38 @@ export class AdminContactComponent implements OnInit{
 		}
 	}
 
+	delete_message(inputId: number): void {
+		if(inputId === 0){
+			this.myAlert("Invalid message id", 'danger');
+		}
+		else if(inputId < 1){
+			this.myAlert("The message id must be greater than 0", 'danger');
+		}
+		else if(inputId > 65535){
+			this.myAlert("The message id must be lesser than 65536", 'danger');
+		}
+		else {
+			if(!this.cookieService.get('JWT')){
+				this.router.navigate(['error403']);
+			}
+			else{
+				const cookieValue: string = this.cookieService.get('JWT');
+				this.contactService.deleteMessage(cookieValue, inputId)
+				.subscribe(
+					(response: HttpResponse<{}>): void  => {
+						this.router.navigate(['home']);
+					},
+					(error: HttpResponse<ErrorObject>): void => {
+						if(error.body !== null){
+							this.myAlert(error.body.error.message ?? 'Unknown error while deleting message', 'danger');
+							console.error(error.body.error);
+						}
+					}
+				);
+			}
+		}
+	}
+
 	ngOnInit(): void {
 		if(!this.cookieService.get('JWT')){
 			this.router.navigate(['login']);

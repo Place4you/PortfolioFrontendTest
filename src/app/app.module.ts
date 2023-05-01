@@ -14,6 +14,7 @@ import { AdminHomeComponent } from './admin/views/admin-home/admin-home.componen
 import { AdminWorkComponent } from './admin/views/admin-work/admin-work.component';
 import { AdminAboutComponent } from './admin/views/admin-about/admin-about.component';
 import { AdminContactComponent } from './admin/views/admin-contact/admin-contact.component';
+import { AdminUserComponent } from './admin/views/admin-user/admin-user.component';
 import { HttpErrorInterceptor } from './interceptors/error-and-cache.interceptor';
 
 @NgModule({
@@ -29,7 +30,8 @@ import { HttpErrorInterceptor } from './interceptors/error-and-cache.interceptor
 		AdminHomeComponent,
 		AdminWorkComponent,
 		AdminAboutComponent,
-		AdminContactComponent
+		AdminContactComponent,
+		AdminUserComponent
 	],
 	imports: [
 		BrowserModule,

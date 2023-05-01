@@ -22,7 +22,7 @@
 				</label>
 				<textarea id="journey_text" placeholder="Input journey text" minlength="3" maxlength="1998" value="{{journey_info}}" required #journey_text></textarea>
 
-		        <input type="submit" value="Update" (click)="edit_journey(journey_text.value)">
+		        <input type="submit" class="btn btn-success" value="Update" (click)="edit_journey(journey_text.value)">
 			</form>
 		</div>
 	</section>
@@ -66,7 +66,7 @@
 				<input type="text" id="add_image_alt" placeholder="Image alt" minlength="3" maxlength="253" #add_image_alt>
 				
 
-            	<input type="submit" value="Create" (click)="create_item(add_type.value, add_name.value, add_date.value, add_description.value, add_uri.value ? add_uri.value : undefined, add_image_uri.value ? add_image_uri.value : undefined, add_image_alt.value ? add_image_alt.value : undefined)">
+            	<input type="submit" class="btn btn-success" value="Create" (click)="create_item(add_type.value, add_name.value, add_date.value, add_description.value, add_uri.value ? add_uri.value : undefined, add_image_uri.value ? add_image_uri.value : undefined, add_image_alt.value ? add_image_alt.value : undefined)">
 			</form>
 		</div>
 
@@ -77,7 +77,7 @@
 				<div *ngIf="!found_item_id">
 					<label for="edit_id"><h5>Input about item id</h5></label>
 					<input type="number" id="edit_id" placeholder="Id (ex: 123)" min="1" max="65535" required #edit_id>
-	            	<input type="submit" value="Search" (click)="search_edit_item(edit_id.value)">
+	            	<input type="submit" class="btn btn-success" value="Search" (click)="search_edit_item(edit_id.value)">
 				</div>
 
 				<div *ngIf="found_item_id">
@@ -100,7 +100,7 @@
 					<input type="text" id="edit_image_alt" placeholder="Image alt" minlength="3" maxlength="253" value="{{item_to_edit.image_alt}}" #edit_image_alt>
 					
 
-	            	<input type="submit" value="Update" (click)="edit_item(edit_name.value, edit_date.value, edit_description.value, edit_uri.value ? edit_uri.value : undefined, edit_image_uri.value ? edit_image_uri.value : undefined, edit_image_alt.value ? edit_image_alt.value : undefined)">
+	            	<input type="submit" class="btn btn-success" value="Update" (click)="edit_item(edit_name.value, edit_date.value, edit_description.value, edit_uri.value ? edit_uri.value : undefined, edit_image_uri.value ? edit_image_uri.value : undefined, edit_image_alt.value ? edit_image_alt.value : undefined)">
 				</div>
 			</form>
 		</div>
@@ -112,7 +112,7 @@
 				<label for="deleteId"><h5>Input about item id</h5></label>
 				<input type="number" id="deleteId" placeholder="Id (ex: 123)" min="1" max="65535" required #deleteId>
 
-            	<input type="submit" value="Delete" (click)="delete_item(deleteId.value)">
+            	<input type="submit" class="btn btn-danger" value="Delete" (click)="delete_item(deleteId.value)">
 			</form>
 		</div>
 	</div>
