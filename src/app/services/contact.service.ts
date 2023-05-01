@@ -9,16 +9,19 @@ import {
 import { catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { TableContactItemRes, TableContactMessageRes } from '../interfaces/tableContactRes.interface';
+import { ApiService } from './api.service';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class ContactService {
 
-	constructor(private http: HttpClient) { }
+	constructor(private http: HttpClient, private apiService: ApiService) { }
 
-	uri_ci: string = "http://localhost:8080/api/v1/contact_item"
-	uri_cm: string = "http://localhost:8080/api/v1/contact_message"
+	
+	
+	uri_ci: string = this.apiService.getApi() + "/contact_item";
+	uri_cm: string = this.apiService.getApi() + "/contact_message";
 
 	getItem(id: number): Observable<HttpResponse<TableContactItemRes>> {
 		return this.http.get<TableContactItemRes>(
