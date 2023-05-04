@@ -253,53 +253,55 @@ export class AdminContactComponent implements OnInit{
 	}
 
 	show_message(id: number): void {
-		if(!this.cookieService.get('JWT')){
-			this.router.navigate(['error403']);
-		}
-		else{
-			const cookieValue: string = this.cookieService.get('JWT');
-			this.contactService.getMessage(cookieValue, id)
-			.subscribe(
-				(response: HttpResponse<TableContactMessageRes>): void  => {
-					if(response.body !== null){
-						this.current_message = {
-							id: response.body.id,
-							subject: response.body.subject,
-							message: response.body.message,
-							reply: response.body.reply,
-							date: response.body.date,
-							readed: response.body.readed
-						}
-						this.one_message = true;
-						if(!response.body.readed){
-							this.contactService.changeMessageRead(cookieValue, this.current_message)
-							.subscribe(
-								(response: HttpResponse<TableContactMessageRes>): void  => {
-									for(let i: number = 0; i < this.all_messages.length; i++){
-										if(this.all_messages[i].id === this.current_message.id){
-											this.all_messages[i].readed = true;
-											break;
+		if(this.current_message.id !== id){
+			if(!this.cookieService.get('JWT')){
+				this.router.navigate(['error403']);
+			}
+			else{
+				const cookieValue: string = this.cookieService.get('JWT');
+				this.contactService.getMessage(cookieValue, id)
+				.subscribe(
+					(response: HttpResponse<TableContactMessageRes>): void  => {
+						if(response.body !== null){
+							this.current_message = {
+								id: response.body.id,
+								subject: response.body.subject,
+								message: response.body.message,
+								reply: response.body.reply,
+								date: response.body.date,
+								readed: response.body.readed
+							}
+							this.one_message = true;
+							if(!response.body.readed){
+								this.contactService.changeMessageRead(cookieValue, this.current_message)
+								.subscribe(
+									(response: HttpResponse<TableContactMessageRes>): void  => {
+										for(let i: number = 0; i < this.all_messages.length; i++){
+											if(this.all_messages[i].id === this.current_message.id){
+												this.all_messages[i].readed = true;
+												break;
+											}
+										}
+										this.myAlert("Message read status changed", 'success');
+									},
+									(error: HttpResponse<ErrorObject>): void => {
+										if(error.body !== null){
+											this.myAlert(error.body.error.message ?? 'Unknown error while updating message read status', 'danger');
+											console.error(error.body.error);
 										}
 									}
-									this.myAlert("Message read status changed", 'success');
-								},
-								(error: HttpResponse<ErrorObject>): void => {
-									if(error.body !== null){
-										this.myAlert(error.body.error.message ?? 'Unknown error while updating message read status', 'danger');
-										console.error(error.body.error);
-									}
-								}
-							);
+								);
+							}
+						}
+					},
+					(error: HttpResponse<ErrorObject>): void => {
+						if(error.body !== null){
+							this.myAlert(error.body.error.message ?? 'Unknown error while retrieving message', 'danger');
+							console.error(error.body.error);
 						}
 					}
-				},
-				(error: HttpResponse<ErrorObject>): void => {
-					if(error.body !== null){
-						this.myAlert(error.body.error.message ?? 'Unknown error while retrieving message', 'danger');
-						console.error(error.body.error);
-					}
-				}
-			);
+				);
+			}
 		}
 	}
 

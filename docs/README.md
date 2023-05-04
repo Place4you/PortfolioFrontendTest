@@ -76,6 +76,8 @@ Install Sass with:
 
 **For full functionality [setup and run](https://github.com/LautaroColella/YP_PortfolioBackend/#readme) the backend, steps are at the respective repository.**
 
+Change the backend API url at: `/src/app/services/api.service.ts`
+
 In the portfolio directory run:
 `ng serve`
 
