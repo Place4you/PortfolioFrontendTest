@@ -5,6 +5,6 @@ import { Injectable } from '@angular/core';
 })
 export class ApiService {
 	getApi(): string {
-		return "https://ap-portfolio-backend.onrender.com";
+		return "https://ap-portfolio-backend.onrender.com/api/v1";
 	}
 }

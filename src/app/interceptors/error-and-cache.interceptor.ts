@@ -35,7 +35,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 					error: {
 						type: "server",
 						code: error.status || 500,
-						message: error.error && error.error.message ? error.error.message : "Unknown error"
+						message: error.error && error.error.message ? error.error.message : null
 					}
 				};
 				if(error.error instanceof ErrorEvent){
