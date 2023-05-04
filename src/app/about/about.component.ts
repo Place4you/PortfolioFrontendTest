@@ -25,7 +25,7 @@ export class AboutComponent {
 	badges_items:       TableAboutItemRes[] = [];
 	certificates_items: TableAboutItemRes[] = [];
 	journey: { id: number, title: string, description: string } = {
-		id: 15,
+		id: 0,
 		title: "No title",
 		description: "No description"
 	};
@@ -192,7 +192,7 @@ export class AboutComponent {
 						}
 					}
 					this.journey = {
-						id: 15,
+						id: 0,
 						title: "My journey",
 						description: journey_message
 					}

@@ -268,16 +268,16 @@ export class AdminContactComponent implements OnInit{
 							message: response.body.message,
 							reply: response.body.reply,
 							date: response.body.date,
-							read: response.body.read
+							readed: response.body.readed
 						}
 						this.one_message = true;
-						if(!response.body.read){
+						if(!response.body.readed){
 							this.contactService.changeMessageRead(cookieValue, this.current_message)
 							.subscribe(
 								(response: HttpResponse<TableContactMessageRes>): void  => {
 									for(let i: number = 0; i < this.all_messages.length; i++){
 										if(this.all_messages[i].id === this.current_message.id){
-											this.all_messages[i].read = true;
+											this.all_messages[i].readed = true;
 											break;
 										}
 									}
@@ -352,7 +352,7 @@ export class AdminContactComponent implements OnInit{
 								message: response.body[i].message,
 								reply: response.body[i].reply,
 								date: response.body[i].date,
-								read: response.body[i].read
+								readed: response.body[i].readed
 							});
 						}
 					}

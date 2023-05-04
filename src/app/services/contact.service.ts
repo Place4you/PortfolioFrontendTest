@@ -136,7 +136,7 @@ export class ContactService {
 			message: message,
 			reply: reply,
 			date: date,
-			read: false
+			readed: false
 		}
 		return this.http.post<TableContactMessageRes>(
 			this.uri_cm + "/add",
@@ -155,7 +155,7 @@ export class ContactService {
 			message: message.message,
 			reply: message.reply,
 			date: message.date,
-			read: true
+			readed: true
 		}
 		return this.http.put<TableContactMessageRes>(
 			this.uri_cm + `/update`,

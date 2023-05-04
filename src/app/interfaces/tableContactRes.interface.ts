@@ -13,5 +13,5 @@ export interface TableContactMessageRes {
 	message: string,
 	reply: string,
 	date: string,
-	read: boolean
+	readed: boolean
 }
