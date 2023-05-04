@@ -303,6 +303,9 @@ export class AdminContactComponent implements OnInit{
 				);
 			}
 		}
+		else {
+			this.one_message = true;
+		}
 	}
 
 	delete_message(inputId: number): void {
