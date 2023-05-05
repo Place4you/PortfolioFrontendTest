@@ -1,28 +1,31 @@
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { LoaderService } from '../services/loader.service';
-import { Observable } from 'rxjs';
+import {
+	HttpRequest,
+	HttpHandler,
+	HttpInterceptor,
+	HttpResponse
+} from '@angular/common/http';
 import { finalize } from 'rxjs/operators';
+import { LoaderService } from '../services/loader.service';
+import { of } from 'rxjs';
 
 @Injectable()
 export class LoaderInterceptor implements HttpInterceptor {
-
-	private count = 0;
+	private totalRequests = 0;
 
 	constructor(private loaderService: LoaderService) { }
 
-	intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-		if(this.count === 0){
-			this.loaderService.setHttpProgressStatus(true);
-		}
-		this.count++;
-		return next.handle(req).pipe(
+	intercept(request: HttpRequest<any>, next: HttpHandler) {
+		this.totalRequests++;
+		this.loaderService.setLoading(true);
+
+		return next.handle(request).pipe(
 			finalize(() => {
-				this.count--;
-				if(this.count === 0){
-					this.loaderService.setHttpProgressStatus(false);
+				this.totalRequests--;
+				if (this.totalRequests === 0) {
+					this.loaderService.setLoading(false);
 				}
 			})
-		);
+			);
 	}
 }
