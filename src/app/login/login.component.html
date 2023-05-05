@@ -1,4 +1,10 @@
 <body>
+	<ng-container *ngIf="loaderService.isLoading$ | async">
+		<div id="loader_parent">
+			<h1>Loading</h1>
+			<div class="spinner"></div>
+		</div>
+	</ng-container>
 	<div class="container content">
 		<div id="liveAlertPlaceholder" style="position: absolute; z-index: 9; width: 100%;"></div>
 		<div class="container login" id="login">

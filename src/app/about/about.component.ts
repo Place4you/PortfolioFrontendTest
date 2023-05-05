@@ -6,6 +6,7 @@ import { HttpClientModule, HttpClient, HttpResponse } from '@angular/common/http
 import { TableInfoRes } from '../interfaces/tableInfoRes.interface';
 import { TableAboutItemRes } from '../interfaces/tableAboutItemRes.interface';
 import { ErrorObject } from '../interfaces/errorObject.interface'
+import { LoaderService } from '../services/loader.service';
 
 @Component({
 	selector: 'app-about',
@@ -15,7 +16,7 @@ import { ErrorObject } from '../interfaces/errorObject.interface'
 })
 export class AboutComponent {
 
-	constructor(private http: HttpClient, private aboutService: AboutService, private informationService: InformationService){ }
+	constructor(public loaderService: LoaderService, private http: HttpClient, private aboutService: AboutService, private informationService: InformationService){ }
 
 	array_all:          { page: Page[] }[] = [];
 	array_page:         Page[] = [];

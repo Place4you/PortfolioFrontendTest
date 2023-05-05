@@ -3,6 +3,7 @@ import { ContactService } from '../services/contact.service';
 import { TableContactItemRes, TableContactMessageRes } from '../interfaces/tableContactRes.interface';
 import { HttpClientModule, HttpClient, HttpResponse } from '@angular/common/http'
 import { ErrorObject } from '../interfaces/errorObject.interface'
+import { LoaderService } from '../services/loader.service';
 
 @Component({
 	selector: 'app-contact',
@@ -12,7 +13,7 @@ import { ErrorObject } from '../interfaces/errorObject.interface'
 })
 export class ContactComponent {
 
-	constructor(private contactService: ContactService) { }
+	constructor(public loaderService: LoaderService, private contactService: ContactService) { }
 
 	social_items: {
 		id: number,

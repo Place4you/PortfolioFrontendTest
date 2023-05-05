@@ -4,6 +4,7 @@ import { Project } from "./interfaces";
 import { HttpClientModule, HttpClient, HttpResponse } from '@angular/common/http';
 import { TableWorkItemRes } from '../interfaces/tableWorkItemRes.interface';
 import { ErrorObject } from '../interfaces/errorObject.interface'
+import { LoaderService } from '../services/loader.service';
 
 @Component({
 	selector: 'app-work',
@@ -13,7 +14,7 @@ import { ErrorObject } from '../interfaces/errorObject.interface'
 })
 export class WorkComponent {
 	
-	constructor(private workService: WorkService){ }
+	constructor(public loaderService: LoaderService, private workService: WorkService){ }
 
 	array_all:            { page: Project[] }[] = [];
 	page_selector_items:  { number: number }[] = [{number: 1}];

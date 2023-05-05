@@ -4,6 +4,7 @@ import { Router } from '@angular/router'
 import { LoginService } from '../services/login.service';
 import { HttpClientModule, HttpClient, HttpResponse } from '@angular/common/http';
 import { ErrorObject } from '../interfaces/errorObject.interface'
+import { LoaderService } from '../services/loader.service';
 
 @Component({
 	selector: 'app-login',
@@ -15,7 +16,7 @@ import { ErrorObject } from '../interfaces/errorObject.interface'
 
 export class LoginComponent {
 
-	constructor(private loginService: LoginService, private cookieService: CookieService, private router: Router) {}
+	constructor(public loaderService: LoaderService, private loginService: LoginService, private cookieService: CookieService, private router: Router) {}
 
 
 	current_alert: boolean = false;

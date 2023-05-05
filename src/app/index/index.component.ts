@@ -3,6 +3,7 @@ import { InformationService } from '../services/information.service';
 import { TableInfoRes } from '../interfaces/tableInfoRes.interface';
 import { HttpClientModule, HttpClient, HttpResponse } from '@angular/common/http'
 import { ErrorObject } from '../interfaces/errorObject.interface'
+import { LoaderService } from '../services/loader.service';
 
 @Component({
 	selector: 'app-index',
@@ -12,7 +13,7 @@ import { ErrorObject } from '../interfaces/errorObject.interface'
 })
 export class IndexComponent {
 
-	constructor(private zone: NgZone, private informationService: InformationService) { }
+	constructor(public loaderService: LoaderService, private zone: NgZone, private informationService: InformationService) { }
 
 	titles_array:  string[] = [];
 	current_title: string | undefined = undefined;
