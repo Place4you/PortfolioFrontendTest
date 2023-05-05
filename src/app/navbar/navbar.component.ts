@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router'
 import { CookieService } from 'ngx-cookie-service';
 
@@ -6,7 +6,8 @@ import { CookieService } from 'ngx-cookie-service';
 	selector: 'app-navbar',
 	templateUrl: './navbar.component.html',
 	styleUrls: ['./navbar.component.scss'],
-	providers: [CookieService]
+	providers: [CookieService],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NavbarComponent {
 

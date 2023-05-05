@@ -16,6 +16,7 @@ import { AdminAboutComponent } from './admin/views/admin-about/admin-about.compo
 import { AdminContactComponent } from './admin/views/admin-contact/admin-contact.component';
 import { AdminUserComponent } from './admin/views/admin-user/admin-user.component';
 import { HttpErrorInterceptor } from './interceptors/error-and-cache.interceptor';
+import { LoaderInterceptor } from './interceptors/loader.interceptor';
 
 @NgModule({
 	declarations: [
@@ -42,6 +43,11 @@ import { HttpErrorInterceptor } from './interceptors/error-and-cache.interceptor
 		{
 			provide: HTTP_INTERCEPTORS,
 			useClass: HttpErrorInterceptor,
+			multi: true
+		},
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: LoaderInterceptor,
 			multi: true
 		}
 	],

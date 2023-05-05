@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router'
 import { CookieService } from 'ngx-cookie-service';
 import { InformationService } from '../../../services/information.service';
@@ -9,7 +9,8 @@ import { ErrorObject } from '../../../interfaces/errorObject.interface'
 @Component({
 	selector: 'app-admin-home',
 	templateUrl: './admin-home.component.html',
-	styleUrls: ['./admin-home.component.scss']
+	styleUrls: ['./admin-home.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AdminHomeComponent implements OnInit{
 

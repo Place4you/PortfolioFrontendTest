@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router'
 import { LoginService } from '../services/login.service';
@@ -9,7 +9,8 @@ import { ErrorObject } from '../interfaces/errorObject.interface'
 	selector: 'app-login',
 	templateUrl: './login.component.html',
 	styleUrls: ['./login.component.scss'],
-	providers: [CookieService]
+	providers: [CookieService],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class LoginComponent {

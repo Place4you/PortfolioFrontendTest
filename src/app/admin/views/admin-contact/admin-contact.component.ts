@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router'
 import { CookieService } from 'ngx-cookie-service';
 import { ContactService } from '../../../services/contact.service';
@@ -9,7 +9,8 @@ import { ErrorObject } from '../../../interfaces/errorObject.interface'
 @Component({
 	selector: 'app-admin-contact',
 	templateUrl: './admin-contact.component.html',
-	styleUrls: ['./admin-contact.component.scss']
+	styleUrls: ['./admin-contact.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AdminContactComponent implements OnInit{
 

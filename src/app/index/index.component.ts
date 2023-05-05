@@ -1,4 +1,4 @@
-import { Component, NgZone } from '@angular/core';
+import { Component, NgZone, ChangeDetectionStrategy } from '@angular/core';
 import { InformationService } from '../services/information.service';
 import { TableInfoRes } from '../interfaces/tableInfoRes.interface';
 import { HttpClientModule, HttpClient, HttpResponse } from '@angular/common/http'
@@ -7,7 +7,8 @@ import { ErrorObject } from '../interfaces/errorObject.interface'
 @Component({
 	selector: 'app-index',
 	templateUrl: './index.component.html',
-	styleUrls: ['./index.component.scss']
+	styleUrls: ['./index.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class IndexComponent {
 

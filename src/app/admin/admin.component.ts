@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router'
 import { CookieService } from 'ngx-cookie-service';
 import { LoginService } from '../services/login.service';
@@ -9,7 +9,8 @@ import { ErrorObject } from '../interfaces/errorObject.interface'
 	selector: 'app-admin',
 	templateUrl: './admin.component.html',
 	styleUrls: ['./admin.component.scss'],
-	providers: [CookieService]
+	providers: [CookieService],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AdminComponent implements OnInit {
 

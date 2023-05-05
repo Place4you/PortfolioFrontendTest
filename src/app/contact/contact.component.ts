@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ContactService } from '../services/contact.service';
 import { TableContactItemRes, TableContactMessageRes } from '../interfaces/tableContactRes.interface';
 import { HttpClientModule, HttpClient, HttpResponse } from '@angular/common/http'
@@ -7,7 +7,8 @@ import { ErrorObject } from '../interfaces/errorObject.interface'
 @Component({
 	selector: 'app-contact',
 	templateUrl: './contact.component.html',
-	styleUrls: ['./contact.component.scss']
+	styleUrls: ['./contact.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ContactComponent {
 

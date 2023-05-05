@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { WorkService } from '../services/work.service';
 import { Project } from "./interfaces";
 import { HttpClientModule, HttpClient, HttpResponse } from '@angular/common/http';
@@ -8,7 +8,8 @@ import { ErrorObject } from '../interfaces/errorObject.interface'
 @Component({
 	selector: 'app-work',
 	templateUrl: './work.component.html',
-	styleUrls: ['./work.component.scss']
+	styleUrls: ['./work.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WorkComponent {
 	

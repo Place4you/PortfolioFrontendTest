@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router'
 import { CookieService } from 'ngx-cookie-service';
 import { UserService } from '../../../services/user.service';
@@ -9,7 +9,8 @@ import { TableUserRes } from '../../../interfaces/tableUserRes.interface';
 @Component({
 	selector: 'app-admin-user',
 	templateUrl: './admin-user.component.html',
-	styleUrls: ['./admin-user.component.scss']
+	styleUrls: ['./admin-user.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AdminUserComponent implements OnInit {
 

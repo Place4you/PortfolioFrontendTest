@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { AboutService } from '../services/about.service';
 import { InformationService } from '../services/information.service';
 import { Page } from './interfaces';
@@ -10,7 +10,8 @@ import { ErrorObject } from '../interfaces/errorObject.interface'
 @Component({
 	selector: 'app-about',
 	templateUrl: './about.component.html',
-	styleUrls: ['./about.component.scss']
+	styleUrls: ['./about.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AboutComponent {
 
