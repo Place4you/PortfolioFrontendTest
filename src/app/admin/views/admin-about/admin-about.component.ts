@@ -59,7 +59,8 @@ export class AdminAboutComponent implements OnInit,AfterViewInit {
 					this.informationService.editInformationTable(cookieValue, this.journey_info_id, "journey", text)
 					.subscribe(
 						(response: HttpResponse<TableInfoRes>): void  => {
-							this.router.navigate(['home']);
+							this.myAlert("Journey text updated successfully", 'success');
+							this.journey_info = text;
 						},
 						(error: HttpResponse<ErrorObject>): void => {
 							if(error.body !== null){
@@ -76,10 +77,8 @@ export class AdminAboutComponent implements OnInit,AfterViewInit {
 		}
 	}
 
-	method_change(event: Event): void {
-		const value: string = (event.target as HTMLFormElement)['value'];
+	method_change(value: string): void {
 		if(value !== this.current_value){
-			this.current_value = "add";
 			this.found_item_id = false;
 			this.current_value = value;
 		}
@@ -135,7 +134,11 @@ export class AdminAboutComponent implements OnInit,AfterViewInit {
 				this.aboutService.createItem(cookieValue, type, name, date, description, truthyItemData)
 				.subscribe(
 					(response: HttpResponse<TableAboutItemRes>): void  => {
-						this.router.navigate(['home']);
+						this.myAlert("Item created successfully", 'success');
+						const form: HTMLFormElement = <HTMLFormElement>document.getElementById("create_item_form");
+						if(form !== null){
+							form.reset();
+						}
 					},
 					(error: HttpResponse<ErrorObject>): void => {
 						if(error.body !== null){
@@ -247,7 +250,13 @@ export class AdminAboutComponent implements OnInit,AfterViewInit {
 						this.aboutService.updateItem(cookieValue, this.item_to_edit.id, this.item_to_edit.item_type, name, date, description, truthyItemData)
 						.subscribe(
 							(response: HttpResponse<TableAboutItemRes>): void  => {
-								this.router.navigate(['home']);
+								this.myAlert("Item updated successfully", 'success');
+								this.item_to_edit.name = name;
+								this.item_to_edit.date = date;
+								this.item_to_edit.description = description;
+								this.item_to_edit.link = link;
+								this.item_to_edit.image_uri = image_uri;
+								this.item_to_edit.image_alt = image_alt;
 							},
 							(error: HttpResponse<ErrorObject>): void => {
 								if(error.body !== null){
@@ -289,7 +298,11 @@ export class AdminAboutComponent implements OnInit,AfterViewInit {
 				this.aboutService.deleteItem(cookieValue, itemId)
 				.subscribe(
 					(response: HttpResponse<{}>): void  => {
-						this.router.navigate(['home']);
+						this.myAlert("Item deleted successfully", 'success');
+						const form: HTMLFormElement = <HTMLFormElement>document.getElementById("delete_item_form");
+						if(form !== null){
+							form.reset();
+						}
 					},
 					(error: HttpResponse<ErrorObject>): void => {
 						if(error.body !== null){

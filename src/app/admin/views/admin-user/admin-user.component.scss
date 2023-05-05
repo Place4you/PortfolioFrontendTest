@@ -1,28 +1,21 @@
 .content {
 	text-align: center;
-
 	.select_method {
-		text-align: left;
-		.select_h4 {
-			display: inline-block;
+		margin-top: 25px;
+		button {
+			margin-left: 20px;
 		}
-		.select_sel {
-			display: inline-block;
-			margin-left: 15px;
-			select {
-				width: 150px;
-			}
+		#first_button {
+			margin-left: 0;
 		}
 	}
 	.form {
 		h3 {
-			margin-top: 30px;
-			margin-bottom: 20px;
+			margin: 30px 0 20px;
 		}
 		input {
 			width: 100%;
-			margin-bottom: 30px;
-			margin-top: 5px;
+			margin: 5px 0 30px;
 			padding: 5px;
 		}
 	}

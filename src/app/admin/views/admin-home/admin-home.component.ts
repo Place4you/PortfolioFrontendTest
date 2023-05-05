@@ -50,7 +50,8 @@ export class AdminHomeComponent implements OnInit{
 				this.informationService.editInformationTable(cookieValue, this.index_titles_id, "index_titles", titles)
 				.subscribe(
 					(response: HttpResponse<TableInfoRes>): void  => {
-						this.router.navigate(['home']);
+						this.myAlert("Titles updated successfully", 'success');
+						this.home_titles = titles;
 					},
 					(error: HttpResponse<ErrorObject>): void => {
 						if(error.body !== null){

@@ -42,15 +42,9 @@ export class AdminWorkComponent implements AfterViewInit {
 		}
 	}
 
-	reset_default_values(): void {
-		this.current_value        = "add";
-		this.found_item_id        = false;
-	}
-
-	method_change(event: Event): void {
-		const value: string = (event.target as HTMLFormElement)['value'];
+	method_change(value: string): void {
 		if(value !== this.current_value){
-			this.reset_default_values();
+			this.found_item_id = false;
 			this.current_value = value;
 		}
 	}
@@ -101,7 +95,11 @@ export class AdminWorkComponent implements AfterViewInit {
 				this.workService.createItem(cookieValue, name, date, technologies, description, truthyItemData)
 				.subscribe(
 					(response: HttpResponse<TableWorkItemRes>): void  => {
-						this.router.navigate(['home']);
+						this.myAlert("Item created successfully", 'success');
+						const form: HTMLFormElement = <HTMLFormElement>document.getElementById("create_item_form");
+						if(form !== null){
+							form.reset();
+						}
 					},
 					(error: HttpResponse<ErrorObject>): void => {
 						if(error.body !== null){
@@ -228,7 +226,15 @@ export class AdminWorkComponent implements AfterViewInit {
 						this.workService.updateItem(cookieValue, this.project_to_edit.id, name, date, technologies, description, truthyItemData)
 						.subscribe(
 							(response: HttpResponse<TableWorkItemRes>): void  => {
-								this.router.navigate(['home']);
+								this.myAlert("Item updated successfully", 'success');
+								this.project_to_edit.name = name;
+								this.project_to_edit.date = date;
+								this.project_to_edit.technologies = technologies;
+								this.project_to_edit.description = description;
+								this.project_to_edit.code_uri = code_uri;
+								this.project_to_edit.live_uri = live_uri;
+								this.project_to_edit.image_uri = image_uri;
+								this.project_to_edit.image_alt = image_alt;
 							},
 							(error: HttpResponse<ErrorObject>): void => {
 								if(error.body !== null){
@@ -270,7 +276,11 @@ export class AdminWorkComponent implements AfterViewInit {
 				this.workService.deleteItem(cookieValue, projectId)
 				.subscribe(
 					(response: HttpResponse<{}>): void  => {
-						this.router.navigate(['home']);
+						this.myAlert("Item deleted successfully", 'success');
+						const form: HTMLFormElement = <HTMLFormElement>document.getElementById("delete_item_form");
+						if(form !== null){
+							form.reset();
+						}
 					},
 					(error: HttpResponse<ErrorObject>): void => {
 						if(error.body !== null){

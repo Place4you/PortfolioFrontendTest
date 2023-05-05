@@ -1,17 +1,9 @@
 <div class="container content">
 	<div id="liveAlertPlaceholder" style="position: absolute; z-index: 9; width: 100%;"></div>
 	<section class="select_method">
-		<div class="select_h4">
-			<h4>Select option:</h4>
-		</div>
-		<div class="select_sel">
-			<select (change)="method_change($event)">
-				<option value="all">All</option>
-				<option value="add">Create</option>
-			</select>
-		</div>
+		<button type="button" class="btn btn-dark" id="first_button" (click)="method_change('all')">All</button>
+		<button type="button" class="btn btn-success" (click)="method_change('add')">Create</button>
 	</section>
-
 	<hr>
 	
 	<section *ngIf="current_value === 'all'">
@@ -42,7 +34,7 @@
 
 	<div class="form">
 		<div *ngIf="current_value === 'add'">
-			<form onsubmit="return false;">
+			<form onsubmit="return false;" id="create_user_form">
 				<h3>Create new user</h3>
 
 				<label for="add_name"><h5>Input name</h5></label>
@@ -59,7 +51,7 @@
 		</div>
 
 		<div *ngIf="current_value === 'edit'">
-			<form onsubmit="return false;">
+			<form onsubmit="return false;" id="update_user_form">
 				<h3>Edit user</h3>
 
 				<label for="edit_name"><h5>Change name</h5></label>
@@ -72,7 +64,7 @@
 				<input type="password" id="edit_password" placeholder="Password" minlength="3" maxlength="253" required #edit_password>
 
 
-				<input type="reset" class="btn btn-danger" value="Cancel" (click)="show_other('all')">
+				<input type="reset" class="btn btn-danger" value="Cancel" (click)="method_change('all')">
 				<input type="submit" class="btn btn-success" value="Update" (click)="edit_user(edit_name.value, edit_email.value, edit_password.value)">
 			</form>
 		</div>

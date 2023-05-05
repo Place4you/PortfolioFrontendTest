@@ -1,21 +1,15 @@
 <div class="container content">
 	<div id="liveAlertPlaceholder" style="position: absolute; z-index: 9; width: 100%;"></div>
 	<section class="select_method">
-		<div class="select_h4">
-			<h4>Select option:</h4>
-		</div>
-		<div class="select_sel">
-			<select (change)="method_change($event)">
-				<option value="add">Create</option>
-				<option value="edit">Edit</option>
-				<option value="delete">Delete</option>
-				<option value="message">Messages</option>
-			</select>
-		</div>
+		<button type="button" class="btn btn-success" id="first_button" (click)="method_change('add')">Create</button>
+		<button type="button" class="btn btn-warning" (click)="method_change('edit')">Edit</button>
+		<button type="button" class="btn btn-danger" (click)="method_change('delete')">Delete</button>
+		<button type="button" class="btn btn-dark" (click)="method_change('message')">Messages</button>
 	</section>
+	<hr>
 	<div class="form">
 		<div *ngIf="current_value === 'add'">
-			<form onsubmit="return false;">
+			<form onsubmit="return false;" id="create_item_form">
 				<h3>Create new contact item</h3>
 
 				<label for="add_name"><h5>Input name</h5></label>
@@ -39,13 +33,13 @@
 		</div>
 
 		<div *ngIf="current_value === 'edit'">
-			<form onsubmit="return false;">
+			<form onsubmit="return false;" id="update_item_form">
 				<h3>Edit contact item</h3>
 
 				<div *ngIf="!found_item_id">
 					<label for="edit_id"><h5>Input contact item id</h5></label>
 					<input type="number" id="edit_id" placeholder="Id (ex: 123)" min="1" max="65535" required #edit_id>
-	            	<input type="submit" class="btn btn-success" value="Search" (click)="search_edit_item(edit_id.value)">
+	            	<input type="submit" class="btn btn-warning" value="Search" (click)="search_edit_item(edit_id.value)">
 				</div>
 
 				<div *ngIf="found_item_id">
@@ -65,13 +59,13 @@
 					<input type="text" id="edit_image_alt" placeholder="Image alt" minlength="3" maxlength="253" value="{{item_to_edit.image_alt}}" #edit_image_alt>
 					
 
-	            	<input type="submit" class="btn btn-success" value="Update" (click)="edit_item(edit_name.value, edit_account.value, edit_uri.value ? edit_uri.value : undefined, edit_image_uri.value ? edit_image_uri.value : undefined, edit_image_alt.value ? edit_image_alt.value : undefined)">
+	            	<input type="submit" class="btn btn-warning" value="Update" (click)="edit_item(edit_name.value, edit_account.value, edit_uri.value ? edit_uri.value : undefined, edit_image_uri.value ? edit_image_uri.value : undefined, edit_image_alt.value ? edit_image_alt.value : undefined)">
 				</div>
 			</form>
 		</div>
 
 		<div *ngIf="current_value === 'delete'">
-			<form onsubmit="return false;">
+			<form onsubmit="return false;" id="delete_item_form">
 				<h3>Delete contact item</h3>
 
 				<label for="deleteId"><h5>Input contac item id</h5></label>

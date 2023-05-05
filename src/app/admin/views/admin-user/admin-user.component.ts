@@ -17,7 +17,7 @@ export class AdminUserComponent implements OnInit {
 
 	current_value:	string = "all";
 	found_user_id:	boolean = false;
-	user_to_edit:	TableUserRes = {} as TableUserRes;
+	user_to_edit:	{ id: number, name: string, email: string } = {} as { id: number, name: string, email: string };
 	all_users: 		any[] = [];
 	all_empty: 		boolean = true;
 
@@ -42,12 +42,7 @@ export class AdminUserComponent implements OnInit {
 		}
 	}
 	
-	method_change(event: Event): void {
-		const value: string = (event.target as HTMLFormElement)['value'];
-		this.show_other(value);
-	}
-
-	show_other(value: string): void {
+	method_change(value: string): void {
 		if(value !== this.current_value){
 			this.found_user_id = false;
 			this.current_value = value;
@@ -78,7 +73,11 @@ export class AdminUserComponent implements OnInit {
 				this.userService.createUser(cookieValue, name, email, password)
 				.subscribe(
 					(response: HttpResponse<TableUserRes>): void  => {
-						this.router.navigate(['home']);
+						this.myAlert("User created successfully", 'success');
+						const form: HTMLFormElement = <HTMLFormElement>document.getElementById("create_user_form");
+						if(form !== null){
+							form.reset();
+						}
 					},
 					(error: HttpResponse<ErrorObject>): void => {
 						if(error.body !== null){
@@ -116,10 +115,9 @@ export class AdminUserComponent implements OnInit {
 							this.user_to_edit = {
 								id: response.body.id,
 								name: response.body.name,
-								email: response.body.email,
-								password: response.body.password
+								email: response.body.email
 							}
-							this.show_other("edit");
+							this.method_change("edit");
 						}
 					},
 					(error: HttpResponse<ErrorObject>): void => {
@@ -156,9 +154,6 @@ export class AdminUserComponent implements OnInit {
 				if(email !== this.user_to_edit.email){
 					something_changed = true;
 				}
-				if(password !== this.user_to_edit.password){
-					something_changed = true;
-				}
 
 				if(something_changed){
 					if(!this.cookieService.get('JWT')){
@@ -169,7 +164,9 @@ export class AdminUserComponent implements OnInit {
 						this.userService.updateUser(cookieValue, this.user_to_edit.id, name, email, password)
 						.subscribe(
 							(response: HttpResponse<TableUserRes>): void  => {
-								this.router.navigate(['home']);
+								this.myAlert("User updated successfully", 'success');
+								this.user_to_edit.name = name;
+								this.user_to_edit.email = email;
 							},
 							(error: HttpResponse<ErrorObject>): void => {
 								if(error.body !== null){
@@ -211,7 +208,7 @@ export class AdminUserComponent implements OnInit {
 				this.userService.deleteUser(cookieValue, userId)
 				.subscribe(
 					(response: HttpResponse<{}>): void  => {
-						this.router.navigate(['home']);
+						this.myAlert("User deleted successfully", 'success');
 					},
 					(error: HttpResponse<ErrorObject>): void => {
 						if(error.body !== null){

@@ -1,40 +1,34 @@
 <div class="container content">
 	<div id="liveAlertPlaceholder" style="position: absolute; z-index: 9; width: 100%;"></div>
 	<section class="select_method">
-		<div class="select_h4">
-			<h4>Select option:</h4>
-		</div>
-		<div class="select_sel">
-			<select (change)="method_change($event)">
-				<option value="add">Create</option>
-				<option value="edit">Edit</option>
-				<option value="delete">Delete</option>
-				<option value="journey">Journey</option>
-			</select>
-		</div>
+		<button type="button" class="btn btn-success" id="first_button" (click)="method_change('add')">Create</button>
+		<button type="button" class="btn btn-warning" (click)="method_change('edit')">Edit</button>
+		<button type="button" class="btn btn-danger" (click)="method_change('delete')">Delete</button>
+		<button type="button" class="btn btn-dark" (click)="method_change('journey')">Journey</button>
 	</section>
+	<hr>
 
 	<section class="change_journey" *ngIf="current_value === 'journey'">
 		<div class="form">
-			<form onsubmit="return false;">
+			<form onsubmit="return false;" id="journey_form">
 				<label for="journey_text">
 					<h3>Change journey text</h3>
 				</label>
 				<textarea id="journey_text" placeholder="Input journey text" minlength="3" maxlength="1998" value="{{journey_info}}" required #journey_text></textarea>
 
-		        <input type="submit" class="btn btn-success" value="Update" (click)="edit_journey(journey_text.value)">
+		        <input type="submit" class="btn btn-warning" value="Update" (click)="edit_journey(journey_text.value)">
 			</form>
 		</div>
 	</section>
 
 	<div class="form">
 		<div *ngIf="current_value === 'add'">
-			<form onsubmit="return false;">
+			<form onsubmit="return false;" id="create_item_form">
 				<h3>Create new about item</h3>
 
-				<section class="select_method">
+				<section class="select_type">
 					<div class="select_h4">
-						<h4>Select type</h4>
+						<h4>Select type:</h4>
 					</div>
 					<div class="select_sel">
 						<select required #add_type>
@@ -71,13 +65,13 @@
 		</div>
 
 		<div *ngIf="current_value === 'edit'">
-			<form onsubmit="return false;">
+			<form onsubmit="return false;" id="edit_item_form">
 				<h3>Edit about item</h3>
 
 				<div *ngIf="!found_item_id">
 					<label for="edit_id"><h5>Input about item id</h5></label>
 					<input type="number" id="edit_id" placeholder="Id (ex: 123)" min="1" max="65535" required #edit_id>
-	            	<input type="submit" class="btn btn-success" value="Search" (click)="search_edit_item(edit_id.value)">
+	            	<input type="submit" class="btn btn-warning" value="Search" (click)="search_edit_item(edit_id.value)">
 				</div>
 
 				<div *ngIf="found_item_id">
@@ -100,13 +94,13 @@
 					<input type="text" id="edit_image_alt" placeholder="Image alt" minlength="3" maxlength="253" value="{{item_to_edit.image_alt}}" #edit_image_alt>
 					
 
-	            	<input type="submit" class="btn btn-success" value="Update" (click)="edit_item(edit_name.value, edit_date.value, edit_description.value, edit_uri.value ? edit_uri.value : undefined, edit_image_uri.value ? edit_image_uri.value : undefined, edit_image_alt.value ? edit_image_alt.value : undefined)">
+	            	<input type="submit" class="btn btn-warning" value="Update" (click)="edit_item(edit_name.value, edit_date.value, edit_description.value, edit_uri.value ? edit_uri.value : undefined, edit_image_uri.value ? edit_image_uri.value : undefined, edit_image_alt.value ? edit_image_alt.value : undefined)">
 				</div>
 			</form>
 		</div>
 
 		<div *ngIf="current_value === 'delete'">
-			<form onsubmit="return false;">
+			<form onsubmit="return false;" id="delete_item_form">
 				<h3>Delete about item</h3>
 
 				<label for="deleteId"><h5>Input about item id</h5></label>

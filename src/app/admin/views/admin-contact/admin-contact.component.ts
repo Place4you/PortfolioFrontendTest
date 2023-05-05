@@ -45,19 +45,12 @@ export class AdminContactComponent implements OnInit{
 		}
 	}
 
-	reset_default_item_values(): void {
-		this.current_value			= "add";
-		this.found_item_id			= false;
-	}
-
-	method_change(event: Event): void {
-		const value: string = (event.target as HTMLFormElement)['value'];
+	method_change(value: string): void {
 		if(value !== this.current_value){
-			this.reset_default_item_values();
+			this.found_item_id = false;
 			this.current_value = value;
 		}
 	}
-
 
 	create_item(
 		name: string,
@@ -93,7 +86,11 @@ export class AdminContactComponent implements OnInit{
 				this.contactService.createItem(cookieValue, name, account, truthyItemData)
 				.subscribe(
 					(response: HttpResponse<TableContactItemRes>): void  => {
-						this.router.navigate(['home']);
+						this.myAlert("Item created successfully", 'success');
+						const form: HTMLFormElement = <HTMLFormElement>document.getElementById("create_item_form");
+						if(form !== null){
+							form.reset();
+						}
 					},
 					(error: HttpResponse<ErrorObject>): void => {
 						if(error.body !== null){
@@ -131,7 +128,6 @@ export class AdminContactComponent implements OnInit{
 						if(response.body.link) this.item_to_edit.link = response.body.link;
 						if(response.body.image_uri) this.item_to_edit.image_uri = response.body.image_uri;
 						if(response.body.image_alt) this.item_to_edit.image_alt = response.body.image_alt;
-						this.myAlert("Item found", 'success');
 					}
 				},
 				(error: HttpResponse<ErrorObject>): void => {
@@ -197,7 +193,12 @@ export class AdminContactComponent implements OnInit{
 						this.contactService.updateItem(cookieValue, this.item_to_edit.id, name, account, truthyItemData)
 						.subscribe(
 							(response: HttpResponse<TableContactItemRes>): void  => {
-								this.router.navigate(['home']);
+								this.myAlert("Item updated successfully", 'success');
+								this.item_to_edit.name = name;
+								this.item_to_edit.account = account;
+								this.item_to_edit.link = link;
+								this.item_to_edit.image_uri = image_uri;
+								this.item_to_edit.image_alt = image_alt;
 							},
 							(error: HttpResponse<ErrorObject>): void => {
 								if(error.body !== null){
@@ -239,7 +240,11 @@ export class AdminContactComponent implements OnInit{
 				this.contactService.deleteItem(cookieValue, itemId)
 				.subscribe(
 					(response: HttpResponse<{}>): void  => {
-						this.router.navigate(['home']);
+						this.myAlert("Item deleted successfully", 'success');
+						const form: HTMLFormElement = <HTMLFormElement>document.getElementById("delete_item_form");
+						if(form !== null){
+							form.reset();
+						}
 					},
 					(error: HttpResponse<ErrorObject>): void => {
 						if(error.body !== null){
@@ -282,7 +287,6 @@ export class AdminContactComponent implements OnInit{
 												break;
 											}
 										}
-										this.myAlert("Message read status changed", 'success');
 									},
 									(error: HttpResponse<ErrorObject>): void => {
 										if(error.body !== null){
@@ -327,7 +331,8 @@ export class AdminContactComponent implements OnInit{
 				this.contactService.deleteMessage(cookieValue, inputId)
 				.subscribe(
 					(response: HttpResponse<{}>): void  => {
-						this.router.navigate(['home']);
+						this.myAlert("Message deleted successfully", 'success');
+						this.one_message = false;
 					},
 					(error: HttpResponse<ErrorObject>): void => {
 						if(error.body !== null){
