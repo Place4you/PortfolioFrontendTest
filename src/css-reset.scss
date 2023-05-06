@@ -71,3 +71,13 @@ table {
 @keyframes spinner {
 	to { transform: rotate(360deg); }
 }
+
+body {
+	background-image: url('/assets/images/bg_index.png');
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+	background-color: #fff;
+	height: 100vh;
+}
