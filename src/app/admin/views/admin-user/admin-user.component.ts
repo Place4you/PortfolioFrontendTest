@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router'
 import { CookieService } from 'ngx-cookie-service';
 import { UserService } from '../../../services/user.service';
@@ -9,8 +9,7 @@ import { TableUserRes } from '../../../interfaces/tableUserRes.interface';
 @Component({
 	selector: 'app-admin-user',
 	templateUrl: './admin-user.component.html',
-	styleUrls: ['./admin-user.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	styleUrls: ['./admin-user.component.scss']
 })
 export class AdminUserComponent implements OnInit {
 
@@ -19,7 +18,7 @@ export class AdminUserComponent implements OnInit {
 	current_value:	string = "all";
 	found_user_id:	boolean = false;
 	user_to_edit:	{ id: number, name: string, email: string } = {} as { id: number, name: string, email: string };
-	all_users: 		any[] = [];
+	all_users: 		TableUserRes[] = [];
 	all_empty: 		boolean = true;
 
 	current_alert: boolean = false;
@@ -79,6 +78,7 @@ export class AdminUserComponent implements OnInit {
 						if(form !== null){
 							form.reset();
 						}
+						if(response.body !== null) this.all_users.push(response.body);
 					},
 					(error: HttpResponse<ErrorObject>): void => {
 						if(error.body !== null){
@@ -91,7 +91,7 @@ export class AdminUserComponent implements OnInit {
 		}
 	}
 
-	search_edit_user(inputId: string): void {
+	search_edit_user(inputId: number): void {
 		const userId: number = Number(inputId) || 0;
 		if(userId === 0){
 			this.myAlert("Invalid user id", 'danger');
@@ -119,6 +119,7 @@ export class AdminUserComponent implements OnInit {
 								email: response.body.email
 							}
 							this.method_change("edit");
+							this.all_empty = false;
 						}
 					},
 					(error: HttpResponse<ErrorObject>): void => {
@@ -189,7 +190,7 @@ export class AdminUserComponent implements OnInit {
 		}
 	}
 
-	delete_user(inputId: string): void {
+	delete_user(inputId: number): void {
 		const userId: number = Number(inputId) || 0;
 		if(userId === 0){
 			this.myAlert("Invalid user id", 'danger');
@@ -210,6 +211,12 @@ export class AdminUserComponent implements OnInit {
 				.subscribe(
 					(response: HttpResponse<{}>): void  => {
 						this.myAlert("User deleted successfully", 'success');
+						for(let i = 0; i < this.all_users.length; i++){
+							if(this.all_users[i].id === inputId){
+								this.all_users.splice(i, 1);
+								break;
+							}
+						}
 					},
 					(error: HttpResponse<ErrorObject>): void => {
 						if(error.body !== null){

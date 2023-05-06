@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router'
 import { CookieService } from 'ngx-cookie-service';
 import { ContactService } from '../../../services/contact.service';
@@ -9,8 +9,7 @@ import { ErrorObject } from '../../../interfaces/errorObject.interface'
 @Component({
 	selector: 'app-admin-contact',
 	templateUrl: './admin-contact.component.html',
-	styleUrls: ['./admin-contact.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	styleUrls: ['./admin-contact.component.scss']
 })
 export class AdminContactComponent implements OnInit{
 
@@ -332,6 +331,12 @@ export class AdminContactComponent implements OnInit{
 				this.contactService.deleteMessage(cookieValue, inputId)
 				.subscribe(
 					(response: HttpResponse<{}>): void  => {
+						for(let i = 0; i < this.all_messages.length; i++){
+							if(this.all_messages[i].id === inputId){
+								this.all_messages.splice(i, 1);
+								break;
+							}
+						}
 						this.myAlert("Message deleted successfully", 'success');
 						this.one_message = false;
 					},

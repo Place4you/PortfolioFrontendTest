@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, AfterViewInit, OnInit } from '@angular/core';
 import { Router } from '@angular/router'
 import { CookieService } from 'ngx-cookie-service';
 import { AboutService } from '../../../services/about.service';
@@ -11,8 +11,7 @@ import { TableAboutItemRes } from '../../../interfaces/tableAboutItemRes.interfa
 @Component({
 	selector: 'app-admin-about',
 	templateUrl: './admin-about.component.html',
-	styleUrls: ['./admin-about.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	styleUrls: ['./admin-about.component.scss']
 })
 export class AdminAboutComponent implements OnInit,AfterViewInit {
 

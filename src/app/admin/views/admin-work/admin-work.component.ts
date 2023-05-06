@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 import { WorkService } from '../../../services/work.service';
 import { Router } from '@angular/router'
 import { CookieService } from 'ngx-cookie-service';
@@ -9,8 +9,7 @@ import { ErrorObject } from '../../../interfaces/errorObject.interface'
 @Component({
 	selector: 'app-admin-work',
 	templateUrl: './admin-work.component.html',
-	styleUrls: ['./admin-work.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	styleUrls: ['./admin-work.component.scss']
 })
 export class AdminWorkComponent implements AfterViewInit {
 
