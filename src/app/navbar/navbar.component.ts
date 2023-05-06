@@ -40,10 +40,24 @@ export class NavbarComponent {
 	}
 
 	checkWidth(): void {
+		const nav_toggle: HTMLElement | null = document.getElementById('toggle_nav');
+		const all_buttons: HTMLElement | null = document.getElementById('navigationbar');
 		if(window.innerWidth > 700){
-			const all_buttons: HTMLElement | null = document.getElementById('navigationbar');
-			if(all_buttons !== null && all_buttons.style.display === 'none'){
-				all_buttons.style.display = 'block';
+			if(nav_toggle !== null && all_buttons !== null){
+				if(nav_toggle.style.display === 'block' || all_buttons.style.display === 'none'){
+					nav_toggle.style.display = 'none';
+					all_buttons.style.display = 'block';
+				}
+			}
+		}
+		else {
+			if(nav_toggle !== null && all_buttons !== null){
+				if(nav_toggle.style.display === 'none'){
+					nav_toggle.style.display = 'block';
+				}
+				if(nav_toggle.style.left === '0px'){
+					all_buttons.style.display = 'none';
+				}
 			}
 		}
 	}
