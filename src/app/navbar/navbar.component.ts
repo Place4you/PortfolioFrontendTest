@@ -60,6 +60,24 @@ export class NavbarComponent {
 				}
 			}
 		}
+		if(window.innerHeight > 700){
+			if(nav_toggle !== null && all_buttons !== null){
+				if(nav_toggle.style.display === 'block' || all_buttons.style.display === 'none'){
+					nav_toggle.style.display = 'none';
+					all_buttons.style.display = 'block';
+				}
+			}
+		}
+		else {
+			if(nav_toggle !== null && all_buttons !== null){
+				if(nav_toggle.style.display === 'none'){
+					nav_toggle.style.display = 'block';
+				}
+				if(nav_toggle.style.left === '0px'){
+					all_buttons.style.display = 'none';
+				}
+			}
+		}
 	}
 
 	ngOnInit(): void {
