@@ -1,4 +1,8 @@
-<div class="navigationbar">
+<div id="toggle_nav" (click)="toggle_nav()">
+	<i *ngIf="nav_open" class="fa-solid fa-close fa-2x toggle_nav_icon"></i>
+	<i *ngIf="!nav_open" class="fa-solid fa-bars fa-2x toggle_nav_icon"></i>
+</div>
+<div id="navigationbar">
 	<div class="nav_home">
 		<button routerLink="/home" type="button" class="btn btn-dark"><i class="fa-solid fa-house-chimney"></i> Home</button>
 		<div class="nav_arrow" *ngIf="currentRoute === '/home'">
