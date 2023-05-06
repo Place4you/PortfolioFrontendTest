@@ -38,4 +38,17 @@ export class NavbarComponent {
 	isLogged(): boolean {
 		return this.cookieService.get('JWT') ? true : false;
 	}
+
+	checkWidth(): void {
+		if(window.innerWidth > 700){
+			const all_buttons: HTMLElement | null = document.getElementById('navigationbar');
+			if(all_buttons !== null && all_buttons.style.display === 'none'){
+				all_buttons.style.display = 'block';
+			}
+		}
+	}
+
+	ngOnInit(): void {
+		window.addEventListener('resize', this.checkWidth);
+	}
 }
