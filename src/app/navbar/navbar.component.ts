@@ -43,7 +43,7 @@ export class NavbarComponent {
 		const nav_toggle: HTMLElement | null = document.getElementById('toggle_nav');
 		const all_buttons: HTMLElement | null = document.getElementById('navigationbar');
 		if(nav_toggle !== null && all_buttons !== null){
-			if(window.innerWidth > 700 && window.innerHeight > 700){
+			if(window.innerWidth > 700 && window.innerHeight > 760){
 				if(nav_toggle.style.display === 'block' || all_buttons.style.display === 'none'){
 					nav_toggle.style.display = 'none';
 					all_buttons.style.display = 'block';

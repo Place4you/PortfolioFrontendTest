@@ -1,14 +1,18 @@
 .content {
 	width: 100%;
-	height: 700px;
-	padding-top: 70px;
-	position: relative;
+	height: 100%;
+	position: absolute;
+	top: 50%;
+	left: 0;
+	right: 0;
+	transform: translateY(-50%);
 }
-.contact {
+#contact {
+	width: 100%;
 	text-align: center;
-	padding: 40px;
-	margin: 0;
+	margin: 40px;
 	.form {
+		width: 85%;
 		input {
 			width: 100%;
 			display: inline-block;
@@ -19,7 +23,7 @@
 			text-align: center;
 		}
 		.message {
-			height: 200px;
+			height: 180px;
 			width: 100%;
 			display: inline-block;
 			margin-top: 30px;
@@ -27,15 +31,8 @@
 			resize: none;
 		}
 	}
-	.error {
-		color: red;
-		margin-top: 5px;
-	}
-	.success {
-		color: green;
-		margin-top: 5px;
-	}
 	.social {
+		width: 85%;
 		.social_items {
 			height: 500px;
 			overflow: hidden scroll;
