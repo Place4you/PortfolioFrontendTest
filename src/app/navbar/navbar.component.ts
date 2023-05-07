@@ -30,7 +30,7 @@ export class NavbarComponent {
 			else {
 				this.nav_open = true;
 				all_buttons.style.display = 'block';
-				nav_toggle.style.left = '180px';
+				nav_toggle.style.left = '130px';
 			}
 		}
 	}
