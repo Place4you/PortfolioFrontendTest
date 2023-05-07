@@ -1,42 +1,57 @@
 .content {
 	width: 100%;
-	height: 730px;
-	padding-top: 30px;
-	position: relative;
-}
-.about {
-	padding: 40px;
 	height: 100%;
+	position: absolute;
+	top: 50%;
+	left: 0;
+	right: 0;
+	transform: translateY(-50%);
+	padding-top: 15px;
+}
+#about {
+	padding: 20px 10px;
+	width: 100%;
 	box-shadow: 5px 10px 10px 10px #d9e1fe;
 	border: 1px solid #c3c4ca;
 	border-radius: 20px;
 	.about_journey {
 		text-align: justify;
 		padding: 20px;
-		margin: 0 100px 0 100px;
-		height: 420px;
+		margin: 0 15px;
+		position: relative;
+		width: 100%;
+		overflow: hidden;
 		h1 {
 			text-align: center;
 			margin-bottom: 30px;
+			white-space: nowrap;
 		}
 		p {
 			margin-top: 30px;
-			height: 270px;
+			height: 200px;
 			overflow-x: hidden;
 			overflow-y: scroll;
 			padding: 5px 15px 5px 5px;
 		}
+		h6 {
+			position: absolute;
+			top: 0;
+			left: 30px;
+		}
 	}
 	.about_navbar {
-		margin: 20px 100px 0 0;
+		padding-right: 25px;
+		position: relative;
+		top: 40px;
 		button {
 			display: block;
-			margin: 50px 0 0 0;
+			margin-top: 50px;
 			width: 100%;
 			height: 60px;
 		}
 		#knowledge_items {
 			background-color: #000;
+			margin-top: 0;
 		}
 	}
 	.about_footer {
@@ -133,6 +148,18 @@
 					inline-size: 160px;
 				}
 			}
+		}
+	}
+}
+
+@media (max-width: 574px){
+	#about .about_navbar {
+		top: 0;
+		margin-bottom: 20px;
+		button {
+			margin-top: 20px;
+			width: 100%;
+			height: 40px;
 		}
 	}
 }

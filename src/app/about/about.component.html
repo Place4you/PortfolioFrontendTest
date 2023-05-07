@@ -7,12 +7,12 @@
 	</ng-container>
 	<div class="container content">
 		<div id="liveAlertPlaceholder" style="position: absolute; z-index: 9; width: 100%;"></div>
-		<div class="container about" id="about">
+		<div id="about">
 			<div class="row">
 				<div class="col-sm about_journey">
-					<h1 *ngIf="journey.id === 0" [innerHTML]="journey.title"></h1>
-					<h1 *ngIf="journey.id > 0" [innerHTML]="journey.title + ' - #' + (journey.id)"></h1>
+					<h1>{{journey.title}}</h1>
 					<p [innerHTML]="journey.description"></p>
+					<h6>#{{journey.id}}</h6>
 				</div>
 				<div class="col-sm about_navbar">
 					<button (click)="onNavClick('knowledge_items')" type="button" class="btn btn-secondary" id="knowledge_items"><strong>Knowledge</strong></button>
