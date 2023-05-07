@@ -39,7 +39,7 @@ export class NavbarComponent {
 		return this.cookieService.get('JWT') ? true : false;
 	}
 
-	checkWidth(): void {
+	checkResize(): void {
 		const nav_toggle: HTMLElement | null = document.getElementById('toggle_nav');
 		const all_buttons: HTMLElement | null = document.getElementById('navigationbar');
 		if(nav_toggle !== null && all_buttons !== null){
@@ -61,6 +61,6 @@ export class NavbarComponent {
 	}
 
 	ngOnInit(): void {
-		window.addEventListener('resize', this.checkWidth);
+		window.addEventListener('resize', this.checkResize);
 	}
 }

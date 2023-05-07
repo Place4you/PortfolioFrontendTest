@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 import { AboutService } from '../services/about.service';
 import { InformationService } from '../services/information.service';
 import { Page } from './interfaces';
@@ -11,8 +11,7 @@ import { LoaderService } from '../services/loader.service';
 @Component({
 	selector: 'app-about',
 	templateUrl: './about.component.html',
-	styleUrls: ['./about.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	styleUrls: ['./about.component.scss']
 })
 export class AboutComponent {
 
@@ -20,8 +19,10 @@ export class AboutComponent {
 
 	array_all:          { page: Page[] }[] = [];
 	array_page:         Page[] = [];
-	pageIndex:          number  = 0;
-	total_pages:        number  = 1;
+	pageIndex:          number = 0;
+	total_pages:        number = 1;
+	itemsPerPage:		number = 6;
+	current_view: 		string = "knowledge_items";
 	show_arrows:        boolean = false;
 	knowledge_items:    TableAboutItemRes[] = [];
 	badges_items:       TableAboutItemRes[] = [];
@@ -54,14 +55,14 @@ export class AboutComponent {
 		}
 	}
 
-	onNavClick(view: string): void {
+	makePages(view: string): void {
 		this.show_arrows = false;
-
 		const selectedNavButton: HTMLElement | null = document.getElementById(view);
 		const navKnowledge: HTMLElement | null      = document.getElementById('knowledge_items');
 		const navBadges: HTMLElement | null         = document.getElementById('badges_items');
 		const navCertificates: HTMLElement | null   = document.getElementById('certificates_items');
 		if(selectedNavButton != null){
+			this.current_view = view;
 			if(navKnowledge != null && navBadges != null && navCertificates != null){
 				navKnowledge.style.backgroundColor = '#5c636a';
 				navBadges.style.backgroundColor = '#5c636a';
@@ -85,7 +86,7 @@ export class AboutComponent {
 		}
 
 		for(let i: number = start_at; i < selected_items.length; i++){
-			if(i%2 === 0 && i%3 === 0 && i !== start_at){
+			if(i % this.itemsPerPage === 0 && i !== start_at){
 				if(!this.show_arrows){
 					this.show_arrows = true;
 				}
@@ -182,7 +183,27 @@ export class AboutComponent {
 		}
 	}
 
+	checkResize(): void {
+		const { innerWidth } = window;
+		const breakpoints: { width: number, itemsPP: number }[] = [
+			{ width: 1400, itemsPP: 6 },
+			{ width: 1200, itemsPP: 5 },
+			{ width: 992, itemsPP: 4 },
+			{ width: 768, itemsPP: 3 },
+			{ width: 544, itemsPP: 2 },
+			{ width: 0, itemsPP: 1 }
+		];
+		const { itemsPP } = breakpoints.find(bp => bp.width <= innerWidth) || breakpoints[0];
+		if(this.itemsPerPage !== itemsPP){
+			this.itemsPerPage = itemsPP;
+			this.makePages(this.current_view);
+		}
+	}
+
 	ngOnInit(): void {
+		window.addEventListener('resize', () => this.checkResize());
+		this.checkResize();
+
 		this.informationService.getInformationTable().subscribe(
 			(response: HttpResponse<TableInfoRes[]>): void  => {
 				if(response.body !== null){
