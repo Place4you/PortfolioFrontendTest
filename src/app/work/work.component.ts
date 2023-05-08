@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { WorkService } from '../services/work.service';
 import { Project } from "./interfaces";
 import { HttpClientModule, HttpClient, HttpResponse } from '@angular/common/http';
@@ -9,10 +9,9 @@ import { LoaderService } from '../services/loader.service';
 @Component({
 	selector: 'app-work',
 	templateUrl: './work.component.html',
-	styleUrls: ['./work.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	styleUrls: ['./work.component.scss']
 })
-export class WorkComponent {
+export class WorkComponent implements OnInit {
 	
 	constructor(public loaderService: LoaderService, private workService: WorkService){ }
 
@@ -22,6 +21,7 @@ export class WorkComponent {
 	current_order:        string = "AZ";
 	pageIndex:            number = 0;
 	total_pages:          number = 1;
+	itemsPerPage:		  number = 8;
 	show_arrows:          boolean = false;
 	description_open:     boolean = false;
 
@@ -172,7 +172,7 @@ export class WorkComponent {
 		this.page_selector_items  = [{ number: 1 }];
 
 		for(let i: number = start_at; i < this.project_items.length; i++){
-			if(i%2 === 0 && i%3 === 0 && i !== start_at){
+			if(i % this.itemsPerPage === 0 && i !== start_at){
 				if(!this.show_arrows) this.show_arrows = true;
 
 				this.page_selector_items.push({
@@ -221,7 +221,26 @@ export class WorkComponent {
 		}
 	}
 
+	checkResize(): void {
+		const { innerWidth } = window;
+		const breakpoints: { width: number, itemsPP: number }[] = [
+			{ width: 1400, itemsPP: 8 },
+			{ width: 1200, itemsPP: 6 },
+			{ width: 992, itemsPP: 5 },
+			{ width: 768, itemsPP: 4 },
+			{ width: 0, itemsPP: 2 }
+		];
+		const { itemsPP } = breakpoints.find(bp => bp.width <= innerWidth) || breakpoints[0];
+		if(this.itemsPerPage !== itemsPP){
+			this.itemsPerPage = itemsPP;
+			this.createPages();
+		}
+	}
+
 	ngOnInit(): void {
+		window.addEventListener('resize', () => this.checkResize());
+		this.checkResize();
+
 		this.workService.getItems()
 		.subscribe(
 			(response: HttpResponse<TableWorkItemRes[]>): void  => {
