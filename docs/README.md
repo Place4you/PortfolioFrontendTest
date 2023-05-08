@@ -15,6 +15,7 @@ Everyone is able to see my public information there, and you can view the live v
 - JWT for authentication
 - BCrypt for password hashing
 - Error handling and input validation
+- Responsive design
 
 ## Preview
 

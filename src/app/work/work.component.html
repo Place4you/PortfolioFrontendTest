@@ -25,6 +25,7 @@
 					<div class="project_w_description">
 						<div class="project">
 							<div class="top">
+								<h1>{{curr_project.name}}</h1>
 								<img src="{{curr_project.image_uri}}" alt="{{curr_project.image_alt}}">
 							</div>
 							<div class="bot">
@@ -32,17 +33,15 @@
 								<div class="links">
 									<a href="{{curr_project.code_uri}}" target="_blank"><i class="fas fa-code"></i></a>
 									<a href="{{curr_project.live_uri}}" target="_blank"><i class="fa-solid fa-pager"></i></a>
-									<i *ngIf="!description_open" class="fa-solid fa-caret-down" (click)='view_description(true, curr_project.id)'></i>
-									<i *ngIf="description_open" class="fa-solid fa-caret-up fa-2x" (click)='view_description(false, curr_project.id)'></i>
 								</div>
 								<p class="technologies">{{curr_project.technologies}}</p>
 							</div>
 						</div>
 						<div class="description_top">
 							<button type="button" class="btn btn-dark" (click)="view_description(false, curr_project.id)">Return</button>
-							<h1>{{curr_project.name}}- #{{curr_project.id}}</h1>
+							<h1>#{{curr_project.id}}</h1>
 						</div>
-						<p class="description">{{curr_project.description}}</p>
+						<p class="description" [innerHTML]=(curr_project.description)></p>
 					</div>
 				</ng-container>
 
