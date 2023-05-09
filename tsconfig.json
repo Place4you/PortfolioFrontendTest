@@ -24,7 +24,8 @@
       "dom"
     ],
     "paths": {
-      "@@shared/*": ["src/app/shared/*"]
+      "@@shared/*": ["src/app/shared/*"],
+      "@@pages/*": ["src/app/pages/*"]
     }
   },
   "angularCompilerOptions": {

@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { IndexComponent } from './index/index.component';
-import { WorkComponent } from './work/work.component';
-import { AboutComponent } from './about/about.component';
-import { ContactComponent } from './contact/contact.component';
-import { LoginComponent } from './login/login.component';
-import { AdminComponent } from './admin/admin.component';
-import { Page404Component } from './errors/page404/page404.component';
-import { Page403Component } from './errors/page403/page403.component';
-import { Page500Component } from './errors/page500/page500.component';
+import { IndexComponent } from '@@pages/index/index.component';
+import { WorkComponent } from '@@pages/work/work.component';
+import { AboutComponent } from '@@pages/about/about.component';
+import { ContactComponent } from '@@pages/contact/contact.component';
+import { LoginComponent } from '@@pages/login/login.component';
+import { AdminComponent } from '@@pages/admin/admin.component';
+import { Page404Component } from '@@pages/errors/page404/page404.component';
+import { Page403Component } from '@@pages/errors/page403/page403.component';
+import { Page500Component } from '@@pages/errors/page500/page500.component';
 
 const routes: Routes = [
 	{path: '', redirectTo: '/home', pathMatch: 'full'},
