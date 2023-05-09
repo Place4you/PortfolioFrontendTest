@@ -4,6 +4,7 @@ import {
 	HttpClient,
 	HttpResponse
 } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
 import { Project } from "./interfaces";
 import { WorkService } from '@@shared/services/work.service';
 import { ErrorObject } from '@@shared/interfaces/errorObject.interface'
@@ -17,7 +18,11 @@ import { AlertService } from '@@shared/services/alert.service';
 })
 export class WorkComponent implements OnInit {
 	
-	constructor(private alertService: AlertService, private workService: WorkService){ }
+	constructor(
+		private cookieService: CookieService, 
+		private alertService: AlertService, 
+		private workService: WorkService
+	){}
 
 	array_all:            { page: Project[] }[] = [];
 	page_selector_items:  { number: number }[] = [{number: 1}];
@@ -40,6 +45,14 @@ export class WorkComponent implements OnInit {
 		technologies: "Not assigned",
 		description: "Not assigned"
 	};
+
+
+	isLogged(): boolean {
+		if(!this.cookieService.get('JWT')){
+			return false;
+		}
+		return true;
+	}
 
 	onRightArrow(): void {
 		this.pageIndex++;

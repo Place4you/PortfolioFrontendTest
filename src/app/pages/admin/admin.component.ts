@@ -19,7 +19,12 @@ import { ErrorObject } from '@@shared/interfaces/errorObject.interface'
 })
 export class AdminComponent implements OnInit {
 
-	constructor(private alertService: AlertService, private loginService: LoginService, private cookieService: CookieService, private router: Router){ }
+	constructor(
+		private alertService: AlertService, 
+		private loginService: LoginService, 
+		private cookieService: CookieService, 
+		private router: Router
+	){}
 	
 	view_click(view: string): void {
 		const elemView: HTMLElement | null = document.getElementById(`app_${view}`);

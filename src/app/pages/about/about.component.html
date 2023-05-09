@@ -7,7 +7,7 @@
 				<div class="col-sm about_journey">
 					<h1>{{journey.title}}</h1>
 					<p [innerHTML]="journey.description"></p>
-					<h6>#{{journey.id}}</h6>
+					<h6 *ngIf="isLogged()">#{{journey.id}}</h6>
 				</div>
 				<div class="col-sm about_navbar">
 					<button (click)="makePages('knowledge_items')" type="button" class="btn btn-secondary" id="knowledge_items"><strong>Knowledge</strong></button>

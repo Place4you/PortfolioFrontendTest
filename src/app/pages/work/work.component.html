@@ -12,9 +12,6 @@
 				<div class="work_line_2"></div>
 			</div>
 
-
-
-
 			<div class="projects">
 				<ng-container *ngIf="description_open">
 					<div class="project_w_description">
@@ -34,12 +31,11 @@
 						</div>
 						<div class="description_top">
 							<button type="button" class="btn btn-dark" (click)="view_description(false, curr_project.id)">Return</button>
-							<h1>#{{curr_project.id}}</h1>
+							<h1 *ngIf="isLogged()">#{{curr_project.id}}</h1>
 						</div>
 						<p class="description" [innerHTML]=(curr_project.description)></p>
 					</div>
 				</ng-container>
-
 
 				<ng-container *ngIf="!description_open">
 					<ng-container *ngFor="let arrayItem of array_all; let i = index">
@@ -62,10 +58,6 @@
 					</ng-container>
 				</ng-container>
 			</div>
-
-
-
-
 
 			<div class="low_buttons" *ngIf="!description_open">
 				<div class="order_by_button">

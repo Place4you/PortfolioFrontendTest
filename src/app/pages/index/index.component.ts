@@ -16,7 +16,11 @@ import { TableInfoRes } from '@@shared/interfaces/tableInfoRes.interface';
 })
 export class IndexComponent {
 
-	constructor(private alertService: AlertService, private zone: NgZone, private informationService: InformationService) { }
+	constructor(
+		private alertService: AlertService, 
+		private zone: NgZone, 
+		private informationService: InformationService
+	){}
 
 	titles_array:  string[] = [];
 	current_title: string | undefined = undefined;

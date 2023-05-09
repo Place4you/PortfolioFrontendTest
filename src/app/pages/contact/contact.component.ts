@@ -4,6 +4,7 @@ import {
 	HttpClient,
 	HttpResponse
 } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
 import { ContactService } from '@@shared/services/contact.service';
 import { AlertService } from '@@shared/services/alert.service';
 import { ErrorObject } from '@@shared/interfaces/errorObject.interface'
@@ -20,7 +21,11 @@ import {
 })
 export class ContactComponent {
 
-	constructor(private alertService: AlertService, private contactService: ContactService) { }
+	constructor(
+		private cookieService: CookieService, 
+		private alertService: AlertService, 
+		private contactService: ContactService
+	){}
 
 	social_items: {
 		id: number,
@@ -32,6 +37,13 @@ export class ContactComponent {
 	}[] = [];
 
 
+	isLogged(): boolean {
+		if(!this.cookieService.get('JWT')){
+			return false;
+		}
+		return true;
+	}
+	
 	create_message(subject: string, message: string, replyto: string): void {
 		if(!subject){
 			this.alertService.myAlert("Field 'subject' can't be null", 'danger');

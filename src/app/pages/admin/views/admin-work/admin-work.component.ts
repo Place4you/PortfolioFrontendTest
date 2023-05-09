@@ -18,7 +18,12 @@ import { TableWorkItemRes } from '@@shared/interfaces/tableWorkItemRes.interface
 })
 export class AdminWorkComponent implements AfterViewInit {
 
-	constructor(private alertService: AlertService, private router: Router, private cookieService: CookieService, private workService: WorkService) { }
+	constructor(
+		private alertService: AlertService, 
+		private router: Router, 
+		private cookieService: CookieService, 
+		private workService: WorkService
+	){}
 
 	current_value: string = "add";
 	found_item_id: boolean = false;

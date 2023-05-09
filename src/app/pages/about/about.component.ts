@@ -4,6 +4,7 @@ import {
 	HttpClient,
 	HttpResponse
 } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
 import { InformationService } from '@@shared/services/information.service';
 import { AboutService } from '@@shared/services/about.service';
 import { AlertService } from '@@shared/services/alert.service';
@@ -19,7 +20,13 @@ import { TableInfoRes } from '@@shared/interfaces/tableInfoRes.interface';
 })
 export class AboutComponent implements OnInit {
 
-	constructor(private alertService: AlertService, private http: HttpClient, private aboutService: AboutService, private informationService: InformationService){ }
+	constructor(
+		private cookieService: CookieService, 
+		private alertService: AlertService, 
+		private http: HttpClient, 
+		private aboutService: AboutService, 
+		private informationService: InformationService
+	){}
 
 	array_all:          { page: Page[] }[] = [];
 	array_page:         Page[] = [];
@@ -38,6 +45,13 @@ export class AboutComponent implements OnInit {
 	};
 
 
+	isLogged(): boolean {
+		if(!this.cookieService.get('JWT')){
+			return false;
+		}
+		return true;
+	}
+	
 	makePages(view: string): void {
 		this.show_arrows = false;
 		const selectedNavButton: HTMLElement | null = document.getElementById(view);

@@ -20,7 +20,12 @@ import { ErrorObject } from '@@shared/interfaces/errorObject.interface'
 
 export class LoginComponent {
 
-	constructor(private alertService: AlertService, private loginService: LoginService, private cookieService: CookieService, private router: Router) {}
+	constructor(
+		private alertService: AlertService, 
+		private loginService: LoginService, 
+		private cookieService: CookieService, 
+		private router: Router
+	){}
 
 	Login(email: string, password: string): void {
 		let error: boolean = false;

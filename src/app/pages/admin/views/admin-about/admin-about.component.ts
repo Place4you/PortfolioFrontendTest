@@ -20,7 +20,13 @@ import { TableAboutItemRes } from '@@shared/interfaces/tableAboutItemRes.interfa
 })
 export class AdminAboutComponent implements OnInit,AfterViewInit {
 
-	constructor(private alertService: AlertService, private router: Router, private cookieService: CookieService, private aboutService: AboutService, private informationService: InformationService) { }
+	constructor(
+		private alertService: AlertService, 
+		private router: Router, 
+		private cookieService: CookieService, 
+		private aboutService: AboutService, 
+		private informationService: InformationService
+	){}
 
 	journey_info:           string | undefined = undefined;
 	current_value:          string = "add";

@@ -17,7 +17,7 @@
 					<h2>Or see my profiles</h2>
 					<div class="social_items">
 						<div class="social_item" *ngFor="let item of social_items">
-							<div class="item_id">
+							<div class="item_id" *ngIf="isLogged()">
 								<p>#{{item.id}}</p>
 							</div>
 							<a *ngIf="!item.link" class="item_no_link">

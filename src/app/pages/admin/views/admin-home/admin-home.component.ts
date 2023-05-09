@@ -18,7 +18,12 @@ import { ErrorObject } from '@@shared/interfaces/errorObject.interface'
 })
 export class AdminHomeComponent implements OnInit{
 
-	constructor(private alertService: AlertService, private router: Router, private cookieService: CookieService, private informationService: InformationService) { }
+	constructor(
+		private alertService: AlertService, 
+		private router: Router, 
+		private cookieService: CookieService, 
+		private informationService: InformationService
+	){}
 
 	home_titles: string | undefined = undefined;
 	index_titles_id: number = 0;

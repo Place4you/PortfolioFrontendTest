@@ -18,7 +18,12 @@ import { TableUserRes } from '@@shared/interfaces/tableUserRes.interface';
 })
 export class AdminUserComponent implements OnInit {
 
-	constructor(private alertService: AlertService, private router: Router, private cookieService: CookieService, private userService: UserService) { }
+	constructor(
+		private alertService: AlertService, 
+		private router: Router, 
+		private cookieService: CookieService, 
+		private userService: UserService
+	){}
 
 	current_value:	string = "all";
 	found_user_id:	boolean = false;

@@ -21,7 +21,12 @@ import {
 })
 export class AdminContactComponent implements OnInit{
 
-	constructor(private alertService: AlertService, private router: Router, private cookieService: CookieService, private contactService: ContactService) { }
+	constructor(
+		private alertService: AlertService, 
+		private router: Router, 
+		private cookieService: CookieService, 
+		private contactService: ContactService
+	){}
 
 	current_value: 			string = "add";
 	found_item_id: 			boolean = false;
