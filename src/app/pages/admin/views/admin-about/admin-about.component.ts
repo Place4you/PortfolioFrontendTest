@@ -8,6 +8,7 @@ import {
 import { CookieService } from 'ngx-cookie-service';
 import { AboutService } from '@@shared/services/about.service';
 import { InformationService } from '@@shared/services/information.service';
+import { AlertService } from '@@shared/services/alert.service';
 import { ErrorObject } from '@@shared/interfaces/errorObject.interface'
 import { TableInfoRes } from '@@shared/interfaces/tableInfoRes.interface';
 import { TableAboutItemRes } from '@@shared/interfaces/tableAboutItemRes.interface';
@@ -19,7 +20,7 @@ import { TableAboutItemRes } from '@@shared/interfaces/tableAboutItemRes.interfa
 })
 export class AdminAboutComponent implements OnInit,AfterViewInit {
 
-	constructor(private router: Router, private cookieService: CookieService, private aboutService: AboutService, private informationService: InformationService) { }
+	constructor(private alertService: AlertService, private router: Router, private cookieService: CookieService, private aboutService: AboutService, private informationService: InformationService) { }
 
 	journey_info:           string | undefined = undefined;
 	current_value:          string = "add";
@@ -28,30 +29,9 @@ export class AdminAboutComponent implements OnInit,AfterViewInit {
 	item_to_edit:           TableAboutItemRes = {} as TableAboutItemRes;
 
 
-	current_alert: boolean = false;
-	myAlert(message: string, type: string): void {
-		const alertPlaceholder: HTMLElement | null = document.getElementById('liveAlertPlaceholder');
-		if(!this.current_alert){
-			this.current_alert = true;
-			const wrapper: HTMLElement = document.createElement('div');
-			wrapper.innerHTML = [
-				`<div class="alert alert-${type}" role="alert">`,
-				`   <div style="text-align: center;">${message}</div>`,
-				'</div>'
-				].join('');
-			if(alertPlaceholder !== null){
-				alertPlaceholder.append(wrapper);
-				setTimeout(() => {
-					alertPlaceholder.innerHTML = '';
-					this.current_alert = false;
-				}, 5000);
-			}
-		}
-	}
-
 	edit_journey(text: string): void {
 		if(!text){
-			this.myAlert("Field 'journey' can't be null", 'danger');
+			this.alertService.myAlert("Field 'journey' can't be null", 'danger');
 		}
 		else {
 			if(text !== this.journey_info){
@@ -63,12 +43,12 @@ export class AdminAboutComponent implements OnInit,AfterViewInit {
 					this.informationService.editInformationTable(cookieValue, this.journey_info_id, "journey", text)
 					.subscribe(
 						(response: HttpResponse<TableInfoRes>): void  => {
-							this.myAlert("Journey text updated successfully", 'success');
+							this.alertService.myAlert("Journey text updated successfully", 'success');
 							this.journey_info = text;
 						},
 						(error: HttpResponse<ErrorObject>): void => {
 							if(error.body !== null){
-								this.myAlert(error.body.error.message ?? 'Unknown error while updating information', 'danger');
+								this.alertService.myAlert(error.body.error.message ?? 'Unknown error while updating information', 'danger');
 								console.error(error.body.error);
 							}
 						}
@@ -76,7 +56,7 @@ export class AdminAboutComponent implements OnInit,AfterViewInit {
 				}
 			}
 			else{
-				this.myAlert("Information not edited", 'danger');
+				this.alertService.myAlert("Information not edited", 'danger');
 			}
 		}
 	}
@@ -99,22 +79,22 @@ export class AdminAboutComponent implements OnInit,AfterViewInit {
 	): void {
 		const type: number = Number(input_type) || 0;
 		if(type === 0){
-			this.myAlert("Invalid item type", 'danger');
+			this.alertService.myAlert("Invalid item type", 'danger');
 		}
 		else if(type < 1){
-			this.myAlert("Item type must be greater than 0", 'danger');
+			this.alertService.myAlert("Item type must be greater than 0", 'danger');
 		}
 		else if(type > 3){
-			this.myAlert("Item type must be lesser than 4", 'danger');
+			this.alertService.myAlert("Item type must be lesser than 4", 'danger');
 		}
 		else if(!name){
-			this.myAlert("Field 'name' can't be null", 'danger');
+			this.alertService.myAlert("Field 'name' can't be null", 'danger');
 		}
 		else if(!date){
-			this.myAlert("Field 'date' can't be null", 'danger');
+			this.alertService.myAlert("Field 'date' can't be null", 'danger');
 		}
 		else if(!description){
-			this.myAlert("Field 'description' can't be null", 'danger');
+			this.alertService.myAlert("Field 'description' can't be null", 'danger');
 		}
 
 		else {
@@ -138,7 +118,7 @@ export class AdminAboutComponent implements OnInit,AfterViewInit {
 				this.aboutService.createItem(cookieValue, type, name, date, description, truthyItemData)
 				.subscribe(
 					(response: HttpResponse<TableAboutItemRes>): void  => {
-						this.myAlert("Item created successfully", 'success');
+						this.alertService.myAlert("Item created successfully", 'success');
 						const form: HTMLFormElement = <HTMLFormElement>document.getElementById("create_item_form");
 						if(form !== null){
 							form.reset();
@@ -146,7 +126,7 @@ export class AdminAboutComponent implements OnInit,AfterViewInit {
 					},
 					(error: HttpResponse<ErrorObject>): void => {
 						if(error.body !== null){
-							this.myAlert(error.body.error.message ?? 'Unknown error while creating item', 'danger');
+							this.alertService.myAlert(error.body.error.message ?? 'Unknown error while creating item', 'danger');
 							console.error(error.body.error);
 						}
 					}
@@ -158,13 +138,13 @@ export class AdminAboutComponent implements OnInit,AfterViewInit {
 	search_edit_item(inputId: string): void {
 		const itemId: number = Number(inputId) || 0;
 		if(itemId === 0){
-			this.myAlert("Invalid item id", 'danger');
+			this.alertService.myAlert("Invalid item id", 'danger');
 		}
 		else if(itemId < 1){
-			this.myAlert("The item id must be greater than 0", 'danger');
+			this.alertService.myAlert("The item id must be greater than 0", 'danger');
 		}
 		else if(itemId > 65535){
-			this.myAlert("The item id must be lesser than 65536", 'danger');
+			this.alertService.myAlert("The item id must be lesser than 65536", 'danger');
 		}
 		else {
 			this.aboutService.getItem(itemId)
@@ -186,7 +166,7 @@ export class AdminAboutComponent implements OnInit,AfterViewInit {
 				},
 				(error: HttpResponse<ErrorObject>): void => {
 					if(error.body !== null){
-						this.myAlert(error.body.error.message ?? 'Unknown error while retrieving item', 'danger');
+						this.alertService.myAlert(error.body.error.message ?? 'Unknown error while retrieving item', 'danger');
 						console.error(error.body.error);
 					}
 				}
@@ -203,13 +183,13 @@ export class AdminAboutComponent implements OnInit,AfterViewInit {
 		image_alt?: string
 	): void {
 		if(!name){
-			this.myAlert("Field 'name' can't be null", 'danger');
+			this.alertService.myAlert("Field 'name' can't be null", 'danger');
 		}
 		else if(!date){
-			this.myAlert("Field 'date' can't be null", 'danger');
+			this.alertService.myAlert("Field 'date' can't be null", 'danger');
 		}
 		else if(!description){
-			this.myAlert("Field 'description' can't be null", 'danger');
+			this.alertService.myAlert("Field 'description' can't be null", 'danger');
 		}
 		else {
 			if(this.item_to_edit.name){
@@ -254,7 +234,7 @@ export class AdminAboutComponent implements OnInit,AfterViewInit {
 						this.aboutService.updateItem(cookieValue, this.item_to_edit.id, this.item_to_edit.item_type, name, date, description, truthyItemData)
 						.subscribe(
 							(response: HttpResponse<TableAboutItemRes>): void  => {
-								this.myAlert("Item updated successfully", 'success');
+								this.alertService.myAlert("Item updated successfully", 'success');
 								this.item_to_edit.name = name;
 								this.item_to_edit.date = date;
 								this.item_to_edit.description = description;
@@ -264,7 +244,7 @@ export class AdminAboutComponent implements OnInit,AfterViewInit {
 							},
 							(error: HttpResponse<ErrorObject>): void => {
 								if(error.body !== null){
-									this.myAlert(error.body.error.message ?? 'Unknown error while updating item', 'danger');
+									this.alertService.myAlert(error.body.error.message ?? 'Unknown error while updating item', 'danger');
 									console.error(error.body.error);
 								}
 							}
@@ -272,11 +252,11 @@ export class AdminAboutComponent implements OnInit,AfterViewInit {
 					}
 				}
 				else {
-					this.myAlert("Item not edited", 'danger');
+					this.alertService.myAlert("Item not edited", 'danger');
 				}
 			}
 			else {
-				this.myAlert("Item to update not found", 'danger');
+				this.alertService.myAlert("Item to update not found", 'danger');
 				this.found_item_id = false;
 			}
 		}
@@ -285,13 +265,13 @@ export class AdminAboutComponent implements OnInit,AfterViewInit {
 	delete_item(inputId: string): void {
 		const itemId: number = Number(inputId) || 0;
 		if(itemId === 0){
-			this.myAlert("Invalid item id", 'danger');
+			this.alertService.myAlert("Invalid item id", 'danger');
 		}
 		else if(itemId < 1){
-			this.myAlert("The item id must be greater than 0", 'danger');
+			this.alertService.myAlert("The item id must be greater than 0", 'danger');
 		}
 		else if(itemId > 65535){
-			this.myAlert("The item id must be lesser than 65536", 'danger');
+			this.alertService.myAlert("The item id must be lesser than 65536", 'danger');
 		}
 		else {
 			if(!this.cookieService.get('JWT')){
@@ -302,7 +282,7 @@ export class AdminAboutComponent implements OnInit,AfterViewInit {
 				this.aboutService.deleteItem(cookieValue, itemId)
 				.subscribe(
 					(response: HttpResponse<{}>): void  => {
-						this.myAlert("Item deleted successfully", 'success');
+						this.alertService.myAlert("Item deleted successfully", 'success');
 						const form: HTMLFormElement = <HTMLFormElement>document.getElementById("delete_item_form");
 						if(form !== null){
 							form.reset();
@@ -310,7 +290,7 @@ export class AdminAboutComponent implements OnInit,AfterViewInit {
 					},
 					(error: HttpResponse<ErrorObject>): void => {
 						if(error.body !== null){
-							this.myAlert(error.body.error.message ?? 'Unknown error while deleting item', 'danger');
+							this.alertService.myAlert(error.body.error.message ?? 'Unknown error while deleting item', 'danger');
 							console.error(error.body.error);
 						}
 					}
@@ -335,7 +315,7 @@ export class AdminAboutComponent implements OnInit,AfterViewInit {
 			},
 			(error: HttpResponse<ErrorObject>): void => {
 				if(error.body !== null){
-					this.myAlert(error.body.error.message ?? 'Unknown error while retrieving the information table', 'danger');
+					this.alertService.myAlert(error.body.error.message ?? 'Unknown error while retrieving the information table', 'danger');
 					console.error(error.body.error);
 				}
 			}

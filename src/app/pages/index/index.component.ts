@@ -5,6 +5,7 @@ import {
 	HttpResponse
 } from '@angular/common/http';
 import { InformationService } from '@@shared/services/information.service';
+import { AlertService } from '@@shared/services/alert.service';
 import { ErrorObject } from '@@shared/interfaces/errorObject.interface'
 import { TableInfoRes } from '@@shared/interfaces/tableInfoRes.interface';
 
@@ -15,7 +16,7 @@ import { TableInfoRes } from '@@shared/interfaces/tableInfoRes.interface';
 })
 export class IndexComponent {
 
-	constructor(private zone: NgZone, private informationService: InformationService) { }
+	constructor(private alertService: AlertService, private zone: NgZone, private informationService: InformationService) { }
 
 	titles_array:  string[] = [];
 	current_title: string | undefined = undefined;
@@ -25,27 +26,6 @@ export class IndexComponent {
 	resize_ob:     ResizeObserver | undefined = undefined;
 
 	
-	current_alert: boolean = false;
-	myAlert(message: string, type: string): void {
-		const alertPlaceholder: HTMLElement | null = document.getElementById('liveAlertPlaceholder');
-		if(!this.current_alert){
-			this.current_alert = true;
-			const wrapper: HTMLElement = document.createElement('div');
-			wrapper.innerHTML = [
-				`<div class="alert alert-${type}" role="alert">`,
-				`   <div style="text-align: center;">${message}</div>`,
-				'</div>'
-				].join('');
-			if(alertPlaceholder !== null){
-				alertPlaceholder.append(wrapper);
-				setTimeout(() => {
-					alertPlaceholder.innerHTML = '';
-					this.current_alert = false;
-				}, 5000);
-			}
-		}
-	}
-
 	update_title(): void {
 		if(this.el){
 			this.resize_ob = new ResizeObserver((entries) => {
@@ -89,7 +69,7 @@ export class IndexComponent {
 			},
 			(error: HttpResponse<ErrorObject>): void => {
 				if(error.body !== null){
-					this.myAlert(error.body.error.message ?? 'Unknown error while retrieving the information table', 'danger');
+					this.alertService.myAlert(error.body.error.message ?? 'Unknown error while retrieving the information table', 'danger');
 					console.error(error.body.error);
 				}
 			}

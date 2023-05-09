@@ -7,6 +7,7 @@ import {
 } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { LoginService } from '@@shared/services/login.service';
+import { AlertService } from '@@shared/services/alert.service';
 import { ErrorObject } from '@@shared/interfaces/errorObject.interface'
 
 @Component({
@@ -18,30 +19,8 @@ import { ErrorObject } from '@@shared/interfaces/errorObject.interface'
 })
 export class AdminComponent implements OnInit {
 
-	constructor(private loginService: LoginService, private cookieService: CookieService, private router: Router){ }
+	constructor(private alertService: AlertService, private loginService: LoginService, private cookieService: CookieService, private router: Router){ }
 	
-
-	current_alert: boolean = false;
-	myAlert(message: string, type: string): void {
-		const alertPlaceholder: HTMLElement | null = document.getElementById('liveAlertPlaceholder');
-		if(!this.current_alert){
-			this.current_alert = true;
-			const wrapper: HTMLElement = document.createElement('div');
-			wrapper.innerHTML = [
-				`<div class="alert alert-${type}" role="alert">`,
-				`   <div style="text-align: center;">${message}</div>`,
-				'</div>'
-				].join('');
-			if(alertPlaceholder !== null){
-				alertPlaceholder.append(wrapper);
-				setTimeout(() => {
-					alertPlaceholder.innerHTML = '';
-					this.current_alert = false;
-				}, 5000);
-			}
-		}
-	}
-
 	view_click(view: string): void {
 		const elemView: HTMLElement | null = document.getElementById(`app_${view}`);
 		let arrow: NodeListOf<ChildNode> | undefined = undefined;
@@ -145,7 +124,7 @@ export class AdminComponent implements OnInit {
 				(response: HttpResponse<{}>): void  => {},
 				(error: HttpResponse<ErrorObject>): void => {
 					if(error.body !== null){
-						this.myAlert(error.body.error.message ?? 'Unknown error while validating JWT', 'danger');
+						this.alertService.myAlert(error.body.error.message ?? 'Unknown error while validating JWT', 'danger');
 						console.error(error.body.error);
 						this.b_logout();
 					}

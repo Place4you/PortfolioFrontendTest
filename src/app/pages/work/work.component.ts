@@ -8,6 +8,7 @@ import { Project } from "./interfaces";
 import { WorkService } from '@@shared/services/work.service';
 import { ErrorObject } from '@@shared/interfaces/errorObject.interface'
 import { TableWorkItemRes } from '@@shared/interfaces/tableWorkItemRes.interface';
+import { AlertService } from '@@shared/services/alert.service';
 
 @Component({
 	selector: 'app-work',
@@ -16,7 +17,7 @@ import { TableWorkItemRes } from '@@shared/interfaces/tableWorkItemRes.interface
 })
 export class WorkComponent implements OnInit {
 	
-	constructor(private workService: WorkService){ }
+	constructor(private alertService: AlertService, private workService: WorkService){ }
 
 	array_all:            { page: Project[] }[] = [];
 	page_selector_items:  { number: number }[] = [{number: 1}];
@@ -39,28 +40,6 @@ export class WorkComponent implements OnInit {
 		technologies: "Not assigned",
 		description: "Not assigned"
 	};
-
-
-	current_alert: boolean = false;
-	myAlert(message: string, type: string): void {
-		const alertPlaceholder: HTMLElement | null = document.getElementById('liveAlertPlaceholder');
-		if(!this.current_alert){
-			this.current_alert = true;
-			const wrapper: HTMLElement = document.createElement('div');
-			wrapper.innerHTML = [
-				`<div class="alert alert-${type}" role="alert">`,
-				`   <div style="text-align: center;">${message}</div>`,
-				'</div>'
-				].join('');
-			if(alertPlaceholder !== null){
-				alertPlaceholder.append(wrapper);
-				setTimeout(() => {
-					alertPlaceholder.innerHTML = '';
-					this.current_alert = false;
-				}, 5000);
-			}
-		}
-	}
 
 	onRightArrow(): void {
 		this.pageIndex++;
@@ -256,7 +235,7 @@ export class WorkComponent implements OnInit {
 			},
 			(error: HttpResponse<ErrorObject>): void => {
 				if(error.body !== null){
-					this.myAlert(error.body.error.message ?? 'Unknown error while retrieving the work items', 'danger');
+					this.alertService.myAlert(error.body.error.message ?? 'Unknown error while retrieving the work items', 'danger');
 					console.error(error.body.error);
 				}
 			}

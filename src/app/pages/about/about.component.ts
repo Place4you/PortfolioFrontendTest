@@ -6,6 +6,7 @@ import {
 } from '@angular/common/http';
 import { InformationService } from '@@shared/services/information.service';
 import { AboutService } from '@@shared/services/about.service';
+import { AlertService } from '@@shared/services/alert.service';
 import { ErrorObject } from '@@shared/interfaces/errorObject.interface'
 import { Page } from './interfaces';
 import { TableAboutItemRes } from '@@shared/interfaces/tableAboutItemRes.interface';
@@ -18,7 +19,7 @@ import { TableInfoRes } from '@@shared/interfaces/tableInfoRes.interface';
 })
 export class AboutComponent implements OnInit {
 
-	constructor(private http: HttpClient, private aboutService: AboutService, private informationService: InformationService){ }
+	constructor(private alertService: AlertService, private http: HttpClient, private aboutService: AboutService, private informationService: InformationService){ }
 
 	array_all:          { page: Page[] }[] = [];
 	array_page:         Page[] = [];
@@ -36,27 +37,6 @@ export class AboutComponent implements OnInit {
 		description: "No description"
 	};
 
-
-	current_alert: boolean = false;
-	myAlert(message: string, type: string): void {
-		const alertPlaceholder: HTMLElement | null = document.getElementById('liveAlertPlaceholder');
-		if(!this.current_alert){
-			this.current_alert = true;
-			const wrapper: HTMLElement = document.createElement('div');
-			wrapper.innerHTML = [
-				`<div class="alert alert-${type}" role="alert">`,
-				`   <div style="text-align: center;">${message}</div>`,
-				'</div>'
-				].join('');
-			if(alertPlaceholder !== null){
-				alertPlaceholder.append(wrapper);
-				setTimeout(() => {
-					alertPlaceholder.innerHTML = '';
-					this.current_alert = false;
-				}, 5000);
-			}
-		}
-	}
 
 	makePages(view: string): void {
 		this.show_arrows = false;
@@ -226,7 +206,7 @@ export class AboutComponent implements OnInit {
 			},
 			(error: HttpResponse<ErrorObject>): void => {
 				if(error.body !== null){
-					this.myAlert(error.body.error.message ?? 'Unknown error while retrieving the information table', 'danger');
+					this.alertService.myAlert(error.body.error.message ?? 'Unknown error while retrieving the information table', 'danger');
 					console.error(error.body.error);
 				}
 			}
@@ -296,7 +276,7 @@ export class AboutComponent implements OnInit {
 			},
 			(error: HttpResponse<ErrorObject>): void => {
 				if(error.body !== null){
-					this.myAlert(error.body.error.message ?? 'Unknown error while retrieving the about items', 'danger');
+					this.alertService.myAlert(error.body.error.message ?? 'Unknown error while retrieving the about items', 'danger');
 					console.error(error.body.error);
 				}
 			}

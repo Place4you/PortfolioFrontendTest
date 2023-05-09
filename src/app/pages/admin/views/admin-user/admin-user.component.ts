@@ -7,6 +7,7 @@ import {
 } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { UserService } from '@@shared/services/user.service';
+import { AlertService } from '@@shared/services/alert.service';
 import { ErrorObject } from '@@shared/interfaces/errorObject.interface'
 import { TableUserRes } from '@@shared/interfaces/tableUserRes.interface';
 
@@ -17,7 +18,7 @@ import { TableUserRes } from '@@shared/interfaces/tableUserRes.interface';
 })
 export class AdminUserComponent implements OnInit {
 
-	constructor(private router: Router, private cookieService: CookieService, private userService: UserService) { }
+	constructor(private alertService: AlertService, private router: Router, private cookieService: CookieService, private userService: UserService) { }
 
 	current_value:	string = "all";
 	found_user_id:	boolean = false;
@@ -25,27 +26,6 @@ export class AdminUserComponent implements OnInit {
 	all_users: 		TableUserRes[] = [];
 	all_empty: 		boolean = true;
 
-	current_alert: boolean = false;
-	myAlert(message: string, type: string): void {
-		const alertPlaceholder: HTMLElement | null = document.getElementById('liveAlertPlaceholder');
-		if(!this.current_alert){
-			this.current_alert = true;
-			const wrapper: HTMLElement = document.createElement('div');
-			wrapper.innerHTML = [
-				`<div class="alert alert-${type}" role="alert">`,
-				`   <div style="text-align: center;">${message}</div>`,
-				'</div>'
-				].join('');
-			if(alertPlaceholder !== null){
-				alertPlaceholder.append(wrapper);
-				setTimeout(() => {
-					alertPlaceholder.innerHTML = '';
-					this.current_alert = false;
-				}, 5000);
-			}
-		}
-	}
-	
 	method_change(value: string): void {
 		if(value !== this.current_value){
 			this.found_user_id = false;
@@ -59,13 +39,13 @@ export class AdminUserComponent implements OnInit {
 		password: string,
 	): void {
 		if(!name){
-			this.myAlert("Field 'name' can't be null", 'danger');
+			this.alertService.myAlert("Field 'name' can't be null", 'danger');
 		}
 		else if(!email){
-			this.myAlert("Field 'email' can't be null", 'danger');
+			this.alertService.myAlert("Field 'email' can't be null", 'danger');
 		}
 		else if(!password){
-			this.myAlert("Field 'password' can't be null", 'danger');
+			this.alertService.myAlert("Field 'password' can't be null", 'danger');
 		}
 
 		else {
@@ -77,7 +57,7 @@ export class AdminUserComponent implements OnInit {
 				this.userService.createUser(cookieValue, name, email, password)
 				.subscribe(
 					(response: HttpResponse<TableUserRes>): void  => {
-						this.myAlert("User created successfully", 'success');
+						this.alertService.myAlert("User created successfully", 'success');
 						const form: HTMLFormElement = <HTMLFormElement>document.getElementById("create_user_form");
 						if(form !== null){
 							form.reset();
@@ -86,7 +66,7 @@ export class AdminUserComponent implements OnInit {
 					},
 					(error: HttpResponse<ErrorObject>): void => {
 						if(error.body !== null){
-							this.myAlert(error.body.error.message ?? 'Unknown error while creating user', 'danger');
+							this.alertService.myAlert(error.body.error.message ?? 'Unknown error while creating user', 'danger');
 							console.error(error.body.error);
 						}
 					}
@@ -98,13 +78,13 @@ export class AdminUserComponent implements OnInit {
 	search_edit_user(inputId: number): void {
 		const userId: number = Number(inputId) || 0;
 		if(userId === 0){
-			this.myAlert("Invalid user id", 'danger');
+			this.alertService.myAlert("Invalid user id", 'danger');
 		}
 		else if(userId < 1){
-			this.myAlert("The user id must be greater than 0", 'danger');
+			this.alertService.myAlert("The user id must be greater than 0", 'danger');
 		}
 		else if(userId > 65535){
-			this.myAlert("The user id must be lesser than 65536", 'danger');
+			this.alertService.myAlert("The user id must be lesser than 65536", 'danger');
 		}
 		else {
 			if(!this.cookieService.get('JWT')){
@@ -128,7 +108,7 @@ export class AdminUserComponent implements OnInit {
 					},
 					(error: HttpResponse<ErrorObject>): void => {
 						if(error.body !== null){
-							this.myAlert(error.body.error.message ?? 'Unknown error while retrieving user', 'danger');
+							this.alertService.myAlert(error.body.error.message ?? 'Unknown error while retrieving user', 'danger');
 							console.error(error.body.error);
 						}
 					}
@@ -143,13 +123,13 @@ export class AdminUserComponent implements OnInit {
 		password: string
 	): void {
 		if(!name){
-			this.myAlert("Field 'name' can't be null", 'danger');
+			this.alertService.myAlert("Field 'name' can't be null", 'danger');
 		}
 		else if(!email){
-			this.myAlert("Field 'email' can't be null", 'danger');
+			this.alertService.myAlert("Field 'email' can't be null", 'danger');
 		}
 		else if(!password){
-			this.myAlert("Field 'password' can't be null", 'danger');
+			this.alertService.myAlert("Field 'password' can't be null", 'danger');
 		}
 		else {
 			if(this.user_to_edit.name){
@@ -170,13 +150,13 @@ export class AdminUserComponent implements OnInit {
 						this.userService.updateUser(cookieValue, this.user_to_edit.id, name, email, password)
 						.subscribe(
 							(response: HttpResponse<TableUserRes>): void  => {
-								this.myAlert("User updated successfully", 'success');
+								this.alertService.myAlert("User updated successfully", 'success');
 								this.user_to_edit.name = name;
 								this.user_to_edit.email = email;
 							},
 							(error: HttpResponse<ErrorObject>): void => {
 								if(error.body !== null){
-									this.myAlert(error.body.error.message ?? 'Unknown error while updating user', 'danger');
+									this.alertService.myAlert(error.body.error.message ?? 'Unknown error while updating user', 'danger');
 									console.error(error.body.error);
 								}
 							}
@@ -184,11 +164,11 @@ export class AdminUserComponent implements OnInit {
 					}
 				}
 				else {
-					this.myAlert("User not edited", 'danger');
+					this.alertService.myAlert("User not edited", 'danger');
 				}
 			}
 			else {
-				this.myAlert("User to update not found", 'danger');
+				this.alertService.myAlert("User to update not found", 'danger');
 				this.found_user_id = false;
 			}
 		}
@@ -197,13 +177,13 @@ export class AdminUserComponent implements OnInit {
 	delete_user(inputId: number): void {
 		const userId: number = Number(inputId) || 0;
 		if(userId === 0){
-			this.myAlert("Invalid user id", 'danger');
+			this.alertService.myAlert("Invalid user id", 'danger');
 		}
 		else if(userId < 1){
-			this.myAlert("The user id must be greater than 0", 'danger');
+			this.alertService.myAlert("The user id must be greater than 0", 'danger');
 		}
 		else if(userId > 65535){
-			this.myAlert("The user id must be lesser than 65536", 'danger');
+			this.alertService.myAlert("The user id must be lesser than 65536", 'danger');
 		}
 		else {
 			if(!this.cookieService.get('JWT')){
@@ -214,7 +194,7 @@ export class AdminUserComponent implements OnInit {
 				this.userService.deleteUser(cookieValue, userId)
 				.subscribe(
 					(response: HttpResponse<{}>): void  => {
-						this.myAlert("User deleted successfully", 'success');
+						this.alertService.myAlert("User deleted successfully", 'success');
 						for(let i = 0; i < this.all_users.length; i++){
 							if(this.all_users[i].id === inputId){
 								this.all_users.splice(i, 1);
@@ -224,7 +204,7 @@ export class AdminUserComponent implements OnInit {
 					},
 					(error: HttpResponse<ErrorObject>): void => {
 						if(error.body !== null){
-							this.myAlert(error.body.error.message ?? 'Unknown error while deleting user', 'danger');
+							this.alertService.myAlert(error.body.error.message ?? 'Unknown error while deleting user', 'danger');
 							console.error(error.body.error);
 						}
 					}
@@ -251,7 +231,7 @@ export class AdminUserComponent implements OnInit {
 				},
 				(error: HttpResponse<ErrorObject>): void => {
 					if(error.body !== null){
-						this.myAlert(error.body.error.message ?? 'Unknown error while retrieving users', 'danger');
+						this.alertService.myAlert(error.body.error.message ?? 'Unknown error while retrieving users', 'danger');
 						console.error(error.body.error);
 					}
 				}

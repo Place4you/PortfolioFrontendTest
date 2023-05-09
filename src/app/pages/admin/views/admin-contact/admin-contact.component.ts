@@ -7,6 +7,7 @@ import {
 } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { ContactService } from '@@shared/services/contact.service';
+import { AlertService } from '@@shared/services/alert.service';
 import { ErrorObject } from '@@shared/interfaces/errorObject.interface'
 import {
 	TableContactItemRes,
@@ -20,7 +21,7 @@ import {
 })
 export class AdminContactComponent implements OnInit{
 
-	constructor(private router: Router, private cookieService: CookieService, private contactService: ContactService) { }
+	constructor(private alertService: AlertService, private router: Router, private cookieService: CookieService, private contactService: ContactService) { }
 
 	current_value: 			string = "add";
 	found_item_id: 			boolean = false;
@@ -30,27 +31,6 @@ export class AdminContactComponent implements OnInit{
 	one_message: 			boolean = false;
 	messages_empty: 		boolean = true;
 
-
-	current_alert: boolean = false;
-	myAlert(message: string, type: string): void {
-		const alertPlaceholder: HTMLElement | null = document.getElementById('liveAlertPlaceholder');
-		if(!this.current_alert){
-			this.current_alert = true;
-			const wrapper: HTMLElement = document.createElement('div');
-			wrapper.innerHTML = [
-				`<div class="alert alert-${type}" role="alert">`,
-				`   <div style="text-align: center;">${message}</div>`,
-				'</div>'
-				].join('');
-			if(alertPlaceholder !== null){
-				alertPlaceholder.append(wrapper);
-				setTimeout(() => {
-					alertPlaceholder.innerHTML = '';
-					this.current_alert = false;
-				}, 5000);
-			}
-		}
-	}
 
 	method_change(value: string): void {
 		if(value !== this.current_value){
@@ -67,10 +47,10 @@ export class AdminContactComponent implements OnInit{
 		image_alt?: string
 	): void {
 		if(!name){
-			this.myAlert("Field 'name' can't be null", 'danger');
+			this.alertService.myAlert("Field 'name' can't be null", 'danger');
 		}
 		else if(!account){
-			this.myAlert("Field 'account' can't be null", 'danger');
+			this.alertService.myAlert("Field 'account' can't be null", 'danger');
 		}
 		else {
 			if(!this.cookieService.get('JWT')){
@@ -93,7 +73,7 @@ export class AdminContactComponent implements OnInit{
 				this.contactService.createItem(cookieValue, name, account, truthyItemData)
 				.subscribe(
 					(response: HttpResponse<TableContactItemRes>): void  => {
-						this.myAlert("Item created successfully", 'success');
+						this.alertService.myAlert("Item created successfully", 'success');
 						const form: HTMLFormElement = <HTMLFormElement>document.getElementById("create_item_form");
 						if(form !== null){
 							form.reset();
@@ -101,7 +81,7 @@ export class AdminContactComponent implements OnInit{
 					},
 					(error: HttpResponse<ErrorObject>): void => {
 						if(error.body !== null){
-							this.myAlert(error.body.error.message ?? 'Unknown error while creating item', 'danger');
+							this.alertService.myAlert(error.body.error.message ?? 'Unknown error while creating item', 'danger');
 							console.error(error.body.error);
 						}
 					}
@@ -113,13 +93,13 @@ export class AdminContactComponent implements OnInit{
 	search_edit_item(inputId: string): void {
 		const itemId: number = Number(inputId) || 0;
 		if(itemId === 0){
-			this.myAlert("Invalid item id", 'danger');
+			this.alertService.myAlert("Invalid item id", 'danger');
 		}
 		else if(itemId < 1){
-			this.myAlert("The item id must be greater than 0", 'danger');
+			this.alertService.myAlert("The item id must be greater than 0", 'danger');
 		}
 		else if(itemId > 65535){
-			this.myAlert("The item id must be lesser than 65536", 'danger');
+			this.alertService.myAlert("The item id must be lesser than 65536", 'danger');
 		}
 		else {
 			this.contactService.getItem(itemId)
@@ -139,7 +119,7 @@ export class AdminContactComponent implements OnInit{
 				},
 				(error: HttpResponse<ErrorObject>): void => {
 					if(error.body !== null){
-						this.myAlert(error.body.error.message ?? 'Unknown error while retrieving item', 'danger');
+						this.alertService.myAlert(error.body.error.message ?? 'Unknown error while retrieving item', 'danger');
 						console.error(error.body.error);
 					}
 				}
@@ -155,10 +135,10 @@ export class AdminContactComponent implements OnInit{
 		image_alt?: string
 	): void {
 		if(!name){
-			this.myAlert("Field 'name' can't be null", 'danger');
+			this.alertService.myAlert("Field 'name' can't be null", 'danger');
 		}
 		else if(!account){
-			this.myAlert("Field 'account' can't be null", 'danger');
+			this.alertService.myAlert("Field 'account' can't be null", 'danger');
 		}
 		else {
 			if(this.item_to_edit.name){
@@ -200,7 +180,7 @@ export class AdminContactComponent implements OnInit{
 						this.contactService.updateItem(cookieValue, this.item_to_edit.id, name, account, truthyItemData)
 						.subscribe(
 							(response: HttpResponse<TableContactItemRes>): void  => {
-								this.myAlert("Item updated successfully", 'success');
+								this.alertService.myAlert("Item updated successfully", 'success');
 								this.item_to_edit.name = name;
 								this.item_to_edit.account = account;
 								this.item_to_edit.link = link;
@@ -209,7 +189,7 @@ export class AdminContactComponent implements OnInit{
 							},
 							(error: HttpResponse<ErrorObject>): void => {
 								if(error.body !== null){
-									this.myAlert(error.body.error.message ?? 'Unknown error while updating item', 'danger');
+									this.alertService.myAlert(error.body.error.message ?? 'Unknown error while updating item', 'danger');
 									console.error(error.body.error);
 								}
 							}
@@ -217,12 +197,12 @@ export class AdminContactComponent implements OnInit{
 					}
 				}
 				else {
-					this.myAlert("Item not edited", 'danger');
+					this.alertService.myAlert("Item not edited", 'danger');
 				}
 			}
 			else {
 				this.found_item_id = false;
-				this.myAlert("Item to update not found", 'danger');
+				this.alertService.myAlert("Item to update not found", 'danger');
 			}
 		}
 	}
@@ -230,13 +210,13 @@ export class AdminContactComponent implements OnInit{
 	delete_item(inputId: string): void {
 		const itemId: number = Number(inputId) || 0;
 		if(itemId === 0){
-			this.myAlert("Invalid item id", 'danger');
+			this.alertService.myAlert("Invalid item id", 'danger');
 		}
 		else if(itemId < 1){
-			this.myAlert("The item id must be greater than 0", 'danger');
+			this.alertService.myAlert("The item id must be greater than 0", 'danger');
 		}
 		else if(itemId > 65535){
-			this.myAlert("The item id must be lesser than 65536", 'danger');
+			this.alertService.myAlert("The item id must be lesser than 65536", 'danger');
 		}
 		else {
 			if(!this.cookieService.get('JWT')){
@@ -247,7 +227,7 @@ export class AdminContactComponent implements OnInit{
 				this.contactService.deleteItem(cookieValue, itemId)
 				.subscribe(
 					(response: HttpResponse<{}>): void  => {
-						this.myAlert("Item deleted successfully", 'success');
+						this.alertService.myAlert("Item deleted successfully", 'success');
 						const form: HTMLFormElement = <HTMLFormElement>document.getElementById("delete_item_form");
 						if(form !== null){
 							form.reset();
@@ -255,7 +235,7 @@ export class AdminContactComponent implements OnInit{
 					},
 					(error: HttpResponse<ErrorObject>): void => {
 						if(error.body !== null){
-							this.myAlert(error.body.error.message ?? 'Unknown error while deleting item', 'danger');
+							this.alertService.myAlert(error.body.error.message ?? 'Unknown error while deleting item', 'danger');
 							console.error(error.body.error);
 						}
 					}
@@ -297,7 +277,7 @@ export class AdminContactComponent implements OnInit{
 									},
 									(error: HttpResponse<ErrorObject>): void => {
 										if(error.body !== null){
-											this.myAlert(error.body.error.message ?? 'Unknown error while updating message read status', 'danger');
+											this.alertService.myAlert(error.body.error.message ?? 'Unknown error while updating message read status', 'danger');
 											console.error(error.body.error);
 										}
 									}
@@ -307,7 +287,7 @@ export class AdminContactComponent implements OnInit{
 					},
 					(error: HttpResponse<ErrorObject>): void => {
 						if(error.body !== null){
-							this.myAlert(error.body.error.message ?? 'Unknown error while retrieving message', 'danger');
+							this.alertService.myAlert(error.body.error.message ?? 'Unknown error while retrieving message', 'danger');
 							console.error(error.body.error);
 						}
 					}
@@ -321,13 +301,13 @@ export class AdminContactComponent implements OnInit{
 
 	delete_message(inputId: number): void {
 		if(inputId === 0){
-			this.myAlert("Invalid message id", 'danger');
+			this.alertService.myAlert("Invalid message id", 'danger');
 		}
 		else if(inputId < 1){
-			this.myAlert("The message id must be greater than 0", 'danger');
+			this.alertService.myAlert("The message id must be greater than 0", 'danger');
 		}
 		else if(inputId > 65535){
-			this.myAlert("The message id must be lesser than 65536", 'danger');
+			this.alertService.myAlert("The message id must be lesser than 65536", 'danger');
 		}
 		else {
 			if(!this.cookieService.get('JWT')){
@@ -344,12 +324,12 @@ export class AdminContactComponent implements OnInit{
 								break;
 							}
 						}
-						this.myAlert("Message deleted successfully", 'success');
+						this.alertService.myAlert("Message deleted successfully", 'success');
 						this.one_message = false;
 					},
 					(error: HttpResponse<ErrorObject>): void => {
 						if(error.body !== null){
-							this.myAlert(error.body.error.message ?? 'Unknown error while deleting message', 'danger');
+							this.alertService.myAlert(error.body.error.message ?? 'Unknown error while deleting message', 'danger');
 							console.error(error.body.error);
 						}
 					}
@@ -388,7 +368,7 @@ export class AdminContactComponent implements OnInit{
 				},
 				(error: HttpResponse<ErrorObject>): void => {
 					if(error.body !== null){
-						this.myAlert(error.body.error.message ?? 'Unknown error while retrieving messages', 'danger');
+						this.alertService.myAlert(error.body.error.message ?? 'Unknown error while retrieving messages', 'danger');
 						console.error(error.body.error);
 					}
 				}
