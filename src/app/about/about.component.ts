@@ -1,12 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { AboutService } from '../services/about.service';
-import { InformationService } from '../services/information.service';
+import {
+	HttpClientModule,
+	HttpClient,
+	HttpResponse
+} from '@angular/common/http';
+import { InformationService } from '@services/information.service';
+import { AboutService } from '@services/about.service';
+import { LoaderService } from '@services/loader.service';
+import { ErrorObject } from '@interfaces/errorObject.interface'
 import { Page } from './interfaces';
-import { HttpClientModule, HttpClient, HttpResponse } from '@angular/common/http'
-import { TableInfoRes } from '../interfaces/tableInfoRes.interface';
-import { TableAboutItemRes } from '../interfaces/tableAboutItemRes.interface';
-import { ErrorObject } from '../interfaces/errorObject.interface'
-import { LoaderService } from '../services/loader.service';
+import { TableAboutItemRes } from '@interfaces/tableAboutItemRes.interface';
+import { TableInfoRes } from '@interfaces/tableInfoRes.interface';
 
 @Component({
 	selector: 'app-about',

@@ -1,10 +1,14 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Router } from '@angular/router'
+import { Router } from '@angular/router';
+import { 
+	HttpClientModule,
+	HttpClient,
+	HttpResponse
+} from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
-import { LoginService } from '../services/login.service';
-import { HttpClientModule, HttpClient, HttpResponse } from '@angular/common/http';
-import { ErrorObject } from '../interfaces/errorObject.interface'
-import { LoaderService } from '../services/loader.service';
+import { LoginService } from '@services/login.service';
+import { LoaderService } from '@services/loader.service';
+import { ErrorObject } from '@interfaces/errorObject.interface'
 
 @Component({
 	selector: 'app-admin',

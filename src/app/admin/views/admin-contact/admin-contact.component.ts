@@ -1,10 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router'
+import { Router } from '@angular/router';
+import {
+	HttpClientModule,
+	HttpClient,
+	HttpResponse
+} from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
-import { ContactService } from '../../../services/contact.service';
-import { TableContactItemRes, TableContactMessageRes } from '../../../interfaces/tableContactRes.interface';
-import { HttpClientModule, HttpClient, HttpResponse } from '@angular/common/http'
-import { ErrorObject } from '../../../interfaces/errorObject.interface'
+import { ContactService } from '@services/contact.service';
+import { ErrorObject } from '@interfaces/errorObject.interface'
+import {
+	TableContactItemRes,
+	TableContactMessageRes
+} from '@interfaces/tableContactRes.interface';
 
 @Component({
 	selector: 'app-admin-contact',

@@ -1,12 +1,16 @@
 import { Component, AfterViewInit, OnInit } from '@angular/core';
-import { Router } from '@angular/router'
+import { Router } from '@angular/router';
+import {
+	HttpClientModule,
+	HttpClient,
+	HttpResponse
+} from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
-import { AboutService } from '../../../services/about.service';
-import { InformationService } from '../../../services/information.service';
-import { ErrorObject } from '../../../interfaces/errorObject.interface'
-import { TableInfoRes } from '../../../interfaces/tableInfoRes.interface';
-import { HttpClientModule, HttpClient, HttpResponse } from '@angular/common/http'
-import { TableAboutItemRes } from '../../../interfaces/tableAboutItemRes.interface';
+import { AboutService } from '@services/about.service';
+import { InformationService } from '@services/information.service';
+import { ErrorObject } from '@interfaces/errorObject.interface'
+import { TableInfoRes } from '@interfaces/tableInfoRes.interface';
+import { TableAboutItemRes } from '@interfaces/tableAboutItemRes.interface';
 
 @Component({
 	selector: 'app-admin-about',

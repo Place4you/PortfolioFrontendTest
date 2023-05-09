@@ -1,10 +1,14 @@
 import { Component, AfterViewInit } from '@angular/core';
-import { WorkService } from '../../../services/work.service';
-import { Router } from '@angular/router'
+import { Router } from '@angular/router';
+import {
+	HttpClientModule,
+	HttpClient,
+	HttpResponse
+} from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
-import { HttpClientModule, HttpClient, HttpResponse } from '@angular/common/http';
-import { TableWorkItemRes } from '../../../interfaces/tableWorkItemRes.interface';
-import { ErrorObject } from '../../../interfaces/errorObject.interface'
+import { WorkService } from '@services/work.service';
+import { ErrorObject } from '@interfaces/errorObject.interface'
+import { TableWorkItemRes } from '@interfaces/tableWorkItemRes.interface';
 
 @Component({
 	selector: 'app-admin-work',

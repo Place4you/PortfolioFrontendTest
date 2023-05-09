@@ -1,9 +1,13 @@
 import { Component, NgZone } from '@angular/core';
-import { InformationService } from '../services/information.service';
-import { TableInfoRes } from '../interfaces/tableInfoRes.interface';
-import { HttpClientModule, HttpClient, HttpResponse } from '@angular/common/http'
-import { ErrorObject } from '../interfaces/errorObject.interface'
-import { LoaderService } from '../services/loader.service';
+import {
+	HttpClientModule,
+	HttpClient,
+	HttpResponse
+} from '@angular/common/http';
+import { InformationService } from '@services/information.service';
+import { LoaderService } from '@services/loader.service';
+import { ErrorObject } from '@interfaces/errorObject.interface'
+import { TableInfoRes } from '@interfaces/tableInfoRes.interface';
 
 @Component({
 	selector: 'app-index',

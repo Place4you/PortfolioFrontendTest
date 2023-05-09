@@ -1,9 +1,16 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { ContactService } from '../services/contact.service';
-import { TableContactItemRes, TableContactMessageRes } from '../interfaces/tableContactRes.interface';
-import { HttpClientModule, HttpClient, HttpResponse } from '@angular/common/http'
-import { ErrorObject } from '../interfaces/errorObject.interface'
-import { LoaderService } from '../services/loader.service';
+import {
+	HttpClientModule,
+	HttpClient,
+	HttpResponse
+} from '@angular/common/http';
+import { ContactService } from '@services/contact.service';
+import { LoaderService } from '@services/loader.service';
+import { ErrorObject } from '@interfaces/errorObject.interface'
+import {
+	TableContactItemRes,
+	TableContactMessageRes
+} from '@interfaces/tableContactRes.interface';
 
 @Component({
 	selector: 'app-contact',

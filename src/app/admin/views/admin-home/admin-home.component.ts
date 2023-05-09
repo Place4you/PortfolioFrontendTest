@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router'
+import { Router } from '@angular/router';
+import {
+	HttpClientModule,
+	HttpClient,
+	HttpResponse
+} from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
-import { InformationService } from '../../../services/information.service';
-import { TableInfoRes } from '../../../interfaces/tableInfoRes.interface';
-import { HttpClientModule, HttpClient, HttpResponse } from '@angular/common/http'
-import { ErrorObject } from '../../../interfaces/errorObject.interface'
+import { InformationService } from '@services/information.service';
+import { TableInfoRes } from '@interfaces/tableInfoRes.interface';
+import { ErrorObject } from '@interfaces/errorObject.interface'
 
 @Component({
 	selector: 'app-admin-home',

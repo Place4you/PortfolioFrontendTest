@@ -1,10 +1,14 @@
 import { Component, OnInit} from '@angular/core';
-import { WorkService } from '../services/work.service';
+import {
+	HttpClientModule,
+	HttpClient,
+	HttpResponse
+} from '@angular/common/http';
 import { Project } from "./interfaces";
-import { HttpClientModule, HttpClient, HttpResponse } from '@angular/common/http';
-import { TableWorkItemRes } from '../interfaces/tableWorkItemRes.interface';
-import { ErrorObject } from '../interfaces/errorObject.interface'
-import { LoaderService } from '../services/loader.service';
+import { WorkService } from '@services/work.service';
+import { LoaderService } from '@services/loader.service';
+import { ErrorObject } from '@interfaces/errorObject.interface'
+import { TableWorkItemRes } from '@interfaces/tableWorkItemRes.interface';
 
 @Component({
 	selector: 'app-work',
