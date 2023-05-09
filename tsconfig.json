@@ -24,8 +24,7 @@
       "dom"
     ],
     "paths": {
-      "@services/*": ["src/app/shared/services/*"],
-      "@interfaces/*": ["src/app/shared/interfaces/*"]
+      "@@shared/*": ["src/app/shared/*"]
     }
   },
   "angularCompilerOptions": {

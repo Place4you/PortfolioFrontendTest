@@ -6,9 +6,9 @@ import {
 	HttpResponse
 } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
-import { UserService } from '@services/user.service';
-import { ErrorObject } from '@interfaces/errorObject.interface'
-import { TableUserRes } from '@interfaces/tableUserRes.interface';
+import { UserService } from '@@shared/services/user.service';
+import { ErrorObject } from '@@shared/interfaces/errorObject.interface'
+import { TableUserRes } from '@@shared/interfaces/tableUserRes.interface';
 
 @Component({
 	selector: 'app-admin-user',

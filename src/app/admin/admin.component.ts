@@ -6,8 +6,8 @@ import {
 	HttpResponse
 } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
-import { LoginService } from '@services/login.service';
-import { ErrorObject } from '@interfaces/errorObject.interface'
+import { LoginService } from '@@shared/services/login.service';
+import { ErrorObject } from '@@shared/interfaces/errorObject.interface'
 
 @Component({
 	selector: 'app-admin',

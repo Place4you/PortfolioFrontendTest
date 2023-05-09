@@ -5,9 +5,9 @@ import {
 	HttpResponse
 } from '@angular/common/http';
 import { Project } from "./interfaces";
-import { WorkService } from '@services/work.service';
-import { ErrorObject } from '@interfaces/errorObject.interface'
-import { TableWorkItemRes } from '@interfaces/tableWorkItemRes.interface';
+import { WorkService } from '@@shared/services/work.service';
+import { ErrorObject } from '@@shared/interfaces/errorObject.interface'
+import { TableWorkItemRes } from '@@shared/interfaces/tableWorkItemRes.interface';
 
 @Component({
 	selector: 'app-work',

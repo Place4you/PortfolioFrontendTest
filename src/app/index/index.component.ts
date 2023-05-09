@@ -4,9 +4,9 @@ import {
 	HttpClient,
 	HttpResponse
 } from '@angular/common/http';
-import { InformationService } from '@services/information.service';
-import { ErrorObject } from '@interfaces/errorObject.interface'
-import { TableInfoRes } from '@interfaces/tableInfoRes.interface';
+import { InformationService } from '@@shared/services/information.service';
+import { ErrorObject } from '@@shared/interfaces/errorObject.interface'
+import { TableInfoRes } from '@@shared/interfaces/tableInfoRes.interface';
 
 @Component({
 	selector: 'app-index',

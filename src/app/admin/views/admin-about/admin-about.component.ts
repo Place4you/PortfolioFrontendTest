@@ -6,11 +6,11 @@ import {
 	HttpResponse
 } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
-import { AboutService } from '@services/about.service';
-import { InformationService } from '@services/information.service';
-import { ErrorObject } from '@interfaces/errorObject.interface'
-import { TableInfoRes } from '@interfaces/tableInfoRes.interface';
-import { TableAboutItemRes } from '@interfaces/tableAboutItemRes.interface';
+import { AboutService } from '@@shared/services/about.service';
+import { InformationService } from '@@shared/services/information.service';
+import { ErrorObject } from '@@shared/interfaces/errorObject.interface'
+import { TableInfoRes } from '@@shared/interfaces/tableInfoRes.interface';
+import { TableAboutItemRes } from '@@shared/interfaces/tableAboutItemRes.interface';
 
 @Component({
 	selector: 'app-admin-about',

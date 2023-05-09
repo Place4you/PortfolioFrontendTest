@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './navbar/navbar.component';
+import { NavbarComponent } from '@@shared/navbar/navbar.component';
 import { IndexComponent } from './index/index.component';
 import { WorkComponent } from './work/work.component';
 import { AboutComponent } from './about/about.component';
@@ -17,7 +17,7 @@ import { AdminContactComponent } from './admin/views/admin-contact/admin-contact
 import { AdminUserComponent } from './admin/views/admin-user/admin-user.component';
 import { HttpErrorInterceptor } from './interceptors/error-and-cache.interceptor';
 import { LoaderInterceptor } from './interceptors/loader.interceptor';
-import { LoaderComponent } from './shared/loader/loader.component';
+import { LoaderComponent } from '@@shared/loader/loader.component';
 
 @NgModule({
 	declarations: [

@@ -14,7 +14,7 @@ import {
 	of
 } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { ErrorObject } from '@interfaces/errorObject.interface'
+import { ErrorObject } from '@@shared/interfaces/errorObject.interface'
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {

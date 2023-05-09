@@ -6,9 +6,9 @@ import {
 	HttpResponse
 } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
-import { InformationService } from '@services/information.service';
-import { TableInfoRes } from '@interfaces/tableInfoRes.interface';
-import { ErrorObject } from '@interfaces/errorObject.interface'
+import { InformationService } from '@@shared/services/information.service';
+import { TableInfoRes } from '@@shared/interfaces/tableInfoRes.interface';
+import { ErrorObject } from '@@shared/interfaces/errorObject.interface'
 
 @Component({
 	selector: 'app-admin-home',
