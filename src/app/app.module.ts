@@ -17,6 +17,7 @@ import { AdminContactComponent } from './admin/views/admin-contact/admin-contact
 import { AdminUserComponent } from './admin/views/admin-user/admin-user.component';
 import { HttpErrorInterceptor } from './interceptors/error-and-cache.interceptor';
 import { LoaderInterceptor } from './interceptors/loader.interceptor';
+import { LoaderComponent } from './shared/loader/loader.component';
 
 @NgModule({
 	declarations: [
@@ -32,7 +33,8 @@ import { LoaderInterceptor } from './interceptors/loader.interceptor';
 		AdminWorkComponent,
 		AdminAboutComponent,
 		AdminContactComponent,
-		AdminUserComponent
+		AdminUserComponent,
+		LoaderComponent
 	],
 	imports: [
 		BrowserModule,

@@ -6,7 +6,6 @@ import {
 } from '@angular/common/http';
 import { InformationService } from '@services/information.service';
 import { AboutService } from '@services/about.service';
-import { LoaderService } from '@services/loader.service';
 import { ErrorObject } from '@interfaces/errorObject.interface'
 import { Page } from './interfaces';
 import { TableAboutItemRes } from '@interfaces/tableAboutItemRes.interface';
@@ -19,7 +18,7 @@ import { TableInfoRes } from '@interfaces/tableInfoRes.interface';
 })
 export class AboutComponent implements OnInit {
 
-	constructor(public loaderService: LoaderService, private http: HttpClient, private aboutService: AboutService, private informationService: InformationService){ }
+	constructor(private http: HttpClient, private aboutService: AboutService, private informationService: InformationService){ }
 
 	array_all:          { page: Page[] }[] = [];
 	array_page:         Page[] = [];

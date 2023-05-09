@@ -5,7 +5,6 @@ import {
 	HttpResponse
 } from '@angular/common/http';
 import { ContactService } from '@services/contact.service';
-import { LoaderService } from '@services/loader.service';
 import { ErrorObject } from '@interfaces/errorObject.interface'
 import {
 	TableContactItemRes,
@@ -20,7 +19,7 @@ import {
 })
 export class ContactComponent {
 
-	constructor(public loaderService: LoaderService, private contactService: ContactService) { }
+	constructor(private contactService: ContactService) { }
 
 	social_items: {
 		id: number,

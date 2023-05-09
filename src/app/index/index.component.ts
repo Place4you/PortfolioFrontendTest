@@ -5,7 +5,6 @@ import {
 	HttpResponse
 } from '@angular/common/http';
 import { InformationService } from '@services/information.service';
-import { LoaderService } from '@services/loader.service';
 import { ErrorObject } from '@interfaces/errorObject.interface'
 import { TableInfoRes } from '@interfaces/tableInfoRes.interface';
 
@@ -16,7 +15,7 @@ import { TableInfoRes } from '@interfaces/tableInfoRes.interface';
 })
 export class IndexComponent {
 
-	constructor(public loaderService: LoaderService, private zone: NgZone, private informationService: InformationService) { }
+	constructor(private zone: NgZone, private informationService: InformationService) { }
 
 	titles_array:  string[] = [];
 	current_title: string | undefined = undefined;

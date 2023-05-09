@@ -7,7 +7,6 @@ import {
 } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { LoginService } from '@services/login.service';
-import { LoaderService } from '@services/loader.service';
 import { ErrorObject } from '@interfaces/errorObject.interface'
 
 @Component({
@@ -20,7 +19,7 @@ import { ErrorObject } from '@interfaces/errorObject.interface'
 
 export class LoginComponent {
 
-	constructor(public loaderService: LoaderService, private loginService: LoginService, private cookieService: CookieService, private router: Router) {}
+	constructor(private loginService: LoginService, private cookieService: CookieService, private router: Router) {}
 
 
 	current_alert: boolean = false;

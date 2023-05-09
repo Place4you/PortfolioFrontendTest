@@ -6,7 +6,6 @@ import {
 } from '@angular/common/http';
 import { Project } from "./interfaces";
 import { WorkService } from '@services/work.service';
-import { LoaderService } from '@services/loader.service';
 import { ErrorObject } from '@interfaces/errorObject.interface'
 import { TableWorkItemRes } from '@interfaces/tableWorkItemRes.interface';
 
@@ -17,7 +16,7 @@ import { TableWorkItemRes } from '@interfaces/tableWorkItemRes.interface';
 })
 export class WorkComponent implements OnInit {
 	
-	constructor(public loaderService: LoaderService, private workService: WorkService){ }
+	constructor(private workService: WorkService){ }
 
 	array_all:            { page: Project[] }[] = [];
 	page_selector_items:  { number: number }[] = [{number: 1}];
