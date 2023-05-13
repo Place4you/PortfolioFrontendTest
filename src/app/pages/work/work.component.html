@@ -15,7 +15,7 @@
 			<div class="projects">
 				<ng-container *ngIf="description_open">
 					<div class="project_w_description">
-						<div class="project">
+						<div class="project_section">
 							<div class="top">
 								<h1>{{curr_project.name}}</h1>
 								<img src="{{curr_project.image_uri}}" alt="{{curr_project.image_alt}}">
@@ -29,11 +29,11 @@
 								<p class="technologies">{{curr_project.technologies}}</p>
 							</div>
 						</div>
-						<div class="description_top">
+						<div class="description_section">
 							<button type="button" class="btn btn-dark" (click)="view_description(false, curr_project.id)">Return</button>
 							<h1 *ngIf="isLogged()">#{{curr_project.id}}</h1>
+							<p [innerHTML]=(curr_project.description)></p>
 						</div>
-						<p class="description" [innerHTML]=(curr_project.description)></p>
 					</div>
 				</ng-container>
 
