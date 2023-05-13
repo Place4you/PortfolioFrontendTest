@@ -27,9 +27,11 @@
 					</div>
 
 					<div class="about_items">
+						<div *ngIf="array_all.length === 0">
+							<h1>There are no items yet</h1>
+						</div>
 						<ng-container *ngFor="let arrayItem of array_all; let i = index">
 							<ng-container *ngIf="i === pageIndex">
-
 								<div class="about_item" *ngFor="let item of arrayItem.page">
 									<ng-container *ngIf="item.image_uri && item.image_alt; else imageMissing">
 										<div class="itemImage">
