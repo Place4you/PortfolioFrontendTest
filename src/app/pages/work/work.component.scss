@@ -178,23 +178,19 @@
 			.description_top {
 				margin-top: 30px;
 				button {
-					display: inline-block;
-					margin: 15px 30px 0 0;
-					float: left;
-				}
-				h1 {
-					display: inline-block;
-					width: 800px;
+					width: 25%;
+					display: block;
+					margin: 20px 30px 0 0;
 				}
 			}
 			.project {
 				float: left;
-				margin: 30px 20px 0 30px;
+				margin: 30px 20px 30px 30px;
 				height: 230px;
 			}
 			.description {
 				text-align: justify;
-				padding: 10px 20px 20px 20px;
+				padding: 10px 20px 20px;
 				max-height: 600px;
 			}
 		}
@@ -231,5 +227,30 @@
 @media (max-width: 500px){
 	.left_arrow, .right_arrow {
 		display: none;
+	}
+
+	.projects .project_w_description {
+		position: relative;
+		top: 40px;
+		.description_top {
+			position: relative;
+			button {
+				position: relative;
+				left: 50%;
+				transform: translateX(-50%);
+				width: 90%;
+			}
+		}
+		.project {
+			position: relative;
+			left: 0;
+			transform: translateX(-50%);
+			height: 230px;
+			float: none;
+			margin: 0;
+		}
+		.description {
+			background-color: red;
+		}
 	}
 }
