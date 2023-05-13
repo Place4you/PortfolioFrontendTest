@@ -3,11 +3,11 @@
 	<div class="container content">
 		<div id="liveAlertPlaceholder" style="position: absolute; z-index: 9; width: 100%;"></div>
 		<div id="work">
-			<div class="left_arrow" *ngIf="show_arrows && !description_open"  (click)="onLeftArrow()">
+			<div tabindex="1" class="left_arrow" *ngIf="show_arrows && !description_open"  (click)="onLeftArrow()">
 				<div class="work_line_1"></div>
 				<div class="work_line_2"></div>
 			</div>
-			<div class="right_arrow" *ngIf="show_arrows && !description_open" (click)="onRightArrow()">
+			<div tabindex="2" class="right_arrow" *ngIf="show_arrows && !description_open" (click)="onRightArrow()">
 				<div class="work_line_1"></div>
 				<div class="work_line_2"></div>
 			</div>
@@ -40,7 +40,7 @@
 				<ng-container *ngIf="!description_open">
 					<ng-container *ngFor="let arrayItem of array_all; let i = index">
 						<ng-container *ngIf="i === pageIndex">
-							<div class="project" (click)='view_description(true, project.id)' *ngFor="let project of arrayItem.page">
+							<div tabindex={{project.id}} class="project" (click)='view_description(true, project.id)' *ngFor="let project of arrayItem.page">
 								<div class="top">
 									<h1>{{project.name}}</h1>
 									<img src="{{project.image_uri}}" alt="{{project.image_alt}}">
