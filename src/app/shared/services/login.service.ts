@@ -8,16 +8,16 @@ import {
 } from '@angular/common/http'
 import { catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { ApiService } from './api.service';
+import { environment } from '@app/../src/environments/environment.prod';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class LoginService {
 
-	constructor(private http: HttpClient, private apiService: ApiService) { }
+	constructor(private http: HttpClient) { }
 
-	uri: string = this.apiService.getApi();
+	uri: string = environment.apiUrl;
 
 	login(email: string, password: string): Observable<HttpResponse<string>> {
 		return this.http.post(

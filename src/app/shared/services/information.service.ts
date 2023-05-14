@@ -9,14 +9,14 @@ import {
 import { catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { TableInfoRes } from '../interfaces/tableInfoRes.interface';
-import { ApiService } from './api.service';
+import { environment } from '@app/../src/environments/environment.prod';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class InformationService {
 
-	constructor(private http: HttpClient, private apiService: ApiService) {
+	constructor(private http: HttpClient) {
 		interface InformationTableResponse {
 			id: number,
 			name: string,
@@ -24,7 +24,7 @@ export class InformationService {
 		}
 	}
 
-	uri: string = this.apiService.getApi() + "/information";
+	uri: string = environment.apiUrl + "/information";
 
 	getInformationTable(): Observable<HttpResponse<TableInfoRes[]>> {
 		return this.http.get<TableInfoRes[]>(

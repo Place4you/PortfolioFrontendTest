@@ -9,16 +9,16 @@ import {
 import { catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { TableAboutItemRes } from '../interfaces/tableAboutItemRes.interface';
-import { ApiService } from './api.service';
+import { environment } from '@app/../src/environments/environment.prod';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class AboutService {
 
-	constructor(private http: HttpClient, private apiService: ApiService) { }
+	constructor(private http: HttpClient) { }
 
-	uri: string = this.apiService.getApi() + "/about_item";
+	uri: string = environment.apiUrl + "/about_item";
 
 	getItem(id: number): Observable<HttpResponse<TableAboutItemRes>> {
 		return this.http.get<TableAboutItemRes>(
