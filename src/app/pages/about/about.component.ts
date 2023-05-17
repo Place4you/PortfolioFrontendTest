@@ -247,7 +247,7 @@ export class AboutComponent implements OnInit {
 				let selected_items: TableAboutItemRes[] = this.knowledge_items;
 
 				for(let i: number = start_at; i < selected_items.length; i++){
-					if(i%2 === 0 && i%3 === 0 && i !== start_at){
+					if(i % this.itemsPerPage === 0 && i !== start_at){
 						if(!this.show_arrows){
 							this.show_arrows = true;
 						}
