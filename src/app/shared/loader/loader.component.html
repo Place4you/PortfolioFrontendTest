@@ -1,4 +1,4 @@
-<ng-container *ngIf="loaderService.isLoading$ | async">
+<ng-container>
 	<div class="container_loader">
 		<svg class="pl" viewBox="0 0 200 200" width="200" height="200" xmlns="http://www.w3.org/2000/svg">
 			<defs>
@@ -14,5 +14,6 @@
 			<circle class="pl__ring" cx="100" cy="100" r="82" fill="none" stroke="url(#pl-grad1)" stroke-width="36" stroke-dasharray="0 257 1 257" stroke-dashoffset="0.01" stroke-linecap="round" transform="rotate(-90,100,100)" />
 			<line class="pl__ball" stroke="url(#pl-grad2)" x1="100" y1="18" x2="100.01" y2="182" stroke-width="36" stroke-dasharray="1 165" stroke-linecap="round" />
 		</svg>
+		<h5 id="minutes_text">This may take up to 5 minutes if the server is offline</h5>
 	</div>
 </ng-container>
