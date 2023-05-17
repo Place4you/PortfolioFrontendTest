@@ -1,4 +1,4 @@
-<ng-container>
+<ng-container *ngIf="loaderService.isLoading$ | async">
 	<div class="container_loader">
 		<svg class="pl" viewBox="0 0 200 200" width="200" height="200" xmlns="http://www.w3.org/2000/svg">
 			<defs>
