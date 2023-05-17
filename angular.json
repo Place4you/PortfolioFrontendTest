@@ -28,7 +28,11 @@
             "assets": [
               "src/favicon.ico",
               "src/favicon.png",
-              "src/assets"
+              "src/assets",
+              "src/robots.txt",
+              "src/security.txt",
+              "src/sitemap.xml",
+              "src/pgp-key.txt"
             ],
             "styles": [
               "src/css-reset.scss"
@@ -91,7 +95,11 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/robots.txt",
+              "src/security.txt",
+              "src/sitemap.xml",
+              "src/pgp-key.txt"
             ],
             "styles": [
               "src/css-reset.scss"
