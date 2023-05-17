@@ -1,20 +1,21 @@
 # Portfolio
 
-This repository is the **frontend section** of my portfolio project. You can find the backend repository [here](https://github.com/LautaroColella/YP_PortfolioBackend/).
+This repository is the **frontend section** of my portfolio project.
 
 # Description
 
 This project was started in December 1, 2022. It's a web application to present myself professionally, show my work, skills, experiences and how to contact me.
-Everyone is able to see my public information there, and you can view the live version at: https://angular-portfolio-39f38.web.app
+Everyone is able to see my public information there, and you can view the live version at: https://lautacolella.web.app
 
-- The **frontend** is made with [Angular 15](https://angular.io/guide/update-to-version-15#new-features-in-angular-v15) and [Ruby Sass](https://sass-lang.com/ruby-sass) (deprecated, change for Sass).
-- The **backend** is made with [Spring boot](https://spring.io/) and [MySQL](https://www.mysql.com/).
+- The **frontend** is made with [Angular 15](https://angular.io/guide/update-to-version-15#new-features-in-angular-v15) and [Ruby Sass](https://sass-lang.com/ruby-sass).
+- The **backend** is made with [Spring boot](https://spring.io/) and [MySQL](https://www.mysql.com/). The backend is currently a hidden repository.
 
 ## Features
 - Request caching
 - JWT for authentication
 - BCrypt for password hashing
 - Error handling and input validation
+- CRUD for actions related to the content
 - Responsive design
 
 ## Preview
@@ -73,16 +74,19 @@ Install the Angular CLI by running:
 Install Sass with:
 `npm install -g sass`
 
+Inside the `src` folder create a folder called `environments` and inside it a file called `environment.prod.ts` with the following code:
+
+`export const environment = {
+	production: true,
+	apiUrl: 'YOUR_API_URL'
+};`
+
 ## How to run
-
-**For full functionality [setup and run](https://github.com/LautaroColella/YP_PortfolioBackend/#readme) the backend, steps are at the respective repository.**
-
-Change the backend API url at: `/src/app/services/api.service.ts`
 
 In the portfolio directory run:
 `ng serve`
 
-In your browser, go to `http://localhost:4200/`
+In your browser, go to `localhost:4200`
 
 # How to help
 
@@ -121,6 +125,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 # Contact me / ask questions
 
 You can contact me
-- By **website** at: https://angular-portfolio-39f38.web.app/contact
+- By **website** at: https://lautacolella.web.app/contact
 - By **email** at: `lautarocolella1@gmail.com`
 - By **Linkedin** at: https://www.linkedin.com/in/lautaro-colella/
