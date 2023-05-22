@@ -31,7 +31,7 @@ export class WorkComponent implements OnInit {
 		const more_button: HTMLElement | null = document.getElementById(`view_more_button_${id}`);
 		const less_button: HTMLElement | null = document.getElementById(`view_less_button_${id}`);
 		if(more_section !== null && more_button !== null && less_button !== null){
-			if(more_section.style.display === 'none'){
+			if(getComputedStyle(more_section).display === 'none'){
 				more_section.style.display = 'block';
 				more_button.style.display = 'none';
 				less_button.style.display = 'block';

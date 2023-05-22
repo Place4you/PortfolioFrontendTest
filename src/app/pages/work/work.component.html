@@ -5,7 +5,7 @@
 		<section id="work">
 			<div class="projects">
 				<div class="project" *ngFor="let project of project_items">
-					<div class="view_more_button" (click)="view_more(project.id)">
+					<button type="button" class="view_more_button" (click)="view_more(project.id)">
 						<div class="view_more" id="view_more_button_{{project.id}}">
 							<span>View more</span>
 							<i class="fa-solid fa-angle-down fa-2x"></i>
@@ -14,21 +14,34 @@
 							<span>View less</span>
 							<i class="fa-solid fa-angle-up fa-2x"></i>
 						</div>
-					</div>
+					</button>
 					<aside class="right_image">
-						<img src="{{project.image_uri}}" alt="{{project.image_alt}}">
+						<img src="{{project.image_uri}}" alt="{{project.image_alt}}" *ngIf="project.image_uri">
+						<img src="https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg" alt="No image available" *ngIf="!project.image_uri">
 					</aside>
 					<div class="left_text">
-						<h3>{{project.name}}</h3>
-						<h5>{{project.date}}<span *ngIf="isLogged()"> | #{{project.id}}</span></h5>
-						<div class="technology" *ngFor="let technology of project.technologies.split(',')">
-							<span>{{technology}}</span>
-						</div>
+						<table>
+							<tr>
+								<td><h3>{{project.name}}</h3></td>
+							</tr>
+							<tr>
+								<td><h5><span *ngIf="isLogged()">#{{project.id}} | </span>{{project.date}}</h5></td>					
+							</tr>
+							<tr>
+								<span class="technology" *ngFor="let technology of project.technologies.split(',')">{{technology}}</span>
+							</tr>
+						</table>
 					</div>
 					<div class="view_more_section" id="view_more_{{project.id}}">
-						● <a href="{{project.code_uri}}" target="_blank">View source code <i class="fa-solid fa-external-link-alt"></i></a>
-						● <a href="{{project.live_uri}}">View live version <i class="fa-solid fa-external-link-alt"></i></a>
-						<p [innerHTML]="project.description">}</p>
+						<p>
+							● <a href="{{project.code_uri}}" target="_blank" *ngIf="project.code_uri">View source code <i class="fa-solid fa-external-link-alt"></i></a>
+							<span *ngIf="!project.code_uri">Source code not available</span>
+						</p>
+						<p>
+							● <a href="{{project.live_uri}}" target="_blank" *ngIf="project.live_uri">View live version <i class="fa-solid fa-external-link-alt"></i></a>
+							<span *ngIf="!project.live_uri">Live version not available</span>
+						</p>
+						<p [innerHTML]="project.description" class="description">}</p>
 					</div>
 				</div>
 			</div>
