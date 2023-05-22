@@ -1,84 +1,38 @@
 <body>
 	<app-loader></app-loader>
-	<div class="container content">
+	<section class="container content">
 		<div id="liveAlertPlaceholder" style="position: absolute; z-index: 9; width: 100%;"></div>
-		<div id="work">
-			<div tabindex="1" class="left_arrow" *ngIf="show_arrows && !description_open"  (click)="onLeftArrow()">
-				<div class="work_line_1"></div>
-				<div class="work_line_2"></div>
-			</div>
-			<div tabindex="2" class="right_arrow" *ngIf="show_arrows && !description_open" (click)="onRightArrow()">
-				<div class="work_line_1"></div>
-				<div class="work_line_2"></div>
-			</div>
-
+		<section id="work">
 			<div class="projects">
-				<ng-container *ngIf="description_open">
-					<div class="project_w_description">
-						<div class="project_section">
-							<div class="top">
-								<h1>{{curr_project.name}}</h1>
-								<img src="{{curr_project.image_uri}}" alt="{{curr_project.image_alt}}">
-							</div>
-							<div class="bot">
-								<p class="date">{{curr_project.date | date:'shortDate'}}</p>
-								<div class="links">
-									<a href="{{curr_project.code_uri}}" target="_blank"><i class="fas fa-code"></i></a>
-									<a href="{{curr_project.live_uri}}" target="_blank"><i class="fa-solid fa-pager"></i></a>
-								</div>
-								<p class="technologies">{{curr_project.technologies}}</p>
-							</div>
+				<div class="project" *ngFor="let project of project_items">
+					<div class="view_more_button" (click)="view_more(project.id)">
+						<div class="view_more" id="view_more_button_{{project.id}}">
+							<span>View more</span>
+							<i class="fa-solid fa-angle-down fa-2x"></i>
 						</div>
-						<div class="description_section">
-							<button type="button" class="btn btn-dark" (click)="view_description(false, curr_project.id)">Return</button>
-							<h1 *ngIf="isLogged()">#{{curr_project.id}}</h1>
-							<p [innerHTML]=(curr_project.description)></p>
+						<div class="view_less" id="view_less_button_{{project.id}}">
+							<span>View less</span>
+							<i class="fa-solid fa-angle-up fa-2x"></i>
 						</div>
 					</div>
-				</ng-container>
-
-				<ng-container *ngIf="!description_open">
-					<ng-container *ngFor="let arrayItem of array_all; let i = index">
-						<ng-container *ngIf="i === pageIndex">
-							<div tabindex={{project.id}} class="project" (click)='view_description(true, project.id)' *ngFor="let project of arrayItem.page">
-								<div class="top">
-									<h1>{{project.name}}</h1>
-									<img src="{{project.image_uri}}" alt="{{project.image_alt}}">
-								</div>
-								<div class="bot">
-									<p class="date">{{project.date | date:'shortDate'}}</p>
-									<div class="links">
-										<a href="{{project.code_uri}}" target="_blank"><i class="fas fa-code fa-2x"></i></a>
-										<a href="{{project.live_uri}}" target="_blank"><i class="fa-solid fa-pager fa-2x"></i></a>
-									</div>
-									<p class="technologies">{{project.technologies}}</p>
-								</div>
-							</div>
-						</ng-container>
-					</ng-container>
-				</ng-container>
-			</div>
-
-			<div class="low_buttons" *ngIf="!description_open">
-				<div class="order_by_button">
-					<select class="order_by">
-						<option selected (click)='orderBy("NL")'>Date - New to Last</option>
-						<option (click)='orderBy("LN")'>Date - Last to New</option>
-						<option (click)='orderBy("AZ")'>Name - A to Z</option>
-						<option (click)='orderBy("ZA")'>Name - Z to A</option>
-					</select>
-				</div>
-				<div class="page_selector" id="page_selector" *ngIf="show_arrows">
-					<span class="ps_item" *ngFor="let page of page_selector_items">
-						<input *ngIf="page.number !== 1;else check_item" type="radio" id="{{page.number}}" name="page_number" (click)="changePage(page.number)">
-						<label for="{{page.number}}">{{page.number}}</label>
-						<ng-template #check_item>
-							<input type="radio" id="{{page.number}}" name="page_number" (click)="changePage(page.number)" checked>
-						</ng-template>
-					</span>
+					<aside class="right_image">
+						<img src="{{project.image_uri}}" alt="{{project.image_alt}}">
+					</aside>
+					<div class="left_text">
+						<h3>{{project.name}}</h3>
+						<h5>{{project.date}}<span *ngIf="isLogged()"> | #{{project.id}}</span></h5>
+						<div class="technology" *ngFor="let technology of project.technologies.split(',')">
+							<span>{{technology}}</span>
+						</div>
+					</div>
+					<div class="view_more_section" id="view_more_{{project.id}}">
+						● <a href="{{project.code_uri}}" target="_blank">View source code <i class="fa-solid fa-external-link-alt"></i></a>
+						● <a href="{{project.live_uri}}">View live version <i class="fa-solid fa-external-link-alt"></i></a>
+						<p [innerHTML]="project.description">}</p>
+					</div>
 				</div>
 			</div>
-		</div>
-	</div>
+		</section>
+	</section>
 	<app-navbar></app-navbar>
 </body>
