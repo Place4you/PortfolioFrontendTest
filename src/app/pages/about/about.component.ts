@@ -33,6 +33,7 @@ export class AboutComponent implements OnInit {
 	pageIndex:          number = 0;
 	total_pages:        number = 1;
 	itemsPerPage:		number = 6;
+	all_selected_items: number = 0;
 	current_view: 		string = "knowledge_items";
 	show_arrows:        boolean = false;
 	knowledge_items:    TableAboutItemRes[] = [];
@@ -74,6 +75,7 @@ export class AboutComponent implements OnInit {
 
 		let start_at: number = 0;
 		let selected_items: TableAboutItemRes[] = this.knowledge_items;
+		this.all_selected_items = selected_items.length;
 
 		if(view === 'badges_items'){
 			selected_items = this.badges_items;
@@ -178,6 +180,8 @@ export class AboutComponent implements OnInit {
 				}
 			}
 		}
+		const myItem: HTMLElement | null = document.getElementById(`itemImage_${itemId}`);
+		if(myItem !== null) myItem.classList.add('selected_item');
 	}
 
 	checkResize(): void {
@@ -187,8 +191,8 @@ export class AboutComponent implements OnInit {
 			{ width: 1200, itemsPP: 5 },
 			{ width: 992, itemsPP: 4 },
 			{ width: 768, itemsPP: 3 },
-			{ width: 544, itemsPP: 2 },
-			{ width: 0, itemsPP: 1 }
+			{ width: 575, itemsPP: 2 },
+			{ width: 0, itemsPP: this.all_selected_items }
 		];
 		const { itemsPP } = breakpoints.find(bp => bp.width <= innerWidth) || breakpoints[0];
 		if(this.itemsPerPage !== itemsPP){

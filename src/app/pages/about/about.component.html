@@ -5,7 +5,7 @@
 		<div id="about">
 			<div class="row">
 				<div class="col-sm about_journey">
-					<h1>{{journey.title}}</h1>
+					<h3>{{journey.title}}</h3>
 					<p [innerHTML]="journey.description"></p>
 					<h6 *ngIf="isLogged()">#{{journey.id}}</h6>
 				</div>
@@ -34,7 +34,7 @@
 							<ng-container *ngIf="i === pageIndex">
 								<div class="about_item" *ngFor="let item of arrayItem.page">
 									<ng-container *ngIf="item.image_uri && item.image_alt; else imageMissing">
-										<div class="itemImage">
+										<div class="itemImage" id="itemImage_{{item.id}}">
 											<div class="bot">
 												<p class="date">{{item.date | date:'shortDate'}}</p>
 											</div>
@@ -52,7 +52,7 @@
 										<h5>Missing name</h5>
 									</ng-template>
 									<ng-template #imageMissing>
-										<div class="itemImage">
+										<div class="itemImage" id="itemImage_{{item.id}}">
 											<div class="bot">
 												<p class="date">{{item.date | date:'shortDate'}}</p>
 											</div>
