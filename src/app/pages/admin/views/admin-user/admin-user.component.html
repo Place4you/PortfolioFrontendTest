@@ -1,72 +1,60 @@
 <div class="container content">
-	<div id="liveAlertPlaceholder" style="position: absolute; z-index: 9; width: 100%;"></div>
-	<section class="select_method">
-		<button type="button" class="btn btn-dark" id="first_button" (click)="method_change('all')">All</button>
-		<button type="button" class="btn btn-success" (click)="method_change('add')">Create</button>
-	</section>
-	<hr>
-	
-	<section *ngIf="current_value === 'all'">
-		<div *ngIf="all_empty">
-			<h4>There are no users yet</h4>
-		</div>
-		<div *ngIf="!all_empty">
-			<table class="users">
-				<thead>
-					<th>ID</th>
-					<th>Name</th>
-					<th>Email</th>
-					<th>Update</th>
-					<th>Delete</th>
-				</thead>
-				<tbody *ngFor="let user of all_users">
-					<tr>
-						<td>{{user.id}}</td>
-						<td>{{user.name}}</td>
-						<td>{{user.email}}</td>
-						<td (click)="search_edit_user(user.id)"><i class="fas fa-edit icon_edit"></i></td>
-						<td (click)="delete_user(user.id)"><i class="fas fa-trash-alt icon_del"></i></td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</section>
-
-	<div class="form">
-		<div *ngIf="current_value === 'add'">
-			<form onsubmit="return false;" id="create_user_form">
-				<h3>Create new user</h3>
-
-				<label for="add_name"><h5>Input name</h5></label>
-				<input type="text" id="add_name" placeholder="Name" minlength="3" maxlength="253" required #add_name>
-
-				<label for="add_email"><h5>Input email</h5></label>
-				<input type="email" id="add_email" placeholder="Email" minlength="3" maxlength="253" required #add_email>
-
-				<label for="add_password"><h5>Input password</h5></label>
-				<input type="password" id="add_password" placeholder="Password" minlength="3" maxlength="253" required #add_password>
-
-            	<input type="submit"  class="btn btn-success" value="Create" (click)="create_user(add_name.value, add_email.value, add_password.value)">
-			</form>
-		</div>
-
-		<div *ngIf="current_value === 'edit'">
-			<form onsubmit="return false;" id="update_user_form">
-				<h3>Edit user</h3>
-
-				<label for="edit_name"><h5>Change name</h5></label>
-				<input type="text" id="edit_name" placeholder="Name" minlength="3" maxlength="253" value="{{user_to_edit.name}}" required #edit_name>
-
-				<label for="edit_email"><h5>Change email</h5></label>
-				<input type="email" id="edit_email" placeholder="Email" minlength="3" maxlength="253" value="{{user_to_edit.email}}" required #edit_email>
-
-				<label for="edit_password"><h5>Change password</h5></label>
-				<input type="password" id="edit_password" placeholder="Password" minlength="3" maxlength="253" required #edit_password>
-
-
-				<input type="reset" class="btn btn-danger" value="Cancel" (click)="method_change('all')">
-				<input type="submit" class="btn btn-success" value="Update" (click)="edit_user(edit_name.value, edit_email.value, edit_password.value)">
-			</form>
-		</div>
-	</div>
+  <div id="liveAlertPlaceholder" style="position: absolute; z-index: 9; width: 100%;"></div>
+  <section class="select_method">
+    <button type="button" class="btn btn-dark" id="first_button" (click)="method_change('all')">All</button>
+    <button type="button" class="btn btn-success" (click)="method_change('add')">Create</button>
+  </section>
+  <hr />
+  <ng-container *ngIf="current_value === 'all'">
+    <ng-container *ngIf="all_empty; else all_not_empty">
+      <h4>There are no users yet</h4>
+    </ng-container>
+    <ng-template #all_not_empty>
+      <table class="users">
+        <thead>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Update</th>
+          <th>Delete</th>
+        </thead>
+        <tbody *ngFor="let user of all_users">
+          <tr>
+            <td>{{user.id}}</td>
+            <td>{{user.name}}</td>
+            <td>{{user.email}}</td>
+            <td (click)="search_edit_user(user.id)"><i class="fas fa-edit icon_edit"></i></td>
+            <td (click)="delete_user(user.id)"><i class="fas fa-trash-alt icon_del"></i></td>
+          </tr>
+        </tbody>
+      </table>
+    </ng-template>
+  </ng-container>
+  <div class="form">
+    <ng-container *ngIf="current_value === 'add'">
+      <form onsubmit="return false;" id="create_user_form">
+        <h3>Create new user</h3>
+        <label for="add_name"><h5>Input name</h5></label>
+        <input type="text" id="add_name" placeholder="Name" minlength="3" maxlength="253" required #add_name />
+        <label for="add_email"><h5>Input email</h5></label>
+        <input type="email" id="add_email" placeholder="Email" minlength="3" maxlength="253" required #add_email />
+        <label for="add_password"><h5>Input password</h5></label>
+        <input type="password" id="add_password" placeholder="Password" minlength="3" maxlength="253" required #add_password />
+        <input type="submit"  class="btn btn-success" value="Create" (click)="create_user(add_name.value, add_email.value, add_password.value)" />
+      </form>
+    </ng-container>
+    <ng-container *ngIf="current_value === 'edit'">
+      <form onsubmit="return false;" id="update_user_form">
+        <h3>Edit user</h3>
+        <label for="edit_name"><h5>Change name</h5></label>
+        <input type="text" id="edit_name" placeholder="Name" minlength="3" maxlength="253" value="{{user_to_edit.name}}" required #edit_name />
+        <label for="edit_email"><h5>Change email</h5></label>
+        <input type="email" id="edit_email" placeholder="Email" minlength="3" maxlength="253" value="{{user_to_edit.email}}" required #edit_email />
+        <label for="edit_password"><h5>Change password</h5></label>
+        <input type="password" id="edit_password" placeholder="Password" minlength="3" maxlength="253" required #edit_password />
+        <input type="reset" class="btn btn-danger" value="Cancel" (click)="method_change('all')" />
+        <input type="submit" class="btn btn-success" value="Update" (click)="edit_user(edit_name.value, edit_email.value, edit_password.value)" />
+      </form>
+    </ng-container>
+  </div>
 </div>

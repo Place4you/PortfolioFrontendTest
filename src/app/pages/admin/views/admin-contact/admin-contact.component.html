@@ -1,128 +1,108 @@
 <div class="container content">
-	<div id="liveAlertPlaceholder" style="position: absolute; z-index: 9; width: 100%;"></div>
-	<section class="select_method">
-		<button type="button" class="btn btn-success" id="first_button" (click)="method_change('add')">Create</button>
-		<button type="button" class="btn btn-warning" (click)="method_change('edit')">Edit</button>
-		<button type="button" class="btn btn-danger" (click)="method_change('delete')">Delete</button>
-		<button type="button" class="btn btn-dark" (click)="method_change('message')">Messages</button>
-	</section>
-	<hr>
-	<div class="form">
-		<div *ngIf="current_value === 'add'">
-			<form onsubmit="return false;" id="create_item_form">
-				<h3>Create new contact item</h3>
-
-				<label for="add_name"><h5>Input name</h5></label>
-				<input type="text" id="add_name" placeholder="Name" minlength="3" maxlength="253" required #add_name>
-
-				<label for="add_account"><h5>Input account</h5></label>
-				<input type="text" id="add_account" placeholder="Account" minlength="3" maxlength="253" required #add_account>
-				
-				<label for="add_uri"><h5>Input item uri</h5></label>
-				<input type="text" id="add_uri" placeholder="Item link (ex: https://example.com/users/LautaroColella)" minlength="3" maxlength="253" #add_uri>
-				
-				<label for="add_image_uri"><h5>Input image uri</h5></label>
-				<input type="text" id="add_image_uri" placeholder="Image link (ex: https://i.imgur.com/JV66wJT.jpeg)" minlength="3" maxlength="253" #add_image_uri>
-				
-				<label for="add_image_alt"><h5>Input image description</h5></label>
-				<input type="text" id="add_image_alt" placeholder="Image alt" minlength="3" maxlength="253" #add_image_alt>
-				
-
-            	<input type="submit" class="btn btn-success" value="Create" (click)="create_item(add_name.value, add_account.value, add_uri.value ? add_uri.value : undefined, add_image_uri.value ? add_image_uri.value : undefined, add_image_alt.value ? add_image_alt.value : undefined)">
-			</form>
-		</div>
-
-		<div *ngIf="current_value === 'edit'">
-			<form onsubmit="return false;" id="update_item_form">
-				<h3>Edit contact item</h3>
-
-				<div *ngIf="!found_item_id">
-					<label for="edit_id"><h5>Input contact item id</h5></label>
-					<input type="number" id="edit_id" placeholder="Id (ex: 123)" min="1" max="65535" required #edit_id>
-	            	<input type="submit" class="btn btn-warning" value="Search" (click)="search_edit_item(edit_id.value)">
-				</div>
-
-				<div *ngIf="found_item_id">
-					<label for="edit_name"><h5>Change name</h5></label>
-					<input type="text" id="edit_name" placeholder="Name" minlength="3" maxlength="253" value="{{item_to_edit.name}}" required #edit_name>
-					
-					<label for="edit_account"><h5>Change account</h5></label>
-					<input type="text" id="edit_account" placeholder="Account" minlength="3" maxlength="253" value="{{item_to_edit.account}}" required #edit_account>
-					
-					<label for="edit_uri"><h5>Change item uri</h5></label>
-					<input type="text" id="edit_uri" placeholder="Item link (ex: https://example.com/profile/my_item)" minlength="3" maxlength="253" value="{{item_to_edit.link}}" #edit_uri>
-					
-					<label for="edit_image_uri"><h5>Change image uri</h5></label>
-					<input type="text" id="edit_image_uri" placeholder="Image link (ex: https://i.imgur.com/JV66wJT.jpeg)" minlength="3" maxlength="253" value="{{item_to_edit.image_uri}}" #edit_image_uri>
-					
-					<label for="edit_image_alt"><h5>Change image description</h5></label>
-					<input type="text" id="edit_image_alt" placeholder="Image alt" minlength="3" maxlength="253" value="{{item_to_edit.image_alt}}" #edit_image_alt>
-					
-
-	            	<input type="submit" class="btn btn-warning" value="Update" (click)="edit_item(edit_name.value, edit_account.value, edit_uri.value ? edit_uri.value : undefined, edit_image_uri.value ? edit_image_uri.value : undefined, edit_image_alt.value ? edit_image_alt.value : undefined)">
-				</div>
-			</form>
-		</div>
-
-		<div *ngIf="current_value === 'delete'">
-			<form onsubmit="return false;" id="delete_item_form">
-				<h3>Delete contact item</h3>
-
-				<label for="deleteId"><h5>Input contac item id</h5></label>
-				<input type="number" id="deleteId" placeholder="Id (ex: 123)" min="1" max="65535" required #deleteId>
-
-            	<input type="submit" class="btn btn-danger" value="Delete" (click)="delete_item(deleteId.value)">
-			</form>
-		</div>
-	</div>
-
-	<section *ngIf="current_value === 'message'">
-		<div *ngIf="messages_empty">
-			<h4>There are no messages yet</h4>
-		</div>
-		<div *ngIf="!messages_empty">
-			<table class="messages" *ngIf="!one_message">
-				<thead>
-					<th>ID</th>
-					<th>Read</th>
-					<th>Subject</th>
-					<th>Date</th>
-				</thead>
-				<tbody *ngFor="let message of all_messages">
-					<tr (click)="show_message(message.id)">
-						<td>{{message.id}}</td>
-						<td *ngIf="message.readed"><i class="fa-solid fa-check icon_check"></i></td>
-						<td *ngIf="!message.readed"><i class="fa-regular fa-circle-xmark icon_cross"></i></td>
-						<td>{{message.subject}}</td>
-						<td>{{message.date}}</td>
-					</tr>
-				</tbody>
-			</table>
-			<div class="one_message" *ngIf="one_message">
-				<hr>
-				<h4>{{current_message.date}} | | ID: {{current_message.id}} | | Seen: {{current_message.readed}}</h4>
-				<table>
-					<tr>
-						<td class="label-col">
-							<label for="message_subject">Subject:</label>
-						</td>
-						<td>
-							<input type="text" id="message_subject" value="{{current_message.subject}}" disabled>
-						</td>
-					</tr>
-					<tr>
-						<td class="label-col">
-							<label for="message_reply">Reply to:</label>
-						</td>
-						<td>
-							<input type="text" id="message_reply" value="{{current_message.reply}}" disabled>
-						</td>
-					</tr>
-				</table>
-				<p>{{current_message.message}}</p>
-				<button class="goback" (click)="one_message = false"><i class="fa-solid fa-arrow-left fa-2x"></i></button>
-				<button class="btn btn-danger" (click)="delete_message(current_message.id)">Delete</button>
-			</div>
-		</div>
-	</section>
+  <div id="liveAlertPlaceholder" style="position: absolute; z-index: 9; width: 100%;"></div>
+  <section class="select_method">
+    <button type="button" class="btn btn-success" id="first_button" (click)="method_change('add')">Create</button>
+    <button type="button" class="btn btn-warning" (click)="method_change('edit')">Edit</button>
+    <button type="button" class="btn btn-danger" (click)="method_change('delete')">Delete</button>
+    <button type="button" class="btn btn-dark" (click)="method_change('message')">Messages</button>
+  </section>
+  <hr />
+  <div class="form">
+    <ng-container *ngIf="current_value === 'add'">
+      <form onsubmit="return false;" id="create_item_form">
+        <h3>Create new contact item</h3>
+        <label for="add_name"><h5>Input name</h5></label>
+        <input type="text" id="add_name" placeholder="Name" minlength="3" maxlength="253" required #add_name />
+        <label for="add_account"><h5>Input account</h5></label>
+        <input type="text" id="add_account" placeholder="Account" minlength="3" maxlength="253" required #add_account />
+        <label for="add_uri"><h5>Input item uri</h5></label>
+        <input type="text" id="add_uri" placeholder="Item link (ex: https://example.com/users/LautaroColella)" minlength="3" maxlength="253" #add_uri />
+        <label for="add_image_uri"><h5>Input image uri</h5></label>
+        <input type="text" id="add_image_uri" placeholder="Image link (ex: https://i.imgur.com/JV66wJT.jpeg)" minlength="3" maxlength="253" #add_image_uri />
+        <label for="add_image_alt"><h5>Input image description</h5></label>
+        <input type="text" id="add_image_alt" placeholder="Image alt" minlength="3" maxlength="253" #add_image_alt />
+        <input type="submit" class="btn btn-success" value="Create" (click)="create_item(add_name.value, add_account.value, add_uri.value ? add_uri.value : undefined, add_image_uri.value ? add_image_uri.value : undefined, add_image_alt.value ? add_image_alt.value : undefined)" />
+      </form>
+    </ng-container>
+    <ng-container *ngIf="current_value === 'edit'">
+      <form onsubmit="return false;" id="update_item_form">
+        <h3>Edit contact item</h3>
+        <ng-container *ngIf="!found_item_id; else foundItemId">
+          <label for="edit_id"><h5>Input contact item id</h5></label>
+          <input type="number" id="edit_id" placeholder="Id (ex: 123)" min="1" max="65535" required #edit_id />
+          <input type="submit" class="btn btn-warning" value="Search" (click)="search_edit_item(edit_id.value)" />
+        </ng-container>
+        <ng-template #foundItemId>
+          <label for="edit_name"><h5>Change name</h5></label>
+          <input type="text" id="edit_name" placeholder="Name" minlength="3" maxlength="253" value="{{item_to_edit.name}}" required #edit_name />
+          <label for="edit_account"><h5>Change account</h5></label>
+          <input type="text" id="edit_account" placeholder="Account" minlength="3" maxlength="253" value="{{item_to_edit.account}}" required #edit_account />
+          <label for="edit_uri"><h5>Change item uri</h5></label>
+          <input type="text" id="edit_uri" placeholder="Item link (ex: https://example.com/profile/my_item)" minlength="3" maxlength="253" value="{{item_to_edit.link}}" #edit_uri />
+          <label for="edit_image_uri"><h5>Change image uri</h5></label>
+          <input type="text" id="edit_image_uri" placeholder="Image link (ex: https://i.imgur.com/JV66wJT.jpeg)" minlength="3" maxlength="253" value="{{item_to_edit.image_uri}}" #edit_image_uri />
+          <label for="edit_image_alt"><h5>Change image description</h5></label>
+          <input type="text" id="edit_image_alt" placeholder="Image alt" minlength="3" maxlength="253" value="{{item_to_edit.image_alt}}" #edit_image_alt />
+          <input type="submit" class="btn btn-warning" value="Update" (click)="edit_item(edit_name.value, edit_account.value, edit_uri.value ? edit_uri.value : undefined, edit_image_uri.value ? edit_image_uri.value : undefined, edit_image_alt.value ? edit_image_alt.value : undefined)" />
+        </ng-template>
+      </form>
+    </ng-container>
+    <ng-container *ngIf="current_value === 'delete'">
+      <form onsubmit="return false;" id="delete_item_form">
+        <h3>Delete contact item</h3>
+        <label for="deleteId"><h5>Input contac item id</h5></label>
+        <input type="number" id="deleteId" placeholder="Id (ex: 123)" min="1" max="65535" required #deleteId />
+        <input type="submit" class="btn btn-danger" value="Delete" (click)="delete_item(deleteId.value)" />
+      </form>
+    </ng-container>
+  </div>
+  <ng-container *ngIf="current_value === 'message'">
+    <ng-container *ngIf="messages_empty; else messages_not_empty">
+      <h4>There are no messages yet</h4>
+    </ng-container>
+    <ng-template #messages_not_empty>
+      <table class="messages" *ngIf="!one_message">
+        <thead>
+          <th>ID</th>
+          <th>Read</th>
+          <th>Subject</th>
+          <th>Date</th>
+        </thead>
+        <tbody *ngFor="let message of all_messages">
+          <tr (click)="show_message(message.id)">
+            <td>{{message.id}}</td>
+            <td *ngIf="message.readed"><i class="fa-solid fa-check icon_check"></i></td>
+            <td *ngIf="!message.readed"><i class="fa-regular fa-circle-xmark icon_cross"></i></td>
+            <td>{{message.subject}}</td>
+            <td>{{message.date}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="one_message" *ngIf="one_message">
+        <hr />
+        <h4>{{current_message.date}} | | ID: {{current_message.id}} | | Seen: {{current_message.readed}}</h4>
+        <table>
+          <tr>
+            <td class="label-col">
+              <label for="message_subject">Subject:</label>
+            </td>
+            <td>
+              <input type="text" id="message_subject" value="{{current_message.subject}}" disabled />
+            </td>
+          </tr>
+          <tr>
+            <td class="label-col">
+              <label for="message_reply">Reply to:</label>
+            </td>
+            <td>
+              <input type="text" id="message_reply" value="{{current_message.reply}}" disabled />
+            </td>
+          </tr>
+        </table>
+        <p>{{current_message.message}}</p>
+        <button class="goback" (click)="one_message = false"><i class="fa-solid fa-arrow-left fa-2x"></i></button>
+        <button class="btn btn-danger" (click)="delete_message(current_message.id)">Delete</button>
+      </div>
+    </ng-template>
+  </ng-container>
 </div>

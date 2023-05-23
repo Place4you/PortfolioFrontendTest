@@ -42,7 +42,22 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
-
+/* Scrollbar styling in chrome and safari */
+@media (hover: hover) {
+	::-webkit-scrollbar {
+		width: 5px;
+		opacity: 0; /* Hide the scrollbar by default */
+		transition: opacity 0.2s;
+	}
+	::-webkit-scrollbar-thumb {
+		background-color: #888888;
+	}
+	/* Show the scrollbar when hovering or scrolling */
+	::-webkit-scrollbar:hover,
+	::-webkit-scrollbar-thumb:vertical {
+		opacity: 1;
+	}
+}
 
 /* Global styles */
 body {

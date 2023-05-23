@@ -33,7 +33,6 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 					if(error.status === 500 || error.statusText === "Unknown Error"){
 						this.router.navigate(['error500']);
 					}
-					
 				}
 				let errorMsg: ErrorObject = {
 					error: {

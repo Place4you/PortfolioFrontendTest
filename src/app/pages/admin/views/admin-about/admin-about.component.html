@@ -1,113 +1,87 @@
 <div class="container content">
-	<div id="liveAlertPlaceholder" style="position: absolute; z-index: 9; width: 100%;"></div>
-	<section class="select_method">
-		<button type="button" class="btn btn-success" id="first_button" (click)="method_change('add')">Create</button>
-		<button type="button" class="btn btn-warning" (click)="method_change('edit')">Edit</button>
-		<button type="button" class="btn btn-danger" (click)="method_change('delete')">Delete</button>
-		<button type="button" class="btn btn-dark" (click)="method_change('journey')">Journey</button>
-	</section>
-	<hr>
-
-	<section class="change_journey" *ngIf="current_value === 'journey'">
-		<div class="form">
-			<form onsubmit="return false;" id="journey_form">
-				<label for="journey_text">
-					<h3>Change journey text</h3>
-				</label>
-				<textarea id="journey_text" placeholder="Input journey text" minlength="3" maxlength="1998" value="{{journey_info}}" required #journey_text></textarea>
-
-		        <input type="submit" class="btn btn-warning" value="Update" (click)="edit_journey(journey_text.value)">
-			</form>
-		</div>
-	</section>
-
-	<div class="form">
-		<div *ngIf="current_value === 'add'">
-			<form onsubmit="return false;" id="create_item_form">
-				<h3>Create new about item</h3>
-
-				<section class="select_type">
-					<div class="select_h4">
-						<h4>Select type:</h4>
-					</div>
-					<div class="select_sel">
-						<select required #add_type>
-							<option value="1">Knowledge</option>
-							<option value="2">Badge</option>
-							<option value="3">Certificate</option>
-						</select>
-					</div>
-				</section>
-
-				<br>
-
-				<label for="add_name"><h5>Input name</h5></label>
-				<input type="text" id="add_name" placeholder="Name" minlength="3" maxlength="253" required #add_name>
-				
-				<label for="add_date"><h5>Input date</h5></label>
-				<input type="date" id="add_date" min="1945-08-06" required #add_date>
-				
-				<label for="add_description"><h5>Input description</h5></label>
-				<textarea id="add_description" placeholder="Description" minlength="3" maxlength="2998" required #add_description></textarea>
-				
-				<label for="add_uri"><h5>Input item uri</h5></label>
-				<input type="text" id="add_uri" placeholder="Item link (ex: https://example.com/profile/my_item)" minlength="3" maxlength="253" #add_uri>
-				
-				<label for="add_image_uri"><h5>Input image uri</h5></label>
-				<input type="text" id="add_image_uri" placeholder="Image link (ex: https://i.imgur.com/JV66wJT.jpeg)" minlength="3" maxlength="253" #add_image_uri>
-				
-				<label for="add_image_alt"><h5>Input image description</h5></label>
-				<input type="text" id="add_image_alt" placeholder="Image alt" minlength="3" maxlength="253" #add_image_alt>
-				
-
-            	<input type="submit" class="btn btn-success" value="Create" (click)="create_item(add_type.value, add_name.value, add_date.value, add_description.value, add_uri.value ? add_uri.value : undefined, add_image_uri.value ? add_image_uri.value : undefined, add_image_alt.value ? add_image_alt.value : undefined)">
-			</form>
-		</div>
-
-		<div *ngIf="current_value === 'edit'">
-			<form onsubmit="return false;" id="edit_item_form">
-				<h3>Edit about item</h3>
-
-				<div *ngIf="!found_item_id">
-					<label for="edit_id"><h5>Input about item id</h5></label>
-					<input type="number" id="edit_id" placeholder="Id (ex: 123)" min="1" max="65535" required #edit_id>
-	            	<input type="submit" class="btn btn-warning" value="Search" (click)="search_edit_item(edit_id.value)">
-				</div>
-
-				<div *ngIf="found_item_id">
-					<label for="edit_name"><h5>Change name</h5></label>
-					<input type="text" id="edit_name" placeholder="Name" minlength="3" maxlength="253" value="{{item_to_edit.name}}" required #edit_name>
-					
-					<label for="edit_date"><h5>Change date</h5></label>
-					<input type="date" id="edit_date" min="1945-08-06" value="{{item_to_edit.date}}" required #edit_date>
-					
-					<label for="edit_description"><h5>Change description</h5></label>
-					<textarea id="edit_description" placeholder="Description" minlength="3" maxlength="2998" value="{{item_to_edit.description}}" required #edit_description></textarea>
-					
-					<label for="edit_uri"><h5>Change item uri</h5></label>
-					<input type="text" id="edit_uri" placeholder="Item link (ex: https://example.com/profile/my_item)" minlength="3" maxlength="253" value="{{item_to_edit.link}}" #edit_uri>
-					
-					<label for="edit_image_uri"><h5>Change image uri</h5></label>
-					<input type="text" id="edit_image_uri" placeholder="Image link (ex: https://i.imgur.com/JV66wJT.jpeg)" minlength="3" maxlength="253" value="{{item_to_edit.image_uri}}" #edit_image_uri>
-					
-					<label for="edit_image_alt"><h5>Change image description</h5></label>
-					<input type="text" id="edit_image_alt" placeholder="Image alt" minlength="3" maxlength="253" value="{{item_to_edit.image_alt}}" #edit_image_alt>
-					
-
-	            	<input type="submit" class="btn btn-warning" value="Update" (click)="edit_item(edit_name.value, edit_date.value, edit_description.value, edit_uri.value ? edit_uri.value : undefined, edit_image_uri.value ? edit_image_uri.value : undefined, edit_image_alt.value ? edit_image_alt.value : undefined)">
-				</div>
-			</form>
-		</div>
-
-		<div *ngIf="current_value === 'delete'">
-			<form onsubmit="return false;" id="delete_item_form">
-				<h3>Delete about item</h3>
-
-				<label for="deleteId"><h5>Input about item id</h5></label>
-				<input type="number" id="deleteId" placeholder="Id (ex: 123)" min="1" max="65535" required #deleteId>
-
-            	<input type="submit" class="btn btn-danger" value="Delete" (click)="delete_item(deleteId.value)">
-			</form>
-		</div>
-	</div>
+  <div id="liveAlertPlaceholder" style="position: absolute; z-index: 9; width: 100%;"></div>
+  <section class="select_method">
+    <button type="button" class="btn btn-success" id="first_button" (click)="method_change('add')">Create</button>
+    <button type="button" class="btn btn-warning" (click)="method_change('edit')">Edit</button>
+    <button type="button" class="btn btn-danger" (click)="method_change('delete')">Delete</button>
+    <button type="button" class="btn btn-dark" (click)="method_change('journey')">Journey</button>
+  </section>
+  <hr>
+  <section class="change_journey" *ngIf="current_value === 'journey'">
+    <div class="form">
+      <form onsubmit="return false;" id="journey_form">
+        <label for="journey_text">
+          <h3>Change journey text</h3>
+        </label>
+        <textarea id="journey_text" placeholder="Input journey text" minlength="3" maxlength="1998" value="{{journey_info}}" required #journey_text></textarea>
+        <input type="submit" class="btn btn-warning" value="Update" (click)="edit_journey(journey_text.value)" />
+      </form>
+    </div>
+  </section>
+  <div class="form">
+    <ng-container *ngIf="current_value === 'add'">
+      <form onsubmit="return false;" id="create_item_form">
+        <h3>Create new about item</h3>
+        <section class="select_type">
+          <div class="select_h4">
+            <h4>Select type:</h4>
+          </div>
+          <div class="select_sel">
+            <select required #add_type>
+              <option value="1">Knowledge</option>
+              <option value="2">Badge</option>
+              <option value="3">Certificate</option>
+            </select>
+          </div>
+        </section>
+        <br />
+        <label for="add_name"><h5>Input name</h5></label>
+        <input type="text" id="add_name" placeholder="Name" minlength="3" maxlength="253" required #add_name />
+        <label for="add_date"><h5>Input date</h5></label>
+        <input type="date" id="add_date" min="1945-08-06" required #add_date />
+        <label for="add_description"><h5>Input description</h5></label>
+        <textarea id="add_description" placeholder="Description" minlength="3" maxlength="2998" required #add_description></textarea>
+        <label for="add_uri"><h5>Input item uri</h5></label>
+        <input type="text" id="add_uri" placeholder="Item link (ex: https://example.com/profile/my_item)" minlength="3" maxlength="253" #add_uri />
+        <label for="add_image_uri"><h5>Input image uri</h5></label>
+        <input type="text" id="add_image_uri" placeholder="Image link (ex: https://i.imgur.com/JV66wJT.jpeg)" minlength="3" maxlength="253" #add_image_uri />
+        <label for="add_image_alt"><h5>Input image description</h5></label>
+        <input type="text" id="add_image_alt" placeholder="Image alt" minlength="3" maxlength="253" #add_image_alt />
+        <input type="submit" class="btn btn-success" value="Create" (click)="create_item(add_type.value, add_name.value, add_date.value, add_description.value, add_uri.value ? add_uri.value : undefined, add_image_uri.value ? add_image_uri.value : undefined, add_image_alt.value ? add_image_alt.value : undefined)" />
+      </form>
+    </ng-container>
+    <ng-container *ngIf="current_value === 'edit'">
+      <form onsubmit="return false;" id="edit_item_form">
+        <h3>Edit about item</h3>
+        <ng-container *ngIf="!found_item_id; else foundItemId">
+          <label for="edit_id"><h5>Input about item id</h5></label>
+          <input type="number" id="edit_id" placeholder="Id (ex: 123)" min="1" max="65535" required #edit_id />
+          <input type="submit" class="btn btn-warning" value="Search" (click)="search_edit_item(edit_id.value)" />
+        </ng-container>
+        <ng-template #foundItemId>
+          <label for="edit_name"><h5>Change name</h5></label>
+          <input type="text" id="edit_name" placeholder="Name" minlength="3" maxlength="253" value="{{item_to_edit.name}}" required #edit_name />
+          <label for="edit_date"><h5>Change date</h5></label>
+          <input type="date" id="edit_date" min="1945-08-06" value="{{item_to_edit.date}}" required #edit_date />
+          <label for="edit_description"><h5>Change description</h5></label>
+          <textarea id="edit_description" placeholder="Description" minlength="3" maxlength="2998" value="{{item_to_edit.description}}" required #edit_description></textarea>
+          <label for="edit_uri"><h5>Change item uri</h5></label>
+          <input type="text" id="edit_uri" placeholder="Item link (ex: https://example.com/profile/my_item)" minlength="3" maxlength="253" value="{{item_to_edit.link}}" #edit_uri />
+          <label for="edit_image_uri"><h5>Change image uri</h5></label>
+          <input type="text" id="edit_image_uri" placeholder="Image link (ex: https://i.imgur.com/JV66wJT.jpeg)" minlength="3" maxlength="253" value="{{item_to_edit.image_uri}}" #edit_image_uri />
+          <label for="edit_image_alt"><h5>Change image description</h5></label>
+          <input type="text" id="edit_image_alt" placeholder="Image alt" minlength="3" maxlength="253" value="{{item_to_edit.image_alt}}" #edit_image_alt />
+          <input type="submit" class="btn btn-warning" value="Update" (click)="edit_item(edit_name.value, edit_date.value, edit_description.value, edit_uri.value ? edit_uri.value : undefined, edit_image_uri.value ? edit_image_uri.value : undefined, edit_image_alt.value ? edit_image_alt.value : undefined)" />
+        </ng-template>
+      </form>
+    </ng-container>
+    <ng-container *ngIf="current_value === 'delete'">
+      <form onsubmit="return false;" id="delete_item_form">
+        <h3>Delete about item</h3>
+        <label for="deleteId"><h5>Input about item id</h5></label>
+        <input type="number" id="deleteId" placeholder="Id (ex: 123)" min="1" max="65535" required #deleteId />
+        <input type="submit" class="btn btn-danger" value="Delete" (click)="delete_item(deleteId.value)" />
+      </form>
+    </ng-container>
+  </div>
 </div>

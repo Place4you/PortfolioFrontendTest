@@ -26,6 +26,6 @@ export class LoaderInterceptor implements HttpInterceptor {
 					this.loaderService.setLoading(false);
 				}
 			})
-			);
+		);
 	}
 }

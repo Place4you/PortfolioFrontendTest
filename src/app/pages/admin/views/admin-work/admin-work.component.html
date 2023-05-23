@@ -1,95 +1,70 @@
 <div class="container content">
-	<div id="liveAlertPlaceholder" style="position: absolute; z-index: 9; width: 100%;"></div>
-	<section class="select_method">
-		<button type="button" class="btn btn-success" id="first_button" (click)="method_change('add')">Create</button>
-		<button type="button" class="btn btn-warning" (click)="method_change('edit')">Edit</button>
-		<button type="button" class="btn btn-danger" (click)="method_change('delete')">Delete</button>
-	</section>
-	<hr>
-	<div class="form">
-		<div *ngIf="current_value === 'add'">
-			<form onsubmit="return false;" id="create_item_form">
-				<h3>Create new work item</h3>
-
-				<label for="add_name"><h5>Input name</h5></label>
-				<input type="text" id="add_name" placeholder="Name" minlength="3" maxlength="253" required #add_name>
-				
-				<label for="add_date"><h5>Input date</h5></label>
-				<input type="date" id="add_date" min="1945-08-06" required #add_date>
-				
-				<label for="add_technologies"><h5>Input technologies</h5></label>
-				<input type="text" id="add_technologies" placeholder="Technologies (ex: C++, Python, Javascript, NodeJS)" minlength="3" maxlength="253" required #add_technologies>
-				
-				<label for="add_description"><h5>Input description</h5></label>
-				<textarea id="add_description" placeholder="Description" minlength="3" maxlength="2998" required #add_description></textarea>
-				
-				<label for="add_code_uri"><h5>Input code uri</h5></label>
-				<input type="text" id="add_code_uri" placeholder="Code link (ex: https://github.com/LautaroColella/my_project)" minlength="3" maxlength="253" #add_code_uri>
-				
-				<label for="add_live_uri"><h5>Input live uri</h5></label>
-				<input type="text" id="add_live_uri" placeholder="Live page link (ex: https://example.com/)" minlength="3" maxlength="253" #add_live_uri>
-				
-				<label for="add_image_uri"><h5>Input image uri</h5></label>
-				<input type="text" id="add_image_uri" placeholder="Image link (ex: https://i.imgur.com/JV66wJT.jpeg)" minlength="3" maxlength="253" #add_image_uri>
-				
-				<label for="add_image_alt"><h5>Input image description</h5></label>
-				<input type="text" id="add_image_alt" placeholder="Image alt" minlength="3" maxlength="253" #add_image_alt>
-				
-
-            	<input type="submit" class="btn btn-success" value="Create" (click)="create_item(add_name.value, add_date.value, add_technologies.value, add_description.value, add_code_uri.value ? add_code_uri.value : undefined, add_live_uri.value ? add_live_uri.value : undefined, add_image_uri.value ? add_image_uri.value : undefined, add_image_alt.value ? add_image_alt.value : undefined)">
-			</form>
-		</div>
-
-		<div *ngIf="current_value === 'edit'">
-			<form onsubmit="return false;" id="edit_item_form">
-				<h3>Edit work item</h3>
-
-				<div *ngIf="!found_item_id">
-					<label for="edit_id"><h5>Input project id</h5></label>
-					<input type="number" id="edit_id" placeholder="Id (ex: 123)" min="1" max="65535" required #edit_id>
-	            	<input type="submit" class="btn btn-warning" value="Search" (click)="search_edit_item(edit_id.value)">
-				</div>
-
-				<div *ngIf="found_item_id">
-					<label for="edit_name"><h5>Change name</h5></label>
-					<input type="text" id="edit_name" placeholder="Name" minlength="3" maxlength="253" value="{{project_to_edit.name}}" required #edit_name>
-					
-					<label for="edit_date"><h5>Change date</h5></label>
-					<input type="date" id="edit_date" min="1945-08-06" value="{{project_to_edit.date}}" required #edit_date>
-					
-					<label for="edit_technologies"><h5>Change technologies</h5></label>
-					<input type="text" id="edit_technologies" placeholder="Technologies (ex: C++, Python, Javascript, NodeJS)" minlength="3" maxlength="253" value="{{project_to_edit.technologies}}" required #edit_technologies>
-					
-					<label for="edit_description"><h5>Change description</h5></label>
-					<textarea id="edit_description" placeholder="Description" minlength="3" maxlength="2998" value="{{project_to_edit.description}}" required #edit_description></textarea>
-					
-					<label for="edit_code_uri"><h5>Change code uri</h5></label>
-					<input type="text" id="edit_code_uri" placeholder="Code link (ex: https://github.com/LautaroColella/my_project)" minlength="3" maxlength="253" value="{{project_to_edit.code_uri}}" #edit_code_uri>
-					
-					<label for="edit_live_uri"><h5>Change live uri</h5></label>
-					<input type="text" id="edit_live_uri" placeholder="Live page link (ex: https://example.com/)" minlength="3" maxlength="253" value="{{project_to_edit.live_uri}}" #edit_live_uri>
-					
-					<label for="edit_image_uri"><h5>Change image uri</h5></label>
-					<input type="text" id="edit_image_uri" placeholder="Image link (ex: https://i.imgur.com/JV66wJT.jpeg)" minlength="3" maxlength="253" value="{{project_to_edit.image_uri}}" #edit_image_uri>
-					
-					<label for="edit_image_alt"><h5>Change image description</h5></label>
-					<input type="text" id="edit_image_alt" placeholder="Image alt" minlength="3" maxlength="253" value="{{project_to_edit.image_alt}}" #edit_image_alt>
-
-
-	            	<input type="submit" class="btn btn-warning" value="Update" (click)="edit_item(edit_name.value, edit_date.value, edit_technologies.value, edit_description.value, edit_code_uri.value ? edit_code_uri.value : undefined, edit_live_uri.value ? edit_live_uri.value : undefined, edit_image_uri.value ? edit_image_uri.value : undefined, edit_image_alt.value ? edit_image_alt.value : undefined)">
-				</div>
-			</form>
-		</div>
-
-		<div *ngIf="current_value === 'delete'">
-			<form onsubmit="return false;" id="delete_item_form">
-				<h3>Delete work item</h3>
-
-				<label for="deleteId"><h5>Input project id</h5></label>
-				<input type="number" id="deleteId" placeholder="Id (ex: 123)" min="1" max="65535" required #deleteId>
-
-            	<input type="submit" class="btn btn-danger" value="Delete" (click)="delete_item(deleteId.value)">
-			</form>
-		</div>
-	</div>
+  <div id="liveAlertPlaceholder" style="position: absolute; z-index: 9; width: 100%;"></div>
+  <section class="select_method">
+    <button type="button" class="btn btn-success" id="first_button" (click)="method_change('add')">Create</button>
+    <button type="button" class="btn btn-warning" (click)="method_change('edit')">Edit</button>
+    <button type="button" class="btn btn-danger" (click)="method_change('delete')">Delete</button>
+  </section>
+  <hr />
+  <div class="form">
+    <ng-container *ngIf="current_value === 'add'">
+      <form onsubmit="return false;" id="create_item_form">
+        <h3>Create new work item</h3>
+        <label for="add_name"><h5>Input name</h5></label>
+        <input type="text" id="add_name" placeholder="Name" minlength="3" maxlength="253" required #add_name />
+        <label for="add_date"><h5>Input date</h5></label>
+        <input type="date" id="add_date" min="1945-08-06" required #add_date />
+        <label for="add_technologies"><h5>Input technologies</h5></label>
+        <input type="text" id="add_technologies" placeholder="Technologies (ex: C++, Python, Javascript, NodeJS)" minlength="3" maxlength="253" required #add_technologies />
+        <label for="add_description"><h5>Input description</h5></label>
+        <textarea id="add_description" placeholder="Description" minlength="3" maxlength="2998" required #add_description></textarea>
+        <label for="add_code_uri"><h5>Input code uri</h5></label>
+        <input type="text" id="add_code_uri" placeholder="Code link (ex: https://github.com/LautaroColella/my_project)" minlength="3" maxlength="253" #add_code_uri />
+        <label for="add_live_uri"><h5>Input live uri</h5></label>
+        <input type="text" id="add_live_uri" placeholder="Live page link (ex: https://example.com/)" minlength="3" maxlength="253" #add_live_uri />
+        <label for="add_image_uri"><h5>Input image uri</h5></label>
+        <input type="text" id="add_image_uri" placeholder="Image link (ex: https://i.imgur.com/JV66wJT.jpeg)" minlength="3" maxlength="253" #add_image_uri />
+        <label for="add_image_alt"><h5>Input image description</h5></label>
+        <input type="text" id="add_image_alt" placeholder="Image alt" minlength="3" maxlength="253" #add_image_alt />
+        <input type="submit" class="btn btn-success" value="Create" (click)="create_item(add_name.value, add_date.value, add_technologies.value, add_description.value, add_code_uri.value ? add_code_uri.value : undefined, add_live_uri.value ? add_live_uri.value : undefined, add_image_uri.value ? add_image_uri.value : undefined, add_image_alt.value ? add_image_alt.value : undefined)" />
+      </form>
+    </ng-container>
+    <ng-container *ngIf="current_value === 'edit'">
+      <form onsubmit="return false;" id="edit_item_form">
+        <h3>Edit work item</h3>
+        <ng-container *ngIf="!found_item_id; else foundItemId">
+          <label for="edit_id"><h5>Input project id</h5></label>
+          <input type="number" id="edit_id" placeholder="Id (ex: 123)" min="1" max="65535" required #edit_id />
+          <input type="submit" class="btn btn-warning" value="Search" (click)="search_edit_item(edit_id.value)" />
+        </ng-container>
+        <ng-template #foundItemId>
+          <label for="edit_name"><h5>Change name</h5></label>
+          <input type="text" id="edit_name" placeholder="Name" minlength="3" maxlength="253" value="{{project_to_edit.name}}" required #edit_name />
+          <label for="edit_date"><h5>Change date</h5></label>
+          <input type="date" id="edit_date" min="1945-08-06" value="{{project_to_edit.date}}" required #edit_date />
+          <label for="edit_technologies"><h5>Change technologies</h5></label>
+          <input type="text" id="edit_technologies" placeholder="Technologies (ex: C++, Python, Javascript, NodeJS)" minlength="3" maxlength="253" value="{{project_to_edit.technologies}}" required #edit_technologies />
+          <label for="edit_description"><h5>Change description</h5></label>
+          <textarea id="edit_description" placeholder="Description" minlength="3" maxlength="2998" value="{{project_to_edit.description}}" required #edit_description></textarea>
+          <label for="edit_code_uri"><h5>Change code uri</h5></label>
+          <input type="text" id="edit_code_uri" placeholder="Code link (ex: https://github.com/LautaroColella/my_project)" minlength="3" maxlength="253" value="{{project_to_edit.code_uri}}" #edit_code_uri />
+          <label for="edit_live_uri"><h5>Change live uri</h5></label>
+          <input type="text" id="edit_live_uri" placeholder="Live page link (ex: https://example.com/)" minlength="3" maxlength="253" value="{{project_to_edit.live_uri}}" #edit_live_uri />
+          <label for="edit_image_uri"><h5>Change image uri</h5></label>
+          <input type="text" id="edit_image_uri" placeholder="Image link (ex: https://i.imgur.com/JV66wJT.jpeg)" minlength="3" maxlength="253" value="{{project_to_edit.image_uri}}" #edit_image_uri />
+          <label for="edit_image_alt"><h5>Change image description</h5></label>
+          <input type="text" id="edit_image_alt" placeholder="Image alt" minlength="3" maxlength="253" value="{{project_to_edit.image_alt}}" #edit_image_alt />
+          <input type="submit" class="btn btn-warning" value="Update" (click)="edit_item(edit_name.value, edit_date.value, edit_technologies.value, edit_description.value, edit_code_uri.value ? edit_code_uri.value : undefined, edit_live_uri.value ? edit_live_uri.value : undefined, edit_image_uri.value ? edit_image_uri.value : undefined, edit_image_alt.value ? edit_image_alt.value : undefined)" />
+        </ng-template>
+      </form>
+    </ng-container>
+    <ng-container *ngIf="current_value === 'delete'">
+      <form onsubmit="return false;" id="delete_item_form">
+        <h3>Delete work item</h3>
+        <label for="deleteId"><h5>Input project id</h5></label>
+        <input type="number" id="deleteId" placeholder="Id (ex: 123)" min="1" max="65535" required #deleteId />
+        <input type="submit" class="btn btn-danger" value="Delete" (click)="delete_item(deleteId.value)" />
+      </form>
+    </ng-container>
+  </div>
 </div>
