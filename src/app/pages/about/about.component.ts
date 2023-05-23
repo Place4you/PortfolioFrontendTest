@@ -34,11 +34,12 @@ export class AboutComponent implements OnInit {
 	total_pages:        number = 1;
 	itemsPerPage:		number = 6;
 	all_selected_items: number = 0;
-	current_view: 		string = "knowledge_items";
+	current_view: 		string = "knowledge";
 	show_arrows:        boolean = false;
 	knowledge_items:    TableAboutItemRes[] = [];
 	badges_items:       TableAboutItemRes[] = [];
 	certificates_items: TableAboutItemRes[] = [];
+	savedItem:			HTMLElement | null = null;
 	journey: { id: number, title: string, description: string } = {
 		id: 0,
 		title: "No title",
@@ -55,10 +56,10 @@ export class AboutComponent implements OnInit {
 	
 	makePages(view: string): void {
 		this.show_arrows = false;
-		const selectedNavButton: HTMLElement | null = document.getElementById(view);
-		const navKnowledge: HTMLElement | null      = document.getElementById('knowledge_items');
-		const navBadges: HTMLElement | null         = document.getElementById('badges_items');
-		const navCertificates: HTMLElement | null   = document.getElementById('certificates_items');
+		const selectedNavButton: HTMLElement | null = document.getElementById(`${view}_button`);
+		const navKnowledge: HTMLElement | null      = document.getElementById('knowledge_button');
+		const navBadges: HTMLElement | null         = document.getElementById('badge_button');
+		const navCertificates: HTMLElement | null   = document.getElementById('certificate_button');
 		if(selectedNavButton != null){
 			this.current_view = view;
 			if(navKnowledge != null && navBadges != null && navCertificates != null){
@@ -77,10 +78,10 @@ export class AboutComponent implements OnInit {
 		let selected_items: TableAboutItemRes[] = this.knowledge_items;
 		this.all_selected_items = selected_items.length;
 
-		if(view === 'badges_items'){
+		if(view === 'badge'){
 			selected_items = this.badges_items;
 		}
-		else if(view === 'certificates_items'){
+		else if(view === 'certificate'){
 			selected_items = this.certificates_items;
 		}
 
@@ -181,7 +182,13 @@ export class AboutComponent implements OnInit {
 			}
 		}
 		const myItem: HTMLElement | null = document.getElementById(`itemImage_${itemId}`);
-		if(myItem !== null) myItem.classList.add('selected_item');
+		if(myItem !== null){
+			if(this.savedItem !== null){
+				this.savedItem.classList.remove('selected_item');
+			}
+			myItem.classList.add('selected_item');
+			this.savedItem = myItem;
+		}
 	}
 
 	checkResize(): void {

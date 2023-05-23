@@ -2,70 +2,55 @@
 	<app-loader></app-loader>
 	<div class="container content">
 		<div id="liveAlertPlaceholder" style="position: absolute; z-index: 9; width: 100%;"></div>
-		<div id="about">
-			<div class="row">
-				<div class="col-sm about_journey">
-					<h3>{{journey.title}}</h3>
-					<p [innerHTML]="journey.description"></p>
-					<h6 *ngIf="isLogged()">#{{journey.id}}</h6>
-				</div>
-				<div class="col-sm about_navbar">
-					<button (click)="makePages('knowledge_items')" type="button" class="btn btn-secondary" id="knowledge_items"><strong>Knowledge</strong></button>
-					<button (click)="makePages('badges_items')" type="button" class="btn btn-secondary" id="badges_items"><strong>Badges</strong></button>
-					<button (click)="makePages('certificates_items')" type="button" class="btn btn-secondary" id="certificates_items"><strong>Certificates</strong></button>
-				</div>
-				<hr>
-				<div class="about_footer">
+		<section id="about">
+			<article id="journey">
+				<h3>{{journey.title}}</h3>
+				<p [innerHTML]="journey.description"></p>
+			</article>
 
-					<div class="about_left_arrow" (click)="onLeftArrow()" *ngIf="show_arrows">
-						<div class="about_line_1"></div>
-						<div class="about_line_2"></div>
-					</div>
-					<div class="about_right_arrow" (click)="onRightArrow()" *ngIf="show_arrows">
-						<div class="about_line_1"></div>
-						<div class="about_line_2"></div>
-					</div>
+			<aside id="navbar">
+				<button (click)="makePages('knowledge')" type="button" class="btn btn-secondary" id="knowledge_button"><strong>Knowledge</strong></button>
+				<button (click)="makePages('badge')" type="button" class="btn btn-secondary" id="badge_button"><strong>Badges</strong></button>
+				<button (click)="makePages('certificate')" type="button" class="btn btn-secondary" id="certificate_button"><strong>Certificates</strong></button>
+			</aside>
 
-					<div class="about_items">
-						<div *ngIf="array_all.length === 0">
-							<h1>There are no items yet</h1>
-						</div>
-						<ng-container *ngFor="let arrayItem of array_all; let i = index">
-							<ng-container *ngIf="i === pageIndex">
-								<div class="about_item" *ngFor="let item of arrayItem.page">
-									<ng-container *ngIf="item.image_uri && item.image_alt; else imageMissing">
-										<div class="itemImage" id="itemImage_{{item.id}}">
-											<div class="bot">
-												<p class="date">{{item.date | date:'shortDate'}}</p>
-											</div>
-											<img src="{{item.image_uri}}" alt="{{item.image_alt}}" (click)="showItemInfo(item.id)">
-										</div>
-									</ng-container>
-									<div *ngIf="item.name; else nameMissing">
-										<h5>
-											<a href="{{item.link}}" target="_blank" *ngIf="item.link" title="{{item.name}}">{{item.name}}</a>
-											<span *ngIf="!item.link" title="{{item.name}}">{{item.name}}</span>
-										</h5>
+			<footer id="footer">
+				<section id="arrows" *ngIf="show_arrows">
+					<div id="left_arrow" (click)="onLeftArrow()"><i class="fa-solid fa-angle-left fa-3x"></i></div>
+					<div id="right_arrow" (click)="onRightArrow()"><i class="fa-solid fa-angle-right fa-3x"></i></div>
+				</section>
+
+				<section id="items">
+					<div *ngIf="array_all.length === 0">
+						<h1>There are no items yet</h1>
+					</div>
+					<ng-container *ngFor="let arrayItem of array_all; let i = index">
+						<ng-container *ngIf="i === pageIndex">
+							<div class="item" *ngFor="let item of arrayItem.page">
+								<div class="itemImage" id="itemImage_{{item.id}}" (click)="showItemInfo(item.id)">
+									<img src="{{item.image_uri ? item.image_uri : 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg'}}" alt="{{item.image_alt ? item.image_alt : 'No image available'}}">
+									<div class="behind_image">
+										<span>{{item.date}}</span>
+										<span *ngIf="isLogged()">#{{journey.id}}</span>
 									</div>
-
-									<ng-template #nameMissing>
-										<h5>Missing name</h5>
-									</ng-template>
-									<ng-template #imageMissing>
-										<div class="itemImage" id="itemImage_{{item.id}}">
-											<div class="bot">
-												<p class="date">{{item.date | date:'shortDate'}}</p>
-											</div>
-											<img src="https://www.pacificfoodmachinery.com.au/media/catalog/product/placeholder/default/no-product-image-400x400.png" alt="Missing image" (click)="showItemInfo(item.id)">
-										</div>
-									</ng-template>
 								</div>
-							</ng-container>
+
+								<div>
+									<h5 title="{{item.name}}">
+										<ng-container *ngIf="item.link; else noLink">
+											<a href="{{item.link}}" target="_blank" title="{{item.name}}">{{item.name}}</a>
+										</ng-container>
+										<ng-template #noLink>
+											{{item.name}}
+										</ng-template>
+									</h5>
+								</div>
+							</div>
 						</ng-container>
-					</div>
-				</div>
-			</div>
-		</div>
+					</ng-container>
+				</section>
+			</footer>
+		</section>
 	</div>
 	<app-navbar></app-navbar>
 </body>
