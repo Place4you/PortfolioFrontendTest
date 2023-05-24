@@ -135,11 +135,9 @@
 						}
 					}
 				}
-				.selected_item {
-					.behind_image {
-						opacity: 1;
-						transition: opacity 1s;
-					}
+				.selected_item .behind_image {
+					opacity: 1;
+					transition: opacity 1s;
 				}
 				h5 {
 					margin-top: 10px;
@@ -152,7 +150,7 @@
 	}
 }
 
-@media (max-width: 574px){
+@media (max-width: 574px) {
 	#about .about_navbar {
 		top: 0;
 		margin-bottom: 20px;
@@ -169,7 +167,7 @@
 	}
 }
 
-@media (max-width: 992px){
+@media (max-width: 992px) {
 	#about .about_footer {
 		.about_left_arrow {
 			.about_line_1 {
@@ -193,7 +191,7 @@
 		}
 	}
 }
-@media (max-width: 574px){
+@media (max-width: 574px) {
 	#about {
 		#journey, #navbar {
 			width: 100%;

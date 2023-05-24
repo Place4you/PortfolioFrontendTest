@@ -1,4 +1,4 @@
-#toggle_nav {
+#toggleNav {
 	display: none;
 	text-align: center;
 	&:hover {
@@ -10,7 +10,7 @@
 	}
 	z-index: 9;
 }
-#navigationbar {
+#navigationBar {
 	position: fixed;
 	bottom: 15%;
 	width: 100%;
@@ -19,7 +19,7 @@
 	margin-top: 40px;
 	font-size: 16px;
 	z-index: 9;
-	.nav_home, .nav_work, .nav_about, .nav_contact, .nav_login, .nav_admin {
+	.navHome, .navWork, .navAbout, .navContact, .navLogin, .navAdmin {
 		display: inline-block;
 		margin-left: 30px;
 	}
@@ -30,7 +30,7 @@
 		outline-offset: 3px;
 	}
 
-	@media (max-width: 700px), (max-height: 760px){
+	@media (max-width: 700px), (max-height: 760px) {
 		position: fixed;
 		top: 0;
 		left: 0;
@@ -41,7 +41,7 @@
 		border-top-right-radius: 10px;
 		border-bottom-right-radius: 10px;
 		display: none;
-		.nav_home, .nav_work, .nav_about, .nav_contact, .nav_login, .nav_admin {
+		.navHome, .navWork, .navAbout, .navContact, .navLogin, .navAdmin {
 			margin: 20px 10px 0 10px;
 			display: block;
 		}
@@ -50,8 +50,8 @@
 		}
 	}
 }
-@media (max-width: 700px), (max-height: 760px){
-	#toggle_nav {
+@media (max-width: 700px), (max-height: 760px) {
+	#toggleNav {
 		display: block;
 		position: fixed;
 		top: 60px;

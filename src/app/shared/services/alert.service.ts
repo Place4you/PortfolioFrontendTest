@@ -11,7 +11,7 @@ export class AlertService {
 
   myAlert(message: string, type: string): void {
     const alertPlaceholder: HTMLElement | null = document.getElementById('liveAlertPlaceholder');
-    if(!this.current_alert){
+    if (!this.current_alert) {
       this.current_alert = true;
       const wrapper: HTMLElement = document.createElement('div');
       wrapper.innerHTML = [
@@ -19,7 +19,7 @@ export class AlertService {
         `   <div style="text-align: center;">${message}</div>`,
         '</div>'
         ].join('');
-      if(alertPlaceholder !== null){
+      if (alertPlaceholder !== null) {
         alertPlaceholder.append(wrapper);
         setTimeout(() => {
           alertPlaceholder.innerHTML = '';

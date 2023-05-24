@@ -7,6 +7,5 @@ import { LoaderService } from '@@shared/services/loader.service';
 	styleUrls: ['./loader.component.scss']
 })
 export class LoaderComponent {
-
-	constructor(public loaderService: LoaderService){ }
+	constructor(public loaderService: LoaderService) { }
 }

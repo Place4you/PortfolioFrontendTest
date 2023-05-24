@@ -5,7 +5,7 @@ import {
 	HttpHeaders, 
 	HttpErrorResponse,
 	HttpResponse 
-} from '@angular/common/http'
+} from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { TableWorkItemRes } from '../interfaces/tableWorkItemRes.interface';
@@ -27,7 +27,7 @@ export class WorkService {
 				observe: 'response',
 				responseType: 'json'
 			}
-		)
+		);
 	}
 
 	getItems(): Observable<HttpResponse<TableWorkItemRes[]>> {
@@ -57,7 +57,7 @@ export class WorkService {
 			live_uri: itemData?.live_uri ?? null,
 			image_uri: itemData?.image_uri ?? null,
 			image_alt: itemData?.image_alt ?? null
-		}
+		};
 		return this.http.post<TableWorkItemRes>(
 			this.uri + "/add",
 			body,
@@ -66,7 +66,7 @@ export class WorkService {
 				observe: 'response',
 				responseType: 'json'
 			}
-		)
+		);
 	}
 
 	updateItem(
@@ -88,7 +88,7 @@ export class WorkService {
 			live_uri: itemData?.live_uri ?? null,
 			image_uri: itemData?.image_uri ?? null,
 			image_alt: itemData?.image_alt ?? null
-		}
+		};
 		return this.http.put<TableWorkItemRes>(
 			this.uri + "/update",
 			body,
@@ -97,16 +97,16 @@ export class WorkService {
 				observe: 'response',
 				responseType: 'json'
 			}
-		)
+		);
 	}
 
-	deleteItem(token: string, id: number): Observable<HttpResponse<{}>> {
-		return this.http.delete<{}>(
+	deleteItem(token: string, id: number): Observable<HttpResponse<{ }>> {
+		return this.http.delete<{ }>(
 			this.uri + `/delete/${id}`,
 			{
 				headers: {'Authorization':token},
 				observe: 'response'
 			}
-		)
+		);
 	}
 }

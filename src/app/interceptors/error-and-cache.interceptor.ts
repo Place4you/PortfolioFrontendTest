@@ -8,13 +8,9 @@ import {
 	HttpHandler,
 	HttpEvent
 } from '@angular/common/http';
-import {
-	Observable,
-	throwError,
-	of
-} from 'rxjs';
+import { Observable, throwError, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { ErrorObject } from '@@shared/interfaces/errorObject.interface'
+import { ErrorObject } from '@@shared/interfaces/errorObject.interface';
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
@@ -22,17 +18,15 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 	
 	intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 		const cachedResponse = this.getCache(request);
-		if(cachedResponse) return of(cachedResponse);
+		if (cachedResponse) return of(cachedResponse);
 
 		return next.handle(request).pipe(
 			catchError((error: HttpErrorResponse) => {
-				if(error && error.status && error.status === 403){
-					this.router.navigate(['error403']);
-				}
-				if(error){
-					if(error.status === 500 || error.statusText === "Unknown Error"){
-						this.router.navigate(['error500']);
-					}
+				if (error && error.status && error.status === 403) this.router.navigate(['error403']);
+				if (error) {
+					if (error.status === 500 ||
+						error.statusText === "Unknown Error"
+					) this.router.navigate(['error500']);
 				}
 				let errorMsg: ErrorObject = {
 					error: {
@@ -41,16 +35,14 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 						message: error.error && error.error.message ? error.error.message : null
 					}
 				};
-				if(error.error instanceof ErrorEvent){
+				if (error.error instanceof ErrorEvent) {
 					errorMsg.error.type = "client";
 					errorMsg.error.code = error.status || 400;
 				}
-
 				const httpError = new HttpResponse<ErrorObject>({
 					status: error.status,
 					body: errorMsg
 				});
-
 				return throwError(httpError);
 			})
 		);
@@ -58,7 +50,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 
 	private getCache(request: HttpRequest<any>): HttpResponse<any> | null {
 		const cachedResponse = sessionStorage.getItem(request.url);
-		if(cachedResponse) return new HttpResponse(JSON.parse(cachedResponse));
+		if (cachedResponse) return new HttpResponse(JSON.parse(cachedResponse));
 		return null;
 	}
 

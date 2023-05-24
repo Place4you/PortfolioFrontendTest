@@ -5,7 +5,7 @@ import {
 	HttpHeaders, 
 	HttpErrorResponse, 
 	HttpResponse 
-} from '@angular/common/http'
+} from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { environment } from '@app/../src/environments/environment.prod';
@@ -33,14 +33,14 @@ export class LoginService {
 		);
 	}
 
-	check_token(token: string): Observable<HttpResponse<{}>> {
-		return this.http.delete<{}>(
+	check_token(token: string): Observable<HttpResponse<{ }>> {
+		return this.http.delete<{ }>(
 			this.uri + '/about_item/check_token',
 			{
 				headers: {'Authorization':token},
 				observe: 'response',
 				responseType: 'json'
 			}
-		)
+		);
 	}
 }

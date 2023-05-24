@@ -1,24 +1,24 @@
-<div id="toggle_nav" (click)="toggle_nav()">
-  <i *ngIf="nav_open" class="fa-solid fa-close fa-2x toggle_nav_icon"></i>
-  <i *ngIf="!nav_open" class="fa-solid fa-bars fa-2x toggle_nav_icon"></i>
+<div id="toggleNav" (click)="toggleNav()">
+  <i *ngIf="navOpen" class="fa-solid fa-close fa-2x toggleNavIcon"></i>
+  <i *ngIf="!navOpen" class="fa-solid fa-bars fa-2x toggleNavIcon"></i>
 </div>
-<div id="navigationbar">
-  <div class="nav_home">
+<div id="navigationBar">
+  <div class="navHome">
     <button routerLink="/home" type="button" class="btn btn-dark" [class.active]="currentRoute === '/home'"><i class="fa-solid fa-house-chimney"></i> Home</button>
   </div>
-  <div class="nav_work">
+  <div class="navWork">
     <button routerLink="/work" type="button" class="btn btn-dark" [class.active]="currentRoute === '/work'"><i class="fa-solid fa-code"></i> Work</button>
   </div>
-  <div class="nav_about">
+  <div class="navAbout">
     <button routerLink="/about" type="button" class="btn btn-dark" [class.active]="currentRoute === '/about'"><i class="fa-solid fa-user"></i> About</button>
   </div>
-  <div class="nav_contact">
+  <div class="navContact">
     <button routerLink="/contact" type="button" class="btn btn-dark" [class.active]="currentRoute === '/contact'"><i class="fa-solid fa-comments"></i> Contact</button>
   </div>
-  <div class="nav_login" *ngIf="!isLogged()">
+  <div class="navLogin" *ngIf="!isLogged">
     <button routerLink="/login" type="button" class="btn btn-dark" [class.active]="currentRoute === '/login'"><i class="fa-solid fa-laptop"></i> Login</button>
   </div>
-  <div class="nav_admin" *ngIf="isLogged()">
+  <div class="navAdmin" *ngIf="isLogged">
     <button routerLink="/admin" type="button" class="btn btn-dark" [class.active]="currentRoute === '/admin'"><i class="fa-solid fa-gears"></i> Admin</button>
   </div>
 </div>

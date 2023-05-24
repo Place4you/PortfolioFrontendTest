@@ -6,7 +6,7 @@ import { environment } from '@app/../src/environments/environment.prod';
 	providedIn: 'root'
 })
 export class CronTaskService {
-	constructor(private http: HttpClient) {}
+	constructor(private http: HttpClient) { }
 
 	startPeriodicExecution() {
 		setInterval(() => {
@@ -18,12 +18,8 @@ export class CronTaskService {
 		const uri: string = environment.apiUrl + "/information";
 
 		this.http.get(uri).subscribe(
-			response => {
-				console.log(`Request sent to ${uri}`);
-			},
-			error => {
-				console.error(`Error sending request to ${uri}`);
-			}
+			response => console.log(`Request sent to ${uri}`),
+			error => console.error(`Error sending request to ${uri}`)
 		);
 	}
 }

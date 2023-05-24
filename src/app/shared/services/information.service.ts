@@ -5,7 +5,7 @@ import {
 	HttpHeaders, 
 	HttpErrorResponse, 
 	HttpResponse 
-} from '@angular/common/http'
+} from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { TableInfoRes } from '../interfaces/tableInfoRes.interface';
@@ -16,13 +16,7 @@ import { environment } from '@app/../src/environments/environment.prod';
 })
 export class InformationService {
 
-	constructor(private http: HttpClient) {
-		interface InformationTableResponse {
-			id: number,
-			name: string,
-			information: string
-		}
-	}
+	constructor(private http: HttpClient) { }
 
 	uri: string = environment.apiUrl + "/information";
 
@@ -54,6 +48,6 @@ export class InformationService {
 				observe: 'response',
 				responseType: 'json'
 			}
-		)
+		);
 	}
 }

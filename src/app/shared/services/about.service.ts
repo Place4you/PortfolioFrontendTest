@@ -5,7 +5,7 @@ import {
 	HttpHeaders, 
 	HttpErrorResponse, 
 	HttpResponse
-} from '@angular/common/http'
+} from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { TableAboutItemRes } from '../interfaces/tableAboutItemRes.interface';
@@ -56,7 +56,7 @@ export class AboutService {
 			link: itemData?.link ?? null,
 			image_uri: itemData?.image_uri ?? null,
 			image_alt: itemData?.image_alt ?? null
-		}
+		};
 		return this.http.post<TableAboutItemRes>(
 			this.uri + "/add",
 			body,
@@ -86,7 +86,7 @@ export class AboutService {
 			link: itemData?.link ?? null,
 			image_uri: itemData?.image_uri ?? null,
 			image_alt: itemData?.image_alt ?? null
-		}
+		};
 		return this.http.put<TableAboutItemRes>(
 			this.uri + "/update",
 			body,
@@ -98,8 +98,8 @@ export class AboutService {
 		);
 	}
 
-	deleteItem(token: string, id: number): Observable<HttpResponse<{}>> {
-		return this.http.delete<{}>(
+	deleteItem(token: string, id: number): Observable<HttpResponse<{ }>> {
+		return this.http.delete<{ }>(
 			this.uri + `/delete/${id}`,
 			{
 				headers: {'Authorization':token},

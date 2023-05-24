@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Router } from '@angular/router'
+import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 
 @Component({
@@ -9,53 +9,47 @@ import { CookieService } from 'ngx-cookie-service';
 	providers: [CookieService],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
 
-	currentRoute: string | undefined = undefined;
-	nav_open: boolean = false;
+	currentRoute:	string | undefined = undefined;
+	navOpen:		boolean = false;
+	isLogged:		boolean = !!this.cookieService.get('JWT');
 
-	constructor (private router: Router, private cookieService: CookieService) {
-		this.currentRoute = router.url;
-	}
+	constructor(
+		private router: Router,
+		private cookieService: CookieService
+	) {	this.currentRoute = router.url; }
 
-	toggle_nav(): void {
-		const all_buttons: HTMLElement | null = document.getElementById('navigationbar');
-		const nav_toggle: HTMLElement | null = document.getElementById('toggle_nav');
-		if(all_buttons !== null && nav_toggle !== null){
-			if(this.nav_open){
-				this.nav_open = false;
-				all_buttons.style.display = 'none';
-				nav_toggle.style.left = '0';
+	toggleNav(): void {
+		const allButtons: HTMLElement | null = document.getElementById('navigationBar');
+		const navToggle: HTMLElement | null = document.getElementById('toggleNav');
+		if (allButtons !== null && navToggle !== null) {
+			if (this.navOpen) {
+				this.navOpen = false;
+				allButtons.style.display = 'none';
+				navToggle.style.left = '0';
 			}
 			else {
-				this.nav_open = true;
-				all_buttons.style.display = 'block';
-				nav_toggle.style.left = '130px';
+				this.navOpen = true;
+				allButtons.style.display = 'block';
+				navToggle.style.left = '130px';
 			}
 		}
 	}
 
-	isLogged(): boolean {
-		return this.cookieService.get('JWT') ? true : false;
-	}
-
 	checkResize(): void {
-		const nav_toggle: HTMLElement | null = document.getElementById('toggle_nav');
-		const all_buttons: HTMLElement | null = document.getElementById('navigationbar');
-		if(nav_toggle !== null && all_buttons !== null){
-			if(window.innerWidth > 700 && window.innerHeight > 760){
-				if(nav_toggle.style.display === 'block' || all_buttons.style.display === 'none'){
-					nav_toggle.style.display = 'none';
-					all_buttons.style.display = 'block';
+		const navToggle: HTMLElement | null = document.getElementById('toggleNav');
+		const allButtons: HTMLElement | null = document.getElementById('navigationBar');
+		if (navToggle !== null && allButtons !== null) {
+			if (window.innerWidth > 700 && window.innerHeight > 760) {
+				if (getComputedStyle(navToggle, null).display === 'block' || getComputedStyle(allButtons, null).display === 'none') {
+					navToggle.style.display = 'none';
+					allButtons.style.display = 'block';
 				}
 			}
 			else {
-				if(nav_toggle.style.display === 'none'){
-					nav_toggle.style.display = 'block';
-				}
-				if(nav_toggle.style.left === '0px'){
-					all_buttons.style.display = 'none';
-				}
+				if (getComputedStyle(navToggle, null).display === 'none') navToggle.style.display = 'block';
+				if (getComputedStyle(navToggle, null).left === '0px') allButtons.style.display = 'none';
 			}
 		}
 	}

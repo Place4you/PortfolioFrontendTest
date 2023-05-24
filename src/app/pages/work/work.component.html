@@ -27,7 +27,7 @@
                 <td><h3>{{project.name}}</h3></td>
               </tr>
               <tr>
-                <td><h5><span *ngIf="isLogged()">#{{project.id}} | </span>{{project.date}}</h5></td>          
+                <td><h5><span *ngIf="isLogged">#{{project.id}} | </span>{{project.date}}</h5></td>          
               </tr>
               <tr>
                 <span class="technology" *ngFor="let technology of project.technologies.split(',')">{{technology}}</span>

@@ -5,7 +5,7 @@ import {
 	HttpHeaders, 
 	HttpErrorResponse, 
 	HttpResponse
-} from '@angular/common/http'
+} from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { TableUserRes } from '../interfaces/tableUserRes.interface';
@@ -52,7 +52,7 @@ export class UserService {
 			name: name,
 			email: email,
 			password: password
-		}
+		};
 		return this.http.post<TableUserRes>(
 			this.uri + "/add",
 			body,
@@ -76,7 +76,7 @@ export class UserService {
 			name: name,
 			email: email,
 			password: password
-		}
+		};
 		return this.http.put<TableUserRes>(
 			this.uri + "/update",
 			body,
@@ -88,8 +88,8 @@ export class UserService {
 		);
 	}
 
-	deleteUser(token: string, id: number): Observable<HttpResponse<{}>> {
-		return this.http.delete<{}>(
+	deleteUser(token: string, id: number): Observable<HttpResponse<{ }>> {
+		return this.http.delete<{ }>(
 			this.uri + `/delete/${id}`,
 			{
 				headers: {'Authorization':token},

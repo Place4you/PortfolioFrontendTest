@@ -5,7 +5,7 @@ import {
 	HttpHeaders, 
 	HttpErrorResponse, 
 	HttpResponse 
-} from '@angular/common/http'
+} from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { TableContactItemRes, TableContactMessageRes } from '../interfaces/tableContactRes.interface';
@@ -28,7 +28,7 @@ export class ContactService {
 				observe: 'response',
 				responseType: 'json'
 			}
-		)
+		);
 	}
 
 	getItems(): Observable<HttpResponse<TableContactItemRes[]>> {
@@ -53,7 +53,7 @@ export class ContactService {
 			link: itemData?.link ?? null,
 			image_uri: itemData?.image_uri ?? null,
 			image_alt: itemData?.image_alt ?? null
-		}
+		};
 		return this.http.post<TableContactItemRes>(
 			this.uri_ci + "/add",
 			body,
@@ -62,7 +62,7 @@ export class ContactService {
 				observe: 'response',
 				responseType: 'json'
 			}
-		)
+		);
 	}
 
 	updateItem(
@@ -79,7 +79,7 @@ export class ContactService {
 			link: itemData?.link ?? null,
 			image_uri: itemData?.image_uri ?? null,
 			image_alt: itemData?.image_alt ?? null
-		}
+		};
 		return this.http.put<TableContactItemRes>(
 			this.uri_ci + "/update",
 			body,
@@ -88,17 +88,17 @@ export class ContactService {
 				observe: 'response',
 				responseType: 'json'
 			}
-		)
+		);
 	}
 
-	deleteItem(token: string, id: number): Observable<HttpResponse<{}>> {
-		return this.http.delete<{}>(
+	deleteItem(token: string, id: number): Observable<HttpResponse<{ }>> {
+		return this.http.delete<{ }>(
 			this.uri_ci + `/delete/${id}`,
 			{
 				headers: {'Authorization':token},
 				observe: 'response'
 			}
-		)
+		);
 	}
 
 	getMessage(token: string, id: number): Observable<HttpResponse<TableContactMessageRes>> {
@@ -109,7 +109,7 @@ export class ContactService {
 				observe: 'response',
 				responseType: 'json'
 			}
-		)
+		);
 	}
 
 	getMessages(token: string): Observable<HttpResponse<TableContactMessageRes[]>> {
@@ -120,7 +120,7 @@ export class ContactService {
 				observe: 'response',
 				responseType: 'json'
 			}
-		)
+		);
 	}
 
 	createMessage(
@@ -135,7 +135,7 @@ export class ContactService {
 			reply: reply,
 			date: date,
 			readed: false
-		}
+		};
 		return this.http.post<TableContactMessageRes>(
 			this.uri_cm + "/add",
 			body,
@@ -143,7 +143,7 @@ export class ContactService {
 				observe: 'response',
 				responseType: 'json'
 			}
-		)
+		);
 	}
 
 	changeMessageRead(token: string, message: TableContactMessageRes): Observable<HttpResponse<TableContactMessageRes>> {
@@ -154,7 +154,7 @@ export class ContactService {
 			reply: message.reply,
 			date: message.date,
 			readed: true
-		}
+		};
 		return this.http.put<TableContactMessageRes>(
 			this.uri_cm + `/update`,
 			body,
@@ -163,17 +163,17 @@ export class ContactService {
 				observe: 'response',
 				responseType: 'json'
 			}
-		)
+		);
 	}
 
-	deleteMessage(token: string, id: number): Observable<HttpResponse<{}>> {
-		return this.http.delete<{}>(
+	deleteMessage(token: string, id: number): Observable<HttpResponse<{ }>> {
+		return this.http.delete<{ }>(
 			this.uri_cm + `/delete/${id}`,
 			{
 				headers: {'Authorization':token},
 				observe: 'response'
 			}
-		)
+		);
 	}
 
 }
