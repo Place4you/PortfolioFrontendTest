@@ -15,7 +15,7 @@
               <i class="fa-solid fa-angle-up fa-2x"></i>
             </div>
           </button>
-          <aside class="right_image">
+          <aside class="item_image">
             <img src="{{project.image_uri}}" alt="{{project.image_alt}}" *ngIf="project.image_uri; else no_image" />
             <ng-template #no_image>
               <img src="https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg" alt="No image available" />
@@ -24,15 +24,15 @@
           <div class="left_text">
             <table>
               <tr>
-                <td><h3>{{project.name}}</h3></td>
+                <td><h4><strong>{{project.name}}</strong></h4></td>
               </tr>
               <tr>
                 <td><h5><span *ngIf="isLogged">#{{project.id}} | </span>{{project.date}}</h5></td>          
               </tr>
-              <tr>
-                <span class="technology" *ngFor="let technology of project.technologies.split(',')">{{technology}}</span>
-              </tr>
             </table>
+            <div class="all_technologies">
+              <span class="technology" *ngFor="let technology of project.technologies.split(',')">{{technology}}</span>
+            </div>
           </div>
           <div class="view_more_section" id="view_more_{{project.id}}">
             <p>

@@ -46,8 +46,8 @@ export class WorkComponent implements OnInit {
 		if (more_section !== null && more_button !== null && less_button !== null) {
 			const displayValue: string = getComputedStyle(more_section)?.display ?? '';
 			more_section.style.display 	= displayValue === 'block' ? 'none' : 'block';
-			less_button.style.display 	= displayValue === 'block' ? 'block' : 'none';
-			more_button.style.display 	= displayValue === 'block' ? 'none' : 'block';
+			less_button.style.display 	= displayValue === 'block' ? 'none' : 'block';
+			more_button.style.display 	= displayValue === 'block' ? 'block' : 'none';
 		}
 	}
 
