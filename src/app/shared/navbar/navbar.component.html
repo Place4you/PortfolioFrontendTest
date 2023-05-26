@@ -15,9 +15,6 @@
   <div class="navContact">
     <button routerLink="/contact" type="button" class="btn btn-dark" [class.active]="currentRoute === '/contact'"><i class="fa-solid fa-comments"></i> Contact</button>
   </div>
-  <div class="navLogin" *ngIf="!isLogged">
-    <button routerLink="/login" type="button" class="btn btn-dark" [class.active]="currentRoute === '/login'"><i class="fa-solid fa-laptop"></i> Login</button>
-  </div>
   <div class="navAdmin" *ngIf="isLogged">
     <button routerLink="/admin" type="button" class="btn btn-dark" [class.active]="currentRoute === '/admin'"><i class="fa-solid fa-gears"></i> Admin</button>
   </div>

@@ -31,18 +31,17 @@
 	}
 
 	@media (max-width: 700px), (max-height: 760px) {
-		position: fixed;
 		top: 0;
 		left: 0;
+		bottom: initial;
 		width: 130px;
 		background-color: #333;
-		height: 310px;
 		text-align: left;
 		border-top-right-radius: 10px;
 		border-bottom-right-radius: 10px;
 		display: none;
 		.navHome, .navWork, .navAbout, .navContact, .navLogin, .navAdmin {
-			margin: 20px 10px 0 10px;
+			margin: 20px 10px;
 			display: block;
 		}
 		.btn-dark.active {
