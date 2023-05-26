@@ -6,13 +6,15 @@
 	left: 0;
 	right: 0;
 	transform: translateY(-50%);
+	padding-top: 25px;
 }
 #contact {
 	width: 100%;
 	text-align: center;
-	margin: 40px;
+	padding: 20px;
 	.form {
-		width: 85%;
+		float: left;
+		width: 50%;
 		input {
 			width: 100%;
 			display: inline-block;
@@ -32,11 +34,15 @@
 		}
 	}
 	.social {
-		width: 85%;
+		float: right;
+		width: 50%;
+		position: relative;
+		h2 {
+			margin-bottom: 25px;
+		}
 		.social_items {
-			height: 500px;
-			overflow: hidden scroll;
-			margin-top: 50px;
+			overflow-y: scroll;
+			height: 480px;
 			.social_item {
 				position: relative;
 				display: inline-block;
@@ -98,8 +104,19 @@
 	}
 }
 
-@media (max-width: 580px) {
-	.social {
-		margin-top: 40px;
+@media (max-width: 600px) {
+	#contact {
+		.form {
+			float: none;
+			width: 100%;
+			margin-bottom: 20px;
+		}
+		.social {
+			float: none;
+			width: 100%;
+			.social_items {
+				height: 100%;
+			}
+		}
 	}
 }
