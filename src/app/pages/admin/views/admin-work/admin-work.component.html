@@ -1,4 +1,4 @@
-<div class="container content">
+<section class="container content">
   <div id="liveAlertPlaceholder" style="position: absolute; z-index: 9; width: 100%;"></div>
   <section class="select_method">
     <button type="button" class="btn btn-success" id="first_button" (click)="method_change('add')">Create</button>
@@ -6,7 +6,7 @@
     <button type="button" class="btn btn-danger" (click)="method_change('delete')">Delete</button>
   </section>
   <hr />
-  <div class="form">
+  <section class="form">
     <ng-container *ngIf="current_value === 'add'">
       <form onsubmit="return false;" id="create_item_form">
         <h3>Create new work item</h3>
@@ -66,5 +66,5 @@
         <input type="submit" class="btn btn-danger" value="Delete" (click)="delete_item(deleteId.value)" />
       </form>
     </ng-container>
-  </div>
-</div>
+  </section>
+</section>

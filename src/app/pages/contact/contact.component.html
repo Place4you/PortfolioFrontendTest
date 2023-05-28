@@ -1,9 +1,9 @@
 <body>
   <app-loader></app-loader>
-  <div class="container content">
+  <section class="container content">
     <div id="liveAlertPlaceholder" style="position: absolute; z-index: 9; width: 100%;"></div>
-    <div id="contact">
-      <div class="form">
+    <section id="contact">
+      <section class="form">
         <h2>Send a message!</h2>
         <form onsubmit="return false;" id="contact_form">
           <input type="text" placeholder="Subject" class="subject" minlength="3" maxlength="128" required #subject />
@@ -11,8 +11,8 @@
           <input type="text" placeholder="Reply to" minlength="3" maxlength="128" required #replyto />
           <input type="submit" value="Send" (click)="create_message(subject.value, message.value, replyto.value)" />
         </form>
-      </div>
-      <div class="social">
+      </section>
+      <section class="social">
         <h2>Or see my profiles</h2>
         <div class="social_items">
           <div class="social_item" *ngFor="let item of social_items">
@@ -30,8 +30,8 @@
             </a>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
+      </section>
+    </section>
+  </section>
   <app-navbar></app-navbar>
 </body>

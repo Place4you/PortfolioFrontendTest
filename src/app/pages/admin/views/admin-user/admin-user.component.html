@@ -1,4 +1,4 @@
-<div class="container content">
+<section class="container content">
   <div id="liveAlertPlaceholder" style="position: absolute; z-index: 9; width: 100%;"></div>
   <section class="select_method">
     <button type="button" class="btn btn-dark" id="first_button" (click)="method_change('all')">All</button>
@@ -30,7 +30,7 @@
       </table>
     </ng-template>
   </ng-container>
-  <div class="form">
+  <section class="form">
     <ng-container *ngIf="current_value === 'add'">
       <form onsubmit="return false;" id="create_user_form">
         <h3>Create new user</h3>
@@ -56,5 +56,5 @@
         <input type="submit" class="btn btn-success" value="Update" (click)="edit_user(edit_name.value, edit_email.value, edit_password.value)" />
       </form>
     </ng-container>
-  </div>
-</div>
+  </section>
+</section>
