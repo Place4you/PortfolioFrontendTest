@@ -33,7 +33,7 @@ export class LoginService {
 		);
 	}
 
-	check_token(token: string): Observable<HttpResponse<{ }>> {
+	checkToken(token: string): Observable<HttpResponse<{ }>> {
 		return this.http.delete<{ }>(
 			this.uri + '/about_item/check_token',
 			{

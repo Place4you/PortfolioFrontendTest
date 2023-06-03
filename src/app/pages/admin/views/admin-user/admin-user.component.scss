@@ -1,11 +1,11 @@
 .content {
 	text-align: center;
-	.select_method {
+	.selectMethod {
 		margin-top: 25px;
 		button {
 			margin-left: 20px;
 		}
-		#first_button {
+		#firstButton {
 			margin-left: 0;
 		}
 	}
@@ -35,10 +35,10 @@
 			text-overflow: ellipsis;
 			white-space: nowrap;
 			i {
-				&.icon_edit {
+				&.iconEdit {
 					color: #11ff00;
 				}
-				&.icon_del {
+				&.iconDel {
 					color: #ff6666;
 				}
 			}

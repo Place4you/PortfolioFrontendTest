@@ -22,16 +22,16 @@ export class IndexComponent implements OnInit,OnDestroy {
 		private informationService: InformationService
 	) { }
 
-	titles_array:  string[] = [];
-	current_title: string | undefined = undefined;
-	curr_title_i:  number = 0;
-	second_after:  boolean = true;
-	el:            HTMLElement | null = null;
-	resize_ob:     ResizeObserver | undefined = undefined;
+	titlesArray:		string[] = [];
+	currentTitle:		string | undefined = undefined;
+	currTitleIndex:		number = 0;
+	secondAfter:		boolean = true;
+	el:					HTMLElement | null = null;
+	resizeObserver:		ResizeObserver | undefined = undefined;
 
-	update_title(): void {
+	updateTitle(): void {
 		if (this.el) {
-			this.resize_ob = new ResizeObserver((entries) => {
+			this.resizeObserver = new ResizeObserver((entries) => {
 				this.zone.run(() => {
 					if (entries !== null) {
 						if (this.el !== null && this.el.parentElement !== null) {
@@ -43,19 +43,19 @@ export class IndexComponent implements OnInit,OnDestroy {
 								.width.slice(0, -2);
 
 							if (Math.round((elemWidth / parentElemWidth) * 100) >= 93) {
-								if (this.second_after) {
-									this.current_title = this.titles_array[this.curr_title_i];
-									this.curr_title_i++;
-									if (this.curr_title_i >= this.titles_array.length) this.curr_title_i = 0;
-									this.second_after = false;
-									setTimeout(() => this.second_after = true, 1000);
+								if (this.secondAfter) {
+									this.currentTitle = this.titlesArray[this.currTitleIndex];
+									this.currTitleIndex++;
+									if (this.currTitleIndex >= this.titlesArray.length) this.currTitleIndex = 0;
+									this.secondAfter = false;
+									setTimeout(() => this.secondAfter = true, 1000);
 								}
 							}
 						}
 					}
 				})
 			});
-			this.resize_ob.observe(this.el);
+			this.resizeObserver.observe(this.el);
 		}
 	}
 
@@ -66,7 +66,7 @@ export class IndexComponent implements OnInit,OnDestroy {
 				if (response.body !== null) {
 					for (let infoItem of response.body) {
 						if (infoItem.name === "index_titles" && infoItem.information) {
-							this.titles_array = infoItem.information.split(',');
+							this.titlesArray = infoItem.information.split(',');
 							break;
 						}
 					}
@@ -77,11 +77,11 @@ export class IndexComponent implements OnInit,OnDestroy {
 				console.error(error.body?.error);
 			}
 		);
-		this.el = document.querySelector("#home_title_box");
-		this.update_title();
+		this.el = document.querySelector("#homeTitleBox");
+		this.updateTitle();
 	}
 
 	ngOnDestroy(): void {
-		if (this.resize_ob && this.el) this.resize_ob.unobserve(this.el);
+		if (this.resizeObserver && this.el) this.resizeObserver.unobserve(this.el);
 	}
 }

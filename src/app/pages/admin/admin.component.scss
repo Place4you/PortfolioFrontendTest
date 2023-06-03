@@ -21,17 +21,17 @@
 		width: 100%;
 		background-color: rgba(222, 222, 222, 0.4);
 	}
-	.admin_home, .admin_work, .admin_about, .admin_contact {
+	.adminHome, .adminWork, .adminAbout, .adminContact {
 		margin-bottom: 100px;
 	}
-	#app_home, #app_work, #app_about, #app_contact, #app_user {
+	#appHome, #appWork, #appAbout, #appContact, #appUser {
 		padding: 50px 15px 15px 15px;
 		display: none;
 	}
-	.slide_button {
+	.slideButton {
 		background-color: rgba(200, 200, 200, 1.0);
 		height: 30px;
-		.slide_button_second {
+		.slideButtonSecond {
 			background-color: rgba(170, 170, 170, 1.0);
 			height: 80px;
 			margin: auto;
@@ -44,23 +44,23 @@
 			i {
 				color: #000;
 			}
-			.arrow_up {
+			.arrowUp {
 				position: relative;
 				display: none;
 			}
-			.arrow_down {
+			.arrowDown {
 				position: relative;
 				top: -5px;
 			}
 		}
 	}
-	.floating_buttons {
+	.floatingButtons {
 		position: fixed;
 		top: 200px;
 		right: 30px;
 		background-color: rgba(160, 160, 242, 0.6);
 		border-radius: 10px;
-		.f_button {
+		.fButton {
 			color: #000;
 			display: block;
 			padding: 10px;
@@ -70,7 +70,7 @@
 				background-color: rgba(160, 160, 242, 1.0);
 			}
 		}
-		.f_button_last {
+		.fButtonLast {
 			border-bottom: none;
 		}
 	}

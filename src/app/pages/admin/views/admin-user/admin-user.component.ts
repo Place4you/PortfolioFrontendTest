@@ -25,21 +25,19 @@ export class AdminUserComponent implements OnInit {
 		private userService: UserService
 	) { }
 
-	current_value:	string = "all";
-	found_user_id:	boolean = false;
-	user_to_edit:	{ id: number, name: string, email: string } = { } as { id: number, name: string, email: string };
-	all_users:		TableUserRes[] = [];
-	all_empty:		boolean = true;
+	currentValue:	string = "all";
+	userToEdit:	{ id: number, name: string, email: string } = { } as { id: number, name: string, email: string };
+	allUsers:		TableUserRes[] = [];
+	allEmpty:		boolean = true;
 	cookieValue:	string = this.cookieService.get('JWT');
 
-	method_change(value: string): void {
-		if (value !== this.current_value) {
-			this.found_user_id = false;
-			this.current_value = value;
+	methodChange(value: string): void {
+		if (value !== this.currentValue) {
+			this.currentValue = value;
 		}
 	}
 
-	create_user(
+	createUser(
 		name: string,
 		email: string,
 		password: string
@@ -59,8 +57,8 @@ export class AdminUserComponent implements OnInit {
 				).subscribe(
 					(response: HttpResponse<TableUserRes>): void  => {
 						this.alertService.myAlert("User created successfully", 'success');
-						(document.getElementById("create_user_form") as HTMLFormElement).reset;
-						response.body && (this.all_users.push(response.body));
+						(document.getElementById("createUserForm") as HTMLFormElement).reset;
+						response.body && (this.allUsers.push(response.body));
 					},
 					(error: HttpResponse<ErrorObject>): void => {
 						this.alertService.myAlert(error.body?.error.message ?? 'Unknown error while creating user', 'danger');
@@ -71,7 +69,7 @@ export class AdminUserComponent implements OnInit {
 		}
 	}
 
-	search_edit_user(inputId: number): void {
+	searchEditUser(inputId: number): void {
 		const userId: number = Number(inputId) || 0;
 		if (userId === 0) this.alertService.myAlert("Invalid user id", 'danger');
 		else if (userId < 1) this.alertService.myAlert("The user id must be greater than 0", 'danger');
@@ -86,14 +84,13 @@ export class AdminUserComponent implements OnInit {
 				).subscribe(
 					(response: HttpResponse<TableUserRes>): void  => {
 						if (response.body !== null) {
-							this.found_user_id = true;
-							this.user_to_edit = {
+							this.userToEdit = {
 								id: response.body.id,
 								name: response.body.name,
 								email: response.body.email
 							};
-							this.method_change("edit");
-							this.all_empty = false;
+							this.methodChange("edit");
+							this.allEmpty = false;
 						}
 					},
 					(error: HttpResponse<ErrorObject>): void => {
@@ -105,7 +102,7 @@ export class AdminUserComponent implements OnInit {
 		}
 	}
 
-	edit_user(
+	editUser(
 		name: string,
 		email: string,
 		password: string
@@ -115,25 +112,25 @@ export class AdminUserComponent implements OnInit {
 		else if (!password) this.alertService.myAlert("Field 'password' can't be null", 'danger');
 		
 		else {
-			if (this.user_to_edit.name) {
-				let something_changed: boolean = false;
-				if (name !== this.user_to_edit.name ||
-					email !== this.user_to_edit.email) something_changed = true;
+			if (this.userToEdit.name) {
+				let somethingChanged: boolean = false;
+				if (name !== this.userToEdit.name ||
+					email !== this.userToEdit.email) somethingChanged = true;
 
-				if (something_changed) {
+				if (somethingChanged) {
 					if (!this.cookieValue) this.router.navigate(['error403']);
 					else {
 						this.userService.updateUser(
 							this.cookieValue,
-							this.user_to_edit.id,
+							this.userToEdit.id,
 							name,
 							email,
 							password
 						).subscribe(
 							(response: HttpResponse<TableUserRes>): void  => {
 								this.alertService.myAlert("User updated successfully", 'success');
-								this.user_to_edit.name = name;
-								this.user_to_edit.email = email;
+								this.userToEdit.name = name;
+								this.userToEdit.email = email;
 							},
 							(error: HttpResponse<ErrorObject>): void => {
 								this.alertService.myAlert(error.body?.error.message ?? 'Unknown error while updating user', 'danger');
@@ -148,12 +145,11 @@ export class AdminUserComponent implements OnInit {
 			}
 			else {
 				this.alertService.myAlert("User to update not found", 'danger');
-				this.found_user_id = false;
 			}
 		}
 	}
 
-	delete_user(inputId: number): void {
+	deleteUser(inputId: number): void {
 		const userId: number = Number(inputId) || 0;
 		if (userId === 0) this.alertService.myAlert("Invalid user id", 'danger');
 		else if (userId < 1) this.alertService.myAlert("The user id must be greater than 0", 'danger');
@@ -168,9 +164,9 @@ export class AdminUserComponent implements OnInit {
 				).subscribe(
 					(response: HttpResponse<{ }>): void  => {
 						this.alertService.myAlert("User deleted successfully", 'success');
-						for (let i = 0; i < this.all_users.length; i++) {
-							if (this.all_users[i].id === inputId) {
-								this.all_users.splice(i, 1);
+						for (let i = 0; i < this.allUsers.length; i++) {
+							if (this.allUsers[i].id === inputId) {
+								this.allUsers.splice(i, 1);
 								break;
 							}
 						}
@@ -191,9 +187,9 @@ export class AdminUserComponent implements OnInit {
 			.subscribe(
 				(response: HttpResponse<TableUserRes[]>): void  => {
 					if (response.body !== null) {
-						this.all_empty = false;
+						this.allEmpty = false;
 						for (let user of response.body) {
-							this.all_users.push(user);
+							this.allUsers.push(user);
 						}
 					}
 				},

@@ -5,14 +5,14 @@ import { Injectable } from '@angular/core';
 })
 export class AlertService {
 
-  current_alert: boolean = false;
+  currentAlert: boolean = false;
 
   constructor() { }
 
   myAlert(message: string, type: string): void {
     const alertPlaceholder: HTMLElement | null = document.getElementById('liveAlertPlaceholder');
-    if (!this.current_alert) {
-      this.current_alert = true;
+    if (!this.currentAlert) {
+      this.currentAlert = true;
       const wrapper: HTMLElement = document.createElement('div');
       wrapper.innerHTML = [
         `<div class="alert alert-${type}" role="alert">`,
@@ -23,7 +23,7 @@ export class AlertService {
         alertPlaceholder.append(wrapper);
         setTimeout(() => {
           alertPlaceholder.innerHTML = '';
-          this.current_alert = false;
+          this.currentAlert = false;
         }, 5000);
       }
     }

@@ -48,7 +48,7 @@
 			left: 50%;
 			transform: translateX(-50%);
 		}
-		#knowledge_button {
+		#knowledgeButton {
 			background-color: #000;
 		}
 	}
@@ -59,7 +59,7 @@
 		padding-top: 20px;
 		#arrows {
 			width: 100%;
-			#left_arrow, #right_arrow {
+			#leftArrow, #rightArrow {
 				color: #ffc000;
 				width: 75px;
 				height: 150px;
@@ -78,12 +78,12 @@
 					color: #000;
 				}
 			}
-			#left_arrow {
+			#leftArrow {
 				float: left;
 				border-top-left-radius: 10px;
 				border-bottom-left-radius: 10px;
 			}
-			#right_arrow {
+			#rightArrow {
 				float: right;
 				border-top-right-radius: 10px;
 				border-bottom-right-radius: 10px;
@@ -103,7 +103,7 @@
 					&:hover {
 						cursor: pointer;
 					}
-					.behind_image {
+					.behindImage {
 						opacity: 0;
 						z-index: 3;
 						color: #fff;
@@ -126,7 +126,7 @@
 						}
 					}
 				}
-				.selected_item .behind_image {
+				.selectedItem .behindImage {
 					opacity: 1;
 					transition: opacity 1s;
 				}
@@ -141,47 +141,6 @@
 	}
 }
 
-@media (max-width: 574px) {
-	#about .about_navbar {
-		top: 0;
-		margin-bottom: 20px;
-		button {
-			margin-top: 20px;
-			width: 100%;
-			height: 40px;
-		}
-	}
-	.about_footer {
-		.about_left_arrow, .about_right_arrow {
-			display: none;
-		}
-	}
-}
-
-@media (max-width: 992px) {
-	#about .about_footer {
-		.about_left_arrow {
-			.about_line_1 {
-				width: 50px;
-				margin-top: 60px;
-			}
-			.about_line_2 {
-				width: 50px;
-				margin-top: 37px;
-			}
-		}
-		.about_right_arrow {
-			.about_line_1 {
-				width: 50px;
-				margin-top: 60px;
-			}
-			.about_line_2 {
-				width: 50px;
-				margin-top: 37px;
-			}
-		}
-	}
-}
 @media (max-width: 574px) {
 	#about {
 		#journey, #navbar {

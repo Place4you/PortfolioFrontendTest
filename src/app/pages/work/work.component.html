@@ -4,24 +4,24 @@
     <div id="liveAlertPlaceholder" style="position: absolute; z-index: 9; width: 100%;"></div>
     <section id="work">
       <div class="projects">
-        <div class="project" *ngFor="let project of project_items">
-          <button type="button" class="view_more_button" (click)="view_more(project.id)">
-            <div class="view_more" id="view_more_button_{{project.id}}">
+        <div class="project" *ngFor="let project of projectItems">
+          <button type="button" class="viewmoreButton" (click)="viewMore(project.id)">
+            <div class="viewMore" id="viewMoreButton_{{project.id}}">
               <span>View more</span>
               <i class="fa-solid fa-angle-down fa-2x"></i>
             </div>
-            <div class="view_less" id="view_less_button_{{project.id}}">
+            <div class="viewLess" id="viewLessButton_{{project.id}}">
               <span>View less</span>
               <i class="fa-solid fa-angle-up fa-2x"></i>
             </div>
           </button>
-          <aside class="item_image">
-            <img src="{{project.image_uri}}" alt="{{project.image_alt}}" *ngIf="project.image_uri; else no_image" />
-            <ng-template #no_image>
+          <aside class="itemImage">
+            <img src="{{project.image_uri}}" alt="{{project.image_alt}}" *ngIf="project.image_uri; else noImage" />
+            <ng-template #noImage>
               <img src="https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg" alt="No image available" />
             </ng-template>
           </aside>
-          <div class="main_content">
+          <div class="mainContent">
             <table>
               <tr>
                 <td><h4><strong>{{project.name}}</strong></h4></td>
@@ -30,11 +30,11 @@
                 <td><h5><span *ngIf="isLogged">#{{project.id}} | </span>{{project.date}}</h5></td>          
               </tr>
             </table>
-            <div class="all_technologies">
+            <div class="allTechnologies">
               <span class="technology" *ngFor="let technology of project.technologies.split(',')">{{technology}}</span>
             </div>
           </div>
-          <div class="view_more_section" id="view_more_{{project.id}}">
+          <div class="viewmoreSection" id="viewMore_{{project.id}}">
             <p>
               ● <a href="{{project.code_uri}}" target="_blank" *ngIf="project.code_uri">View source code <i class="fa-solid fa-external-link-alt"></i></a>
               <span *ngIf="!project.code_uri">Source code not available</span>

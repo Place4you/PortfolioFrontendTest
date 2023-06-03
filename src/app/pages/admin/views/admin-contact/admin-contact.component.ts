@@ -28,23 +28,23 @@ export class AdminContactComponent implements OnInit {
 		private contactService: ContactService
 	) { }
 
-	current_value: 		string = "add";
-	found_item_id: 		boolean = false;
-	item_to_edit: 		TableContactItemRes = { } as TableContactItemRes;
-	all_messages: 		TableContactMessageRes[] = [];
-	current_message: 	TableContactMessageRes = { } as TableContactMessageRes;
-	one_message: 		boolean = false;
-	messages_empty: 	boolean = true;
+	currentValue: 		string = "add";
+	foundItemId: 		boolean = false;
+	itemToEdit: 		TableContactItemRes = { } as TableContactItemRes;
+	allMessages: 		TableContactMessageRes[] = [];
+	currentMessage: 	TableContactMessageRes = { } as TableContactMessageRes;
+	oneMessage: 		boolean = false;
+	messagesEmpty: 	boolean = true;
 	cookieValue: 		string = this.cookieService.get('JWT');
 
-	method_change(value: string): void {
-		if (value !== this.current_value) {
-			this.found_item_id = false;
-			this.current_value = value;
+	methodChange(value: string): void {
+		if (value !== this.currentValue) {
+			this.foundItemId = false;
+			this.currentValue = value;
 		}
 	}
 
-	create_item(
+	createItem(
 		name: string,
 		account: string,
 		link?: string,
@@ -78,7 +78,7 @@ export class AdminContactComponent implements OnInit {
 				).subscribe(
 					(response: HttpResponse<TableContactItemRes>): void  => {
 						this.alertService.myAlert("Item created successfully", 'success');
-						(document.getElementById("create_item_form") as HTMLFormElement).reset;
+						(document.getElementById("createItemForm") as HTMLFormElement).reset;
 					},
 					(error: HttpResponse<ErrorObject>): void => {
 						this.alertService.myAlert(error.body?.error.message ?? 'Unknown error while creating item', 'danger');
@@ -89,7 +89,7 @@ export class AdminContactComponent implements OnInit {
 		}
 	}
 
-	search_edit_item(inputId: string): void {
+	searchEditItem(inputId: string): void {
 		const itemId: number = Number(inputId) || 0;
 		if (itemId === 0) this.alertService.myAlert("Invalid item id", 'danger');
 		else if (itemId < 1) this.alertService.myAlert("The item id must be greater than 0", 'danger');
@@ -100,15 +100,15 @@ export class AdminContactComponent implements OnInit {
 			.subscribe(
 				(response: HttpResponse<TableContactItemRes>): void  => {
 					if (response.body !== null) {
-						this.found_item_id = true;
-						this.item_to_edit = {
+						this.foundItemId = true;
+						this.itemToEdit = {
 							id: response.body.id,
 							name: response.body.name,
 							account: response.body.account
 						};
-						if (response.body.link) this.item_to_edit.link = response.body.link;
-						if (response.body.image_uri) this.item_to_edit.image_uri = response.body.image_uri;
-						if (response.body.image_alt) this.item_to_edit.image_alt = response.body.image_alt;
+						if (response.body.link) this.itemToEdit.link = response.body.link;
+						if (response.body.image_uri) this.itemToEdit.image_uri = response.body.image_uri;
+						if (response.body.image_alt) this.itemToEdit.image_alt = response.body.image_alt;
 					}
 				},
 				(error: HttpResponse<ErrorObject>): void => {
@@ -119,7 +119,7 @@ export class AdminContactComponent implements OnInit {
 		}
 	}
 
-	edit_item(
+	editItem(
 		name: string,
 		account: string,
 		link?: string,
@@ -130,16 +130,16 @@ export class AdminContactComponent implements OnInit {
 		else if (!account) this.alertService.myAlert("Field 'account' can't be null", 'danger');
 		
 		else {
-			if (this.item_to_edit.name) {
-				let something_changed: boolean = false;
-				if (name !== this.item_to_edit.name ||
-					account !== this.item_to_edit.account ||
-					link !== this.item_to_edit.link ||
-					image_uri !== this.item_to_edit.image_uri ||
-					image_alt !== this.item_to_edit.image_alt
-				) something_changed = true;
+			if (this.itemToEdit.name) {
+				let somethingChanged: boolean = false;
+				if (name !== this.itemToEdit.name ||
+					account !== this.itemToEdit.account ||
+					link !== this.itemToEdit.link ||
+					image_uri !== this.itemToEdit.image_uri ||
+					image_alt !== this.itemToEdit.image_alt
+				) somethingChanged = true;
 				
-				if (something_changed) {
+				if (somethingChanged) {
 					if (!this.cookieValue) this.router.navigate(['error403']);
 					else {
 						const itemData: {
@@ -157,18 +157,18 @@ export class AdminContactComponent implements OnInit {
 						
 						this.contactService.updateItem(
 							this.cookieValue,
-							this.item_to_edit.id,
+							this.itemToEdit.id,
 							name,
 							account,
 							truthyItemData
 						).subscribe(
 							(response: HttpResponse<TableContactItemRes>): void  => {
 								this.alertService.myAlert("Item updated successfully", 'success');
-								this.item_to_edit.name = name;
-								this.item_to_edit.account = account;
-								this.item_to_edit.link = link;
-								this.item_to_edit.image_uri = image_uri;
-								this.item_to_edit.image_alt = image_alt;
+								this.itemToEdit.name = name;
+								this.itemToEdit.account = account;
+								this.itemToEdit.link = link;
+								this.itemToEdit.image_uri = image_uri;
+								this.itemToEdit.image_alt = image_alt;
 							},
 							(error: HttpResponse<ErrorObject>): void => {
 								this.alertService.myAlert(error.body?.error.message ?? 'Unknown error while updating item', 'danger');
@@ -182,13 +182,13 @@ export class AdminContactComponent implements OnInit {
 				}
 			}
 			else {
-				this.found_item_id = false;
+				this.foundItemId = false;
 				this.alertService.myAlert("Item to update not found", 'danger');
 			}
 		}
 	}
 
-	delete_item(inputId: string): void {
+	deleteItem(inputId: string): void {
 		const itemId: number = Number(inputId) || 0;
 		if (itemId === 0) this.alertService.myAlert("Invalid item id", 'danger');
 		else if (itemId < 1) this.alertService.myAlert("The item id must be greater than 0", 'danger');
@@ -203,7 +203,7 @@ export class AdminContactComponent implements OnInit {
 				).subscribe(
 					(response: HttpResponse<{ }>): void  => {
 						this.alertService.myAlert("Item deleted successfully", 'success');
-						(document.getElementById("delete_item_form") as HTMLFormElement).reset;
+						(document.getElementById("deleteItemForm") as HTMLFormElement).reset;
 					},
 					(error: HttpResponse<ErrorObject>): void => {
 						this.alertService.myAlert(error.body?.error.message ?? 'Unknown error while deleting item', 'danger');
@@ -214,8 +214,8 @@ export class AdminContactComponent implements OnInit {
 		}
 	}
 
-	show_message(id: number): void {
-		if (this.current_message.id !== id) {
+	showMessage(id: number): void {
+		if (this.currentMessage.id !== id) {
 			if (!this.cookieValue) this.router.navigate(['error403']);
 			else {
 				this.contactService.getMessage(
@@ -224,7 +224,7 @@ export class AdminContactComponent implements OnInit {
 				).subscribe(
 					(response: HttpResponse<TableContactMessageRes>): void  => {
 						if (response.body !== null) {
-							this.current_message = {
+							this.currentMessage = {
 								id: response.body.id,
 								subject: response.body.subject,
 								message: response.body.message,
@@ -232,15 +232,15 @@ export class AdminContactComponent implements OnInit {
 								date: response.body.date,
 								readed: response.body.readed
 							};
-							this.one_message = true;
+							this.oneMessage = true;
 							if (!response.body.readed) {
 								this.contactService.changeMessageRead(
 									this.cookieValue,
-									this.current_message
+									this.currentMessage
 								).subscribe(
 									(response: HttpResponse<TableContactMessageRes>): void  => {
-										for (let specificMessage of this.all_messages) {
-											if (specificMessage.id === this.current_message.id) {
+										for (let specificMessage of this.allMessages) {
+											if (specificMessage.id === this.currentMessage.id) {
 												specificMessage.readed = true;
 												break;
 											}
@@ -262,11 +262,11 @@ export class AdminContactComponent implements OnInit {
 			}
 		}
 		else {
-			this.one_message = true;
+			this.oneMessage = true;
 		}
 	}
 
-	delete_message(inputId: number): void {
+	deleteMessage(inputId: number): void {
 		if (inputId === 0) this.alertService.myAlert("Invalid message id", 'danger');
 		else if (inputId < 1) this.alertService.myAlert("The message id must be greater than 0", 'danger');
 		else if (inputId > 65535) this.alertService.myAlert("The message id must be lesser than 65536", 'danger');
@@ -279,14 +279,14 @@ export class AdminContactComponent implements OnInit {
 					inputId
 				).subscribe(
 					(response: HttpResponse<{ }>): void  => {
-						for (let i = 0; i < this.all_messages.length; i++) {
-							if (this.all_messages[i].id === inputId) {
-								this.all_messages.splice(i, 1);
+						for (let i = 0; i < this.allMessages.length; i++) {
+							if (this.allMessages[i].id === inputId) {
+								this.allMessages.splice(i, 1);
 								break;
 							}
 						}
 						this.alertService.myAlert("Message deleted successfully", 'success');
-						this.one_message = false;
+						this.oneMessage = false;
 					},
 					(error: HttpResponse<ErrorObject>): void => {
 						this.alertService.myAlert(error.body?.error.message ?? 'Unknown error while deleting message', 'danger');
@@ -305,7 +305,7 @@ export class AdminContactComponent implements OnInit {
 				(response: HttpResponse<TableContactMessageRes[]>): void  => {
 					if (response.body !== null) {
 						for (let messageMessage of response.body) {
-							this.all_messages.push({
+							this.allMessages.push({
 								id: messageMessage.id,
 								subject: messageMessage.subject,
 								message: messageMessage.message,
@@ -315,9 +315,9 @@ export class AdminContactComponent implements OnInit {
 							});
 						}
 					}
-					if (this.all_messages.length) {
-						this.messages_empty = false;
-						this.all_messages.sort((a: any, b: any) => +new Date(b.date) - +new Date(a.date));
+					if (this.allMessages.length) {
+						this.messagesEmpty = false;
+						this.allMessages.sort((a: any, b: any) => +new Date(b.date) - +new Date(a.date));
 					}
 				},
 				(error: HttpResponse<ErrorObject>): void => {

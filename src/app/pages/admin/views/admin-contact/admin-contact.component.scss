@@ -1,11 +1,11 @@
 .content {
 	text-align: center;
-	.select_method {
+	.selectMethod {
 		margin-top: 25px;
 		button {
 			margin-left: 20px;
 		}
-		#first_button {
+		#firstButton {
 			margin-left: 0;
 		}
 	}
@@ -41,16 +41,16 @@
 			text-overflow: ellipsis;
 			white-space: nowrap;
 			i {
-				&.icon_check {
+				&.iconCheck {
 					color: #11ff00;
 				}
-				&.icon_cross {
+				&.iconCross {
 					color: #ff6666;
 				}
 			}
 		}
 	}
-	.one_message {
+	.oneMessage {
 		p {
 			text-align: left;
 			background-color: #fff;

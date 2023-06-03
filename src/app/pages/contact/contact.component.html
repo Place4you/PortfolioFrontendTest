@@ -5,21 +5,21 @@
     <section id="contact">
       <section class="form">
         <h2>Send a message!</h2>
-        <form onsubmit="return false;" id="contact_form">
+        <form onsubmit="return false;" id="contactForm">
           <input type="text" placeholder="Subject" class="subject" minlength="3" maxlength="128" required #subject />
           <textarea placeholder="Message" class="message" minlength="3" maxlength="512" required #message></textarea>
           <input type="text" placeholder="Reply to" minlength="3" maxlength="128" required #replyto />
-          <input type="submit" value="Send" (click)="create_message(subject.value, message.value, replyto.value)" />
+          <input type="submit" value="Send" (click)="createMessage(subject.value, message.value, replyto.value)" />
         </form>
       </section>
       <section class="social">
         <h2>Or see my profiles</h2>
-        <div class="social_items">
-          <div class="social_item" *ngFor="let item of social_items">
-            <div class="item_id" *ngIf="isLogged">
+        <div class="socialItems">
+          <div class="socialItem" *ngFor="let item of socialItems">
+            <div class="itemId" *ngIf="isLogged">
               <p>#{{item.id}}</p>
             </div>
-            <a class="item_no_link" *ngIf="!item.link">
+            <a *ngIf="!item.link">
               <strong>{{item.name}}</strong>
               <img src="{{item.image_uri}}" alt="{{item.image_alt}}" />
               <p class="bot">{{item.account}}</p>

@@ -37,17 +37,17 @@ export class AboutComponent implements OnInit {
 		private informationService: InformationService
 	) { }
 
-	array_all:          { page: Page[] }[] = [];
-	array_page:         Page[] = [];
+	arrayAll:          { page: Page[] }[] = [];
+	arrayPage:         Page[] = [];
 	pageIndex:          number = 0;
-	total_pages:        number = 1;
+	totalPages:        number = 1;
 	itemsPerPage:		number = 6;
-	all_selected_items: number = 0;
-	current_view: 		string = "knowledge";
-	show_arrows:        boolean = false;
-	knowledge_items:    TableAboutItemRes[] = [];
-	badges_items:       TableAboutItemRes[] = [];
-	certificates_items: TableAboutItemRes[] = [];
+	allSelectedItems: number = 0;
+	currentView: 		string = "knowledge";
+	showArrows:        boolean = false;
+	knowledgeItems:    TableAboutItemRes[] = [];
+	badgesItems:       TableAboutItemRes[] = [];
+	certificatesItems: TableAboutItemRes[] = [];
 	savedItem:			HTMLElement | null = null;
 	isLogged: 			boolean = !!this.cookieService.get('JWT');
 	journey: { id: number, title: string, description: string } = {
@@ -57,68 +57,68 @@ export class AboutComponent implements OnInit {
 	};
 
 	makePages(view: string): void {
-		const selectedNavButton:	HTMLElement | null = document.getElementById(`${view}_button`),
-		navKnowledge:				HTMLElement | null = document.getElementById('knowledge_button'),
-		navBadges:					HTMLElement | null = document.getElementById('badge_button'),
-		navCertificates:			HTMLElement | null = document.getElementById('certificate_button');
+		const selectedNavButton:	HTMLElement | null = document.getElementById(`${view}Button`),
+		navKnowledge:				HTMLElement | null = document.getElementById('knowledgeButton'),
+		navBadges:					HTMLElement | null = document.getElementById('badgeButton'),
+		navCertificates:			HTMLElement | null = document.getElementById('certificateButton');
 		navKnowledge		&& (navKnowledge.style.backgroundColor = '#5c636a');
 		navBadges			&& (navBadges.style.backgroundColor = '#5c636a');
 		navCertificates		&& (navCertificates.style.backgroundColor = '#5c636a');
 		selectedNavButton	&& (selectedNavButton.style.backgroundColor = '#000');
 
-		this.show_arrows = false;
-		this.current_view = view;
-		this.array_all = [];
-		this.array_page = [];
+		this.showArrows = false;
+		this.currentView = view;
+		this.arrayAll = [];
+		this.arrayPage = [];
 		this.pageIndex = 0;
-		this.total_pages = 1;
+		this.totalPages = 1;
 
-		let start_at: number = 0,
-		selected_items: TableAboutItemRes[] = 
-			view === 'badge' ? this.badges_items :
-			view === 'certificate' ? this.certificates_items :
-			this.knowledge_items;
-		this.all_selected_items = selected_items.length;
+		let startAt: number = 0,
+		selectedItems: TableAboutItemRes[] = 
+			view === 'badge' ? this.badgesItems :
+			view === 'certificate' ? this.certificatesItems :
+			this.knowledgeItems;
+		this.allSelectedItems = selectedItems.length;
 
-		for (let i: number = start_at; i < selected_items.length; i++) {
-			if (i % this.itemsPerPage === 0 && i !== start_at) {
-				if (!this.show_arrows) this.show_arrows = true;
-				this.total_pages++;
-				this.array_all.push({page: this.array_page});
-				this.array_page = [];
+		for (let i: number = startAt; i < selectedItems.length; i++) {
+			if (i % this.itemsPerPage === 0 && i !== startAt) {
+				if (!this.showArrows) this.showArrows = true;
+				this.totalPages++;
+				this.arrayAll.push({page: this.arrayPage});
+				this.arrayPage = [];
 
 				const myPage: Page = {
-					id: selected_items[i].id,
-					name: selected_items[i].name,
-					date: selected_items[i].date,
-					description: selected_items[i].description
+					id: selectedItems[i].id,
+					name: selectedItems[i].name,
+					date: selectedItems[i].date,
+					description: selectedItems[i].description
 				};
-				if (selected_items[i].link) myPage.link = selected_items[i].link;
-				if (selected_items[i].image_uri) myPage.image_uri = selected_items[i].image_uri;
-				if (selected_items[i].image_alt) myPage.image_alt = selected_items[i].image_alt;
+				if (selectedItems[i].link) myPage.link = selectedItems[i].link;
+				if (selectedItems[i].image_uri) myPage.image_uri = selectedItems[i].image_uri;
+				if (selectedItems[i].image_alt) myPage.image_alt = selectedItems[i].image_alt;
 
-				this.array_page.push(myPage);
-				if (i === selected_items.length - 1) {
-					this.array_all.push({page: this.array_page});
-					this.array_page = [];
+				this.arrayPage.push(myPage);
+				if (i === selectedItems.length - 1) {
+					this.arrayAll.push({page: this.arrayPage});
+					this.arrayPage = [];
 				}
-				start_at = i;
+				startAt = i;
 			}
 			else {
 				const myPage: Page = {
-					id: selected_items[i].id,
-					name: selected_items[i].name,
-					date: selected_items[i].date,
-					description: selected_items[i].description
+					id: selectedItems[i].id,
+					name: selectedItems[i].name,
+					date: selectedItems[i].date,
+					description: selectedItems[i].description
 				};
-				if (selected_items[i].link) myPage.link = selected_items[i].link;
-				if (selected_items[i].image_uri) myPage.image_uri = selected_items[i].image_uri;
-				if (selected_items[i].image_alt) myPage.image_alt = selected_items[i].image_alt;
+				if (selectedItems[i].link) myPage.link = selectedItems[i].link;
+				if (selectedItems[i].image_uri) myPage.image_uri = selectedItems[i].image_uri;
+				if (selectedItems[i].image_alt) myPage.image_alt = selectedItems[i].image_alt;
 
-				this.array_page.push(myPage);
-				if (i === selected_items.length - 1) {
-					this.array_all.push({page: this.array_page});
-					this.array_page = [];
+				this.arrayPage.push(myPage);
+				if (i === selectedItems.length - 1) {
+					this.arrayAll.push({page: this.arrayPage});
+					this.arrayPage = [];
 				}
 			}
 		}
@@ -126,18 +126,18 @@ export class AboutComponent implements OnInit {
 
 	onRightArrow(): void {
 		this.pageIndex++;
-		if (this.pageIndex > this.total_pages - 1) this.pageIndex = 0;
+		if (this.pageIndex > this.totalPages - 1) this.pageIndex = 0;
 	}
 	onLeftArrow(): void {
 		this.pageIndex--;
-		if (this.pageIndex < 0) this.pageIndex = this.total_pages - 1;
+		if (this.pageIndex < 0) this.pageIndex = this.totalPages - 1;
 	}
 
 	showItemInfo(itemId: number): void {
 		const allItems: TableAboutItemRes[] = [
-			...this.knowledge_items,
-			...this.badges_items,
-			...this.certificates_items
+			...this.knowledgeItems,
+			...this.badgesItems,
+			...this.certificatesItems
 		],
 		foundItem: TableAboutItemRes | undefined = allItems.find(item => item.id === itemId);
 		if (foundItem) {
@@ -148,8 +148,8 @@ export class AboutComponent implements OnInit {
 			};
 
 			const myItem: HTMLElement | null = document.getElementById(`itemImage_${itemId}`);
-			myItem?.classList.add('selected_item');
-			this.savedItem?.classList.remove('selected_item');
+			myItem?.classList.add('selectedItem');
+			this.savedItem?.classList.remove('selectedItem');
 			this.savedItem = myItem;
 		}
 	}
@@ -162,12 +162,12 @@ export class AboutComponent implements OnInit {
 			{ width: 992, itemsPP: 4 },
 			{ width: 768, itemsPP: 3 },
 			{ width: 575, itemsPP: 2 },
-			{ width: 0, itemsPP: this.all_selected_items }
+			{ width: 0, itemsPP: this.allSelectedItems }
 		],
 		{ itemsPP } = breakpoints.find(bp => bp.width <= innerWidth) || breakpoints[0];
 		if (this.itemsPerPage !== itemsPP) {
 			this.itemsPerPage = itemsPP;
-			this.makePages(this.current_view);
+			this.makePages(this.currentView);
 		}
 	}
 
@@ -178,17 +178,17 @@ export class AboutComponent implements OnInit {
 		this.informationService.getInformationTable().subscribe(
 			(response: HttpResponse<TableInfoRes[]>): void  => {
 				if (response.body !== null) {
-					let journey_message: string = "No description";
+					let journeyMessage: string = "No description";
 					for (let infoItem of response.body) {
 						if (infoItem.name === "journey" && infoItem.information) {
-							journey_message = infoItem.information;
+							journeyMessage = infoItem.information;
 							break;
 						}
 					}
 					this.journey = {
 						id: 0,
 						title: "My journey",
-						description: journey_message
+						description: journeyMessage
 					};
 				}
 			},
@@ -203,54 +203,54 @@ export class AboutComponent implements OnInit {
 			(response: HttpResponse<TableAboutItemRes[]>): void  => {
 				if (response.body !== null) {
 					for (let aboutItem of response.body) {
-						if (aboutItem.item_type === 1) this.knowledge_items.push(aboutItem);
-						else if (aboutItem.item_type === 2) this.badges_items.push(aboutItem);
-						else if (aboutItem.item_type === 3) this.certificates_items.push(aboutItem);
+						if (aboutItem.item_type === 1) this.knowledgeItems.push(aboutItem);
+						else if (aboutItem.item_type === 2) this.badgesItems.push(aboutItem);
+						else if (aboutItem.item_type === 3) this.certificatesItems.push(aboutItem);
 					}
 				}
 
-				let start_at: number = 0,
-				selected_items: TableAboutItemRes[] = this.knowledge_items;
+				let startAt: number = 0,
+				selectedItems: TableAboutItemRes[] = this.knowledgeItems;
 
-				for (let i: number = start_at; i < selected_items.length; i++) {
-					if (i % this.itemsPerPage === 0 && i !== start_at) {
-						if (!this.show_arrows) this.show_arrows = true;
-						this.total_pages++;
-						this.array_all.push({page: this.array_page});
-						this.array_page = [];
+				for (let i: number = startAt; i < selectedItems.length; i++) {
+					if (i % this.itemsPerPage === 0 && i !== startAt) {
+						if (!this.showArrows) this.showArrows = true;
+						this.totalPages++;
+						this.arrayAll.push({page: this.arrayPage});
+						this.arrayPage = [];
 
 						const myPage: Page = {
-							id: selected_items[i].id,
-							name: selected_items[i].name,
-							date: selected_items[i].date,
-							description: selected_items[i].description
+							id: selectedItems[i].id,
+							name: selectedItems[i].name,
+							date: selectedItems[i].date,
+							description: selectedItems[i].description
 						};
-						if (selected_items[i].link) myPage.link = selected_items[i].link;
-						if (selected_items[i].image_uri) myPage.image_uri = selected_items[i].image_uri;
-						if (selected_items[i].image_alt) myPage.image_alt = selected_items[i].image_alt;
+						if (selectedItems[i].link) myPage.link = selectedItems[i].link;
+						if (selectedItems[i].image_uri) myPage.image_uri = selectedItems[i].image_uri;
+						if (selectedItems[i].image_alt) myPage.image_alt = selectedItems[i].image_alt;
 
-						this.array_page.push(myPage);
-						if (i === selected_items.length - 1) {
-							this.array_all.push({page: this.array_page});
-							this.array_page = [];
+						this.arrayPage.push(myPage);
+						if (i === selectedItems.length - 1) {
+							this.arrayAll.push({page: this.arrayPage});
+							this.arrayPage = [];
 						}
-						start_at = i;
+						startAt = i;
 					}
 					else {
 						const myPage: Page = {
-							id: selected_items[i].id,
-							name: selected_items[i].name,
-							date: selected_items[i].date,
-							description: selected_items[i].description
+							id: selectedItems[i].id,
+							name: selectedItems[i].name,
+							date: selectedItems[i].date,
+							description: selectedItems[i].description
 						};
-						if (selected_items[i].link) myPage.link = selected_items[i].link;
-						if (selected_items[i].image_uri) myPage.image_uri = selected_items[i].image_uri;
-						if (selected_items[i].image_alt) myPage.image_alt = selected_items[i].image_alt;
+						if (selectedItems[i].link) myPage.link = selectedItems[i].link;
+						if (selectedItems[i].image_uri) myPage.image_uri = selectedItems[i].image_uri;
+						if (selectedItems[i].image_alt) myPage.image_alt = selectedItems[i].image_alt;
 						
-						this.array_page.push(myPage);
-						if (i === selected_items.length - 1) {
-							this.array_all.push({page: this.array_page});
-							this.array_page = [];
+						this.arrayPage.push(myPage);
+						if (i === selectedItems.length - 1) {
+							this.arrayAll.push({page: this.arrayPage});
+							this.arrayPage = [];
 						}
 					}
 				}

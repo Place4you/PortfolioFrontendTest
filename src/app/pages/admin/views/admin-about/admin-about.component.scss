@@ -1,20 +1,20 @@
 .content {
 	text-align: center;
-	.select_method {
+	.selectMethod {
 		margin-top: 25px;
 		button {
 			margin-left: 20px;
 		}
-		#first_button {
+		#firstButton {
 			margin-left: 0;
 		}
 	}
-	.select_type {
+	.selectType {
 		text-align: left;
-		.select_h4, .select_sel {
+		.selectH4, .selectSel {
 			display: inline-block;
 		}
-		.select_sel {
+		.selectSel {
 			margin-left: 15px;
 			select {
 				width: 150px;

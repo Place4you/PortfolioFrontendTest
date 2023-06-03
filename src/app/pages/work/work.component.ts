@@ -35,19 +35,19 @@ export class WorkComponent implements OnInit {
 		private workService: WorkService
 	) { }
 
-	project_items:	Project[] = [];
+	projectItems:	Project[] = [];
 	isLogged:		boolean = !!this.cookieService.get('JWT');
 
-	view_more(id: number): void {
-		const more_section:	HTMLElement | null = document.getElementById(`view_more_${id}`);
-		const more_button:	HTMLElement | null = document.getElementById(`view_more_button_${id}`);
-		const less_button:	HTMLElement | null = document.getElementById(`view_less_button_${id}`);
+	viewMore(id: number): void {
+		const moreSection:	HTMLElement | null = document.getElementById(`viewMore_${id}`);
+		const moreButton:	HTMLElement | null = document.getElementById(`viewMoreButton_${id}`);
+		const lessButton:	HTMLElement | null = document.getElementById(`viewLessButton_${id}`);
 
-		if (more_section !== null && more_button !== null && less_button !== null) {
-			const displayValue: string = getComputedStyle(more_section)?.display ?? '';
-			more_section.style.display 	= displayValue === 'block' ? 'none' : 'block';
-			less_button.style.display 	= displayValue === 'block' ? 'none' : 'block';
-			more_button.style.display 	= displayValue === 'block' ? 'block' : 'none';
+		if (moreSection !== null && moreButton !== null && lessButton !== null) {
+			const displayValue: string = getComputedStyle(moreSection)?.display ?? '';
+			moreSection.style.display 	= displayValue === 'block' ? 'none' : 'block';
+			lessButton.style.display 	= displayValue === 'block' ? 'none' : 'block';
+			moreButton.style.display 	= displayValue === 'block' ? 'block' : 'none';
 		}
 	}
 
@@ -57,7 +57,7 @@ export class WorkComponent implements OnInit {
 			(response: HttpResponse<TableWorkItemRes[]>): void  => {
 				if (response.body !== null) {
 					for (let workItem of response.body) {
-						this.project_items.push(workItem);
+						this.projectItems.push(workItem);
 					}
 				}
 			},

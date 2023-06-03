@@ -22,7 +22,7 @@
 		margin-top: 30px;
 		border: 2px solid #51714c;
 		position: relative;
-		.view_more_button {
+		.viewmoreButton {
 			width: 110px;
 			height: 65px;
 			position: absolute;
@@ -44,11 +44,11 @@
 			i {
 				color: #000;
 			}
-			.view_less {
+			.viewLess {
 				display: none;
 			}
 		}
-		.item_image {
+		.itemImage {
 			float: left;
 			width: 145px;
 			height: 145px;
@@ -59,7 +59,7 @@
 				height: 100%;
 			}
 		}
-		.main_content {
+		.mainContent {
 			position: relative;
 			left: 10px;
 			&::after {
@@ -71,7 +71,7 @@
 				display: block;
 				float: left;
 			}
-			.all_technologies .technology {
+			.allTechnologies .technology {
 				float: left;
 				display: inline-block;
 				background-color: #defffe;
@@ -81,14 +81,14 @@
 				margin: 3px 5px 0 0;
 			}
 		}
-		.view_more_section {
+		.viewmoreSection {
 			margin-top: 15px;
 			display: none;
 		}
 	}
 	@media (max-width: 398px) {
 		.project {
-			.view_more_button {
+			.viewmoreButton {
 				box-sizing: border-box;
 				float: right;
 				width: 45%;
@@ -96,7 +96,7 @@
 				left: 0;
 				top: 0;
 			}
-			.item_image {
+			.itemImage {
 				box-sizing: border-box;
 				width: 50%;
 			}

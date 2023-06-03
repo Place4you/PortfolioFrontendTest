@@ -18,12 +18,12 @@ export class ContactService {
 
 	constructor(private http: HttpClient) { }
 	
-	uri_ci: string = environment.apiUrl + "/contact_item";
-	uri_cm: string = environment.apiUrl + "/contact_message";
+	uriCi: string = environment.apiUrl + "/contact_item";
+	uriCm: string = environment.apiUrl + "/contact_message";
 
 	getItem(id: number): Observable<HttpResponse<TableContactItemRes>> {
 		return this.http.get<TableContactItemRes>(
-			this.uri_ci + `/${id}`,
+			this.uriCi + `/${id}`,
 			{
 				observe: 'response',
 				responseType: 'json'
@@ -33,7 +33,7 @@ export class ContactService {
 
 	getItems(): Observable<HttpResponse<TableContactItemRes[]>> {
 		return this.http.get<TableContactItemRes[]>(
-			this.uri_ci,
+			this.uriCi,
 			{
 				observe: 'response',
 				responseType: 'json'
@@ -55,7 +55,7 @@ export class ContactService {
 			image_alt: itemData?.image_alt ?? null
 		};
 		return this.http.post<TableContactItemRes>(
-			this.uri_ci + "/add",
+			this.uriCi + "/add",
 			body,
 			{
 				headers: {'Authorization':token},
@@ -81,7 +81,7 @@ export class ContactService {
 			image_alt: itemData?.image_alt ?? null
 		};
 		return this.http.put<TableContactItemRes>(
-			this.uri_ci + "/update",
+			this.uriCi + "/update",
 			body,
 			{
 				headers: {'Authorization':token},
@@ -93,7 +93,7 @@ export class ContactService {
 
 	deleteItem(token: string, id: number): Observable<HttpResponse<{ }>> {
 		return this.http.delete<{ }>(
-			this.uri_ci + `/delete/${id}`,
+			this.uriCi + `/delete/${id}`,
 			{
 				headers: {'Authorization':token},
 				observe: 'response'
@@ -103,7 +103,7 @@ export class ContactService {
 
 	getMessage(token: string, id: number): Observable<HttpResponse<TableContactMessageRes>> {
 		return this.http.get<TableContactMessageRes>(
-			this.uri_cm + `/${id}`,
+			this.uriCm + `/${id}`,
 			{
 				headers: {'Authorization':token},
 				observe: 'response',
@@ -114,7 +114,7 @@ export class ContactService {
 
 	getMessages(token: string): Observable<HttpResponse<TableContactMessageRes[]>> {
 		return this.http.get<TableContactMessageRes[]>(
-			this.uri_cm,
+			this.uriCm,
 			{
 				headers: {'Authorization':token},
 				observe: 'response',
@@ -137,7 +137,7 @@ export class ContactService {
 			readed: false
 		};
 		return this.http.post<TableContactMessageRes>(
-			this.uri_cm + "/add",
+			this.uriCm + "/add",
 			body,
 			{
 				observe: 'response',
@@ -156,7 +156,7 @@ export class ContactService {
 			readed: true
 		};
 		return this.http.put<TableContactMessageRes>(
-			this.uri_cm + `/update`,
+			this.uriCm + `/update`,
 			body,
 			{
 				headers: {'Authorization':token},
@@ -168,7 +168,7 @@ export class ContactService {
 
 	deleteMessage(token: string, id: number): Observable<HttpResponse<{ }>> {
 		return this.http.delete<{ }>(
-			this.uri_cm + `/delete/${id}`,
+			this.uriCm + `/delete/${id}`,
 			{
 				headers: {'Authorization':token},
 				observe: 'response'

@@ -25,19 +25,19 @@ export class AdminWorkComponent implements AfterViewInit {
 		private workService: WorkService
 	) { }
 
-	current_value:		string = "add";
-	found_item_id:		boolean = false;
-	project_to_edit:	TableWorkItemRes = { } as TableWorkItemRes;
+	currentValue:		string = "add";
+	foundItemId:		boolean = false;
+	projectToEdit:	TableWorkItemRes = { } as TableWorkItemRes;
 	cookieValue:		string = this.cookieService.get('JWT');
 
-	method_change(value: string): void {
-		if (value !== this.current_value) {
-			this.found_item_id = false;
-			this.current_value = value;
+	methodChange(value: string): void {
+		if (value !== this.currentValue) {
+			this.foundItemId = false;
+			this.currentValue = value;
 		}
 	}
 
-	create_item(
+	createItem(
 		name: string,
 		date: string,
 		technologies: string,
@@ -80,7 +80,7 @@ export class AdminWorkComponent implements AfterViewInit {
 				).subscribe(
 					(response: HttpResponse<TableWorkItemRes>): void  => {
 						this.alertService.myAlert("Item created successfully", 'success');
-						(document.getElementById("create_item_form") as HTMLFormElement).reset();
+						(document.getElementById("createItemForm") as HTMLFormElement).reset();
 					},
 					(error: HttpResponse<ErrorObject>): void => {
 						this.alertService.myAlert(error.body?.error.message ?? 'Unknown error while creating item', 'danger');
@@ -91,7 +91,7 @@ export class AdminWorkComponent implements AfterViewInit {
 		}
 	}
 
-	search_edit_item(inputId: string): void {
+	searchEditItem(inputId: string): void {
 		const projectId: number = Number(inputId) || 0;
 		if (projectId === 0) this.alertService.myAlert("Invalid project id", 'danger');
 		else if (projectId < 1)this.alertService.myAlert("The project id must be greater than 0", 'danger');
@@ -102,18 +102,18 @@ export class AdminWorkComponent implements AfterViewInit {
 			.subscribe(
 				(response: HttpResponse<TableWorkItemRes>): void  => {
 					if (response.body !== null) {
-						this.found_item_id = true;
-						this.project_to_edit = {
+						this.foundItemId = true;
+						this.projectToEdit = {
 							id: response.body.id,
 							name: response.body.name,
 							date: response.body.date,
 							technologies: response.body.technologies,
 							description: response.body.description,
 						};
-						if (response.body.code_uri) this.project_to_edit.code_uri = response.body.code_uri;
-						if (response.body.live_uri) this.project_to_edit.live_uri = response.body.live_uri;
-						if (response.body.image_uri) this.project_to_edit.image_uri = response.body.image_uri;
-						if (response.body.image_alt) this.project_to_edit.image_alt = response.body.image_alt;
+						if (response.body.code_uri) this.projectToEdit.code_uri = response.body.code_uri;
+						if (response.body.live_uri) this.projectToEdit.live_uri = response.body.live_uri;
+						if (response.body.image_uri) this.projectToEdit.image_uri = response.body.image_uri;
+						if (response.body.image_alt) this.projectToEdit.image_alt = response.body.image_alt;
 					}
 				},
 				(error: HttpResponse<ErrorObject>): void => {
@@ -124,7 +124,7 @@ export class AdminWorkComponent implements AfterViewInit {
 		}
 	}
 
-	edit_item(
+	editItem(
 		name: string,
 		date: string,
 		technologies: string,
@@ -140,19 +140,19 @@ export class AdminWorkComponent implements AfterViewInit {
 		else if (!description) this.alertService.myAlert("Field 'description' can't be null", 'danger');
 		
 		else {
-			if (this.project_to_edit.name) {
-				let something_changed: boolean = false;
-				if (name !== this.project_to_edit.name ||
-					date !== this.project_to_edit.date ||
-					technologies !== this.project_to_edit.technologies ||
-					description !== this.project_to_edit.description ||
-					code_uri !== this.project_to_edit.code_uri ||
-					live_uri !== this.project_to_edit.live_uri ||
-					image_uri !== this.project_to_edit.image_uri ||
-					image_alt !== this.project_to_edit.image_alt
-				) something_changed = true;
+			if (this.projectToEdit.name) {
+				let somethingChanged: boolean = false;
+				if (name !== this.projectToEdit.name ||
+					date !== this.projectToEdit.date ||
+					technologies !== this.projectToEdit.technologies ||
+					description !== this.projectToEdit.description ||
+					code_uri !== this.projectToEdit.code_uri ||
+					live_uri !== this.projectToEdit.live_uri ||
+					image_uri !== this.projectToEdit.image_uri ||
+					image_alt !== this.projectToEdit.image_alt
+				) somethingChanged = true;
 				
-				if (something_changed) {
+				if (somethingChanged) {
 					if (!this.cookieValue) this.router.navigate(['error403']);
 					else {
 						const itemData: {
@@ -172,7 +172,7 @@ export class AdminWorkComponent implements AfterViewInit {
 
 						this.workService.updateItem(
 							this.cookieValue, 
-							this.project_to_edit.id,
+							this.projectToEdit.id,
 							name,
 							date,
 							technologies,
@@ -181,14 +181,14 @@ export class AdminWorkComponent implements AfterViewInit {
 						).subscribe(
 							(response: HttpResponse<TableWorkItemRes>): void  => {
 								this.alertService.myAlert("Item updated successfully", 'success');
-								this.project_to_edit.name = name;
-								this.project_to_edit.date = date;
-								this.project_to_edit.technologies = technologies;
-								this.project_to_edit.description = description;
-								this.project_to_edit.code_uri = code_uri;
-								this.project_to_edit.live_uri = live_uri;
-								this.project_to_edit.image_uri = image_uri;
-								this.project_to_edit.image_alt = image_alt;
+								this.projectToEdit.name = name;
+								this.projectToEdit.date = date;
+								this.projectToEdit.technologies = technologies;
+								this.projectToEdit.description = description;
+								this.projectToEdit.code_uri = code_uri;
+								this.projectToEdit.live_uri = live_uri;
+								this.projectToEdit.image_uri = image_uri;
+								this.projectToEdit.image_alt = image_alt;
 							},
 							(error: HttpResponse<ErrorObject>): void => {
 								this.alertService.myAlert(error.body?.error.message ?? 'Unknown error while updating item', 'danger');
@@ -203,12 +203,12 @@ export class AdminWorkComponent implements AfterViewInit {
 			}
 			else {
 				this.alertService.myAlert("Project to update not found", 'danger');
-				this.found_item_id = false;
+				this.foundItemId = false;
 			}
 		}
 	}
 
-	delete_item(inputId: string): void {
+	deleteItem(inputId: string): void {
 		const projectId: number = Number(inputId) || 0;
 		if (projectId === 0) this.alertService.myAlert("Invalid project id", 'danger');
 		else if (projectId < 1) this.alertService.myAlert("The project id must be greater than 0", 'danger');
@@ -223,7 +223,7 @@ export class AdminWorkComponent implements AfterViewInit {
 				).subscribe(
 					(response: HttpResponse<{ }>): void  => {
 						this.alertService.myAlert("Item deleted successfully", 'success');
-						(document.getElementById("delete_item_form") as HTMLFormElement).reset;
+						(document.getElementById("deleteItemForm") as HTMLFormElement).reset;
 					},
 					(error: HttpResponse<ErrorObject>): void => {
 						this.alertService.myAlert(error.body?.error.message ?? 'Unknown error while deleting item', 'danger');
@@ -235,8 +235,8 @@ export class AdminWorkComponent implements AfterViewInit {
 	}
 
 	ngAfterViewInit(): void {
-		const date_input: HTMLInputElement = document.getElementById("add_date") as HTMLInputElement;
-		date_input && (date_input.max = new Date().toLocaleDateString('fr-ca'));
-		date_input && (date_input.value = new Date().toLocaleDateString('fr-ca'));
+		const dateInput: HTMLInputElement = document.getElementById("addDate") as HTMLInputElement;
+		dateInput && (dateInput.max = new Date().toLocaleDateString('fr-ca'));
+		dateInput && (dateInput.value = new Date().toLocaleDateString('fr-ca'));
 	}
 }

@@ -25,8 +25,8 @@ export class AdminComponent implements OnInit {
 		private router: Router
 	) { }
 	
-	view_click(view: string): void {
-		const elemView: HTMLElement | null			= document.getElementById(`app_${view}`),
+	viewClick(view: string): void {
+		const elemView: HTMLElement | null			= document.getElementById(`app${view}`),
 		elemViewP: HTMLElement | null				= elemView?.parentElement ?? null,
 		elemViewPC: ChildNode | null				= elemViewP?.firstChild ?? null,
 		elemViewPCC: ChildNode | null				= elemViewPC?.firstChild ?? null,
@@ -41,27 +41,27 @@ export class AdminComponent implements OnInit {
 		}
 	}
 
-	b_goto(gtPosition: string): void {
+	bGoto(gtPosition: string): void {
 		const admElem: HTMLElement | null	= document.getElementById("admin"),
-		home_elem: HTMLElement | null		= document.getElementById("app_home"),
-		work_elem: HTMLElement | null		= document.getElementById("app_work"),
-		about_elem: HTMLElement | null		= document.getElementById("app_about"),
-		contact_elem: HTMLElement | null	= document.getElementById("app_contact"),
-		user_elem: HTMLElement | null		= document.getElementById("app_user");
+		homeElem: HTMLElement | null		= document.getElementById("appHome"),
+		workElem: HTMLElement | null		= document.getElementById("appWork"),
+		aboutElem: HTMLElement | null		= document.getElementById("appAbout"),
+		contactElem: HTMLElement | null	= document.getElementById("appContact"),
+		userElem: HTMLElement | null		= document.getElementById("appUser");
 		
-		if (admElem !== null && home_elem !== null && work_elem !== null && about_elem !== null && contact_elem !== null && user_elem !== null) {
-			if (gtPosition === "top" || gtPosition === "app_home") {
+		if (admElem !== null && homeElem !== null && workElem !== null && aboutElem !== null && contactElem !== null && userElem !== null) {
+			if (gtPosition === "top" || gtPosition === "appHome") {
 				admElem.scrollTop = 0;
 
 				if (gtPosition === "top") {
-					home_elem.style.display		= "none";
-					work_elem.style.display		= "none";
-					about_elem.style.display	= "none";
-					contact_elem.style.display	= "none";
-					user_elem.style.display		= "none";
+					homeElem.style.display		= "none";
+					workElem.style.display		= "none";
+					aboutElem.style.display	= "none";
+					contactElem.style.display	= "none";
+					userElem.style.display		= "none";
 
-					const arrowsUp: HTMLElement[]	= Array.from(document.getElementsByClassName("arrow_up") as HTMLCollectionOf<HTMLElement>),
-					arrowsDown: HTMLElement[]		= Array.from(document.getElementsByClassName("arrow_down") as HTMLCollectionOf<HTMLElement>);
+					const arrowsUp: HTMLElement[]	= Array.from(document.getElementsByClassName("arrowUp") as HTMLCollectionOf<HTMLElement>),
+					arrowsDown: HTMLElement[]		= Array.from(document.getElementsByClassName("arrowDown") as HTMLCollectionOf<HTMLElement>);
 					
 					for (let arrow of arrowsUp) {
 						arrow.style.display = "none";
@@ -76,38 +76,38 @@ export class AdminComponent implements OnInit {
 				
 				if (elemNav && elemNav.offsetTop > 120) admElem.scrollTop = elemNav.offsetTop - 120;
 				else {
-					if (gtPosition === "app_work")
-						admElem.scrollTop = home_elem.clientHeight;
+					if (gtPosition === "appWork")
+						admElem.scrollTop = homeElem.clientHeight;
 					
-					else if (gtPosition === "app_about")
+					else if (gtPosition === "appAbout")
 						admElem.scrollTop =
-						home_elem.clientHeight +
-						work_elem.clientHeight;
+						homeElem.clientHeight +
+						workElem.clientHeight;
 					
-					else if (gtPosition === "app_contact")
+					else if (gtPosition === "appContact")
 						admElem.scrollTop =
-						home_elem.clientHeight +
-						work_elem.clientHeight +
-						about_elem.clientHeight;
+						homeElem.clientHeight +
+						workElem.clientHeight +
+						aboutElem.clientHeight;
 					
-					else if (gtPosition === "app_user") {
-						if (home_elem.clientHeight		=== 0 ||
-							work_elem.clientHeight		=== 0 ||
-							about_elem.clientHeight		=== 0 ||
-							contact_elem.clientHeight	=== 0
+					else if (gtPosition === "appUser") {
+						if (homeElem.clientHeight		=== 0 ||
+							workElem.clientHeight		=== 0 ||
+							aboutElem.clientHeight		=== 0 ||
+							contactElem.clientHeight	=== 0
 							) admElem.scrollTop =
 							110 +
-							home_elem.clientHeight +
-							work_elem.clientHeight +
-							about_elem.clientHeight +
-							contact_elem.clientHeight;
+							homeElem.clientHeight +
+							workElem.clientHeight +
+							aboutElem.clientHeight +
+							contactElem.clientHeight;
 					}
 				}
 			}
 		}
 	}
 	
-	b_logout(): void {
+	bLogout(): void {
 		this.cookieService.delete("JWT", "/");
 		this.router.navigate(['login']);
 	}
@@ -116,14 +116,14 @@ export class AdminComponent implements OnInit {
 		const cookieValue = this.cookieService.get('JWT');
 		if (!cookieValue) this.router.navigate(['error403']);
 		else {			
-			this.loginService.check_token(cookieValue)
+			this.loginService.checkToken(cookieValue)
 			.subscribe(
 				(response: HttpResponse<{ }>): void  => { },
 				
 				(error: HttpResponse<ErrorObject>): void => {
 					this.alertService.myAlert(error.body?.error.message ?? 'Unknown error while validating JWT', 'danger');
 					console.error(error.body?.error);
-					this.b_logout();
+					this.bLogout();
 				}
 			);
 		}

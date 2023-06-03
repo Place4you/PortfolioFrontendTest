@@ -25,23 +25,23 @@ export class AdminHomeComponent implements OnInit {
 		private informationService: InformationService
 	) { }
 
-	home_titles: 		string | undefined = undefined;
-	index_titles_id: 	number = 0;
+	homeTitles: 		string | undefined = undefined;
+	indexTitlesId: 	number = 0;
 	cookieValue: 		string = this.cookieService.get('JWT');
 
 	update(titles: string): void {
-		if (this.home_titles !== titles) {
+		if (this.homeTitles !== titles) {
 			if (!this.cookieValue) this.router.navigate(['error403']);
 			else {
 				this.informationService.editInformationTable(
 					this.cookieValue,
-					this.index_titles_id,
+					this.indexTitlesId,
 					"index_titles",
 					titles
 				).subscribe(
 					(response: HttpResponse<TableInfoRes>): void  => {
 						this.alertService.myAlert("Titles updated successfully", 'success');
-						this.home_titles = titles;
+						this.homeTitles = titles;
 					},
 					(error: HttpResponse<ErrorObject>): void => {
 						this.alertService.myAlert(error.body?.error.message ?? 'Unknown error while updating information', 'danger');
@@ -62,8 +62,8 @@ export class AdminHomeComponent implements OnInit {
 				if (response.body !== null) {
 					for (let i: number = 0; i < response.body.length; i++) {
 						if (response.body[i].name === "index_titles" && response.body[i].information) {
-							this.home_titles = response.body[i].information;
-							this.index_titles_id = i + 1;
+							this.homeTitles = response.body[i].information;
+							this.indexTitlesId = i + 1;
 							break;
 						}
 					}

@@ -28,28 +28,28 @@ export class AdminAboutComponent implements OnInit,AfterViewInit {
 		private informationService: InformationService
 	) { }
 
-	journey_info:           string | undefined = undefined;
-	current_value:          string = "add";
-	found_item_id:          boolean = false;
-	journey_info_id:        number = 0;
-	item_to_edit:           TableAboutItemRes = { } as TableAboutItemRes;
+	journeyInfo:           string | undefined = undefined;
+	currentValue:          string = "add";
+	foundItemId:          boolean = false;
+	journeyInfoId:        number = 0;
+	itemToEdit:           TableAboutItemRes = { } as TableAboutItemRes;
 	cookieValue: 			string = this.cookieService.get('JWT');
 
-	edit_journey(text: string): void {
+	editJourney(text: string): void {
 		if(!text) this.alertService.myAlert("Field 'journey' can't be null", 'danger');
 		else {
-			if (text !== this.journey_info) {
+			if (text !== this.journeyInfo) {
 				if (!this.cookieValue) this.router.navigate(['error403']);
 				else {
 					this.informationService.editInformationTable(
 						this.cookieValue,
-						this.journey_info_id,
+						this.journeyInfoId,
 						"journey",
 						text
 					).subscribe(
 						(response: HttpResponse<TableInfoRes>): void  => {
 							this.alertService.myAlert("Journey text updated successfully", 'success');
-							this.journey_info = text;
+							this.journeyInfo = text;
 						},
 						(error: HttpResponse<ErrorObject>): void => {
 							this.alertService.myAlert(error.body?.error.message ?? 'Unknown error while updating information', 'danger');
@@ -64,14 +64,14 @@ export class AdminAboutComponent implements OnInit,AfterViewInit {
 		}
 	}
 
-	method_change(value: string): void {
-		if (value !== this.current_value) {
-			this.found_item_id = false;
-			this.current_value = value;
+	methodChange(value: string): void {
+		if (value !== this.currentValue) {
+			this.foundItemId = false;
+			this.currentValue = value;
 		}
 	}
 
-	create_item(
+	createItem(
 		input_type: string,
 		name: string,
 		date: string,
@@ -114,7 +114,7 @@ export class AdminAboutComponent implements OnInit,AfterViewInit {
 				).subscribe(
 					(response: HttpResponse<TableAboutItemRes>): void  => {
 						this.alertService.myAlert("Item created successfully", 'success');
-						(document.getElementById("create_item_form") as HTMLFormElement).reset;
+						(document.getElementById("createItemForm") as HTMLFormElement).reset;
 					},
 					(error: HttpResponse<ErrorObject>): void => {
 						this.alertService.myAlert(error.body?.error.message ?? 'Unknown error while creating item', 'danger');
@@ -125,7 +125,7 @@ export class AdminAboutComponent implements OnInit,AfterViewInit {
 		}
 	}
 
-	search_edit_item(inputId: string): void {
+	searchEditItem(inputId: string): void {
 		const itemId: number = Number(inputId) || 0;
 		if (itemId === 0) this.alertService.myAlert("Invalid item id", 'danger');
 		else if (itemId < 1) this.alertService.myAlert("The item id must be greater than 0", 'danger');
@@ -136,17 +136,17 @@ export class AdminAboutComponent implements OnInit,AfterViewInit {
 			.subscribe(
 				(response: HttpResponse<TableAboutItemRes>): void  => {
 					if (response.body !== null) {
-						this.found_item_id = true;
-						this.item_to_edit = {
+						this.foundItemId = true;
+						this.itemToEdit = {
 							id: response.body.id,
 							item_type: response.body.item_type,
 							name: response.body.name,
 							date: response.body.date,
 							description: response.body.description,
 						};
-						if (response.body.link) this.item_to_edit.link = response.body.link;
-						if (response.body.image_uri) this.item_to_edit.image_uri = response.body.image_uri;
-						if (response.body.image_alt) this.item_to_edit.image_alt = response.body.image_alt;
+						if (response.body.link) this.itemToEdit.link = response.body.link;
+						if (response.body.image_uri) this.itemToEdit.image_uri = response.body.image_uri;
+						if (response.body.image_alt) this.itemToEdit.image_alt = response.body.image_alt;
 					}
 				},
 				(error: HttpResponse<ErrorObject>): void => {
@@ -157,7 +157,7 @@ export class AdminAboutComponent implements OnInit,AfterViewInit {
 		}
 	}
 
-	edit_item(
+	editItem(
 		name: string,
 		date: string,
 		description: string,
@@ -170,17 +170,17 @@ export class AdminAboutComponent implements OnInit,AfterViewInit {
 		else if (!description) this.alertService.myAlert("Field 'description' can't be null", 'danger');
 		
 		else {
-			if (this.item_to_edit.name) {
-				let something_changed: boolean = false;
-				if (name !== this.item_to_edit.name ||
-					date !== this.item_to_edit.date ||
-					description !== this.item_to_edit.description ||
-					link !== this.item_to_edit.link ||
-					image_uri !== this.item_to_edit.image_uri ||
-					image_alt !== this.item_to_edit.image_alt
-				) something_changed = true;
+			if (this.itemToEdit.name) {
+				let somethingChanged: boolean = false;
+				if (name !== this.itemToEdit.name ||
+					date !== this.itemToEdit.date ||
+					description !== this.itemToEdit.description ||
+					link !== this.itemToEdit.link ||
+					image_uri !== this.itemToEdit.image_uri ||
+					image_alt !== this.itemToEdit.image_alt
+				) somethingChanged = true;
 				
-				if (something_changed) {
+				if (somethingChanged) {
 					if (!this.cookieValue) this.router.navigate(['error403']);
 					else {
 						const itemData: {
@@ -197,8 +197,8 @@ export class AdminAboutComponent implements OnInit,AfterViewInit {
 						);
 						this.aboutService.updateItem(
 							this.cookieValue,
-							this.item_to_edit.id,
-							this.item_to_edit.item_type,
+							this.itemToEdit.id,
+							this.itemToEdit.item_type,
 							name,
 							date,
 							description,
@@ -206,12 +206,12 @@ export class AdminAboutComponent implements OnInit,AfterViewInit {
 						).subscribe(
 							(response: HttpResponse<TableAboutItemRes>): void  => {
 								this.alertService.myAlert("Item updated successfully", 'success');
-								this.item_to_edit.name = name;
-								this.item_to_edit.date = date;
-								this.item_to_edit.description = description;
-								this.item_to_edit.link = link;
-								this.item_to_edit.image_uri = image_uri;
-								this.item_to_edit.image_alt = image_alt;
+								this.itemToEdit.name = name;
+								this.itemToEdit.date = date;
+								this.itemToEdit.description = description;
+								this.itemToEdit.link = link;
+								this.itemToEdit.image_uri = image_uri;
+								this.itemToEdit.image_alt = image_alt;
 							},
 							(error: HttpResponse<ErrorObject>): void => {
 								this.alertService.myAlert(error.body?.error.message ?? 'Unknown error while updating item', 'danger');
@@ -226,12 +226,12 @@ export class AdminAboutComponent implements OnInit,AfterViewInit {
 			}
 			else {
 				this.alertService.myAlert("Item to update not found", 'danger');
-				this.found_item_id = false;
+				this.foundItemId = false;
 			}
 		}
 	}
 
-	delete_item(inputId: string): void {
+	deleteItem(inputId: string): void {
 		const itemId: number = Number(inputId) || 0;
 		if (itemId === 0) this.alertService.myAlert("Invalid item id", 'danger');
 		else if (itemId < 1) this.alertService.myAlert("The item id must be greater than 0", 'danger');
@@ -246,7 +246,7 @@ export class AdminAboutComponent implements OnInit,AfterViewInit {
 				).subscribe(
 					(response: HttpResponse<{ }>): void  => {
 						this.alertService.myAlert("Item deleted successfully", 'success');
-						(document.getElementById("delete_item_form") as HTMLFormElement).reset;
+						(document.getElementById("deleteItemForm") as HTMLFormElement).reset;
 					},
 					(error: HttpResponse<ErrorObject>): void => {
 						this.alertService.myAlert(error.body?.error.message ?? 'Unknown error while deleting item', 'danger');
@@ -264,8 +264,8 @@ export class AdminAboutComponent implements OnInit,AfterViewInit {
 				if (response.body !== null) {
 					for (let i: number = 0; i < response.body.length; i++) {
 						if (response.body[i].name === "journey" && response.body[i].information) {
-							this.journey_info = response.body[i].information;
-							this.journey_info_id = i + 1;
+							this.journeyInfo = response.body[i].information;
+							this.journeyInfoId = i + 1;
 							break;
 						}
 					}
@@ -279,9 +279,9 @@ export class AdminAboutComponent implements OnInit,AfterViewInit {
 	}
 
 	ngAfterViewInit(): void {
-		const date_input: HTMLInputElement = document.getElementById("add_date") as HTMLInputElement;
-		date_input && (date_input.max = new Date().toLocaleDateString('fr-ca'));
-		date_input && (date_input.value = new Date().toLocaleDateString('fr-ca'));
+		const dateInput: HTMLInputElement = document.getElementById("addDate") as HTMLInputElement;
+		dateInput && (dateInput.max = new Date().toLocaleDateString('fr-ca'));
+		dateInput && (dateInput.value = new Date().toLocaleDateString('fr-ca'));
 	}
 
 }

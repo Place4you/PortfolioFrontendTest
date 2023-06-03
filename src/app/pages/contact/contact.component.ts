@@ -26,7 +26,7 @@ export class ContactComponent implements OnInit {
 		private contactService: ContactService
 	) { }
 
-	social_items: {
+	socialItems: {
 		id: number,
 		name: string,
 		account: string,
@@ -36,16 +36,16 @@ export class ContactComponent implements OnInit {
 	}[] = [];
 	isLogged: boolean = !!this.cookieService.get('JWT');
 	
-	create_message(subject: string, message: string, replyto: string): void {
-		if (!subject) this.alertService.myAlert("Field 'subject' can't be null", 'danger');
-		else if (subject.length < 3) this.alertService.myAlert("Field 'subject' must have a minimum of 3 characters", 'danger');
-		else if (subject.length > 255) this.alertService.myAlert("Field 'subject' must have a maximum of 255 characters", 'danger');
-		else if (!message) this.alertService.myAlert("Field 'message' can't be null", 'danger');
-		else if (message.length < 3) this.alertService.myAlert("Field 'message' must have a minimum of 3 characters", 'danger');
+	createMessage(subject: string, message: string, replyto: string): void {
+		if (!subject) 					this.alertService.myAlert("Field 'subject' can't be null", 'danger');
+		else if (subject.length < 3) 	this.alertService.myAlert("Field 'subject' must have a minimum of 3 characters", 'danger');
+		else if (subject.length > 255) 	this.alertService.myAlert("Field 'subject' must have a maximum of 255 characters", 'danger');
+		else if (!message) 				this.alertService.myAlert("Field 'message' can't be null", 'danger');
+		else if (message.length < 3) 	this.alertService.myAlert("Field 'message' must have a minimum of 3 characters", 'danger');
 		else if (message.length > 3000) this.alertService.myAlert("Field 'message' must have a maximum of 3000 characters", 'danger');
-		else if (!replyto) this.alertService.myAlert("Field 'replyto' can't be null", 'danger');
-		else if (replyto.length < 3) this.alertService.myAlert("Field 'replyto' must have a minimum of 3 characters", 'danger');
-		else if (replyto.length > 255) this.alertService.myAlert("Field 'replyto' must have a maximum of 255 characters", 'danger');
+		else if (!replyto) 				this.alertService.myAlert("Field 'replyto' can't be null", 'danger');
+		else if (replyto.length < 3) 	this.alertService.myAlert("Field 'replyto' must have a minimum of 3 characters", 'danger');
+		else if (replyto.length > 255) 	this.alertService.myAlert("Field 'replyto' must have a maximum of 255 characters", 'danger');
 		
 		else {
 			const date: string = new Date().toLocaleDateString('fr-ca');
@@ -57,7 +57,7 @@ export class ContactComponent implements OnInit {
 			).subscribe(
 				(response: HttpResponse<TableContactMessageRes>): void  => {
 					this.alertService.myAlert("Message sent successfully", 'success');
-					(document.getElementById("contact_form") as HTMLFormElement).reset;
+					(document.getElementById("contactForm") as HTMLFormElement).reset;
 				},
 				(error: HttpResponse<ErrorObject>): void => {
 					this.alertService.myAlert(error.body?.error.message ?? 'Unknown error while creating the message', 'danger');
@@ -73,7 +73,7 @@ export class ContactComponent implements OnInit {
 			(response: HttpResponse<TableContactItemRes[]>): void  => {
 				if (response.body !== null) {
 					for (let itemContact of response.body) {
-						this.social_items.push(itemContact);
+						this.socialItems.push(itemContact);
 					}
 				}
 			},
