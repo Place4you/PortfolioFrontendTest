@@ -19,13 +19,9 @@ time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;
 }
-/* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
 	display: block;
-}
-body {
-	line-height: 1;
 }
 ol, ul {
 	list-style: none;
@@ -42,17 +38,15 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
-/* Scrollbar styling in chrome and safari */
 @media (hover: hover) {
 	::-webkit-scrollbar {
 		width: 5px;
-		opacity: 0; /* Hide the scrollbar by default */
+		opacity: 0;
 		transition: opacity 0.2s;
 	}
 	::-webkit-scrollbar-thumb {
 		background-color: #888888;
 	}
-	/* Show the scrollbar when hovering or scrolling */
 	::-webkit-scrollbar:hover,
 	::-webkit-scrollbar-thumb:vertical {
 		opacity: 1;
@@ -60,7 +54,12 @@ table {
 }
 
 /* Global styles */
+i {
+	color: #fff;
+}
 body {
+	line-height: 1;
+	color: #000;
 	background-image: url('/assets/images/bg_index.png');
 	background-position: center center;
 	background-repeat: no-repeat;

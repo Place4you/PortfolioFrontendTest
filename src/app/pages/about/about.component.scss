@@ -38,6 +38,7 @@
 		box-sizing: border-box;
 		float: right;
 		width: 50%;
+		color: #fff;
 		button {
 			display: block;
 			margin-top: 50px;
@@ -58,13 +59,10 @@
 		padding-top: 20px;
 		#arrows {
 			width: 100%;
-			#left_arrow {
+			#left_arrow, #right_arrow {
 				color: #ffc000;
-				float: left;
 				width: 75px;
 				height: 150px;
-				border-top-left-radius: 10px;
-				border-bottom-left-radius: 10px;
 				&:hover {
 					background-color: rgba(60, 60, 60, 0.1);
 					cursor: pointer;
@@ -77,28 +75,18 @@
 					left: 50%;
 					top: 50%;
 					transform: translate(-50%, -50%);
+					color: #000;
 				}
 			}
+			#left_arrow {
+				float: left;
+				border-top-left-radius: 10px;
+				border-bottom-left-radius: 10px;
+			}
 			#right_arrow {
-				color: #ffc000;
 				float: right;
-				width: 75px;
-				height: 150px;
 				border-top-right-radius: 10px;
 				border-bottom-right-radius: 10px;
-				&:hover {
-					background-color: rgba(60, 60, 60, 0.1);
-					cursor: pointer;
-				}
-				&:active {
-					background-color: rgba(60, 60, 60, 0.4);
-				}
-				i {
-					position: relative;
-					left: 50%;
-					top: 50%;
-					transform: translate(-50%, -50%);
-				}
 			}
 		}
 		#items {
