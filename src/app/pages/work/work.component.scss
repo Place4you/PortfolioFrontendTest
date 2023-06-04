@@ -12,7 +12,7 @@
 	margin-top: 15px;
 	width: 100%;
 	height: 75%;
-	overflow-y: scroll;
+	overflow: hidden scroll;
 	padding: 10px;
 	.project {
 		background-color: rgba(252, 255, 196, 0.1);
@@ -84,7 +84,7 @@
 		.viewMoreSection {
 			max-height: 0;
 			transition: max-height 1.5s ease;
-			overflow-y: hidden;
+			overflow: hidden;
 		}
 	}
 	@media (max-width: 398px) {
