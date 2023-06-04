@@ -44,10 +44,10 @@ export class WorkComponent implements OnInit {
 		const lessButton:	HTMLElement | null = document.getElementById(`viewLessButton_${id}`);
 
 		if (moreSection !== null && moreButton !== null && lessButton !== null) {
-			const displayValue: string = getComputedStyle(moreSection)?.display ?? '';
-			moreSection.style.display 	= displayValue === 'block' ? 'none' : 'block';
-			lessButton.style.display 	= displayValue === 'block' ? 'none' : 'block';
-			moreButton.style.display 	= displayValue === 'block' ? 'block' : 'none';
+			const heightValue: string = getComputedStyle(moreSection)?.height ?? '';
+			moreSection.style.maxHeight	= heightValue === '0px' ? '1200px' : '0px';
+			lessButton.style.display	= heightValue === '0px' ? 'block' : 'none';
+			moreButton.style.display	= heightValue === '0px' ? 'none' : 'block';
 		}
 	}
 

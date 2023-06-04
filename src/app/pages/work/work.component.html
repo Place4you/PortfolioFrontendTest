@@ -5,7 +5,7 @@
     <section id="work">
       <div class="projects">
         <div class="project" *ngFor="let project of projectItems">
-          <button type="button" class="viewmoreButton" (click)="viewMore(project.id)">
+          <button type="button" class="viewMoreButton" (click)="viewMore(project.id)">
             <div class="viewMore" id="viewMoreButton_{{project.id}}">
               <span>View more</span>
               <i class="fa-solid fa-angle-down fa-2x"></i>
@@ -34,7 +34,7 @@
               <span class="technology" *ngFor="let technology of project.technologies.split(',')">{{technology}}</span>
             </div>
           </div>
-          <div class="viewmoreSection" id="viewMore_{{project.id}}">
+          <div class="viewMoreSection" id="viewMore_{{project.id}}">
             <p>
               ● <a href="{{project.code_uri}}" target="_blank" *ngIf="project.code_uri">View source code <i class="fa-solid fa-external-link-alt"></i></a>
               <span *ngIf="!project.code_uri">Source code not available</span>
