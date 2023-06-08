@@ -63,32 +63,6 @@ Everyone is able to see my public information there, and you can view the live v
 
 </details>
 
-# How to use
-
-## Setup
-
-Install `Node.js` from https://nodejs.org/en and make sure that the `npm package manager` is also installed.
-
-Install the Angular CLI by running:
-`npm install -g @angular/cli`
-
-Install Sass with:
-`npm install -g sass`
-
-Inside the `src` folder create a folder called `environments` and inside it a file called `environment.prod.ts` with the following code:
-
-`export const environment = {
-	production: true,
-	apiUrl: 'YOUR_API_URL'
-};`
-
-## How to run
-
-In the portfolio directory run:
-`ng serve`
-
-In your browser, go to `localhost:4200`
-
 # How to help
 
 Thank you for your interest in contributing to my project! For the moment, there is only one way you can help:
