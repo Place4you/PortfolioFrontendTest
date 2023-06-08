@@ -6,8 +6,8 @@ import {
 	HttpErrorResponse, 
 	HttpResponse
 } from '@angular/common/http';
-import { catchError } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 import { TableAboutItemRes } from '../interfaces/tableAboutItemRes.interface';
 import { environment } from '@app/../src/environments/environment.prod';
 
@@ -16,9 +16,12 @@ import { environment } from '@app/../src/environments/environment.prod';
 })
 export class AboutService {
 
+	private cacheItems: TableAboutItemRes[] | null = null;
+
 	constructor(private http: HttpClient) { }
 
 	uri: string = environment.apiUrl + "/about_item";
+
 
 	getItem(id: number): Observable<HttpResponse<TableAboutItemRes>> {
 		return this.http.get<TableAboutItemRes>(
@@ -31,12 +34,19 @@ export class AboutService {
 	}
 
 	getItems(): Observable<HttpResponse<TableAboutItemRes[]>> {
+		if(this.cacheItems){
+			return of(new HttpResponse({ body: this.cacheItems }));
+		}
 		return this.http.get<TableAboutItemRes[]>(
 			this.uri,
 			{
 				observe: 'response',
 				responseType: 'json'
 			}
+		).pipe(
+			tap((res: HttpResponse<TableAboutItemRes[]>) => {
+				if(res.ok) this.cacheItems = res.body;
+			})
 		);
 	}
 
