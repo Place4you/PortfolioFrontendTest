@@ -41,7 +41,17 @@ export class LoginComponent {
 			.subscribe(
 				(response: HttpResponse<string>): void  => {
 					if (response.body !== null) {
-						this.cookieService.set('JWT', response.body, 1);
+						this.cookieService.set(
+							'JWT',
+							response.body,
+							{
+								expires: 1,
+								domain: 'lautacolella.web.app',
+								path: '/',
+								secure: true,
+								sameSite: 'Strict'
+							}
+						);
 						this.router.navigate(['admin']);
 					}
 				},
