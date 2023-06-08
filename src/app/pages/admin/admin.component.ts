@@ -119,7 +119,7 @@ export class AdminComponent implements OnInit {
 	}
 	
 	bLogout(): void {
-		this.cookieService.delete("JWT", "/");
+		this.cookieService.delete('JWT', '/', 'lautacolella.web.app', true, 'Strict');
 		this.router.navigate(['login']);
 	}
 
