@@ -16,10 +16,7 @@
             </div>
           </button>
           <aside class="itemImage">
-            <img src="{{project.image_uri}}" alt="{{project.image_alt}}" *ngIf="project.image_uri; else noImage" />
-            <ng-template #noImage>
-              <img src="https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg" alt="No image available" />
-            </ng-template>
+            <img src="{{project.image_uri ? project.image_uri : '../../../assets/images/no_image.jpg'}}" alt="{{project.image_alt ? project.image_alt : 'No image available'}}" />
           </aside>
           <div class="mainContent">
             <table>

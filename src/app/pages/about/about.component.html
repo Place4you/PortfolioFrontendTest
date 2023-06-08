@@ -25,7 +25,7 @@
             <ng-container *ngIf="i === pageIndex">
               <div class="item" *ngFor="let item of arrayItem.page">
                 <div class="itemImage" id="itemImage_{{item.id}}">
-                  <img src="{{item.image_uri ? item.image_uri : 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg'}}" alt="{{item.image_alt ? item.image_alt : 'No image available'}}" />
+                  <img src="{{item.image_uri ? item.image_uri : '../../../assets/images/no_image.jpg'}}" alt="{{item.image_alt ? item.image_alt : 'No image available'}}" />
                   <div class="viewMore" (click)="showItemInfo(item.id)">
                     <span>View more</span>
                   </div>
