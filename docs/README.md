@@ -17,6 +17,7 @@ Everyone is able to see my public information there, and you can view the live v
 - Error handling and input validation
 - Admin panel for actions related to the users and website content
 - Responsive design
+- Lazy loading
 
 ## Preview
 
