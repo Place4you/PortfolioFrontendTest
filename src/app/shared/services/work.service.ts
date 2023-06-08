@@ -6,8 +6,8 @@ import {
 	HttpErrorResponse,
 	HttpResponse 
 } from '@angular/common/http';
-import { catchError } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 import { TableWorkItemRes } from '../interfaces/tableWorkItemRes.interface';
 import { environment } from '@app/../src/environments/environment.prod';
 
@@ -15,6 +15,8 @@ import { environment } from '@app/../src/environments/environment.prod';
 	providedIn: 'root'
 })
 export class WorkService {
+
+	private cachedItems: TableWorkItemRes[] | null = null;
 
 	constructor(private http: HttpClient) { }
 
@@ -31,12 +33,19 @@ export class WorkService {
 	}
 
 	getItems(): Observable<HttpResponse<TableWorkItemRes[]>> {
+		if(this.cachedItems){
+			return of(new HttpResponse({ body: this.cachedItems }));
+		}
 		return this.http.get<TableWorkItemRes[]>(
 			this.uri,
 			{
 				observe: 'response',
 				responseType: 'json'
 			}
+		).pipe(
+			tap((res: HttpResponse<TableWorkItemRes[]>) => {
+				if(res.ok) this.cachedItems = res.body;
+			})
 		);
 	}
 

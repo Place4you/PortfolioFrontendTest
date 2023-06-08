@@ -6,8 +6,8 @@ import {
 	HttpErrorResponse, 
 	HttpResponse 
 } from '@angular/common/http';
-import { catchError } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 import { TableContactItemRes, TableContactMessageRes } from '../interfaces/tableContactRes.interface';
 import { environment } from '@app/../src/environments/environment.prod';
 
@@ -15,6 +15,8 @@ import { environment } from '@app/../src/environments/environment.prod';
 	providedIn: 'root'
 })
 export class ContactService {
+
+	private cachedItems: TableContactItemRes[] | null = null;
 
 	constructor(private http: HttpClient) { }
 	
@@ -32,12 +34,19 @@ export class ContactService {
 	}
 
 	getItems(): Observable<HttpResponse<TableContactItemRes[]>> {
+		if(this.cachedItems){
+			return of(new HttpResponse({ body: this.cachedItems }));
+		}
 		return this.http.get<TableContactItemRes[]>(
 			this.uriCi,
 			{
 				observe: 'response',
 				responseType: 'json'
 			}
+		).pipe(
+			tap((res: HttpResponse<TableContactItemRes[]>) => {
+				if(res.ok) this.cachedItems = res.body;
+			})
 		);
 	}
 

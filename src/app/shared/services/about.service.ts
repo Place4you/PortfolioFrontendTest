@@ -16,7 +16,7 @@ import { environment } from '@app/../src/environments/environment.prod';
 })
 export class AboutService {
 
-	private cacheItems: TableAboutItemRes[] | null = null;
+	private cachedItems: TableAboutItemRes[] | null = null;
 
 	constructor(private http: HttpClient) { }
 
@@ -34,8 +34,8 @@ export class AboutService {
 	}
 
 	getItems(): Observable<HttpResponse<TableAboutItemRes[]>> {
-		if(this.cacheItems){
-			return of(new HttpResponse({ body: this.cacheItems }));
+		if(this.cachedItems){
+			return of(new HttpResponse({ body: this.cachedItems }));
 		}
 		return this.http.get<TableAboutItemRes[]>(
 			this.uri,
@@ -45,7 +45,7 @@ export class AboutService {
 			}
 		).pipe(
 			tap((res: HttpResponse<TableAboutItemRes[]>) => {
-				if(res.ok) this.cacheItems = res.body;
+				if(res.ok) this.cachedItems = res.body;
 			})
 		);
 	}
