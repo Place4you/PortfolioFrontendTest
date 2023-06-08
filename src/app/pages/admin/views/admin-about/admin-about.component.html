@@ -20,7 +20,7 @@
   </section>
   <section class="form">
     <ng-container *ngIf="currentValue === 'add'">
-      <form onsubmit="return false;" id="createItemForm">
+      <form #createItemForm onsubmit="return false;">
         <h3>Create new about item</h3>
         <section class="selectType">
           <div class="selectH4">
@@ -76,7 +76,7 @@
       </form>
     </ng-container>
     <ng-container *ngIf="currentValue === 'delete'">
-      <form onsubmit="return false;" id="deleteItemForm">
+      <form #deleteItemForm onsubmit="return false;">
         <h3>Delete about item</h3>
         <label for="deleteId"><h5>Input about item id</h5></label>
         <input type="number" id="deleteId" placeholder="Id (ex: 123)" min="1" max="65535" required #deleteId />

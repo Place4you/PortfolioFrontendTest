@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {
+	Component,
+	OnInit,
+	ViewChild,
+	ElementRef
+} from '@angular/core';
 import { Router } from '@angular/router';
 import {
 	HttpClientModule,
@@ -20,6 +25,11 @@ import {
 	styleUrls: ['./admin-contact.component.scss']
 })
 export class AdminContactComponent implements OnInit {
+
+	@ViewChild('createItemForm', { static: false })
+	createItemFormRef!: ElementRef<HTMLFormElement>
+	@ViewChild('deleteItemForm', { static: false })
+	deleteItemFormRef!: ElementRef<HTMLFormElement>
 
 	constructor(
 		private alertService: AlertService, 
@@ -78,7 +88,7 @@ export class AdminContactComponent implements OnInit {
 				).subscribe(
 					(response: HttpResponse<TableContactItemRes>): void  => {
 						this.alertService.myAlert("Item created successfully", 'success');
-						(document.getElementById("createItemForm") as HTMLFormElement).reset;
+						this.createItemFormRef.nativeElement.reset();
 					},
 					(error: HttpResponse<ErrorObject>): void => {
 						this.alertService.myAlert(error.body?.error.message ?? 'Unknown error while creating item', 'danger');
@@ -203,7 +213,7 @@ export class AdminContactComponent implements OnInit {
 				).subscribe(
 					(response: HttpResponse<{ }>): void  => {
 						this.alertService.myAlert("Item deleted successfully", 'success');
-						(document.getElementById("deleteItemForm") as HTMLFormElement).reset;
+						this.deleteItemFormRef.nativeElement.reset();
 					},
 					(error: HttpResponse<ErrorObject>): void => {
 						this.alertService.myAlert(error.body?.error.message ?? 'Unknown error while deleting item', 'danger');

@@ -8,9 +8,9 @@
         <p [innerHTML]="journey.description"></p>
       </article>
       <aside id="navbar">
-        <button (click)="makePages('knowledge')" type="button" class="btn btn-secondary" id="knowledgeButton"><strong>Knowledge</strong></button>
-        <button (click)="makePages('badge')" type="button" class="btn btn-secondary" id="badgeButton"><strong>Badges</strong></button>
-        <button (click)="makePages('certificate')" type="button" class="btn btn-secondary" id="certificateButton"><strong>Certificates</strong></button>
+        <button #navKnowButton (click)="makePages('knowledge')" type="button" class="btn btn-secondary" id="knowledgeButton"><strong>Knowledge</strong></button>
+        <button #navBadButton (click)="makePages('badge')" type="button" class="btn btn-secondary"><strong>Badges</strong></button>
+        <button #navCertButton (click)="makePages('certificate')" type="button" class="btn btn-secondary"><strong>Certificates</strong></button>
       </aside>
       <footer id="footer">
         <section id="arrows" *ngIf="showArrows">

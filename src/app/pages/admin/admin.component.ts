@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {
+	Component,
+	OnInit,
+	ViewChild,
+	ElementRef
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { 
 	HttpClientModule,
@@ -17,6 +22,19 @@ import { ErrorObject } from '@@shared/interfaces/errorObject.interface';
 	providers: [CookieService]
 })
 export class AdminComponent implements OnInit {
+
+	@ViewChild('admin', { static: false })
+	admElemRef!: ElementRef<HTMLElement>;
+	@ViewChild('appHome', { static: false })
+	appHomeRef!: ElementRef<HTMLDivElement>;
+	@ViewChild('appWork', { static: false })
+	appWorkRef!: ElementRef<HTMLDivElement>;
+	@ViewChild('appAbout', { static: false })
+	appAboutRef!: ElementRef<HTMLDivElement>;
+	@ViewChild('appContact', { static: false })
+	appContactRef!: ElementRef<HTMLDivElement>;
+	@ViewChild('appUser', { static: false })
+	appUserRef!: ElementRef<HTMLDivElement>;
 
 	constructor(
 		private alertService: AlertService, 
@@ -41,70 +59,63 @@ export class AdminComponent implements OnInit {
 		}
 	}
 
-	bGoto(gtPosition: string): void {
-		const admElem: HTMLElement | null	= document.getElementById("admin"),
-		homeElem: HTMLElement | null		= document.getElementById("appHome"),
-		workElem: HTMLElement | null		= document.getElementById("appWork"),
-		aboutElem: HTMLElement | null		= document.getElementById("appAbout"),
-		contactElem: HTMLElement | null	= document.getElementById("appContact"),
-		userElem: HTMLElement | null		= document.getElementById("appUser");
-		
-		if (admElem !== null && homeElem !== null && workElem !== null && aboutElem !== null && contactElem !== null && userElem !== null) {
-			if (gtPosition === "top" || gtPosition === "appHome") {
-				admElem.scrollTop = 0;
+	bGoto(gtPosition: string): void {		
+		if (gtPosition === "top" || gtPosition === "appHome") {
+			this.admElemRef.nativeElement.scrollTop = 0;
 
-				if (gtPosition === "top") {
-					homeElem.style.display		= "none";
-					workElem.style.display		= "none";
-					aboutElem.style.display	= "none";
-					contactElem.style.display	= "none";
-					userElem.style.display		= "none";
+			if (gtPosition === "top") {
+				this.appHomeRef.nativeElement.style.display		= "none";
+				this.appWorkRef.nativeElement.style.display		= "none";
+				this.appAboutRef.nativeElement.style.display	= "none";
+				this.appContactRef.nativeElement.style.display	= "none";
+				this.appUserRef.nativeElement.style.display		= "none";
 
-					const arrowsUp: HTMLElement[]	= Array.from(document.getElementsByClassName("arrowUp") as HTMLCollectionOf<HTMLElement>),
-					arrowsDown: HTMLElement[]		= Array.from(document.getElementsByClassName("arrowDown") as HTMLCollectionOf<HTMLElement>);
-					
-					for (let arrow of arrowsUp) {
-						arrow.style.display = "none";
-					}
-					for (let arrow of arrowsDown) {
-						arrow.style.display = "block";
-					}
+				const arrowsUp: HTMLElement[]	= Array.from(document.getElementsByClassName("arrowUp") as HTMLCollectionOf<HTMLElement>),
+				arrowsDown: HTMLElement[]		= Array.from(document.getElementsByClassName("arrowDown") as HTMLCollectionOf<HTMLElement>);
+
+				for (let arrow of arrowsUp) {
+					arrow.style.display = "none";
 				}
-			}
-			else {
-				const elemNav: HTMLElement | null = document.getElementById(gtPosition);
-				
-				if (elemNav && elemNav.offsetTop > 120) admElem.scrollTop = elemNav.offsetTop - 120;
-				else {
-					if (gtPosition === "appWork")
-						admElem.scrollTop = homeElem.clientHeight;
-					
-					else if (gtPosition === "appAbout")
-						admElem.scrollTop =
-						homeElem.clientHeight +
-						workElem.clientHeight;
-					
-					else if (gtPosition === "appContact")
-						admElem.scrollTop =
-						homeElem.clientHeight +
-						workElem.clientHeight +
-						aboutElem.clientHeight;
-					
-					else if (gtPosition === "appUser") {
-						if (homeElem.clientHeight		=== 0 ||
-							workElem.clientHeight		=== 0 ||
-							aboutElem.clientHeight		=== 0 ||
-							contactElem.clientHeight	=== 0
-							) admElem.scrollTop =
-							110 +
-							homeElem.clientHeight +
-							workElem.clientHeight +
-							aboutElem.clientHeight +
-							contactElem.clientHeight;
-					}
+				for (let arrow of arrowsDown) {
+					arrow.style.display = "block";
 				}
 			}
 		}
+		else {
+			const elemNav: HTMLElement | null = document.getElementById(gtPosition);
+
+			if (elemNav && elemNav.offsetTop > 120) this.admElemRef.nativeElement.scrollTop = elemNav.offsetTop - 120;
+			else {
+				if (gtPosition === "appWork")
+					this.admElemRef.nativeElement.scrollTop =
+					this.appHomeRef.nativeElement.clientHeight;
+
+				else if (gtPosition === "appAbout")
+					this.admElemRef.nativeElement.scrollTop =
+					this.appHomeRef.nativeElement.clientHeight +
+					this.appWorkRef.nativeElement.clientHeight;
+
+				else if (gtPosition === "appContact")
+					this.admElemRef.nativeElement.scrollTop =
+					this.appHomeRef.nativeElement.clientHeight +
+					this.appWorkRef.nativeElement.clientHeight +
+					this.appAboutRef.nativeElement.clientHeight;
+
+				else if (gtPosition === "appUser") {
+					if (this.appHomeRef.nativeElement.clientHeight		=== 0 ||
+						this.appWorkRef.nativeElement.clientHeight		=== 0 ||
+						this.appAboutRef.nativeElement.clientHeight		=== 0 ||
+						this.appContactRef.nativeElement.clientHeight	=== 0
+					) this.admElemRef.nativeElement.scrollTop =
+						110 +
+						this.appHomeRef.nativeElement.clientHeight +
+						this.appWorkRef.nativeElement.clientHeight +
+						this.appAboutRef.nativeElement.clientHeight +
+						this.appContactRef.nativeElement.clientHeight;
+				}
+			}
+		}
+		
 	}
 	
 	bLogout(): void {

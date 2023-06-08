@@ -9,7 +9,7 @@
   <hr />
   <section class="form">
     <ng-container *ngIf="currentValue === 'add'">
-      <form onsubmit="return false;" id="createItemForm">
+      <form #createItemForm onsubmit="return false;">
         <h3>Create new contact item</h3>
         <label for="addName"><h5>Input name</h5></label>
         <input type="text" id="addName" placeholder="Name" minlength="3" maxlength="253" required #addName />
@@ -48,7 +48,7 @@
       </form>
     </ng-container>
     <ng-container *ngIf="currentValue === 'delete'">
-      <form onsubmit="return false;" id="deleteItemForm">
+      <form #deleteItemForm onsubmit="return false;">
         <h3>Delete contact item</h3>
         <label for="deleteId"><h5>Input contac item id</h5></label>
         <input type="number" id="deleteId" placeholder="Id (ex: 123)" min="1" max="65535" required #deleteId />

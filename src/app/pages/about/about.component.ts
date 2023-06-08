@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { 
+	Component,
+	OnInit,
+	AfterViewInit,
+	ViewChild,
+	ElementRef
+} from '@angular/core';
 import {
 	HttpClientModule,
 	HttpClient,
@@ -27,7 +33,14 @@ interface Page {
 	templateUrl: './about.component.html',
 	styleUrls: ['./about.component.scss']
 })
-export class AboutComponent implements OnInit {
+export class AboutComponent implements OnInit,AfterViewInit {
+
+	@ViewChild('navKnowButton', { static: false })
+	navKnowButtonRef!: ElementRef<HTMLButtonElement>;
+	@ViewChild('navBadButton', { static: false })
+	navBadButtonRef!: ElementRef<HTMLButtonElement>;
+	@ViewChild('navCertButton', { static: false })
+	navCertButtonRef!: ElementRef<HTMLButtonElement>;
 
 	constructor(
 		private cookieService: CookieService, 
@@ -57,15 +70,13 @@ export class AboutComponent implements OnInit {
 	};
 
 	makePages(view: string): void {
-		const selectedNavButton:	HTMLElement | null = document.getElementById(`${view}Button`),
-		navKnowledge:				HTMLElement | null = document.getElementById('knowledgeButton'),
-		navBadges:					HTMLElement | null = document.getElementById('badgeButton'),
-		navCertificates:			HTMLElement | null = document.getElementById('certificateButton');
-		navKnowledge		&& (navKnowledge.style.backgroundColor = '#5c636a');
-		navBadges			&& (navBadges.style.backgroundColor = '#5c636a');
-		navCertificates		&& (navCertificates.style.backgroundColor = '#5c636a');
-		selectedNavButton	&& (selectedNavButton.style.backgroundColor = '#000');
-
+		const selectedNavButton: HTMLElement | null = document.getElementById(`${view}Button`);
+		
+		this.navKnowButtonRef.nativeElement.style.backgroundColor = '#5c636a';
+		this.navBadButtonRef.nativeElement.style.backgroundColor = '#5c636a';
+		this.navCertButtonRef.nativeElement.style.backgroundColor = '#5c636a';
+		selectedNavButton && (selectedNavButton.style.backgroundColor = '#000');
+		
 		this.showArrows = false;
 		this.currentView = view;
 		this.arrayAll = [];
@@ -173,7 +184,6 @@ export class AboutComponent implements OnInit {
 
 	ngOnInit(): void {
 		window.addEventListener('resize', () => this.checkResize());
-		this.checkResize();
 
 		this.informationService.getInformationTable().subscribe(
 			(response: HttpResponse<TableInfoRes[]>): void  => {
@@ -260,5 +270,9 @@ export class AboutComponent implements OnInit {
 				console.error(error.body?.error);
 			}
 		);
+	}
+
+	ngAfterViewInit(): void {
+		this.checkResize();
 	}
 }

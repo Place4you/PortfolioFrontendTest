@@ -32,7 +32,7 @@
   </ng-container>
   <section class="form">
     <ng-container *ngIf="currentValue === 'add'">
-      <form onsubmit="return false;" id="createUserForm">
+      <form #createUserForm onsubmit="return false;">
         <h3>Create new user</h3>
         <label for="addName"><h5>Input name</h5></label>
         <input type="text" id="addName" placeholder="Name" minlength="3" maxlength="253" required #addName />

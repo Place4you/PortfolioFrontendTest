@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {
+	Component,
+	OnInit,
+	ViewChild,
+	ElementRef
+} from '@angular/core';
 import {
 	HttpClientModule,
 	HttpClient,
@@ -19,6 +24,9 @@ import {
 	styleUrls: ['./contact.component.scss']
 })
 export class ContactComponent implements OnInit {
+
+	@ViewChild('contactForm', { static: false })
+	contactFormRef!: ElementRef<HTMLFormElement>;
 
 	constructor(
 		private cookieService: CookieService, 
@@ -57,7 +65,7 @@ export class ContactComponent implements OnInit {
 			).subscribe(
 				(response: HttpResponse<TableContactMessageRes>): void  => {
 					this.alertService.myAlert("Message sent successfully", 'success');
-					(document.getElementById("contactForm") as HTMLFormElement).reset;
+					this.contactFormRef.nativeElement.reset();
 				},
 				(error: HttpResponse<ErrorObject>): void => {
 					this.alertService.myAlert(error.body?.error.message ?? 'Unknown error while creating the message', 'danger');

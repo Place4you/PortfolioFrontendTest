@@ -1,4 +1,10 @@
-import { Component, AfterViewInit, OnInit } from '@angular/core';
+import {
+	Component,
+	AfterViewInit,
+	OnInit,
+	ViewChild,
+	ElementRef
+} from '@angular/core';
 import { Router } from '@angular/router';
 import {
 	HttpClientModule,
@@ -19,6 +25,13 @@ import { TableAboutItemRes } from '@@shared/interfaces/tableAboutItemRes.interfa
 	styleUrls: ['./admin-about.component.scss']
 })
 export class AdminAboutComponent implements OnInit,AfterViewInit {
+
+	@ViewChild('createItemForm', { static: false })
+	createItemFormRef!: ElementRef<HTMLFormElement>;
+	@ViewChild('deleteItemForm', { static: false })
+	deleteItemFormRef!: ElementRef<HTMLFormElement>;
+	@ViewChild('addDate', { static: false })
+	addDateRef!: ElementRef<HTMLInputElement>;
 
 	constructor(
 		private alertService: AlertService, 
@@ -114,7 +127,7 @@ export class AdminAboutComponent implements OnInit,AfterViewInit {
 				).subscribe(
 					(response: HttpResponse<TableAboutItemRes>): void  => {
 						this.alertService.myAlert("Item created successfully", 'success');
-						(document.getElementById("createItemForm") as HTMLFormElement).reset;
+						this.createItemFormRef.nativeElement.reset();
 					},
 					(error: HttpResponse<ErrorObject>): void => {
 						this.alertService.myAlert(error.body?.error.message ?? 'Unknown error while creating item', 'danger');
@@ -246,7 +259,7 @@ export class AdminAboutComponent implements OnInit,AfterViewInit {
 				).subscribe(
 					(response: HttpResponse<{ }>): void  => {
 						this.alertService.myAlert("Item deleted successfully", 'success');
-						(document.getElementById("deleteItemForm") as HTMLFormElement).reset;
+						this.deleteItemFormRef.nativeElement.reset();
 					},
 					(error: HttpResponse<ErrorObject>): void => {
 						this.alertService.myAlert(error.body?.error.message ?? 'Unknown error while deleting item', 'danger');
@@ -279,9 +292,7 @@ export class AdminAboutComponent implements OnInit,AfterViewInit {
 	}
 
 	ngAfterViewInit(): void {
-		const dateInput: HTMLInputElement = document.getElementById("addDate") as HTMLInputElement;
-		dateInput && (dateInput.max = new Date().toLocaleDateString('fr-ca'));
-		dateInput && (dateInput.value = new Date().toLocaleDateString('fr-ca'));
+		this.addDateRef.nativeElement.max = new Date().toLocaleDateString('fr-ca');
+		this.addDateRef.nativeElement.value = new Date().toLocaleDateString('fr-ca');
 	}
-
 }

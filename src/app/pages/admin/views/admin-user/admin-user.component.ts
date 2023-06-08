@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {
+	Component,
+	OnInit,
+	ViewChild,
+	ElementRef
+} from '@angular/core';
 import { Router } from '@angular/router';
 import {
 	HttpClientModule,
@@ -17,6 +22,9 @@ import { TableUserRes } from '@@shared/interfaces/tableUserRes.interface';
 	styleUrls: ['./admin-user.component.scss']
 })
 export class AdminUserComponent implements OnInit {
+
+	@ViewChild('createUserForm', { static: false })
+	createUserFormRef!: ElementRef<HTMLFormElement>
 
 	constructor(
 		private alertService: AlertService, 
@@ -57,7 +65,7 @@ export class AdminUserComponent implements OnInit {
 				).subscribe(
 					(response: HttpResponse<TableUserRes>): void  => {
 						this.alertService.myAlert("User created successfully", 'success');
-						(document.getElementById("createUserForm") as HTMLFormElement).reset;
+						this.createUserFormRef.nativeElement.reset();
 						response.body && (this.allUsers.push(response.body));
 					},
 					(error: HttpResponse<ErrorObject>): void => {
