@@ -85,6 +85,9 @@
 			max-height: 0;
 			transition: max-height 1.5s ease;
 			overflow: hidden;
+			i: {
+				color: #4c33ff;
+			}
 		}
 	}
 	@media (max-width: 398px) {
