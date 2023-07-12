@@ -8,7 +8,7 @@ This project was started in December 1, 2022. It's a web application to present 
 Everyone is able to see my public information there, and you can view the live version at: https://lautacolella.web.app
 
 - The **frontend** is made with [Angular 15](https://angular.io/guide/update-to-version-15#new-features-in-angular-v15), [Bootstrap](https://getbootstrap.com/) and [Ruby Sass](https://sass-lang.com/ruby-sass).
-- The **backend** is made with [Spring boot](https://spring.io/), [Maven](https://maven.apache.org/), [Hibernate](https://hibernate.org/) and [MySQL](https://www.mysql.com/). The backend is currently a hidden repository.
+- The **backend** is made with [Spring boot](https://spring.io/), [Maven](https://maven.apache.org/), [Hibernate](https://hibernate.org/) and [MySQL](https://www.mysql.com/).
 
 ## Features
 - Request caching
