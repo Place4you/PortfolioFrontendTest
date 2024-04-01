@@ -1,13 +1,13 @@
+import { Page403Component } from '@@pages/errors/page403/page403.component';
+import { Page404Component } from '@@pages/errors/page404/page404.component';
+import { Page500Component } from '@@pages/errors/page500/page500.component';
+import { IndexComponent } from '@@pages/index/index.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { IndexComponent } from '@@pages/index/index.component';
-import { Page404Component } from '@@pages/errors/page404/page404.component';
-import { Page403Component } from '@@pages/errors/page403/page403.component';
-import { Page500Component } from '@@pages/errors/page500/page500.component';
 
 const routes: Routes = [
-	{ path: '', redirectTo: '/home', pathMatch: 'full' },
-	{ path: 'home', component: IndexComponent },
+	{ path: '', component: IndexComponent },
+	{ path: 'home', redirectTo: '/', pathMatch: 'full' },
 	{ path: 'work', loadChildren: () => import('@@pages/work/work.module').then(m => m.WorkModule) },
 	{ path: 'about', loadChildren: () => import('@@pages/about/about.module').then(m => m.AboutModule) },
 	{ path: 'contact', loadChildren: () => import('@@pages/contact/contact.module').then(m => m.ContactModule) },
