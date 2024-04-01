@@ -1,22 +1,22 @@
-import { 
-	Component,
-	OnInit,
-	AfterViewInit,
-	ViewChild,
-	ElementRef
-} from '@angular/core';
-import {
-	HttpClientModule,
-	HttpClient,
-	HttpResponse
-} from '@angular/common/http';
-import { CookieService } from 'ngx-cookie-service';
-import { InformationService } from '@@shared/services/information.service';
-import { AboutService } from '@@shared/services/about.service';
-import { AlertService } from '@@shared/services/alert.service';
 import { ErrorObject } from '@@shared/interfaces/errorObject.interface';
 import { TableAboutItemRes } from '@@shared/interfaces/tableAboutItemRes.interface';
 import { TableInfoRes } from '@@shared/interfaces/tableInfoRes.interface';
+import { AboutService } from '@@shared/services/about.service';
+import { AlertService } from '@@shared/services/alert.service';
+import { InformationService } from '@@shared/services/information.service';
+import {
+	HttpClient,
+	HttpClientModule,
+	HttpResponse
+} from '@angular/common/http';
+import {
+	AfterViewInit,
+	Component,
+	ElementRef,
+	OnInit,
+	ViewChild
+} from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
 
 interface Page {
 	id: number,
@@ -43,10 +43,10 @@ export class AboutComponent implements OnInit,AfterViewInit {
 	navCertButtonRef!: ElementRef<HTMLButtonElement>;
 
 	constructor(
-		private cookieService: CookieService, 
-		private alertService: AlertService, 
-		private http: HttpClient, 
-		private aboutService: AboutService, 
+		private cookieService: CookieService,
+		private alertService: AlertService,
+		private http: HttpClient,
+		private aboutService: AboutService,
 		private informationService: InformationService
 	) { }
 
@@ -54,7 +54,7 @@ export class AboutComponent implements OnInit,AfterViewInit {
 	arrayPage:         Page[] = [];
 	pageIndex:          number = 0;
 	totalPages:        number = 1;
-	itemsPerPage:		number = 6;
+	itemsPerPage:		number = 5;
 	allSelectedItems: number = 0;
 	currentView: 		string = "knowledge";
 	showArrows:        boolean = false;
@@ -71,12 +71,12 @@ export class AboutComponent implements OnInit,AfterViewInit {
 
 	makePages(view: string): void {
 		const selectedNavButton: HTMLElement | null = document.getElementById(`${view}Button`);
-		
+
 		this.navKnowButtonRef.nativeElement.style.backgroundColor = '#5c636a';
 		this.navBadButtonRef.nativeElement.style.backgroundColor = '#5c636a';
 		this.navCertButtonRef.nativeElement.style.backgroundColor = '#5c636a';
 		selectedNavButton && (selectedNavButton.style.backgroundColor = '#000');
-		
+
 		this.showArrows = false;
 		this.currentView = view;
 		this.arrayAll = [];
@@ -85,7 +85,7 @@ export class AboutComponent implements OnInit,AfterViewInit {
 		this.totalPages = 1;
 
 		let startAt: number = 0,
-		selectedItems: TableAboutItemRes[] = 
+		selectedItems: TableAboutItemRes[] =
 			view === 'badge' ? this.badgesItems :
 			view === 'certificate' ? this.certificatesItems :
 			this.knowledgeItems;
@@ -144,7 +144,10 @@ export class AboutComponent implements OnInit,AfterViewInit {
 		if (this.pageIndex < 0) this.pageIndex = this.totalPages - 1;
 	}
 
+	currentItem: number = 0;
 	showItemInfo(itemId: number): void {
+		if(this.currentItem === itemId) return;
+		this.currentItem = itemId;
 		const allItems: TableAboutItemRes[] = [
 			...this.knowledgeItems,
 			...this.badgesItems,
@@ -168,11 +171,11 @@ export class AboutComponent implements OnInit,AfterViewInit {
 	checkResize(): void {
 		const { innerWidth } = window,
 		breakpoints: { width: number, itemsPP: number }[] = [
-			{ width: 1400, itemsPP: 6 },
-			{ width: 1200, itemsPP: 5 },
-			{ width: 992, itemsPP: 4 },
-			{ width: 768, itemsPP: 3 },
-			{ width: 575, itemsPP: 2 },
+			{ width: 1400, itemsPP: 5 },
+			{ width: 1200, itemsPP: 4 },
+			{ width: 992, itemsPP: 3 },
+			{ width: 768, itemsPP: 2 },
+			// { width: 575, itemsPP: 2 },
 			{ width: 0, itemsPP: this.allSelectedItems }
 		],
 		{ itemsPP } = breakpoints.find(bp => bp.width <= innerWidth) || breakpoints[0];
@@ -256,7 +259,7 @@ export class AboutComponent implements OnInit,AfterViewInit {
 						if (selectedItems[i].link) myPage.link = selectedItems[i].link;
 						if (selectedItems[i].image_uri) myPage.image_uri = selectedItems[i].image_uri;
 						if (selectedItems[i].image_alt) myPage.image_alt = selectedItems[i].image_alt;
-						
+
 						this.arrayPage.push(myPage);
 						if (i === selectedItems.length - 1) {
 							this.arrayAll.push({page: this.arrayPage});

@@ -1,21 +1,50 @@
 <body>
   <app-loader></app-loader>
   <section class="container content">
-    <div id="liveAlertPlaceholder" style="position: absolute; z-index: 9; width: 100%;"></div>
+    <div
+      id="liveAlertPlaceholder"
+      style="position: absolute; z-index: 9; width: 100%"
+    ></div>
     <section id="about">
       <article id="journey">
-        <h3>{{journey.title}}</h3>
+        <h3>{{ journey.title }}</h3>
         <p [innerHTML]="journey.description"></p>
       </article>
       <aside id="navbar">
-        <button #navKnowButton (click)="makePages('knowledge')" type="button" class="btn btn-secondary" id="knowledgeButton"><strong>Knowledge</strong></button>
-        <button #navBadButton (click)="makePages('badge')" type="button" class="btn btn-secondary"><strong>Badges</strong></button>
-        <button #navCertButton (click)="makePages('certificate')" type="button" class="btn btn-secondary"><strong>Certificates</strong></button>
+        <button
+          #navKnowButton
+          (click)="makePages('knowledge')"
+          type="button"
+          class="btn btn-secondary"
+          id="knowledgeButton"
+        >
+          <strong>Knowledge</strong>
+        </button>
+        <button
+          #navBadButton
+          (click)="makePages('badge')"
+          type="button"
+          class="btn btn-secondary"
+        >
+          <strong>Badges</strong>
+        </button>
+        <button
+          #navCertButton
+          (click)="makePages('certificate')"
+          type="button"
+          class="btn btn-secondary"
+        >
+          <strong>Certificates</strong>
+        </button>
       </aside>
       <footer id="footer">
         <section id="arrows" *ngIf="showArrows">
-          <div id="leftArrow" (click)="onLeftArrow()"><i class="fa-solid fa-angle-left fa-3x"></i></div>
-          <div id="rightArrow" (click)="onRightArrow()"><i class="fa-solid fa-angle-right fa-3x"></i></div>
+          <div id="leftArrow" (click)="onLeftArrow()">
+            <i class="fa-solid fa-angle-left fa-3x"></i>
+          </div>
+          <div id="rightArrow" (click)="onRightArrow()">
+            <i class="fa-solid fa-angle-right fa-3x"></i>
+          </div>
         </section>
         <section id="items">
           <ng-container *ngIf="arrayAll.length === 0">
@@ -23,24 +52,39 @@
           </ng-container>
           <ng-container *ngFor="let arrayItem of arrayAll; let i = index">
             <ng-container *ngIf="i === pageIndex">
-              <div class="item" *ngFor="let item of arrayItem.page">
-                <div class="itemImage" id="itemImage_{{item.id}}">
-                  <img src="{{item.image_uri ? item.image_uri : '../../../assets/images/no_image.jpg'}}" alt="{{item.image_alt ? item.image_alt : 'No image available'}}" />
-                  <div class="viewMore" (click)="showItemInfo(item.id)">
-                    <span>View more</span>
-                  </div>
+              <div
+                class="item"
+                *ngFor="let item of arrayItem.page"
+                (click)="showItemInfo(item.id)"
+              >
+                <div class="itemImage" id="itemImage_{{ item.id }}">
+                  <img
+                    src="{{
+                      item.image_uri
+                        ? item.image_uri
+                        : '../../../assets/images/no_image.jpg'
+                    }}"
+                    alt="{{
+                      item.image_alt ? item.image_alt : 'No image available'
+                    }}"
+                  />
                   <div class="behindImage">
-                    <span>{{item.date}}</span>
-                    <span *ngIf="isLogged">#{{journey.id}}</span>
+                    <span>{{ item.date }}</span>
+                    <span *ngIf="isLogged">#{{ journey.id }}</span>
                   </div>
                 </div>
                 <div>
-                  <h5 title="{{item.name}}">
+                  <h5 title="{{ item.name }}">
                     <ng-container *ngIf="item.link; else noLink">
-                      <a href="{{item.link}}" target="_blank" title="{{item.name}}">{{item.name}}</a>
+                      <a
+                        href="{{ item.link }}"
+                        target="_blank"
+                        title="{{ item.name }}"
+                        >{{ item.name }}</a
+                      >
                     </ng-container>
                     <ng-template #noLink>
-                      {{item.name}}
+                      {{ item.name }}
                     </ng-template>
                   </h5>
                 </div>

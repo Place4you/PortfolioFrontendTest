@@ -92,9 +92,13 @@
 		#items {
 			text-align: center;
 			.item {
+				cursor: pointer;
 				display: inline-block;
-				margin: 0 5px;
+				margin: 0 20px;
 				opacity: 0;
+				border: solid 1px lightblue;
+				border-radius: 10px;
+				padding: 10px;
 				animation: fadeInAnimation 0.5s ease-in-out forwards;
 				.itemImage {
 					position: relative;
@@ -102,43 +106,18 @@
 						width: 100px;
 						height: 100px;
 					}
-					.viewMore {
-						opacity: 1;
-						z-index: 4;
-						color: #fff;
-						background-color: rgba(100, 100, 100, 0.9);
-						position: absolute;
-						width: 100px;
-						height: 30px;
-						border-radius: 5px;
-						top: 50%;
-						left: 50%;
-						transform: translate(-50%, -50%);
-						&:hover {
-							cursor: pointer;
-						}
-						span {
-							position: relative;
-							display: block;
-							width: 100%;
-							left: 0;
-							right: 0;
-							top: 40%;
-							transform: translateY(-50%);
-						}
-					}
 					.behindImage {
 						opacity: 0;
 						z-index: 3;
 						color: #fff;
-						background-color: rgba(50, 50, 50, 0.9);
+						background-color: rgb(50, 50, 50);
 						position: absolute;
 						width: 100px;
-						height: 100px;
+						height: 30px;
 						border-radius: 10px;
-						top: 0;
+						top: 50%;
 						left: 50%;
-						transform: translateX(-50%);
+						transform: translate(-50%, -50%);
 						span {
 							position: relative;
 							display: block;
@@ -160,12 +139,12 @@
 						transition: opacity 0.5s;
 					}
 				}
-				h5 {
-					margin-top: 10px;
-					overflow: hidden;
-					white-space: nowrap;
-					inline-size: 160px;
-				}
+			}
+			h5 {
+				margin-top: 10px;
+				overflow: hidden;
+				white-space: nowrap;
+				inline-size: 160px;
 			}
 		}
 	}
