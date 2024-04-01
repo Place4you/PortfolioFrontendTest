@@ -165,6 +165,8 @@ export class AboutComponent implements OnInit,AfterViewInit {
 			myItem?.classList.add('selectedItem');
 			this.savedItem?.classList.remove('selectedItem');
 			this.savedItem = myItem;
+
+			window.scrollTo(0, 0);
 		}
 	}
 
