@@ -4,18 +4,53 @@
 </section>
 <section id="navigationBar">
   <div class="navHome">
-    <button routerLink="/home" type="button" class="btn btn-dark" [class.active]="currentRoute === '/home'"><i class="fa-solid fa-house-chimney"></i> Home</button>
+    <button
+      routerLink="/"
+      type="button"
+      class="btn btn-dark"
+      [class.active]="currentRoute === '/'"
+    >
+      <i class="fa-solid fa-house-chimney"></i> Home
+    </button>
   </div>
   <div class="navWork">
-    <button routerLink="/work" type="button" class="btn btn-dark" [class.active]="currentRoute === '/work'"><i class="fa-solid fa-code"></i> Work</button>
+    <button
+      routerLink="/work"
+      type="button"
+      class="btn btn-dark"
+      [class.active]="currentRoute === '/work'"
+    >
+      <i class="fa-solid fa-code"></i> Work
+    </button>
   </div>
   <div class="navAbout">
-    <button routerLink="/about" type="button" class="btn btn-dark" [class.active]="currentRoute === '/about'"><i class="fa-solid fa-user"></i> About</button>
+    <button
+      routerLink="/about"
+      type="button"
+      class="btn btn-dark"
+      [class.active]="currentRoute === '/about'"
+    >
+      <i class="fa-solid fa-user"></i> About
+    </button>
   </div>
   <div class="navContact">
-    <button routerLink="/contact" type="button" class="btn btn-dark" [class.active]="currentRoute === '/contact'"><i class="fa-solid fa-comments"></i> Contact</button>
+    <button
+      routerLink="/contact"
+      type="button"
+      class="btn btn-dark"
+      [class.active]="currentRoute === '/contact'"
+    >
+      <i class="fa-solid fa-comments"></i> Contact
+    </button>
   </div>
   <div class="navAdmin" *ngIf="isLogged">
-    <button routerLink="/admin" type="button" class="btn btn-dark" [class.active]="currentRoute === '/admin'"><i class="fa-solid fa-gears"></i> Admin</button>
+    <button
+      routerLink="/admin"
+      type="button"
+      class="btn btn-dark"
+      [class.active]="currentRoute === '/admin'"
+    >
+      <i class="fa-solid fa-gears"></i> Admin
+    </button>
   </div>
 </section>
