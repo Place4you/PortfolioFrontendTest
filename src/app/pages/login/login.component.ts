@@ -1,14 +1,14 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ErrorObject } from '@@shared/interfaces/errorObject.interface';
+import { AlertService } from '@@shared/services/alert.service';
+import { LoginService } from '@@shared/services/login.service';
 import {
-	HttpClientModule,
 	HttpClient,
+	HttpClientModule,
 	HttpResponse
 } from '@angular/common/http';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { LoginService } from '@@shared/services/login.service';
-import { AlertService } from '@@shared/services/alert.service';
-import { ErrorObject } from '@@shared/interfaces/errorObject.interface';
 
 @Component({
 	selector: 'app-login',
@@ -19,9 +19,9 @@ import { ErrorObject } from '@@shared/interfaces/errorObject.interface';
 export class LoginComponent {
 
 	constructor(
-		private alertService: AlertService, 
-		private loginService: LoginService, 
-		private cookieService: CookieService, 
+		private alertService: AlertService,
+		private loginService: LoginService,
+		private cookieService: CookieService,
 		private router: Router
 	) { }
 
@@ -46,7 +46,7 @@ export class LoginComponent {
 							response.body,
 							{
 								expires: 1,
-								domain: 'lautacolella.web.app',
+								domain: 'lauta.ro',
 								path: '/',
 								secure: true,
 								sameSite: 'Strict'
@@ -59,7 +59,7 @@ export class LoginComponent {
 					if (error.body?.error.code === 401) this.alertService.myAlert('Invalid username or password', 'danger');
 					else this.alertService.myAlert('Unknown error while retrieving the login information', 'danger');
 					console.error(error.body?.error);
-					
+
 				}
 			);
 		}
