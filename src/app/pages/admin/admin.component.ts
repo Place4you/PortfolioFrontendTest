@@ -1,19 +1,19 @@
+import { ErrorObject } from '@@shared/interfaces/errorObject.interface';
+import { AlertService } from '@@shared/services/alert.service';
+import { LoginService } from '@@shared/services/login.service';
 import {
-	Component,
-	OnInit,
-	ViewChild,
-	ElementRef
-} from '@angular/core';
-import { Router } from '@angular/router';
-import { 
-	HttpClientModule,
 	HttpClient,
+	HttpClientModule,
 	HttpResponse
 } from '@angular/common/http';
+import {
+	Component,
+	ElementRef,
+	OnInit,
+	ViewChild
+} from '@angular/core';
+import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { LoginService } from '@@shared/services/login.service';
-import { AlertService } from '@@shared/services/alert.service';
-import { ErrorObject } from '@@shared/interfaces/errorObject.interface';
 
 @Component({
 	selector: 'app-admin',
@@ -37,12 +37,12 @@ export class AdminComponent implements OnInit {
 	appUserRef!: ElementRef<HTMLDivElement>;
 
 	constructor(
-		private alertService: AlertService, 
-		private loginService: LoginService, 
-		private cookieService: CookieService, 
+		private alertService: AlertService,
+		private loginService: LoginService,
+		private cookieService: CookieService,
 		private router: Router
 	) { }
-	
+
 	viewClick(view: string): void {
 		const elemView: HTMLElement | null			= document.getElementById(`app${view}`),
 		elemViewP: HTMLElement | null				= elemView?.parentElement ?? null,
@@ -52,14 +52,14 @@ export class AdminComponent implements OnInit {
 
 		if (elemView !== null && arrow !== undefined) {
 			const isViewDisplayed = !!(window.getComputedStyle(elemView, null).display === "none");
-			
+
 			elemView.style.display = isViewDisplayed ? "block" : "none";
 			(arrow[1] as HTMLElement).style.display = isViewDisplayed ? "none" : "block";
 			(arrow[2] as HTMLElement).style.display = isViewDisplayed ? "block" : "none";
 		}
 	}
 
-	bGoto(gtPosition: string): void {		
+	bGoto(gtPosition: string): void {
 		if (gtPosition === "top" || gtPosition === "appHome") {
 			this.admElemRef.nativeElement.scrollTop = 0;
 
@@ -115,22 +115,22 @@ export class AdminComponent implements OnInit {
 				}
 			}
 		}
-		
+
 	}
-	
+
 	bLogout(): void {
-		this.cookieService.delete('JWT', '/', 'lautacolella.web.app', true, 'Strict');
+		this.cookieService.delete('JWT', '/', 'lauta.ro', true, 'Strict');
 		this.router.navigate(['login']);
 	}
 
 	ngOnInit(): void {
 		const cookieValue = this.cookieService.get('JWT');
 		if (!cookieValue) this.router.navigate(['error403']);
-		else {			
+		else {
 			this.loginService.checkToken(cookieValue)
 			.subscribe(
 				(response: HttpResponse<{ }>): void  => { },
-				
+
 				(error: HttpResponse<ErrorObject>): void => {
 					this.alertService.myAlert(error.body?.error.message ?? 'Unknown error while validating JWT', 'danger');
 					console.error(error.body?.error);
