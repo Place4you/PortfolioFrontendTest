@@ -177,7 +177,6 @@ export class AboutComponent implements OnInit,AfterViewInit {
 			{ width: 1200, itemsPP: 4 },
 			{ width: 992, itemsPP: 3 },
 			{ width: 768, itemsPP: 2 },
-			// { width: 575, itemsPP: 2 },
 			{ width: 0, itemsPP: this.allSelectedItems }
 		],
 		{ itemsPP } = breakpoints.find(bp => bp.width <= innerWidth) || breakpoints[0];
