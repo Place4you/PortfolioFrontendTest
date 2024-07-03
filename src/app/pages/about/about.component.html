@@ -7,7 +7,10 @@
     ></div>
     <section id="about">
       <article id="journey">
-        <h3>{{ journey.title }}</h3>
+        <h3>
+          {{ journey.title
+          }}<strong *ngIf="isLogged">- #{{ journey.id }}</strong>
+        </h3>
         <p [innerHTML]="journey.description"></p>
       </article>
       <aside id="navbar">
@@ -72,7 +75,9 @@
                   />
                   <div class="behindImage">
                     <span>{{ item.date }}</span>
-                    <span *ngIf="isLogged">#{{ journey.id }}</span>
+                  </div>
+                  <div class="viewMore">
+                    <span>View more</span>
                   </div>
                 </div>
                 <div>
