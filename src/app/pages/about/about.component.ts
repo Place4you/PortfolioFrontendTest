@@ -223,6 +223,15 @@ export class AboutComponent implements OnInit,AfterViewInit {
 					}
 				}
 
+				// Sort knowledgeItems by id in ascending order
+				this.knowledgeItems.sort((a, b) => a.id - b.id);
+
+				// Sort badgesItems by date in descending order
+				this.badgesItems.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+				// Sort certificatesItems by date in descending order
+				this.certificatesItems.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
 				let startAt: number = 0,
 				selectedItems: TableAboutItemRes[] = this.knowledgeItems;
 
