@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://lautacolella.web.app/</loc>
-    <lastmod>2023-05-17</lastmod>
+    <loc>https://lauta.ro/</loc>
+    <lastmod>2024-08-01</lastmod>
     <priority>1.0</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://lautacolella.web.app/work</loc>
-    <lastmod>2023-05-17</lastmod>
+    <loc>https://lauta.ro/work</loc>
+    <lastmod>2024-08-01</lastmod>
     <priority>0.9</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://lautacolella.web.app/about</loc>
-    <lastmod>2023-05-17</lastmod>
+    <loc>https://lauta.ro/about</loc>
+    <lastmod>2024-08-01</lastmod>
     <priority>0.8</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://lautacolella.web.app/contact</loc>
-    <lastmod>2023-05-17</lastmod>
+    <loc>https://lauta.ro/contact</loc>
+    <lastmod>2024-08-01</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
