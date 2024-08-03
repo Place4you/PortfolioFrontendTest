@@ -1,5 +1,3 @@
-import { environment } from '@environments/environment.prod';
-
 import {
 	HttpClient,
 	HttpClientModule,
@@ -10,6 +8,7 @@ import {
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+import { environment } from '../../environments/environment.prod';
 import { TableAboutItemRes } from '../interfaces/tableAboutItemRes.interface';
 
 @Injectable({

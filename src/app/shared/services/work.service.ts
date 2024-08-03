@@ -6,9 +6,9 @@ import {
 	HttpResponse
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '@environments/environment.prod';
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+import { environment } from '../../environments/environment.prod';
 import { TableWorkItemRes } from '../interfaces/tableWorkItemRes.interface';
 
 @Injectable({
