@@ -100,6 +100,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 # Contact me / ask questions
 
 You can contact me
-- By **website** at: https://lautacolella.web.app/contact
+- By **website** at: https://lauta.ro/contact
 - By **email** at: `lautarocolella1@gmail.com`
 - By **Linkedin** at: https://www.linkedin.com/in/lautaro-colella/
