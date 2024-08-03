@@ -1,15 +1,15 @@
-import { Injectable } from '@angular/core';
-import { 
-	HttpClientModule, 
-	HttpClient, 
-	HttpHeaders, 
-	HttpErrorResponse, 
-	HttpResponse 
+import { environment } from '@@environments/environment.prod';
+import {
+	HttpClient,
+	HttpClientModule,
+	HttpErrorResponse,
+	HttpHeaders,
+	HttpResponse
 } from '@angular/common/http';
-import { catchError, tap } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 import { TableContactItemRes, TableContactMessageRes } from '../interfaces/tableContactRes.interface';
-import { environment } from '@app/../src/environments/environment.prod';
 
 @Injectable({
 	providedIn: 'root'
@@ -19,7 +19,7 @@ export class ContactService {
 	private cachedItems: TableContactItemRes[] | null = null;
 
 	constructor(private http: HttpClient) { }
-	
+
 	uriCi: string = environment.apiUrl + "/contact_item";
 	uriCm: string = environment.apiUrl + "/contact_message";
 

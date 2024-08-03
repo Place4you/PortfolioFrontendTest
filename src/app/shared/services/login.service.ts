@@ -1,14 +1,14 @@
-import { Injectable } from '@angular/core';
-import { 
-	HttpClientModule, 
-	HttpClient, 
-	HttpHeaders, 
-	HttpErrorResponse, 
-	HttpResponse 
+import { environment } from '@@environments/environment.prod';
+import {
+	HttpClient,
+	HttpClientModule,
+	HttpErrorResponse,
+	HttpHeaders,
+	HttpResponse
 } from '@angular/common/http';
-import { catchError } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from '@app/../src/environments/environment.prod';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
 	providedIn: 'root'

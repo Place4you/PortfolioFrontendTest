@@ -1,15 +1,15 @@
-import { Injectable } from '@angular/core';
-import { 
-	HttpClientModule, 
-	HttpClient, 
-	HttpHeaders, 
+import { environment } from '@@environments/environment.prod';
+import {
+	HttpClient,
+	HttpClientModule,
 	HttpErrorResponse,
-	HttpResponse 
+	HttpHeaders,
+	HttpResponse
 } from '@angular/common/http';
-import { catchError, tap } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 import { TableWorkItemRes } from '../interfaces/tableWorkItemRes.interface';
-import { environment } from '@app/../src/environments/environment.prod';
 
 @Injectable({
 	providedIn: 'root'
