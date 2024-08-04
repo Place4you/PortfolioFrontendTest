@@ -21,8 +21,8 @@ jobs:
             - name: Install dependencies
               run: npm install
 
-            - name: Build project
-              run: npm run build -- --configuration=production
+            - name: Build with Scully
+              run: npx scully --project portfolio
 
             - name: Deploy to GitHub Pages
               uses: JamesIves/github-pages-deploy-action@v4
