@@ -15,7 +15,7 @@ const routes: Routes = [
 	{ path: 'admin', loadChildren: () => import('@@pages/admin/admin.module').then(m => m.AdminModule) },
 	{ path: 'error403', component: Page403Component },
 	{ path: 'error500', component: Page500Component },
-	{ path: 'not-found', component: Page404Component },
+	{ path: 'error404', component: Page404Component },
 	{ path: '**', component: Page404Component }
 ];
 
