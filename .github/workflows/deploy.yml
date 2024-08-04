@@ -23,7 +23,7 @@ jobs:
 
             - name: Build with Scully
               run: |
-                  npm run build -- --configuration=production
+                  npm run build --
                   npm run scully
 
             - name: Deploy to GitHub Pages
