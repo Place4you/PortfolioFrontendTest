@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --configuration=production",
+    "scully": "npx scully",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "deploy": "npx angular-cli-ghpages --dir=dist/portfolio"
