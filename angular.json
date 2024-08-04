@@ -51,8 +51,7 @@
               "src/robots.txt",
               "src/security.txt",
               "src/sitemap.xml",
-              "src/pgp-key.txt",
-              "src/404.html"
+              "src/pgp-key.txt"
             ],
             "styles": [
               "src/css-reset.scss"
@@ -140,8 +139,7 @@
               "src/robots.txt",
               "src/security.txt",
               "src/sitemap.xml",
-              "src/pgp-key.txt",
-              "src/404.html"
+              "src/pgp-key.txt"
             ],
             "styles": [
               "src/css-reset.scss"

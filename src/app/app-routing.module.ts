@@ -7,7 +7,6 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
 	{ path: '', component: IndexComponent },
-	{ path: 'home', redirectTo: '/', pathMatch: 'full' },
 	{ path: 'work', loadChildren: () => import('@@pages/work/work.module').then(m => m.WorkModule) },
 	{ path: 'about', loadChildren: () => import('@@pages/about/about.module').then(m => m.AboutModule) },
 	{ path: 'contact', loadChildren: () => import('@@pages/contact/contact.module').then(m => m.ContactModule) },
