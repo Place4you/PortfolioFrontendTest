@@ -72,7 +72,6 @@ export class AboutComponent implements OnInit,AfterViewInit {
 	makePages(view: string): void {
 		const selectedNavButton: HTMLElement | null = document.getElementById(`${view}Button`);
 
-
 		this.navKnowButtonRef.nativeElement.classList.remove('selectedNavButton');
 		this.navBadButtonRef.nativeElement.classList.remove('selectedNavButton');
 		this.navCertButtonRef.nativeElement.classList.remove('selectedNavButton');

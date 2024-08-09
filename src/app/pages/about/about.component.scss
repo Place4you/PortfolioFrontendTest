@@ -160,11 +160,12 @@
 					}
 				}
 			}
-			.item:hover {
-				// opacity: 1;
-				.viewMore {
-					background-color: red;
-				}
+			.item:hover .itemImage .viewMore {
+				opacity: 1;
+				transition: opacity 0.3s;
+			}
+			.item:active {
+				background-color: lightblue;
 			}
 			h5 {
 				margin-top: 10px;
