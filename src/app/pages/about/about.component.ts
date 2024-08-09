@@ -145,6 +145,9 @@ export class AboutComponent implements OnInit,AfterViewInit {
 	}
 
 	currentItem: number = 0;
+	showItem(itemId: number): void {
+		window.location.hash = `item=${itemId}`;
+	}
 	showItemInfo(itemId: number): void {
 		if(this.currentItem === itemId) return;
 		this.currentItem = itemId;
@@ -188,6 +191,12 @@ export class AboutComponent implements OnInit,AfterViewInit {
 
 	ngOnInit(): void {
 		window.addEventListener('resize', () => this.checkResize());
+
+		window.onhashchange = () => {
+			const hash = window.location.hash;
+			if (hash) this.showItemInfo(Number(hash.split('=')[1]));
+		};
+
 
 		this.informationService.getInformationTable().subscribe(
 			(response: HttpResponse<TableInfoRes[]>): void  => {
