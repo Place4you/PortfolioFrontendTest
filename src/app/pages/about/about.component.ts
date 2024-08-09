@@ -72,10 +72,11 @@ export class AboutComponent implements OnInit,AfterViewInit {
 	makePages(view: string): void {
 		const selectedNavButton: HTMLElement | null = document.getElementById(`${view}Button`);
 
-		this.navKnowButtonRef.nativeElement.style.backgroundColor = '#5c636a';
-		this.navBadButtonRef.nativeElement.style.backgroundColor = '#5c636a';
-		this.navCertButtonRef.nativeElement.style.backgroundColor = '#5c636a';
-		selectedNavButton && (selectedNavButton.style.backgroundColor = '#000');
+
+		this.navKnowButtonRef.nativeElement.classList.remove('selectedNavButton');
+		this.navBadButtonRef.nativeElement.classList.remove('selectedNavButton');
+		this.navCertButtonRef.nativeElement.classList.remove('selectedNavButton');
+		selectedNavButton && (selectedNavButton.classList.add('selectedNavButton'));
 
 		this.showArrows = false;
 		this.currentView = view;
